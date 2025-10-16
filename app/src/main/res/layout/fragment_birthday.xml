@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.CreateUsernameFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/backIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_10sdp"
+            android:src="@drawable/back_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ivHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AZRIUS"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:textColor="@color/black"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/cinzel_bold"
+            android:textSize="@dimen/_19sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <!-- <androidx.appcompat.widget.AppCompatImageView
+             android:layout_width="@dimen/_70sdp"
+             android:layout_height="@dimen/_30sdp"
+             android:layout_marginTop="@dimen/_6sdp"
+             android:src="@drawable/azurah_heading_icon"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvBirthday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:fontFamily="@font/urbanist_semibold"
+                android:text="@string/when_s_your_birthday"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_19sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvMessage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/poppins"
+                android:layout_marginHorizontal="@dimen/_24sdp"
+                android:text="Please select your date of birth below."
+                android:textColor="@color/black"
+                android:includeFontPadding="false"
+                android:gravity="center"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvBirthday"/>
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:src="@drawable/birthday_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvMessage" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tlDateOfBirth"
+                 style="@style/CustomTextInputLayout"
+                android:theme="@style/EditTextThemeOverlay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:elevation="8dp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                app:expandedHintEnabled="false"
+                app:boxStrokeColor="@color/blue"
+                app:hintEnabled="false"
+                app:hintTextAppearance="@style/TextLabel"
+                app:boxCornerRadiusBottomEnd="@dimen/_20sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_20sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_20sdp"
+                app:boxCornerRadiusTopStart="@dimen/_20sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivProfile">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:fontFamily="@font/poppins"
+                    android:textColorHighlight="@color/cursor_color"
+                    android:textSize="@dimen/_12sdp"
+                    android:longClickable="false"
+                    android:textColor="@color/black"
+                    android:inputType="text"
+                    android:includeFontPadding="false"
+                    android:textColorHint="@color/light_black"
+                    android:hint="Select Date of Birth"
+                    android:focusable="false"
+                    android:imeOptions="actionDone"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_14sdp"
+                android:layout_height="@dimen/_14sdp"
+                android:src="@drawable/calendar_icon"
+                app:layout_constraintEnd_toEndOf="@+id/tlDateOfBirth"
+                app:layout_constraintTop_toTopOf="@+id/tlDateOfBirth"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:tint="@color/cursor_color"
+                app:layout_constraintBottom_toBottomOf="@+id/tlDateOfBirth"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clTerms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                app:layout_constraintTop_toBottomOf="@+id/tlDateOfBirth">
+
+                <CheckBox
+                    android:id="@+id/cbTerms"
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    app:layout_constraintTop_toTopOf="@+id/tvTerms"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvTerms"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:checked="false"
+                    android:background="@drawable/selected_unselected_circle_checkbox"
+                    android:button="@null"/>
+
+                <TextView
+                    android:id="@+id/tvTerms"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:includeFontPadding="false"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.07"
+                    app:layout_constraintStart_toEndOf="@+id/cbTerms" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnContinue"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="@dimen/_13sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:background="@drawable/round_corner_background"
+                android:backgroundTint="@color/button_grey"
+                android:gravity="center"
+                android:enabled="false"
+                app:layout_constraintTop_toBottomOf="@+id/clTerms"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:text="@string/continue1"
+                android:textAllCaps="false"
+                android:textColor="@color/white"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

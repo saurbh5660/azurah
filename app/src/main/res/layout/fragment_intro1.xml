@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.IntroFragment1">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fillViewport="true"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/view1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_24sdp">
+
+            <TextView
+                android:id="@+id/ivHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AZRIUS"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:textColor="@color/white"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/cinzel_bold"
+                android:textSize="@dimen/_19sdp"
+                android:layout_marginStart="@dimen/_24sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+           <!-- <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivHeading"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:tint="@color/white"
+                android:src="@drawable/azurah_heading_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>-->
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvImage"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_250sdp"
+                app:cardBackgroundColor="@color/blue"
+                app:cardCornerRadius="@dimen/_16sdp"
+                android:layout_marginHorizontal="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_24sdp"
+                app:strokeColor="@color/blue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivHeading"
+                app:layout_constraintEnd_toEndOf="parent">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/image1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_250sdp"
+                        android:src="@drawable/walk_intro_1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:scaleType="fitXY"
+                        app:layout_constraintVertical_bias="0.41000003"
+                        app:riv_corner_radius="@dimen/_16sdp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/tvSkip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/skip"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:includeFontPadding="false"
+                android:backgroundTint="@color/grey"
+                android:layout_marginEnd="@dimen/_24sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ivHeading"
+                app:layout_constraintBottom_toBottomOf="@+id/ivHeading"/>
+
+
+
+            <TextView
+                android:id="@+id/tvHeading"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Welcome to Azrius!"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_22sdp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:layout_marginHorizontal="@dimen/_24sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cvImage"/>
+
+            <TextView
+                android:id="@+id/tvHeading5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:fontFamily="@font/urbanist_semibold"
+                android:text="@string/christian_friendships_made_easy"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16sdp"
+                android:includeFontPadding="false"
+                android:gravity="center"
+                android:layout_marginHorizontal="@dimen/_24sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeading"/>
+
+
+            <!--<TextView
+                android:id="@+id/tvHeading1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="@font/urbanist_medium"
+                android:text="@string/as_iron_sharpens_iron_so_a_friend_sharpens_a_friend"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:layout_marginHorizontal="@dimen/_30sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeading5"/>
+
+            <TextView
+                android:id="@+id/tvHeading2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/urbanist_medium"
+                android:text="@string/proverbs_27_17"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:includeFontPadding="false"
+                android:gravity="center"
+                android:layout_marginHorizontal="@dimen/_30sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeading1"/>
+-->
+
+            <TextView
+                android:id="@+id/tvHeadingNew"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:fontFamily="@font/urbanist_medium"
+                android:text="‘As iron sharpens iron, so a friend sharpens
+a friend.’ - Proverbs 27:17 \n\nWe’re so glad you're here! Let’s build meaningful relationships as we grow together in faith."
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:includeFontPadding="false"
+                android:gravity="center"
+                android:layout_marginHorizontal="@dimen/_30sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeading5"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="@dimen/_28sdp"
+        android:layout_height="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="@dimen/_70sdp"
+        android:visibility="gone"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintEnd_toStartOf="@+id/view2"
+        android:background="@drawable/selected_circle" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="@dimen/_8sdp"
+        android:layout_height="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/view1"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_70sdp"
+        android:visibility="gone"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintEnd_toStartOf="@+id/view3"
+        android:background="@drawable/unselected_circle" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="@dimen/_8sdp"
+        android:layout_height="@dimen/_8sdp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/view2"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_70sdp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/unselected_circle" />
+
+    <TextView
+        android:id="@+id/tvNext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:text="@string/next"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:includeFontPadding="false"
+        android:backgroundTint="@color/white"
+        android:background="@drawable/very_less_round_corner_background"
+        android:textColor="@color/blue"
+        android:gravity="center"
+        android:visibility="gone"
+        android:fontFamily="@font/poppins_semibold"
+        android:layout_marginHorizontal="@dimen/_24sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingVertical="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,43 @@
+package com.live.azurah.model
+
+data class SignUpResponse(
+    val body: Body? = null,
+    val code: Int? = null,
+    val message: String? = null,
+    val success: Boolean? = null
+) {
+    data class Body(
+        val access_token: String? = null,
+        val christian_journey: Any? = null,
+        val country_code: String? = null,
+        val created_at: String? = null,
+        val device_token: String? = null,
+        val device_type: Int? = null,
+        val dob: Any? = null,
+        val email: String? = null,
+        val first_name: String? = null,
+        val gender: String? = null,
+        val id: Int? = null,
+        val displayNamePreference: Int? = null,
+        val image: String? = null,
+        val image_thumb: String? = null,
+        val is_notification: String? = null,
+        val is_otp_verified: Int? = null,
+        val is_profile_completed: String? = null,
+        val last_name: String? = null,
+        val latitude: String? = null,
+        val location: String? = null,
+        val login_time: String? = null,
+        val longitude: String? = null,
+        val otp: Int? = null,
+        val phone: String? = null,
+        val reset_token: String? = null,
+        val role: String? = null,
+        val social_id: String? = null,
+        val social_type: Int? = null,
+        val status: String? = null,
+        val updated_at: String? = null,
+        val user_timezone: String? = null,
+        val username: Any? = null
+    )
+}

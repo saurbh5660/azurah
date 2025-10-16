@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clCommunity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_corner"
+        android:backgroundTint="@color/white"
+        android:elevation="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_3sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivComm"
+            android:layout_width="@dimen/_240sdp"
+            android:layout_height="@dimen/_140sdp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/event_detail_image"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius_top_left="@dimen/_8sdp"
+            app:riv_corner_radius_top_right="@dimen/_8sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivSelected"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:src="@drawable/bookmark_icon"
+            android:padding="@dimen/_8sdp"
+            app:tint="@color/white"
+            android:background="@drawable/round_corner"
+            android:backgroundTint="@color/price__text_color"
+            app:layout_constraintEnd_toEndOf="@+id/ivComm"
+            app:layout_constraintTop_toTopOf="@+id/ivComm"/>
+
+        <TextView
+            android:id="@+id/tvCommunityForum"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Going to a Rock Concert"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="@dimen/_13sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivComm" />
+
+      <!--  <TextView
+            android:id="@+id/tvCommunityDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:fontFamily="@font/poppins"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="We are a community inviting all to be engaged and transformed by Jesus to impact the campus."
+            android:textColor="@color/less_light_black_color"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCommunityForum" />
+-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivCal"
+            android:layout_width="@dimen/_14sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/calendar_icon"
+            android:tint="@color/event_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCommunityForum" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:fontFamily="@font/poppins"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:includeFontPadding="false"
+            android:text="THU 26 May, 09:00-FRI 27 May,10:00"
+            android:textColor="@color/black"
+            android:layout_marginTop="-2dp"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintStart_toEndOf="@+id/ivCal"
+            app:layout_constraintTop_toTopOf="@+id/ivCal"
+            />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:text="£30"
+            android:textSize="@dimen/_12sdp"
+            android:includeFontPadding="false"
+            android:layout_marginBottom="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_2sdp"
+            android:textColor="@color/price__text_color"
+            app:layout_constraintTop_toBottomOf="@+id/tvDate"
+            android:background="@drawable/round_corner"
+            android:backgroundTint="@color/price_color"/>
+
+
+       <!-- <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivLoc"
+            android:layout_width="@dimen/_14sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:src="@drawable/location_icon"
+            android:tint="@color/event_color"
+            app:layout_constraintTop_toBottomOf="@+id/tvCommunityDesc"
+            app:layout_constraintEnd_toStartOf="@+id/tvLoc"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:contentDescription="@string/app_name"/>
+
+        <TextView
+            android:id="@+id/tvLoc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:fontFamily="@font/urbanist"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:text="ABC Avenue, Dhaka"
+            android:textColor="@color/less_light_black_color"
+            android:textSize="@dimen/_8sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivCal" />
+-->
+      <!--  <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnBookTicket"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@drawable/round_corner_background"
+            android:backgroundTint="@color/blue"
+            android:includeFontPadding="false"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:fontFamily="@font/poppins_bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLoc"
+            android:text="View Details"
+            android:textSize="@dimen/_12sdp"
+            android:textAllCaps="false"
+            android:textColor="@color/white"/>-->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

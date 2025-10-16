@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/backIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_10sdp"
+            android:src="@drawable/back_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ivHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AZRIUS"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:textColor="@color/black"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/cinzel_bold"
+            android:textSize="@dimen/_19sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!--<androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/azurah_heading_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/btnContinue"
+        android:layout_marginBottom="@dimen/_8sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvCreateUsername"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:fontFamily="@font/urbanist_semibold"
+                android:text="@string/are_you_sure_you_want_to_delete_your_account"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_19sdp"
+                android:includeFontPadding="false"
+                android:gravity="center"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivProfile"/>
+
+            <TextView
+                android:id="@+id/tvMessage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/poppins"
+                android:layout_marginHorizontal="@dimen/_24sdp"
+                android:text="@string/this_action_is_irreversible_and_will_permanently_delete_all_your_data_including_your_profile_posts_and_connections_if_you_re_certain_about_deleting_your_account_please_enter_your_password_below_and_click_the_delete_account_button"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCreateUsername"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivProfile"
+                android:layout_width="@dimen/_110sdp"
+                android:layout_height="@dimen/_110sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:background="@drawable/circle_background"
+                android:padding="@dimen/_30sdp"
+                android:visibility="gone"
+                android:src="@drawable/triangle_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clReason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvMessage"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="@drawable/round_corner_background"
+                android:backgroundTint="@color/white">
+
+                <TextView
+                    android:id="@+id/tv_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Please select a reason for deleting your account:"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+               <!-- <ImageView
+                    android:id="@+id/iv_close"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/cross_blue_icon" />
+-->
+             <!--   <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider_grey"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_text"/>
+-->
+                <LinearLayout
+                    android:id="@+id/option"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:elevation="1dp"
+                    android:background="@drawable/round_stroke_background"
+                    android:backgroundTint="@color/divider_grey"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_text">
+
+                    <LinearLayout
+                        android:id="@+id/ll_no_longer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_3sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="@dimen/_26sdp"
+                            android:layout_height="@dimen/_26sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/ivNoLoger"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="@dimen/_6sdp"
+                                android:src="@drawable/unselected_radio_prayer"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_booked"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:includeFontPadding="false"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Privacy Concerns: Worried about how my data is being used."
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_alternative"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_3sdp"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="@dimen/_26sdp"
+                            android:layout_height="@dimen/_26sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/ivNoAlter"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="@dimen/_6sdp"
+                                android:src="@drawable/unselected_radio_prayer"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_expert"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:includeFontPadding="false"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:fontFamily="@font/poppins"
+                            android:text="User experience issues: Difficult to navigate or use the app."
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_issues"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_3sdp"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="@dimen/_26sdp"
+                            android:layout_height="@dimen/_26sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/ivIssue"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="@dimen/_6sdp"
+                                android:src="@drawable/unselected_radio_prayer"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_vacation"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:includeFontPadding="false"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Too Many Notifications: Receiving too many notifications and can't manage them."
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_technical_issues"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_3sdp"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="@dimen/_26sdp"
+                            android:layout_height="@dimen/_26sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/ivTechnicalIssue"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="@dimen/_6sdp"
+                                android:src="@drawable/unselected_radio_prayer"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_technical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:includeFontPadding="false"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Technical issues: Experiencing bugs, crashes, or other technical problems."
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_3sdp"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="@dimen/_26sdp"
+                            android:layout_height="@dimen/_26sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/ivContent"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="@dimen/_6sdp"
+                                android:src="@drawable/unselected_radio_prayer"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_content"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:includeFontPadding="false"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Content is not useful or relevant: The content is not interesting or relevant to me."
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_Other"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_3sdp"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:background="@color/white"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="@dimen/_26sdp"
+                            android:layout_height="@dimen/_26sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/ivOther"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="@dimen/_6sdp"
+                                android:src="@drawable/unselected_radio_prayer"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_Other"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:includeFontPadding="false"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Other (please specify):"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp" />
+                    </LinearLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clOtherReason"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:visibility="gone">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tlReason"
+                            style="@style/CustomTextInputLayout"
+                            android:theme="@style/EditTextThemeOverlay"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:hint="Reason*"
+                            android:elevation="8dp"
+                            app:hintTextAppearance="@style/TextLabel"
+                            android:layout_marginHorizontal="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            app:expandedHintEnabled="false"
+                            app:cursorColor="@color/cursor_color"
+                            android:textColorHint="@color/light_black"
+                            app:boxStrokeColor="@color/blue"
+                            app:boxCornerRadiusBottomEnd="@dimen/_20sdp"
+                            app:boxCornerRadiusTopEnd="@dimen/_20sdp"
+                            app:boxCornerRadiusBottomStart="@dimen/_20sdp"
+                            app:boxCornerRadiusTopStart="@dimen/_20sdp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etPostDesc"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_100sdp"
+                                android:layout_marginBottom="10dp"
+                                android:paddingTop="20dp"
+                                android:textColorHighlight="@color/cursor_color"
+                                android:textSize="@dimen/_12sdp"
+                                android:gravity="start"
+                                android:maxLength="150"
+                                android:paddingBottom="@dimen/_30sdp"
+                                android:fontFamily="@font/urbanist"
+                                android:textColor="@color/black"
+                                android:inputType="textMultiLine"
+                                android:imeOptions="actionDone"
+                                android:paddingStart="20dp"
+                                android:paddingEnd="20dp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/tvCharacters"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="150 characters"
+                            android:fontFamily="@font/urbanist"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/light_black"
+                            app:layout_constraintEnd_toEndOf="@+id/tlReason"
+                            app:layout_constraintBottom_toBottomOf="@+id/tlReason"
+                            android:layout_marginBottom="@dimen/_16sdp"
+                            android:layout_marginEnd="@dimen/_16sdp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_password_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_28sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="For security reasons, please confirm your password to delete your account."
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sdp"
+                android:layout_marginEnd="@dimen/_24sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clReason" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tlPassword"
+                 style="@style/CustomTextInputLayout"
+                android:theme="@style/EditTextThemeOverlay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:elevation="8dp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                app:expandedHintEnabled="false"
+                android:textColorHint="@color/light_black"
+                app:boxStrokeColor="@color/blue"
+                app:cursorColor="@color/cursor_color"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleDrawable="@drawable/password_toggle"
+                app:hintTextAppearance="@style/TextLabel"
+                app:boxCornerRadiusBottomEnd="@dimen/_20sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_20sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_20sdp"
+                app:boxCornerRadiusTopStart="@dimen/_20sdp"
+                app:errorTextAppearance="@style/ErrorTextAppearance"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_password_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:paddingTop="20dp"
+                    android:textColorHighlight="@color/cursor_color"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/black"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+          <!--  <TextView
+                android:id="@+id/tvRemember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:text="@string/remember_your_password"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constrainedWidth="true"
+                android:layout_marginBottom="@dimen/_24sdp"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintEnd_toStartOf="@+id/tvSignIn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:id="@+id/tvSignIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:text="@string/sign_in"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constrainedWidth="true"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_24sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvRemember"
+                app:layout_constraintBottom_toBottomOf="parent" />-->
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnContinue"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:includeFontPadding="false"
+        android:fontFamily="@font/poppins_semibold"
+        android:textSize="@dimen/_13sdp"
+        android:paddingVertical="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:background="@drawable/round_corner_background"
+        android:backgroundTint="@color/button_grey"
+        android:enabled="false"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/_16sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/delete_account"
+        android:textAllCaps="false"
+        android:textColor="@color/white"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

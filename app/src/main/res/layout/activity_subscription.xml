@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/clMainSubscription"
+    android:background="@color/white"
+    tools:context=".activity.SubscriptionActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/sub_back_image"
+        android:scaleType="centerCrop"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/backIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_10sdp"
+            android:src="@drawable/back_icon"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- <TextView
+             android:id="@+id/ivHeading"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="AZRIUS"
+             android:layout_marginTop="@dimen/_16sdp"
+             android:textColor="@color/white"
+             android:includeFontPadding="false"
+             android:fontFamily="@font/cinzel_bold"
+             android:textSize="@dimen/_19sdp"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvBibleQuest"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:fontFamily="@font/georgia_pro_bold"
+        android:includeFontPadding="false"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:text="Bible Quests"
+        android:textColor="@color/white"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/_36sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtPremium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:fontFamily="@font/georgia_medium"
+        android:letterSpacing="0.1"
+        android:includeFontPadding="false"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:text="PREMIUM"
+        android:textColor="@color/white"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/_24sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBibleQuest" />
+
+    <TextView
+        android:id="@+id/txtGoDeeper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/georgia_medium"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="2dp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:text="Go deeper. Grow Stronger.\n One Quest at a time."
+        android:textColor="@color/white"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPremium" />
+
+
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+<!--
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:layout_marginTop="@dimen/_16sdp"
+             android:layout_marginHorizontal="@dimen/_16sdp">
+
+             &lt;!&ndash;<ImageView
+                 android:layout_width="@dimen/_16sdp"
+                 android:layout_height="@dimen/_16sdp"
+                 android:src="@drawable/check"
+                 android:background="@drawable/less_round_corner_background"
+                 app:tint="@color/blue"
+                 android:layout_marginTop="@dimen/_2sdp"
+                 android:contentDescription="@string/app_name"
+                 android:padding="@dimen/_3sdp"/>&ndash;&gt;
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical"
+                 android:layout_marginStart="@dimen/_8sdp">
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     app:layout_constraintStart_toStartOf="parent"
+                     android:text="✅ Unlock Every Bible Quest"
+                     android:textSize="@dimen/_14sdp"
+                     android:textColor="@color/white"
+                     android:includeFontPadding="false"
+                     android:fontFamily="@font/urbanist_semibold" />
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     app:layout_constraintStart_toStartOf="parent"
+                     android:text="Get full access to our entire library of Bible Quests, with many more launching soon!"
+                     android:textSize="@dimen/_12sdp"
+                     android:textColor="@color/white"
+                     android:includeFontPadding="false"
+                     android:fontFamily="@font/urbanist" />
+
+
+
+             </LinearLayout>
+
+
+
+         </LinearLayout>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:layout_marginTop="@dimen/_10sdp"
+             android:layout_marginHorizontal="@dimen/_16sdp">
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical"
+                 android:layout_marginStart="@dimen/_8sdp">
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     app:layout_constraintStart_toStartOf="parent"
+                     android:text="✅ Start Multiple Quests at Once"
+                     android:textSize="@dimen/_14sdp"
+                     android:textColor="@color/white"
+                     android:includeFontPadding="false"
+                     android:fontFamily="@font/urbanist_semibold" />
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     app:layout_constraintStart_toStartOf="parent"
+                     android:text="With Premium, you can begin two Quests at the same time - perfect for diving into different topics whenever you need them."
+                     android:textSize="@dimen/_12sdp"
+                     android:textColor="@color/white"
+                     android:includeFontPadding="false"
+                     android:fontFamily="@font/urbanist" />
+
+             </LinearLayout>
+
+         </LinearLayout>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:layout_marginTop="@dimen/_10sdp"
+             android:layout_marginHorizontal="@dimen/_16sdp">
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical"
+                 android:layout_marginStart="@dimen/_8sdp">
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     app:layout_constraintStart_toStartOf="parent"
+                     android:text="✅ Help Share God’s Word Globally"
+                     android:textSize="@dimen/_14sdp"
+                     android:textColor="@color/white"
+                     android:includeFontPadding="false"
+                     android:fontFamily="@font/urbanist_semibold" />
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     app:layout_constraintStart_toStartOf="parent"
+                     android:text="Your subscription helps us translate the Quests into more languages and supports the development of new features."
+                     android:textSize="@dimen/_12sdp"
+                     android:textColor="@color/white"
+                     android:includeFontPadding="false"
+                     android:fontFamily="@font/urbanist" />
+
+             </LinearLayout>
+
+         </LinearLayout>-->
+        <TextView
+            android:id="@+id/txtPriceMonthly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/very_less_round_corner_background"
+            android:backgroundTint="@color/price_color_back"
+            android:fontFamily="@font/urbanist_bold"
+            android:includeFontPadding="false"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            android:text="Only $7.99 a month"
+            android:textColor="@color/white"
+            android:visibility="visible"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_3sdp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_43sdp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/button_color_back"
+                app:cardCornerRadius="@dimen/_16sdp"
+                app:strokeColor="@color/price_color_back"
+                app:strokeWidth="2dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnMoreInfo"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="More Info"
+                        android:textAllCaps="false"
+                        android:textColor="@color/price_color_back"
+                        android:textSize="@dimen/_14sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_43sdp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_weight="1"
+
+                app:cardBackgroundColor="@color/button_color_back"
+                app:cardCornerRadius="@dimen/_16sdp"
+                app:strokeColor="@color/price_color_back"
+                app:strokeWidth="2dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnEdit1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="Upgrade Now"
+                        android:textAllCaps="false"
+                        android:textColor="@color/price_color_back"
+                        android:textSize="@dimen/_14sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tvTerms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

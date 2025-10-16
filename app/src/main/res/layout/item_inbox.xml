@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <!--  <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="0.1dp"
+        android:background="@color/mtrl_textinput_default_box_stroke_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+-->
+<!--    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivOverlay"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:background="@drawable/circle_background"
+        android:backgroundTint="@color/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>-->
+
+  <com.google.android.material.imageview.ShapeableImageView
+      android:id="@+id/ivOverlay"
+      android:layout_width="@dimen/_40sdp"
+      android:layout_height="@dimen/_40sdp"
+      android:scaleType="centerCrop"
+      android:layout_marginVertical="@dimen/_8sdp"
+      android:layout_marginStart="@dimen/_16sdp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+
+
+<!--
+  <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="@dimen/_32sdp"
+        android:layout_height="@dimen/_32sdp"
+        android:src="@drawable/song_image"
+        app:layout_constraintBottom_toBottomOf="@+id/ivOverlay"
+        app:layout_constraintStart_toStartOf="@+id/ivOverlay"
+        app:layout_constraintTop_toTopOf="@+id/ivOverlay"
+        app:layout_constraintEnd_toEndOf="@+id/ivOverlay"
+        app:civ_border_color="@color/white"
+        app:civ_border_width="2dp"/>
+-->
+
+<!--    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="@dimen/_14sdp"
+        android:layout_height="@dimen/_14sdp"
+        android:contentDescription="@string/app_name"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/ivProfile"
+        app:layout_constraintBottom_toBottomOf="@+id/ivProfile"
+        android:src="@drawable/online_icon"/>-->
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Christianity Fellows"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_13sdp"
+        android:includeFontPadding="false"
+
+        android:layout_marginStart="@dimen/_16sdp"
+        app:layout_constraintEnd_toStartOf="@+id/tvDate"
+        app:layout_constraintStart_toEndOf="@+id/ivOverlay"
+        app:layout_constraintTop_toTopOf="@+id/ivOverlay" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:includeFontPadding="false"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:text="Online"
+        android:textColor="@color/light_black"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/_16sdp"
+        app:layout_constraintTop_toTopOf="@+id/ivOverlay" />
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
+        android:text="Typing Message..."
+        android:textColor="@color/light_black"
+        android:includeFontPadding="false"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_marginStart="@dimen/_16sdp"
+        app:layout_constraintStart_toEndOf="@+id/ivOverlay"
+        app:layout_constraintEnd_toStartOf="@+id/ivCount"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <TextView
+        android:id="@+id/ivCount"
+        android:layout_width="@dimen/_16sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:text="1"
+        android:textSize="@dimen/_10sdp"
+        android:textColor="@color/colorWhite"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:fontFamily="@font/urbanist"
+        android:background="@drawable/circle_background"
+        android:backgroundTint="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/_20sdp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/mtrl_textinput_default_box_stroke_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMessage"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

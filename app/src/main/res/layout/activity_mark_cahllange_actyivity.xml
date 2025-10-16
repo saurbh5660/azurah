@@ -1,0 +1,798 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    tools:context=".activity.MarkChallangeActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/backIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_10sdp"
+            android:src="@drawable/back_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ivHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AZRIUS"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:textColor="@color/black"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/cinzel_bold"
+            android:textSize="@dimen/_19sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <!-- <androidx.appcompat.widget.AppCompatImageView
+             android:layout_width="@dimen/_70sdp"
+             android:layout_height="@dimen/_30sdp"
+             android:src="@drawable/azurah_heading_icon"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsChallengeDetail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fillViewport="true"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:layout_marginBottom="@dimen/_4sdp"
+        app:layout_constraintBottom_toTopOf="@+id/clButtons">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:fontFamily="@font/urbanist_semibold"
+                android:text="@string/daniel_s_21_day_fast"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:textSize="@dimen/_19sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                tools:listitem="@layout/item_day"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clChallange"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/rvCategory"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/tvPlan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Today’s Plan"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+               <!-- <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/fastChallange"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPlan">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivPraySelected"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        app:layout_constraintTop_toTopOf="@+id/clPray"
+                        app:layout_constraintBottom_toBottomOf="@+id/clPray"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:src="@drawable/pray_unselected"/>
+
+                    &lt;!&ndash; <androidx.appcompat.widget.AppCompatImageView
+                         android:id="@+id/line1"
+                         android:layout_width="2dp"
+                         android:layout_height="@dimen/_50sdp"
+                         app:layout_constraintStart_toStartOf="@+id/ivPraySelected"
+                         android:src="@drawable/line"
+                         android:orientation="vertical"
+                         app:layout_constraintTop_toBottomOf="@+id/ivPraySelected"
+                         app:layout_constraintEnd_toEndOf="@+id/ivPraySelected"/>
+         &ndash;&gt;
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clPray"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:background="@drawable/round_corner_background"
+                        android:backgroundTint="@color/challange_background_color"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivPraySelected">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivPray"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/circle_background"
+                            android:backgroundTint="@color/white"
+                            android:src="@drawable/morning_devotion"
+                            android:padding="@dimen/_8sdp"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tvPray"
+                           />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvPray"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toEndOf="@+id/ivPray"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="Morning Devotion"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            app:layout_constraintVertical_chainStyle="packed"
+                            app:layout_constraintBottom_toTopOf="@+id/tvDrinkMl"
+                            android:textSize="@dimen/_13sdp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:layout_marginStart="@dimen/_8sdp"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvDrinkMl"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/ivPray"
+                            app:layout_constraintTop_toBottomOf="@+id/tvPray"
+                            android:text="Start your day with a prayer and read the Bible passage assigned for the day. Today's Bible passage is: Daniel 1."
+                            android:textSize="@dimen/_12sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:layout_marginBottom="@dimen/_8sdp"
+                            app:layout_constraintEnd_toStartOf="@+id/tvDay1"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins"
+                            android:layout_marginStart="@dimen/_8sdp"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvDay1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="30 min"
+                            android:textSize="@dimen/_12sdp"
+                            android:textColor="@color/drink_color"
+                            android:fontFamily="@font/urbanist_medium"
+                            android:layout_marginStart="@dimen/_16sdp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivWorshipSelected"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        app:layout_constraintTop_toTopOf="@+id/clWorshipSession"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/clWorshipSession"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:src="@drawable/pray_unselected"/>
+                    &lt;!&ndash;  <androidx.appcompat.widget.AppCompatImageView
+                          android:layout_width="2dp"
+                          android:layout_height="@dimen/_50sdp"
+                          app:layout_constraintStart_toStartOf="@+id/ivWorshipSelected"
+                          android:src="@drawable/line"
+                          android:orientation="vertical"
+                          app:layout_constraintTop_toBottomOf="@+id/ivWorshipSelected"
+                          app:layout_constraintEnd_toEndOf="@+id/ivWorshipSelected"/>&ndash;&gt;
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@id/clWorshipSession"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/round_corner_background"
+                        android:backgroundTint="@color/challange_background_color"
+                        app:layout_constraintTop_toBottomOf="@+id/clPray"
+                        app:layout_constraintStart_toEndOf="@+id/ivWorshipSelected">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivWorship"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/circle_background"
+                            android:backgroundTint="@color/white"
+                            android:src="@drawable/dish"
+                            android:padding="@dimen/_5sdp"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:layout_marginVertical="@dimen/_14sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvWorship"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toEndOf="@+id/ivWorship"
+                            app:layout_constraintTop_toTopOf="@+id/ivWorship"
+                            android:text="Breakfast"
+                            app:layout_constraintVertical_chainStyle="packed"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            app:layout_constraintBottom_toBottomOf="@+id/ivWorship"
+                            android:textSize="@dimen/_13sdp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:layout_marginStart="@dimen/_8sdp"/>
+
+                       &lt;!&ndash; <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvWorshipMl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="@+id/ivWorship"
+                            app:layout_constraintStart_toEndOf="@+id/ivWorship"
+                            app:layout_constraintTop_toBottomOf="@+id/tvWorship"
+                            android:text="40 min"
+                            android:textSize="@dimen/_12sdp"
+                            android:textColor="@color/drink_color"
+                            android:fontFamily="@font/urbanist"
+                            android:layout_marginStart="@dimen/_16sdp"/>
+&ndash;&gt;
+                       &lt;!&ndash; <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvDay2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginEnd="@dimen/_16sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="30 min"
+                            android:textSize="@dimen/_12sdp"
+                            android:textColor="@color/drink_color"
+                            android:fontFamily="@font/urbanist_medium"
+                            android:layout_marginStart="@dimen/_16sdp"/>
+&ndash;&gt;
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivReadingBible"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        app:layout_constraintTop_toTopOf="@+id/clReadingBible"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/clReadingBible"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:src="@drawable/pray_unselected"/>
+
+                    &lt;!&ndash;   <androidx.appcompat.widget.AppCompatImageView
+                           android:layout_width="2dp"
+                           android:layout_height="@dimen/_50sdp"
+                           app:layout_constraintStart_toStartOf="@+id/ivReadingBible"
+                           android:src="@drawable/line"
+                           android:orientation="vertical"
+                           app:layout_constraintTop_toBottomOf="@+id/ivReadingBible"
+                           app:layout_constraintEnd_toEndOf="@+id/ivReadingBible"/>
+           &ndash;&gt;
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clReadingBible"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/round_corner_background"
+                        android:backgroundTint="@color/challange_background_color"
+                        app:layout_constraintTop_toBottomOf="@+id/clWorshipSession"
+                        app:layout_constraintStart_toEndOf="@+id/ivReadingBible">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivReading"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/circle_background"
+                            android:backgroundTint="@color/white"
+                            android:src="@drawable/stand_user"
+                            android:padding="@dimen/_8sdp"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tvReading" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvReading"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toEndOf="@+id/ivReading"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="Activity One: Gratitude Journaling "
+                            app:layout_constraintVertical_chainStyle="packed"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/tvReadingMl"
+                            android:textSize="@dimen/_13sdp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:layout_marginStart="@dimen/_8sdp"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvReadingMl"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/ivReading"
+                            app:layout_constraintTop_toBottomOf="@+id/tvReading"
+                            android:text="Take a few moments to write down things you're thankful for, reflecting on God's blessings and presence in your life. "
+                            android:textSize="@dimen/_12sdp"
+                            android:layout_marginBottom="@dimen/_8sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            app:layout_constraintEnd_toStartOf="@+id/tvDay3"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins"
+                            android:layout_marginStart="@dimen/_8sdp"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvDay3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="20 mins"
+                            android:textSize="@dimen/_12sdp"
+                            android:textColor="@color/drink_color"
+                            android:fontFamily="@font/urbanist_medium"
+                            android:layout_marginStart="@dimen/_16sdp"/>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivExercise"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        app:layout_constraintTop_toTopOf="@+id/clExercise"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/clExercise"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:src="@drawable/pray_unselected"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clExercise"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/round_corner_background"
+                        android:backgroundTint="@color/challange_background_color"
+                        app:layout_constraintTop_toBottomOf="@+id/clReadingBible"
+                        app:layout_constraintStart_toEndOf="@+id/ivExercise">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivExerise"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/circle_background"
+                            android:backgroundTint="@color/white"
+                            android:src="@drawable/dish"
+                            android:padding="@dimen/_5sdp"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:layout_marginVertical="@dimen/_14sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvExercise"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toEndOf="@+id/ivExerise"
+                            app:layout_constraintTop_toTopOf="@+id/ivExerise"
+                            android:text="Lunch"
+                            app:layout_constraintVertical_chainStyle="packed"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            app:layout_constraintBottom_toBottomOf="@+id/ivExerise"
+                            android:textSize="@dimen/_13sdp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:layout_marginStart="@dimen/_8sdp"/>
+
+                      &lt;!&ndash;  <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvExerciseMl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="@+id/ivExerise"
+                            app:layout_constraintStart_toEndOf="@+id/ivExerise"
+                            app:layout_constraintTop_toBottomOf="@+id/tvExercise"
+                            android:text="200 ml"
+                            android:textSize="@dimen/_12sdp"
+                            android:textColor="@color/drink_color"
+                            android:fontFamily="@font/urbanist"
+                            android:layout_marginStart="@dimen/_16sdp"/>
+&ndash;&gt;
+                      &lt;!&ndash;  <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvDay4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginEnd="@dimen/_16sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="Evening"
+                            android:textSize="@dimen/_12sdp"
+                            android:textColor="@color/drink_color"
+                            android:fontFamily="@font/urbanist_medium"
+                            android:layout_marginStart="@dimen/_16sdp"/>
+&ndash;&gt;
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivBreak"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        app:layout_constraintTop_toTopOf="@+id/clBreakFast"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/clBreakFast"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:src="@drawable/pray_unselected"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clBreakFast"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/round_corner_background"
+                        android:backgroundTint="@color/challange_background_color"
+                        app:layout_constraintTop_toBottomOf="@+id/clExercise"
+                        app:layout_constraintStart_toEndOf="@+id/ivExercise">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivBreakfast"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/circle_background"
+                            android:backgroundTint="@color/white"
+                            android:src="@drawable/stand_user"
+                            android:padding="@dimen/_8sdp"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tvBreakfast" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvBreakfast"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toEndOf="@+id/ivBreakfast"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:text="Activity Two: Prayer Walk / Bible Flipping"
+                            app:layout_constraintVertical_chainStyle="packed"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/tvBreakfastMl"
+                            android:textSize="@dimen/_13sdp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:layout_marginStart="@dimen/_8sdp"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvBreakfastMl"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/ivBreakfast"
+                            app:layout_constraintTop_toBottomOf="@+id/tvBreakfast"
+                            android:text="Take a walk outdoors and use the time to pray and listen to your favourite worship songs. Alternatively, open your Bible to a random page and read the chapter you land on, reflecting on its meaning and application in your life."
+                            android:textSize="@dimen/_12sdp"
+                            android:layout_marginBottom="@dimen/_8sdp"
+                            app:layout_constraintEnd_toStartOf="@+id/tvDay5"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins"
+                            android:layout_marginStart="@dimen/_8sdp"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvDay5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="30 mins"
+                            android:textSize="@dimen/_12sdp"
+                            android:textColor="@color/drink_color"
+                            android:fontFamily="@font/urbanist_medium"
+                            android:layout_marginStart="@dimen/_16sdp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivDinner"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        app:layout_constraintTop_toTopOf="@+id/clDinner"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/clDinner"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:src="@drawable/pray_unselected"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clDinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/round_corner_background"
+                        android:backgroundTint="@color/challange_background_color"
+                        app:layout_constraintTop_toBottomOf="@+id/clBreakFast"
+                        app:layout_constraintStart_toEndOf="@+id/ivDinner">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivDinnerIcon"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/circle_background"
+                            android:backgroundTint="@color/white"
+                            android:src="@drawable/dish"
+                            android:padding="@dimen/_5sdp"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:layout_marginVertical="@dimen/_14sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvDinner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toEndOf="@+id/ivDinnerIcon"
+                            app:layout_constraintTop_toTopOf="@+id/ivDinnerIcon"
+                            android:text="Dinner"
+                            app:layout_constraintVertical_chainStyle="packed"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            app:layout_constraintBottom_toBottomOf="@+id/ivDinnerIcon"
+                            android:textSize="@dimen/_13sdp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:layout_marginStart="@dimen/_8sdp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivEveningRef"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        app:layout_constraintTop_toTopOf="@+id/clEveningRef"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/clEveningRef"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:src="@drawable/pray_unselected"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clEveningRef"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/round_corner_background"
+                        android:backgroundTint="@color/challange_background_color"
+                        app:layout_constraintTop_toBottomOf="@+id/clDinner"
+                        app:layout_constraintStart_toEndOf="@+id/ivEveningRef">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivEveningReflection"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/circle_background"
+                            android:backgroundTint="@color/white"
+                            android:src="@drawable/moon_icon"
+                            android:tint="@color/blue"
+                            android:padding="@dimen/_8sdp"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tvEveningReflection" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvEveningReflection"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toEndOf="@+id/ivEveningReflection"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:text="Evening Reflection"
+                            app:layout_constraintVertical_chainStyle="packed"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/tvEveningDesc"
+                            android:textSize="@dimen/_13sdp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:layout_marginStart="@dimen/_8sdp"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvEveningDesc"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/ivEveningReflection"
+                            app:layout_constraintTop_toBottomOf="@+id/tvEveningReflection"
+                            android:text="Before bed, review your day and consider moments where you felt close to God or experienced His presence. Offer a prayer of thanks for those moments and ask for guidance in the days ahead. Reflect on the morning devotion and write down 3 things you learned or remember."
+                            android:textSize="@dimen/_12sdp"
+                            android:layout_marginBottom="@dimen/_8sdp"
+                            app:layout_constraintEnd_toStartOf="@+id/tvEveningDur"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins"
+                            android:layout_marginStart="@dimen/_8sdp"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvEveningDur"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="15 mins"
+                            android:textSize="@dimen/_12sdp"
+                            android:textColor="@color/drink_color"
+                            android:fontFamily="@font/urbanist_medium"
+                            android:layout_marginStart="@dimen/_16sdp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+                <LinearLayout
+                    android:id="@+id/clReadingChallange"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPlan">
+
+                    <TextView
+                        android:id="@+id/txtReadingDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:gravity="start"
+                        android:breakStrategy="simple"
+                        android:hyphenationFrequency="none"
+                        android:justificationMode="none"
+                        android:includeFontPadding="false"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_16sdp" />
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/btnMarkComplete"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:background="@drawable/round_corner_background"
+            android:backgroundTint="@color/blue"
+            android:includeFontPadding="false"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:fontFamily="@font/poppins_semibold"
+            app:layout_constraintBottom_toTopOf="@+id/btnRestart"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:text="@string/mark_as_complete"
+            android:textSize="@dimen/_12sdp"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/btnRestart"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:background="@drawable/round_corner_background"
+            android:backgroundTint="@color/restart_color"
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:text="@string/restart_challenge"
+            android:textSize="@dimen/_12sdp"
+            android:visibility="gone"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:layout_marginBottom="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textAllCaps="false"
+            android:textColor="@color/black"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

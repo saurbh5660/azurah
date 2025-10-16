@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.EventFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clSearch"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:background="@drawable/large_round_corner_background"
+                android:backgroundTint="@color/search_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/_16sdp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivSerch"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:src="@drawable/search_icon"
+                    app:tint="@color/search_grey"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:contentDescription="@string/app_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@+id/ivSerch"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:hint="Search Events"
+                    android:textColorHighlight="@color/cursor_color"
+                    android:textSize="@dimen/_12sdp"
+                    android:maxLines="1"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins"
+                    android:textColorHint="@color/search_grey"
+                    android:layout_marginHorizontal="@dimen/_8sdp"
+                    android:backgroundTint="@android:color/transparent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:paddingVertical="@dimen/_12sdp"/>
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivCross"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/cross_blue_icon"
+                    android:visibility="gone"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvSearchCat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/browse_events_by_categories"
+                android:textSize="@dimen/_13sdp"
+                android:visibility="gone"
+                android:textColor="@color/black"
+                android:includeFontPadding="false"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColorHint="@color/search_grey"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                app:layout_constraintTop_toBottomOf="@+id/clSearch" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                tools:listitem="@layout/item_category"
+                app:layout_constraintTop_toBottomOf="@+id/tvSearchCat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvUpcoming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:includeFontPadding="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/upcoming_events"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvCategory" />
+
+            <TextView
+                android:id="@+id/tvUpcomingViewMore"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="See All"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_12sdp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/tvUpcoming"
+                app:layout_constraintTop_toTopOf="@+id/tvUpcoming" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvEvents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                tools:listitem="@layout/item_events"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                app:layout_constraintTop_toBottomOf="@+id/tvUpcoming"
+                android:layout_marginTop="@dimen/_3sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tvUpcoming"
+                android:layout_marginTop="@dimen/_3sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:background="@drawable/round_corner"
+                            android:backgroundTint="@color/white"
+                            android:elevation="1dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_2sdp"
+                            android:layout_marginVertical="@dimen/_4sdp">
+
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/ivImage"
+                                android:layout_width="@dimen/_90sdp"
+                                android:layout_height="@dimen/_80sdp"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_marginBottom="@dimen/_8sdp"
+                                android:scaleType="centerCrop"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:riv_corner_radius="@dimen/_12sdp" />
+
+                            <TextView
+                                android:id="@+id/tvGroupName"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/ivImage"
+                                app:layout_constraintTop_toTopOf="@+id/ivImage" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivLoc"
+                                android:layout_width="@dimen/_16sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:tint="@color/event_color"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintTop_toBottomOf="@+id/ivCal"
+                                app:layout_constraintStart_toEndOf="@+id/ivImage"
+                                android:layout_marginStart="@dimen/_7sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:contentDescription="@string/app_name"/>
+
+                            <TextView
+                                android:id="@+id/tvLoc"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_16sdp"
+                                android:includeFontPadding="false"
+                                android:fontFamily="@font/poppins"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:background="@color/cp_divider_color"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/ivLoc"
+                                app:layout_constraintTop_toTopOf="@+id/ivLoc" />
+
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivCal"
+                                android:layout_width="@dimen/_14sdp"
+                                android:layout_height="@dimen/_14sdp"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:contentDescription="@string/app_name"
+                                android:tint="@color/event_color"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintStart_toEndOf="@+id/ivImage"
+                                app:layout_constraintTop_toBottomOf="@+id/tvGroupName"/>
+
+                            <TextView
+                                android:id="@+id/tvDate"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:layout_marginBottom="@dimen/_8sdp"
+                                android:fontFamily="@font/poppins"
+                                android:includeFontPadding="false"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/ivCal"
+                                app:layout_constraintTop_toTopOf="@+id/ivCal" />
+
+                            <TextView
+                                android:id="@+id/btnViewGroup"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:layout_marginBottom="@dimen/_8sdp"
+                                android:background="@drawable/round_corner"
+                                android:backgroundTint="@color/price_color"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:includeFontPadding="false"
+                                android:paddingHorizontal="@dimen/_8sdp"
+                                android:paddingVertical="@dimen/_2sdp"
+                                android:textColor="@color/price__text_color"
+                                android:textSize="@dimen/_12sdp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tvLoc"
+                                app:layout_constraintVertical_bias="1.0" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:background="@drawable/round_corner"
+                            android:backgroundTint="@color/white"
+                            android:elevation="1dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_2sdp"
+                            android:layout_marginVertical="@dimen/_4sdp">
+
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/ivImage1"
+                                android:layout_width="@dimen/_90sdp"
+                                android:layout_height="@dimen/_80sdp"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_marginBottom="@dimen/_8sdp"
+                                android:scaleType="centerCrop"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:riv_corner_radius="@dimen/_12sdp" />
+
+                            <TextView
+                                android:id="@+id/tvGroupName1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/ivImage1"
+                                app:layout_constraintTop_toTopOf="@+id/ivImage1" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivLoc1"
+                                android:layout_width="@dimen/_16sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:tint="@color/event_color"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintTop_toBottomOf="@+id/ivCal1"
+                                app:layout_constraintStart_toEndOf="@+id/ivImage1"
+                                android:layout_marginStart="@dimen/_7sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:contentDescription="@string/app_name"/>
+
+                            <TextView
+                                android:id="@+id/tvLoc1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_16sdp"
+                                android:includeFontPadding="false"
+                                android:fontFamily="@font/poppins"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:background="@color/cp_divider_color"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/ivLoc1"
+                                app:layout_constraintTop_toTopOf="@+id/ivLoc1" />
+
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivCal1"
+                                android:layout_width="@dimen/_14sdp"
+                                android:layout_height="@dimen/_14sdp"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:contentDescription="@string/app_name"
+                                android:tint="@color/event_color"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintStart_toEndOf="@+id/ivImage1"
+                                app:layout_constraintTop_toBottomOf="@+id/tvGroupName1"/>
+
+                            <TextView
+                                android:id="@+id/tvDate1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:layout_marginBottom="@dimen/_8sdp"
+                                android:fontFamily="@font/poppins"
+                                android:includeFontPadding="false"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/ivCal1"
+                                app:layout_constraintTop_toTopOf="@+id/ivCal1" />
+
+                            <TextView
+                                android:id="@+id/btnViewGroup1"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:layout_marginBottom="@dimen/_8sdp"
+                                android:background="@drawable/round_corner"
+                                android:backgroundTint="@color/price_color"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:includeFontPadding="false"
+                                android:paddingHorizontal="@dimen/_8sdp"
+                                android:paddingVertical="@dimen/_2sdp"
+                                android:textColor="@color/price__text_color"
+                                android:textSize="@dimen/_12sdp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tvLoc1"
+                                app:layout_constraintVertical_bias="1.0" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:background="@drawable/round_corner"
+                            android:backgroundTint="@color/white"
+                            android:elevation="1dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_2sdp"
+                            android:layout_marginVertical="@dimen/_4sdp">
+
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/ivImage2"
+                                android:layout_width="@dimen/_90sdp"
+                                android:layout_height="@dimen/_80sdp"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_marginBottom="@dimen/_8sdp"
+                                android:scaleType="centerCrop"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:riv_corner_radius="@dimen/_12sdp" />
+
+                            <TextView
+                                android:id="@+id/tvGroupName2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/ivImage2"
+                                app:layout_constraintTop_toTopOf="@+id/ivImage2" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivLoc2"
+                                android:layout_width="@dimen/_16sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:tint="@color/event_color"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintTop_toBottomOf="@+id/ivCal2"
+                                app:layout_constraintStart_toEndOf="@+id/ivImage2"
+                                android:layout_marginStart="@dimen/_7sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:contentDescription="@string/app_name"/>
+
+                            <TextView
+                                android:id="@+id/tvLoc2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_16sdp"
+                                android:includeFontPadding="false"
+                                android:fontFamily="@font/poppins"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:background="@color/cp_divider_color"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/ivLoc2"
+                                app:layout_constraintTop_toTopOf="@+id/ivLoc2" />
+
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivCal2"
+                                android:layout_width="@dimen/_14sdp"
+                                android:layout_height="@dimen/_14sdp"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:contentDescription="@string/app_name"
+                                android:tint="@color/event_color"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintStart_toEndOf="@+id/ivImage2"
+                                app:layout_constraintTop_toBottomOf="@+id/tvGroupName2"/>
+
+                            <TextView
+                                android:id="@+id/tvDate2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:layout_marginBottom="@dimen/_8sdp"
+                                android:fontFamily="@font/poppins"
+                                android:includeFontPadding="false"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/ivCal2"
+                                app:layout_constraintTop_toTopOf="@+id/ivCal2" />
+
+                            <TextView
+                                android:id="@+id/btnViewGroup2"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:layout_marginBottom="@dimen/_8sdp"
+                                android:background="@drawable/round_corner"
+                                android:backgroundTint="@color/price_color"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:includeFontPadding="false"
+                                android:paddingHorizontal="@dimen/_8sdp"
+                                android:paddingVertical="@dimen/_2sdp"
+                                android:textColor="@color/price__text_color"
+                                android:textSize="@dimen/_12sdp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tvLoc2"
+                                app:layout_constraintVertical_bias="1.0" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:background="@drawable/round_corner"
+                            android:backgroundTint="@color/white"
+                            android:elevation="1dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_2sdp"
+                            android:layout_marginVertical="@dimen/_4sdp">
+
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/ivImage3"
+                                android:layout_width="@dimen/_90sdp"
+                                android:layout_height="@dimen/_80sdp"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_marginBottom="@dimen/_8sdp"
+                                android:scaleType="centerCrop"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:riv_corner_radius="@dimen/_12sdp" />
+
+                            <TextView
+                                android:id="@+id/tvGroupName3"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/ivImage3"
+                                app:layout_constraintTop_toTopOf="@+id/ivImage3" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivLoc3"
+                                android:layout_width="@dimen/_16sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:tint="@color/event_color"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintTop_toBottomOf="@+id/ivCal3"
+                                app:layout_constraintStart_toEndOf="@+id/ivImage3"
+                                android:layout_marginStart="@dimen/_7sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:contentDescription="@string/app_name"/>
+
+                            <TextView
+                                android:id="@+id/tvLoc3"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_16sdp"
+                                android:includeFontPadding="false"
+                                android:fontFamily="@font/poppins"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:background="@color/cp_divider_color"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/ivLoc3"
+                                app:layout_constraintTop_toTopOf="@+id/ivLoc3" />
+
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivCal3"
+                                android:layout_width="@dimen/_14sdp"
+                                android:layout_height="@dimen/_14sdp"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:contentDescription="@string/app_name"
+                                android:tint="@color/event_color"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintStart_toEndOf="@+id/ivImage3"
+                                app:layout_constraintTop_toBottomOf="@+id/tvGroupName3"/>
+
+                            <TextView
+                                android:id="@+id/tvDate3"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:layout_marginBottom="@dimen/_8sdp"
+                                android:fontFamily="@font/poppins"
+                                android:includeFontPadding="false"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:background="@color/cp_divider_color"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/ivCal3"
+                                app:layout_constraintTop_toTopOf="@+id/ivCal3" />
+
+                            <TextView
+                                android:id="@+id/btnViewGroup3"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:layout_marginBottom="@dimen/_8sdp"
+                                android:background="@drawable/round_corner"
+                                android:backgroundTint="@color/price_color"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:includeFontPadding="false"
+                                android:paddingHorizontal="@dimen/_8sdp"
+                                android:paddingVertical="@dimen/_2sdp"
+                                android:textColor="@color/price__text_color"
+                                android:textSize="@dimen/_12sdp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tvLoc3"
+                                app:layout_constraintVertical_bias="1.0" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+
+
+                </androidx.core.widget.NestedScrollView>
+
+
+
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <TextView
+                android:id="@+id/tvPopular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Popular Events"
+                android:visibility="gone"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvEvents" />
+
+            <TextView
+                android:id="@+id/tvPopularSeeAll"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="See All"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_12sdp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/tvPopular"
+                app:layout_constraintTop_toTopOf="@+id/tvPopular" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPopularEvents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                android:orientation="horizontal"
+                android:layout_marginStart="@dimen/_8sdp"
+                tools:listitem="@layout/item_popular_events"
+                app:layout_constraintTop_toBottomOf="@+id/tvPopular"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvRecommended"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Recommendations for You"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sdp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvPopularEvents" />
+
+            <TextView
+                android:id="@+id/tvRecommendationsSeeAll"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="See All"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_12sdp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/tvRecommended"
+                app:layout_constraintTop_toTopOf="@+id/tvRecommended" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCurrentEvents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                android:nestedScrollingEnabled="false"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:visibility="gone"
+                tools:listitem="@layout/item_current_event"
+                app:layout_constraintTop_toBottomOf="@+id/tvRecommended"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/tvNoDataFound"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_24sdp"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
+        android:text="No upcoming events.\nCheck back soon!"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "710175079601",
+    "project_id": "azrius-a1260",
+    "storage_bucket": "azrius-a1260.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710175079601:android:57ea9a5387449eb0a3b690",
+        "android_client_info": {
+          "package_name": "com.live.azurah"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBazeKbpzOE6Gh9nxheTA15_WPGUpmbYoY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

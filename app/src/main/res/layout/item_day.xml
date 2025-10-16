@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_60sdp"
+    android:layout_height="@dimen/_80sdp"
+    android:background="@drawable/round_corner_background"
+    android:backgroundTint="@color/blue"
+    android:layout_marginEnd="@dimen/_5sdp"
+    android:layout_marginVertical="@dimen/_5sdp"
+    android:id="@+id/clDay"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/txtDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/day"
+        android:includeFontPadding="false"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@+id/tvDay"
+        android:fontFamily="@font/poppins"
+        android:textSize="@dimen/_12sdp"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tvDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDay"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="1"
+        android:includeFontPadding="false"
+        android:layout_marginTop="@dimen/_3sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:fontFamily="@font/urbanist_bold"
+        android:textSize="@dimen/_14sdp"
+        android:textColor="@color/white" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

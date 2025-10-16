@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activity.PushNotificationActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/backIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_10sdp"
+            android:src="@drawable/back_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ivHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AZRIUS"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:textColor="@color/black"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/cinzel_bold"
+            android:textSize="@dimen/_19sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <!-- <androidx.appcompat.widget.AppCompatImageView
+             android:layout_width="@dimen/_70sdp"
+             android:layout_height="@dimen/_30sdp"
+             app:layout_constraintBottom_toBottomOf="parent"
+             android:src="@drawable/azurah_heading_icon"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:id="@+id/tvFeedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:fontFamily="@font/urbanist_semibold"
+        android:text="Notifications"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_19sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/poppins"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:text="Manage how you receive updates and alerts about activities and interactions in the app."
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFeedback"/>
+
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@+id/tvMessage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/tvNewsLetter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:text="Messages"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sdp"
+                android:fontFamily="@font/poppins_semibold"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchNews"
+                style="@style/SwitchCompat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:checked="true"
+                app:layout_constraintBottom_toBottomOf="@+id/view1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvNewsLetter"
+                app:thumbTint="@color/white"
+                app:trackTint="@color/blue"
+                android:thumb="@drawable/custom_thumb"
+                android:track="@drawable/track_selector" />
+
+            <TextView
+                android:id="@+id/tvTypesMessages"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNewsLetter"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_3sdp"
+                android:text="Receive notifications when you receive messages from other users."
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:visibility="visible"
+                android:gravity="start"
+                app:layout_constraintEnd_toStartOf="@+id/switchNews"
+                android:fontFamily="@font/poppins"/>
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/divider_grey"
+                app:layout_constraintTop_toBottomOf="@+id/tvTypesMessages"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+
+            <TextView
+                android:id="@+id/tvPrayerNoti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view1"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:text="Posts"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sdp"
+                android:fontFamily="@font/poppins_semibold"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchPrayerPush"
+                style="@style/SwitchCompat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:checked="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/view6"
+                app:layout_constraintTop_toTopOf="@+id/tvPrayerNoti"
+                app:thumbTint="@color/white"
+                app:trackTint="@color/blue"
+                android:thumb="@drawable/custom_thumb"
+                android:track="@drawable/track_selector" />
+
+            <TextView
+                android:id="@+id/tyPosts"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvPrayerNoti"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_3sdp"
+                android:text="Receive notifications when someone likes or comments on your posts."
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                android:visibility="visible"
+                android:includeFontPadding="false"
+                android:gravity="start"
+                app:layout_constraintEnd_toStartOf="@+id/switchPrayerPush"
+                android:fontFamily="@font/poppins"/>
+
+            <View
+                android:id="@+id/view6"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/divider_grey"
+                app:layout_constraintTop_toBottomOf="@+id/tyPosts"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+
+            <TextView
+                android:id="@+id/txtMention"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view6"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:text="Mentions"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sdp"
+                android:fontFamily="@font/poppins_semibold"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchMention"
+                style="@style/SwitchCompat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:checked="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/view55"
+                app:layout_constraintTop_toTopOf="@+id/txtMention"
+                app:thumbTint="@color/white"
+                app:trackTint="@color/blue"
+                android:thumb="@drawable/custom_thumb"
+                android:track="@drawable/track_selector" />
+
+            <TextView
+                android:id="@+id/tvMention"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtMention"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_3sdp"
+                android:text="Receive notifications when someone mentions you in a comment."
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                android:visibility="visible"
+                android:includeFontPadding="false"
+                android:gravity="start"
+                app:layout_constraintEnd_toStartOf="@+id/switchMention"
+                android:fontFamily="@font/poppins"/>
+
+            <View
+                android:id="@+id/view55"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/divider_grey"
+                app:layout_constraintTop_toBottomOf="@+id/tvMention"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+
+            <TextView
+                android:id="@+id/tvPushNoti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view7"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:text="Shop"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sdp"
+                android:fontFamily="@font/poppins_semibold"/>
+
+            <TextView
+                android:id="@+id/tvTypesNoti"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvPushNoti"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_3sdp"
+                android:text="Receive notifications when new products are added to the shop."
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                android:visibility="visible"
+                android:gravity="start"
+                android:includeFontPadding="false"
+                app:layout_constraintEnd_toStartOf="@+id/switchPush"
+                android:fontFamily="@font/poppins"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchPush"
+                style="@style/SwitchCompat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:checked="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvPushNoti"
+                app:layout_constraintBottom_toBottomOf="@+id/view2"
+                app:thumbTint="@color/white"
+                app:trackTint="@color/blue"
+                android:thumb="@drawable/custom_thumb"
+                android:track="@drawable/track_selector" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/divider_grey"
+                app:layout_constraintTop_toBottomOf="@+id/tvTypesNoti"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvQuestNoti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view5"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:text="Prayer Requests"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sdp"
+                android:fontFamily="@font/poppins_semibold"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchQuest"
+                style="@style/SwitchCompat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:checked="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvQuestNoti"
+                app:layout_constraintBottom_toBottomOf="@+id/view3"
+                app:thumbTint="@color/white"
+                app:trackTint="@color/blue"
+                android:thumb="@drawable/custom_thumb"
+                android:track="@drawable/track_selector" />
+
+            <TextView
+                android:id="@+id/tvTypesPrayers"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvQuestNoti"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_3sdp"
+                android:text="Receive notifications when someone likes, comments, or sends a prayer on your prayer request."
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                android:includeFontPadding="false"
+                android:visibility="visible"
+                android:gravity="start"
+                app:layout_constraintEnd_toStartOf="@+id/switchQuest"
+                android:fontFamily="@font/poppins"/>
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/divider_grey"
+                app:layout_constraintTop_toBottomOf="@+id/tvTypesPrayers"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvShopNoti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view3"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:text="Testimony"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sdp"
+                android:fontFamily="@font/poppins_semibold"/>
+
+            <TextView
+                android:id="@+id/tvTypesShopNoti"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvShopNoti"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_3sdp"
+                android:text="Receive notifications when someone likes, comments, or sends a prayer on your testimony."
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                android:includeFontPadding="false"
+                android:visibility="visible"
+                android:gravity="start"
+                app:layout_constraintEnd_toStartOf="@+id/switchShopPush"
+                android:fontFamily="@font/poppins"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchShopPush"
+                style="@style/SwitchCompat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:checked="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/view4"
+                app:layout_constraintTop_toTopOf="@+id/tvShopNoti"
+                app:thumbTint="@color/white"
+                app:trackTint="@color/blue"
+                android:thumb="@drawable/custom_thumb"
+                android:track="@drawable/track_selector" />
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/divider_grey"
+                app:layout_constraintTop_toBottomOf="@+id/tvTypesShopNoti"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvTestimonyNoti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view55"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:text="Community Forum"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sdp"
+                android:fontFamily="@font/poppins_semibold"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchTestimonyPush"
+                style="@style/SwitchCompat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:checked="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/view5"
+                app:layout_constraintTop_toTopOf="@+id/tvTestimonyNoti"
+                app:thumbTint="@color/white"
+                app:trackTint="@color/blue"
+                android:thumb="@drawable/custom_thumb"
+                android:track="@drawable/track_selector" />
+
+            <TextView
+                android:id="@+id/tvTypesForum"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTestimonyNoti"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_3sdp"
+                android:text="Receive notifications when someone likes or comments on your posts."
+                android:textColor="@color/black"
+                android:includeFontPadding="false"
+                android:textSize="@dimen/_12sdp"
+                android:visibility="visible"
+                android:gravity="start"
+                app:layout_constraintEnd_toStartOf="@+id/switchTestimonyPush"
+                android:fontFamily="@font/poppins"/>
+
+            <View
+                android:id="@+id/view5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/divider_grey"
+                app:layout_constraintTop_toBottomOf="@+id/tvTypesForum"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+            <TextView
+                android:id="@+id/tvForumNoti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view4"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:text="Bible Quests"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sdp"
+                android:fontFamily="@font/poppins_semibold"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchForumPush"
+                style="@style/SwitchCompat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:checked="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvForumNoti"
+                app:layout_constraintBottom_toBottomOf="@+id/view7"
+                app:thumbTint="@color/white"
+                app:trackTint="@color/blue"
+                android:thumb="@drawable/custom_thumb"
+                android:track="@drawable/track_selector" />
+
+            <TextView
+                android:id="@+id/tyBibleTypeQuest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvForumNoti"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_3sdp"
+                android:text="Receive notifications when new Bible Quests are launched."
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                android:visibility="visible"
+                android:gravity="start"
+                android:includeFontPadding="false"
+                app:layout_constraintEnd_toStartOf="@+id/switchForumPush"
+                android:fontFamily="@font/poppins"/>
+
+            <View
+                android:id="@+id/view7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/divider_grey"
+                app:layout_constraintTop_toBottomOf="@+id/tyBibleTypeQuest"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

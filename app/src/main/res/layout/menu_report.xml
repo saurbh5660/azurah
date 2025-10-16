@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_3sdp"
+            android:background="@drawable/less_round_corner_background"
+            android:backgroundTint="@color/white"
+            android:elevation="1dp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.384"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivUser"
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:src="@drawable/report_users_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvNotDone"
+                app:layout_constraintBottom_toBottomOf="@+id/tvNotDone"/>
+
+        <TextView
+            android:id="@+id/tvNotDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_14sdp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="start"
+            android:includeFontPadding="false"
+            android:paddingVertical="@dimen/_8sdp"
+            android:text="@string/report_user"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/ivUser"
+            app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/divider15"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/divider_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNotDone"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="60dp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivReportUser"
+                android:layout_width="@dimen/_14sdp"
+                android:layout_height="@dimen/_14sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                app:tint="@color/black"
+                android:src="@drawable/report_post_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvHaveDone"
+                app:layout_constraintBottom_toBottomOf="@+id/tvHaveDone"/>
+
+            <TextView
+                android:id="@+id/tvHaveDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="start"
+                android:includeFontPadding="false"
+                android:paddingVertical="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_14sdp"
+                app:layout_constraintHorizontal_bias="0.0"
+                android:text="Report Post"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivReportUser"
+                app:layout_constraintTop_toBottomOf="@+id/divider15" />
+
+            <View
+                android:id="@+id/divider16"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/divider_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHaveDone"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="60dp" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBlockUser"
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:src="@drawable/block_user_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvBlockUser"
+                app:layout_constraintBottom_toBottomOf="@+id/tvBlockUser"/>
+
+            <TextView
+                android:id="@+id/tvBlockUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="start"
+                android:includeFontPadding="false"
+                android:paddingVertical="@dimen/_8sdp"
+                android:text="Block User"
+                android:layout_marginEnd="@dimen/_14sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivBlockUser"
+                app:layout_constraintTop_toBottomOf="@+id/divider16" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

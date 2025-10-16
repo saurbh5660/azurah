@@ -1,0 +1,46 @@
+package com.live.azurah.fragment
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import com.live.azurah.R
+import com.live.azurah.databinding.FragmentIntro2Binding
+import com.live.azurah.databinding.FragmentIntro3Binding
+import com.live.azurah.util.gone
+import com.live.azurah.viewmodel.SharedViewModel
+
+class IntroFragment3 : Fragment() {
+    private lateinit var binding: FragmentIntro3Binding
+    private lateinit var sharedViewModel: SharedViewModel
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentIntro3Binding.inflate(inflater,container,false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+
+        initListener()
+    }
+
+    private fun initListener() {
+        with(binding){
+            tvSkip.gone()
+            tvSkip.setOnClickListener {
+                sharedViewModel.getWalkthrough(0)
+            }
+            tvNext.setOnClickListener {
+                sharedViewModel.getWalkthrough(0)
+            }
+        }
+    }
+}

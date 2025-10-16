@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:background="@color/black_translucent"
+    android:focusable="true">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/_230sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:background="@drawable/less_round_corner_background"
+        android:layout_marginBottom="@dimen/_24sdp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNav"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="@dimen/_230sdp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingTop="@dimen/_31sdp"
+            android:gravity="start"
+            android:paddingStart="@dimen/_16sdp"
+            android:textSize="@dimen/_13sdp"
+            android:includeFontPadding="false"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingEnd="@dimen/_16sdp"
+            android:text="Welcome to your Dashboard!"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDesc"
+            android:layout_width="@dimen/_230sdp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:paddingBottom="@dimen/_16sdp"
+            android:gravity="start"
+            android:paddingStart="@dimen/_16sdp"
+            android:textSize="@dimen/_12sdp"
+            android:includeFontPadding="false"
+            android:paddingEnd="@dimen/_16sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            android:text="Explore the community forum, participate in Bible quests, share testimonies, and enjoy the songs of the day and week!"
+            android:textColor="@color/black"
+         />
+
+        <TextView
+            android:id="@+id/ivNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/blue"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/poppins_medium"
+            app:layout_constraintTop_toTopOf="@+id/tvTitle"
+            app:layout_constraintEnd_toEndOf="@+id/tvTitle"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_16sdp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvSkip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/skip"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp"
+        android:includeFontPadding="false"
+        android:background="@drawable/round_corner_background"
+        android:paddingHorizontal="@dimen/_16sdp"
+        android:backgroundTint="@color/blue1"
+        android:paddingVertical="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/tvNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_70sdp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Got it"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:includeFontPadding="false"
+        android:background="@drawable/round_corner_background"
+        android:textSize="@dimen/_14sdp"
+        android:paddingHorizontal="@dimen/_16sdp"
+        android:paddingVertical="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:weightSum="5"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:id="@+id/llHome"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llDash"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivDash"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/selected_bookmark"/>
+
+            <TextView
+                android:id="@+id/tvDash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/black"
+                android:text="Dashboard"
+                android:includeFontPadding="false"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textSize="@dimen/_10sdp">
+
+
+            </TextView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

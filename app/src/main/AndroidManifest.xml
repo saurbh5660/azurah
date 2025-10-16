@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application
+        android:name=".controller.MyApplication"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Azurah"
+        tools:targetApi="31">
+        <activity
+            android:name=".activity.SubscriptionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ViewPostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.PlayerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UploadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ConfirmDeleteAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.RequestGroupChat"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddPostCaptionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ReportPromptActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.CompletedQuestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ReportUserActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.BlockedProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ChangeEmailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MyQuestPostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MyPostsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ReportProblemActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.ReportPostActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.BlockedUserList"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MyPostPrayerTestimonyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MembersActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false" />
+        <activity
+            android:name=".activity.BookmarkSavedEventActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.PreviewPostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.PrivacySettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.LegalInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.QuestSettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ShopSettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.PushNotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AccountSettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.JoinedGroupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.CommentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ContentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ChatActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activity.NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DeleteAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MessageSentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ContactUsActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" />
+        <activity
+            android:name=".activity.HelpCenterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.RecentLoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddPostActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".activity.ChallangeCompletedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MarkChallangeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.OtherUserProfileActivity"
+            android:exported="true">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="app.azrius.co.uk"
+                    android:pathPrefix="/common_api/deepLinking" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.EditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".fragment.FollowFollowingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddPrayerRequestTestimonies"
+            android:exported="false" />
+        <!--
+  <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        -->
+        <activity
+            android:name=".activity.RequestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.BookmarkEventActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.BookmarkActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.MessageActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false" />
+        <activity
+            android:name=".activity.GuidelineParticipationActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.GroupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.EventDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ChallangeDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.ChallangeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddBiblePostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.QuestDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.QuestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.HomeActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".activity.NewPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ResetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.SetUpProfileActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.VerificationComplete"
+            android:exported="false" />
+        <activity
+            android:name=".activity.VerificationActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.SignUpActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.WalkthroughActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <activity
+            android:name=".activity.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.live.azurah.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <service
+            android:name=".firebase.MyMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+    </application>
+
+</manifest>
