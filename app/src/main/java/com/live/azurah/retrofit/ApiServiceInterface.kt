@@ -22,6 +22,7 @@ import com.live.azurah.model.EventResponse
 import com.live.azurah.model.ExploreGroupResponse
 import com.live.azurah.model.FileUploadResponse
 import com.live.azurah.model.FollowFollowingResponse
+import com.live.azurah.model.HashTagResponse
 import com.live.azurah.model.HomeSearchResposne
 import com.live.azurah.model.InterestResponse
 import com.live.azurah.model.LoginResponse
@@ -523,6 +524,11 @@ interface ApiServiceInterface {
     @GET(ApiConstants.GET_COUNTS)
     suspend fun getCounts(): CountResponse
 
+    @GET(ApiConstants.GET_MY_REFERRAL_CODE)
+    suspend fun getMyReferralCode(): WishlistResponse
+
+    @GET(ApiConstants.HASHTAG_LIST)
+    suspend fun getHashTagList(@QueryMap map: HashMap<String, String>): HashTagResponse
 
 }
 

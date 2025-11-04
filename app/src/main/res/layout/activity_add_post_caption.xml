@@ -96,7 +96,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
 
-
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/clDesc"
                         android:layout_width="match_parent"
@@ -144,6 +143,54 @@
                         android:layout_marginBottom="@dimen/_16sdp"
                         android:layout_marginEnd="@dimen/_16sdp"/>
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clHastag"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_70sdp"
+                        android:background="@drawable/round_stroke_background"
+                        android:backgroundTint="@color/shop_cat_color"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/clDesc">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/etDes1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="#HashTag"
+                            android:gravity="start"
+                            android:textColorHighlight="@color/cursor_color"
+                            android:fontFamily="@font/poppins"
+                            android:textSize="@dimen/_12sdp"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/light_black"
+                            android:paddingVertical="@dimen/_16sdp"
+                            android:paddingHorizontal="@dimen/_16sdp"
+                            android:paddingBottom="20dp"
+                            android:background="@android:color/transparent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvHashTag"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_150sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="vertical"
+                        tools:itemCount="5"
+                        android:layout_marginTop="@dimen/_18sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/clHastag"
+                        tools:listitem="@layout/item_hashtag" />
+
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvPostImages"
                         android:layout_width="match_parent"
@@ -154,7 +201,7 @@
                         android:orientation="horizontal"
                         tools:itemCount="3"
                         android:layout_marginTop="@dimen/_18sdp"
-                        app:layout_constraintTop_toBottomOf="@+id/clDesc"
+                        app:layout_constraintTop_toBottomOf="@+id/rvHashTag"
                         tools:listitem="@layout/item_add_post_image_videos" />
 
 

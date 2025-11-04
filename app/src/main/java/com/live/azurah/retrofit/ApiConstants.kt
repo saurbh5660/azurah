@@ -132,6 +132,8 @@ object ApiConstants {
     const val GET_COUNTS = "appApi/user/getCounts"
     const val SEND_ACCOUNT_DELETION_API = "appApi/auth/sendAccountDeletionMail"
     const val CHANGE_EMAIL_REQUEST = "appApi/auth/changeEmailRequest"
+    const val GET_MY_REFERRAL_CODE = "appApi/auth/getMyReferralCode"
+    const val HASHTAG_LIST = "appApi/post/hashtagList"
 
     var isMute = false
     var isNotification = false

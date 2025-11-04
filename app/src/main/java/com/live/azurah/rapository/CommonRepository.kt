@@ -1141,4 +1141,20 @@ class CommonRepository @Inject constructor(
         }
     }
 
+    suspend fun getMyReferralCode(activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.getMyReferralCode())
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
+    suspend fun getHashTagList(map: HashMap<String, String>, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.getHashTagList(map))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
 }

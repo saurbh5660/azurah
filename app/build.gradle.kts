@@ -52,6 +52,7 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.10.1")
     implementation("androidx.compose.ui:ui-geometry-android:1.9.0")
     implementation("androidx.palette:palette-ktx:1.0.0")
+    implementation("androidx.activity:activity:1.11.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.3.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")

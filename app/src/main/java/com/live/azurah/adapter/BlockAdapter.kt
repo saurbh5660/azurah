@@ -91,7 +91,8 @@ class BlockAdapter(val ctx: Context,val blockList: ArrayList<BlockResposne.Body.
                         }*/
                     }
                 }
-            }else{
+            }
+            else{
                 tvFollow.backgroundTintList = ContextCompat.getColorStateList(ctx,R.color.shop_cat_color)
                 tvFollow.setTextColor(ContextCompat.getColorStateList(ctx,R.color.black))
 
