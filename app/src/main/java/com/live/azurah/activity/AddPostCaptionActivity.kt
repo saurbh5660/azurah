@@ -52,12 +52,7 @@ class AddPostCaptionActivity : AppCompatActivity(), AddPostImageAdapter.ClickLis
     private var player: ExoPlayer? = null
     private val viewModel by viewModels<CommonViewModel>()
     private var hashtagJob: Job? = null
-
-    // Pagination variables
-    private var currentPage = 1
-    private var isLoading = false
-    private var hasMore = true
-    private var currentSearchQuery = ""
+    private var isInsertingHashtag = false // Flag to prevent reopening after selection
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +78,6 @@ class AddPostCaptionActivity : AppCompatActivity(), AddPostImageAdapter.ClickLis
         setupHashtagAdapter()
         setAdapter()
         initListener()
-        observeHashtagList()
     }
 
     private fun setAdapter() {
@@ -117,14 +111,28 @@ class AddPostCaptionActivity : AppCompatActivity(), AddPostImageAdapter.ClickLis
                     )
                     return@setOnClickListener
                 }
+
+                // Combine description and hashtags
+                val description = binding.etDes.text.toString().trim()
+                val hashtags = binding.etDes1.text.toString().trim()
+
+                val combinedText = if (hashtags.isNotEmpty()) {
+                    if (description.isNotEmpty()) {
+                        "$description\n$hashtags"
+                    } else {
+                        hashtags
+                    }
+                } else {
+                    description
+                }
+
                 startActivity(
                     Intent(
                         this@AddPostCaptionActivity,
                         PreviewPostActivity::class.java
                     ).apply {
                         putExtra("images", list)
-                        putExtra("desc", binding.etDes.text.toString())
-                        putExtra("hashtags", binding.etDes1.text.toString())
+                        putExtra("desc", combinedText)
                     })
             }
 
@@ -139,108 +147,115 @@ class AddPostCaptionActivity : AppCompatActivity(), AddPostImageAdapter.ClickLis
 
             etDes1.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    // Check if user typed # symbol
+                    // If we're inserting a hashtag programmatically, skip processing
+                    if (isInsertingHashtag) return
+
                     val text = s.toString()
+
+                    // Prevent text entry without # at the beginning of each hashtag
+                    if (count == 1 && s?.get(start) != '#' && s?.get(start) != ' ') {
+                        // Check if we're at the start or after a space (new hashtag position)
+                        if (start == 0 || (start > 0 && text[start - 1] == ' ')) {
+                            // User is trying to type text without # at hashtag position
+                            binding.etDes1.removeTextChangedListener(this)
+                            val beforeText = text.substring(0, start)
+                            val afterText = text.substring(start + 1)
+                            binding.etDes1.setText(beforeText + afterText)
+                            binding.etDes1.setSelection(start)
+                            binding.etDes1.addTextChangedListener(this)
+                            return
+                        }
+                    }
+
+                    // Prevent spaces within hashtag words (between # and space)
+                    if (count == 1 && s?.get(start) == ' ') { // User typed a space
+                        // Find the last # before current position
+                        val lastHashIndex = text.substring(0, start).lastIndexOf('#')
+                        if (lastHashIndex != -1) {
+                            // Check if there's already a space after this hashtag
+                            val spaceAfterThisHashtag = text.indexOf(' ', lastHashIndex)
+                            if (spaceAfterThisHashtag == -1 || spaceAfterThisHashtag > start) {
+                                // We're typing within a hashtag word, prevent the space
+                                val beforeText = text.substring(0, start)
+                                val afterText = text.substring(start + 1)
+                                binding.etDes1.removeTextChangedListener(this)
+                                binding.etDes1.setText(beforeText + afterText)
+                                binding.etDes1.setSelection(start)
+                                binding.etDes1.addTextChangedListener(this)
+                                return
+                            }
+                        }
+                    }
+
+                    // Regular hashtag search logic
                     if (text.contains("#") && text.isNotEmpty()) {
                         val lastHashSymbol = text.lastIndexOf('#')
-                        val searchQuery = text.substring(lastHashSymbol + 1)
+                        // Find the next space after the last hashtag to get the current hashtag word
+                        val spaceAfterHashtag = text.indexOf(' ', lastHashSymbol)
+                        val endOfCurrentHashtag = if (spaceAfterHashtag != -1) spaceAfterHashtag else text.length
+
+                        val searchQuery = text.substring(lastHashSymbol + 1, endOfCurrentHashtag)
 
                         if (searchQuery.isNotEmpty() && searchQuery.length >= 1) {
-                            // Reset pagination for new search
-                            if (currentSearchQuery != searchQuery) {
-                                resetPagination()
-                                currentSearchQuery = searchQuery
-                            }
-                            searchHashtagsWithDebounce(searchQuery, false)
+                            searchHashtagsWithDebounce(searchQuery)
                         } else {
                             binding.rvHashTag.visibility = View.GONE
-                            resetPagination()
+                            hashtagJob?.cancel()
                         }
                     } else {
                         binding.rvHashTag.visibility = View.GONE
-                        resetPagination()
                         hashtagJob?.cancel()
                     }
                 }
+
                 override fun afterTextChanged(s: Editable?) {}
             })
         }
     }
 
-    private fun resetPagination() {
-        currentPage = 1
-        hasMore = true
-        isLoading = false
-        hashtagAdapter.clearData()
-    }
-
-    private fun searchHashtagsWithDebounce(searchQuery: String, loadMore: Boolean = false) {
+    private fun searchHashtagsWithDebounce(searchQuery: String) {
         hashtagJob?.cancel()
-
         hashtagJob = kotlinx.coroutines.MainScope().launch {
-            if (!loadMore) {
-                delay(500) // 500ms debounce delay only for new searches
-            }
+            delay(500)
 
-            if (isLoading) return@launch
-
-            isLoading = true
             val map = HashMap<String, String>()
             map["limit"] = "10"
-            map["page"] = currentPage.toString()
+            map["page"] = "1"
             map["search_string"] = searchQuery
 
             viewModel.getHashTagList(map, this@AddPostCaptionActivity).observe(this@AddPostCaptionActivity){resource->
                 when (resource.status) {
                     Status.LOADING -> {
-                        if (currentPage == 1) {
-                            // Show loading indicator for initial load if needed
-                        }
+                        // Show loading indicator if needed
                     }
                     Status.SUCCESS -> {
-                        isLoading = false
-
                         when(resource.data){
                             is HashTagResponse -> {
                                 val res = resource.data.body?.data ?: ArrayList()
                                 if (res.isNotEmpty()){
-                                    if (currentPage == 1) {
-                                        hashtagAdapter.updateList(res)
+                                    // Limit to maximum 3 hashtags
+                                    val limitedList = if (res.size > 3) {
+                                        res.subList(0, 3)
                                     } else {
-                                        hashtagAdapter.addData(res)
+                                        res
                                     }
-
-                                    hasMore = res.size >= 10
-                                    if (hasMore) {
-                                        currentPage++
-                                    }
-
+                                    hashtagAdapter.updateList(limitedList)
                                     binding.rvHashTag.visibility = View.VISIBLE
-                                }else{
-                                    if (currentPage == 1) {
-                                        binding.rvHashTag.visibility = View.GONE
-                                    }
-                                    hasMore = false
+                                } else {
+                                    binding.rvHashTag.visibility = View.GONE
                                 }
-
                             }
                         }
                     }
                     Status.ERROR -> {
-                        isLoading = false
-                        if (currentPage == 1) {
-                            binding.rvHashTag.visibility = View.GONE
-                        }
+                        binding.rvHashTag.visibility = View.GONE
                         // Don't show error snackbar for hashtag search
                     }
                 }
             }
         }
-    }
-
-    private fun observeHashtagList() {
-
     }
 
     private fun setupHashtagAdapter() {
@@ -250,57 +265,51 @@ class AddPostCaptionActivity : AppCompatActivity(), AddPostImageAdapter.ClickLis
 
         binding.rvHashTag.adapter = hashtagAdapter
         binding.rvHashTag.visibility = View.GONE
-
-        // Add scroll listener for pagination
-        binding.rvHashTag.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                val visibleItemCount = layoutManager.childCount
-                val totalItemCount = layoutManager.itemCount
-                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-
-                if (!isLoading && hasMore) {
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
-                        && firstVisibleItemPosition >= 0
-                        && totalItemCount >= 10) { // Only load more if we have enough items
-                        loadMoreHashtags()
-                    }
-                }
-            }
-        })
-    }
-
-    private fun loadMoreHashtags() {
-        if (currentSearchQuery.isNotEmpty() && !isLoading && hasMore) {
-            searchHashtagsWithDebounce(currentSearchQuery, true)
-        }
     }
 
     private fun insertHashtagIntoEditText(tag: String) {
+        isInsertingHashtag = true
+
         val currentText = binding.etDes1.text.toString()
         val lastHashSymbol = currentText.lastIndexOf('#')
 
         if (lastHashSymbol != -1) {
-            // Replace the text after # with the selected hashtag
-            val newText = currentText.substring(0, lastHashSymbol) + "#$tag "
-            binding.etDes1.setText(newText)
-            binding.etDes1.setSelection(newText.length)
+            // Find if there's already text after the last hashtag
+            val spaceAfterLastHashtag = currentText.indexOf(' ', lastHashSymbol)
+            if (spaceAfterLastHashtag != -1) {
+                // Replace the text between # and space with the selected hashtag
+                val newText = currentText.substring(0, lastHashSymbol) + "#$tag " + currentText.substring(spaceAfterLastHashtag + 1)
+                binding.etDes1.setText(newText)
+                binding.etDes1.setSelection(lastHashSymbol + tag.length + 2) // Position after "#tag "
+            } else {
+                // No space after hashtag, just replace everything after #
+                val newText = currentText.substring(0, lastHashSymbol) + "#$tag "
+                binding.etDes1.setText(newText)
+                binding.etDes1.setSelection(newText.length)
+            }
         } else {
             // If no # found, just append the hashtag
             val newText = if (currentText.isEmpty()) {
                 "#$tag "
             } else {
-                "$currentText #$tag "
+                // Check if the last character is a space, if not add one before the new hashtag
+                if (currentText.last() == ' ') {
+                    "$currentText#$tag "
+                } else {
+                    "$currentText #$tag "
+                }
             }
             binding.etDes1.setText(newText)
             binding.etDes1.setSelection(newText.length)
         }
 
-        // Hide the hashtag list after selection
+        // Hide the hashtag list after selection and reset flag after a delay
         binding.rvHashTag.visibility = View.GONE
-        resetPagination()
+
+        // Reset the flag after text change is complete
+        binding.etDes1.post {
+            isInsertingHashtag = false
+        }
     }
 
     private fun updatePostButtonState() {

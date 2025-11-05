@@ -159,6 +159,12 @@ class HomeFragment : Fragment(),
         binding.rvPosts.adapter = postAdapter
         postAdapter.submitList(list)
 
+        postAdapter.onTagClick={tag->
+            with(requireActivity() as HomeActivity){
+                replaceFragment(SearchHomeFragment(tag))
+            }
+        }
+
         postAdapter.onPostImages = { parentPos, pos, images ->
             val imageList = images?.filter { it?.type == 1 }
                 ?.map { FullImageModel(image = it?.image, type = 1) } as ArrayList

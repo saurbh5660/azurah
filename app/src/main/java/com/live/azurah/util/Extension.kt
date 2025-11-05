@@ -1237,6 +1237,40 @@ fun openBrowser(context: Context, url: String) {
     }
 }
 
+
+fun colorOnlyHashtagsLine(fullText: String,ctx:Context): SpannableString {
+    val spannableString = SpannableString(fullText)
+
+    val newlineIndex = fullText.indexOf('\n')
+    if (newlineIndex != -1) {
+        val hashtagsLine = fullText.substring(newlineIndex + 1)
+        val hashtagPattern = "#\\w+".toRegex()
+
+        hashtagPattern.findAll(hashtagsLine).forEach { matchResult ->
+            val startIndex = newlineIndex + 1 + matchResult.range.first
+            val endIndex = newlineIndex + 1 + matchResult.range.last + 1
+
+            spannableString.setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(ctx, R.color.blue)),
+                startIndex,
+                endIndex,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+    } else {
+        val hashtagPattern = "#\\w+".toRegex()
+        hashtagPattern.findAll(fullText).forEach { matchResult ->
+            spannableString.setSpan(
+                ForegroundColorSpan(Color.BLUE),
+                matchResult.range.first,
+                matchResult.range.last + 1,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+    }
+
+    return spannableString
+}
 fun Purchase.isExpired(): Boolean {
     return !this.isAcknowledged && !this.isAutoRenewing
 }

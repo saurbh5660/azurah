@@ -24,6 +24,7 @@ import com.live.azurah.model.FullImageModel
 import com.live.azurah.model.ImageVideoModel
 import com.live.azurah.retrofit.ApiConstants
 import com.live.azurah.util.ShowImagesDialogFragment
+import com.live.azurah.util.colorOnlyHashtagsLine
 import com.live.azurah.util.getPreference
 import com.live.azurah.util.loadImage
 
@@ -57,7 +58,7 @@ class PreviewPostActivity : AppCompatActivity(),AddPostImageAdapter.ClickListene
 
         list = intent.getSerializableExtra("images") as ArrayList<ImageVideoModel>
         desc = intent.getStringExtra("desc") ?: ""
-        binding.tvDescription.text = desc
+        binding.tvDescription.text = colorOnlyHashtagsLine(desc,this)
         setAdapter()
         initListener()
     }

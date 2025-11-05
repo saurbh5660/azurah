@@ -224,11 +224,20 @@
     <string name="no_testimonies_have_been_shared_yet_why_not_encourage_others_by_sharing_yours">No testimonies have been shared yet. Why not encourage others by sharing yours?</string>
     <string name="no_prayer_requests_have_been_shared_yet_why_not_encourage_others_by_sharing_yours">No prayer requests have been shared yet. Why not encourage others by sharing yours?</string>
     <string name="invite_friends_unlock_npremium_for_free"><![CDATA[🎁 Invite Friends & Unlock\nPremium for Free!]]></string>
-    <string name="share_azrius_and_get_free_access_to_all_bible_quests_in_the_app">Share Azrius and get free access to all Bible Quests in the app.</string>
+    <string name="share_azrius_and_get_free_access_to_all_bible_quests_in_the_app"> Share Azrius with your friends and
+enjoy free access to all Bible Quests. The more
+friends you invite, the more time you unlock:</string>
     <string name="the_more_friends_you_invite_the_more_time_you_unlock">The more friends you invite, the more time you unlock:</string>
-    <string name="invite_10_friends_get_1_month_free">👥 Invite 10 friends → Get 1 month free</string>
-    <string name="invite_6_friends_get_2_weeks_free">👥 Invite 6 friends → Get 2 weeks free</string>
+    <string name="invite_10_friends_get_1_month_free">Invite 10 friends → Get 1 month free</string>
+    <string name="invite_6_friends_get_2_weeks_free">Invite 6 friends → Get 2 weeks free</string>
     <string name="your_referred_friends">Your Referred Friends:</string>
-    <string name="_1_share_your_unique_referral_link_below_n2_friends_must_download_azrius_using_your_link_n3_they_must_sign_in_and_create_an_account_no_subscription_needed_n4_as_your_friends_join_your_invite_count_increases_your_free_access_unlocks_automatically_after_the_10_day_window_ends_if_the_referral_goal_has_been_met">1. Share your unique referral link below\n2. Friends must download Azrius using your link\n3. They must sign in and create an account (no subscription needed)\n4. As your friends join, your invite count increases - your free access unlocks automatically after the 10-day window ends, if the referral goal has been met.</string>
+    <string name="_1_share_your_unique_referral_link_below_n2_friends_must_download_azrius_using_your_link_n3_they_must_sign_in_and_create_an_account_no_subscription_needed_n4_as_your_friends_join_your_invite_count_increases_your_free_access_unlocks_automatically_after_the_10_day_window_ends_if_the_referral_goal_has_been_met">1. Share your unique link or code below.\n2. Friends must download Azrius using your link
+or enter your code when they sign up.\n3. Your invite count updates automatically as
+friends join.\n4. When the 10 day window ends, your
+Premium access unlocks if the goal has been
+met.</string>
     <string name="share_invite_link">Share Invite Link</string>
+    <string name="you_haven_t_referred_any_friends_yet">You haven\'t referred any friends yet.</string>
+    <string name="referral_code">Referral Code</string>
+    <string name="upload_music_songs_of_the_day_week"><![CDATA[Upload Music (Songs of the Day & Week)]]></string>
 </resources>

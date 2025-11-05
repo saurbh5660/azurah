@@ -223,6 +223,48 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tlReferral"
+                style="@style/CustomTextInputLayout"
+                android:theme="@style/EditTextThemeOverlay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/referral_code"
+                android:elevation="8dp"
+                app:hintTextAppearance="@style/TextLabel"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                app:expandedHintEnabled="false"
+                app:boxStrokeColor="@color/blue"
+                app:cursorColor="@color/cursor_color"
+                android:textColorHint="@color/light_black"
+                app:boxCornerRadiusBottomEnd="@dimen/_20sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_20sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_20sdp"
+                app:boxCornerRadiusTopStart="@dimen/_20sdp"
+                app:errorTextAppearance="@style/ErrorTextAppearance"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tlEmailName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etReferralCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:paddingTop="20dp"
+                    android:fontFamily="@font/poppins"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColorHighlight="@color/cursor_color"
+                    android:textCursorDrawable="@drawable/custom_cursor"
+                    android:textColor="@color/black"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tlPassword"
                  style="@style/CustomTextInputLayout"
                 android:theme="@style/EditTextThemeOverlay"
@@ -246,7 +288,7 @@
                 app:errorTextAppearance="@style/ErrorTextAppearance"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tlEmailName">
+                app:layout_constraintTop_toBottomOf="@id/tlReferral">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPassword"

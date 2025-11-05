@@ -128,11 +128,13 @@ object ApiConstants {
     const val NEW_PASSWORD = "appApi/auth/update_reset_password"
     const val VERIFY_PASSWORD = "appApi/auth/verify_reset_password_otp"
     const val ADD_RATING = "appApi/dashboard/bibleQuest/rating/add"
+
     const val PRODUCT_MAY_LIKE = "appApi/shop/product/youMayLike"
     const val GET_COUNTS = "appApi/user/getCounts"
     const val SEND_ACCOUNT_DELETION_API = "appApi/auth/sendAccountDeletionMail"
     const val CHANGE_EMAIL_REQUEST = "appApi/auth/changeEmailRequest"
     const val GET_MY_REFERRAL_CODE = "appApi/auth/getMyReferralCode"
+    const val CHECK_REFERRAL_CODE = "appApi/auth/checkReferralCode"
     const val HASHTAG_LIST = "appApi/post/hashtagList"
 
     var isMute = false

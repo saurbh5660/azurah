@@ -180,7 +180,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvHashTag"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_150sdp"
+                        android:layout_height="@dimen/_80sdp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

@@ -78,6 +78,10 @@ class SettingActivity : AppCompatActivity(), Observer<Resource<Any>> {
                 startActivity(Intent(this@SettingActivity,SubscriptionActivity::class.java))
             }
 
+            clSongs.setOnClickListener {
+                openUrlInBrowser(this@SettingActivity,"https://azrius.com/pages/song-submission")
+            }
+
             clDonate.setOnClickListener {
                 openUrlInBrowser(this@SettingActivity,"https://donate.stripe.com/dR6cQO252alBdVe146")
             }

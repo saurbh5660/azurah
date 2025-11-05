@@ -36,6 +36,7 @@ import com.live.azurah.model.ProductResponse
 import com.live.azurah.model.ProfileResponse
 import com.live.azurah.model.QuestionResponse
 import com.live.azurah.model.RecentSearchResposne
+import com.live.azurah.model.ReferralRewardResponse
 import com.live.azurah.model.ReportFeedback
 import com.live.azurah.model.SavedEventResponse
 import com.live.azurah.model.SavedPostResponse
@@ -525,10 +526,14 @@ interface ApiServiceInterface {
     suspend fun getCounts(): CountResponse
 
     @GET(ApiConstants.GET_MY_REFERRAL_CODE)
-    suspend fun getMyReferralCode(): WishlistResponse
+    suspend fun getMyReferralCode(): ReferralRewardResponse
 
     @GET(ApiConstants.HASHTAG_LIST)
     suspend fun getHashTagList(@QueryMap map: HashMap<String, String>): HashTagResponse
+
+    @FormUrlEncoded
+    @POST(ApiConstants.CHECK_REFERRAL_CODE)
+    suspend fun checkReferralCode(@FieldMap map: HashMap<String, String>): CommonResponse
 
 }
 

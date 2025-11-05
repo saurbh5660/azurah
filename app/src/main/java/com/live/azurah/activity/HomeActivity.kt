@@ -668,6 +668,10 @@ class HomeActivity : AppCompatActivity() {
             tvHaveDone.text = "Saved Posts"
             tvBlockUser.text = "Settings"
 
+            ivReward.visible()
+            tvReward.visible()
+            divider18.visible()
+
             tvNotDone.setOnClickListener {
                 myPopupWindow.dismiss()
                 showCustomSnackbar(this@HomeActivity,binding.root,"Share profile coming soon.")
@@ -682,6 +686,15 @@ class HomeActivity : AppCompatActivity() {
             tvBlockUser.setOnClickListener {
                 myPopupWindow.dismiss()
                 startActivity(Intent(this@HomeActivity,SettingActivity::class.java))
+            }
+
+            tvReward.setOnClickListener {
+                myPopupWindow.dismiss()
+                startActivity(Intent(this@HomeActivity, ReferralActivity::class.java))
+            }
+            ivReward.setOnClickListener {
+                myPopupWindow.dismiss()
+                startActivity(Intent(this@HomeActivity, ReferralActivity::class.java))
             }
         }
 

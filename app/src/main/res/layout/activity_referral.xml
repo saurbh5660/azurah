@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".activity.ReferralActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -96,11 +97,17 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:src="@drawable/clock"
+                        app:tint="@color/white"/>
+
                     <TextView
                         android:id="@+id/tvDaysLeft"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="⏳ 10 days left"
+                        android:layout_marginStart="@dimen/_5sdp"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_12sdp"
                         android:fontFamily="@font/poppins_medium"
@@ -118,6 +125,7 @@
                 android:layout_marginTop="@dimen/_8sdp"
                 android:textSize="@dimen/_15sdp"
                 android:gravity="center"
+                android:visibility="gone"
                 android:layout_marginHorizontal="@dimen/_30sdp"
                 android:fontFamily="@font/poppins_semibold"
                 android:includeFontPadding="false"/>
@@ -141,6 +149,7 @@
                 android:textColor="@color/black"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:textSize="@dimen/_12sdp"
+                android:visibility="gone"
                 android:layout_marginHorizontal="@dimen/_30sdp"
                 android:fontFamily="@font/poppins_semibold"
                 android:includeFontPadding="false"/>
@@ -152,8 +161,9 @@
                 android:textColor="@color/black"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:textSize="@dimen/_12sdp"
+                android:gravity="center_horizontal"
                 android:layout_marginHorizontal="@dimen/_30sdp"
-                android:fontFamily="@font/poppins"
+                android:fontFamily="@font/poppins_semibold"
                 android:includeFontPadding="false"/>
 
             <TextView
@@ -163,8 +173,9 @@
                 android:textColor="@color/black"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:textSize="@dimen/_12sdp"
+                android:gravity="center_horizontal"
                 android:layout_marginHorizontal="@dimen/_30sdp"
-                android:fontFamily="@font/poppins"
+                android:fontFamily="@font/poppins_semibold"
                 android:includeFontPadding="false"/>
 
             <com.google.android.material.card.MaterialCardView
@@ -186,9 +197,9 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tvReferralCode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ETSSDSFD"
                         android:textColor="@color/black"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/_8sdp"
@@ -202,11 +213,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Copy"
-                        android:textColor="@color/colorGreyLt"
+                        android:textColor="#0779b8"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/_12sdp"
                         android:layout_alignParentEnd="true"
-                        android:textSize="@dimen/_10sdp"
+                        android:textSize="@dimen/_12sdp"
                         android:fontFamily="@font/poppins_medium"
                         android:includeFontPadding="false"/>
 
@@ -257,11 +268,28 @@
                 android:orientation="vertical"
                 tools:listitem="@layout/item_block_user"
                 tools:itemCount="10"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_30sdp"
                 android:layout_marginTop="@dimen/_8sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvBlocked"
                 app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvNoFriends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/you_haven_t_referred_any_friends_yet"
+                android:textColor="@color/black"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:visibility="gone"
+                android:layout_marginBottom="@dimen/_50sdp"
+                android:textSize="@dimen/_12sdp"
+                android:layout_marginHorizontal="@dimen/_30sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:includeFontPadding="false"/>
 
         </LinearLayout>
 

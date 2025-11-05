@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.text.Layout
+import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.StaticLayout
@@ -16,6 +17,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -39,6 +41,7 @@ import com.live.azurah.util.visible
 class PostDetailAdapter(var context: Context, val recyclerView: RecyclerView,val type:Int = 0) :
     ListAdapter<PostResponse.Body.Data, PostDetailAdapter.HomeViewHolder>(DIFF_CALLBACK) {
     var onClick: ((pos: Int, userId: String, type: String, postId: String) -> Unit)? = null
+    var onTagClick: ((tag:String) -> Unit)? = null
     var onSuggestionSeeAll: ((pos: Int) -> Unit)? = null
     var onLikeUnlike: ((pos: Int,model: PostResponse.Body.Data) -> Unit)? = null
     var onBookmark: ((pos: Int,model: PostResponse.Body.Data) -> Unit)? = null
@@ -156,7 +159,6 @@ class PostDetailAdapter(var context: Context, val recyclerView: RecyclerView,val
                 view122.gone()
 
             }
-
 
             ivPosts.loadImage(ApiConstants.IMAGE_BASE_URL+item.user?.image, placeholder = R.drawable.profile_icon)
             setupSeeMoreText(tvDescription, removeExtraSpaces(item?.description ?: ""))
@@ -298,7 +300,7 @@ class PostDetailAdapter(var context: Context, val recyclerView: RecyclerView,val
         }
     }*/
 
-    private fun setupSeeMoreText(textView: TextView, fullText: String) {
+/*    private fun setupSeeMoreText(textView: TextView, fullText: String) {
         textView.post {
             val paint = textView.paint
             val width = textView.width - textView.paddingLeft - textView.paddingRight
@@ -454,6 +456,275 @@ class PostDetailAdapter(var context: Context, val recyclerView: RecyclerView,val
         textView.highlightColor = Color.TRANSPARENT
         textView.text = spannableString
         textView.setOnClickListener(null)
+    }*/
+
+    private fun setupSeeMoreText(textView: TextView, fullText: String) {
+        textView.post {
+            val paint = textView.paint
+            val width = textView.width - textView.paddingLeft - textView.paddingRight
+
+            if (width > 0) {
+                // Create a static layout to measure the full text
+                val staticLayout = StaticLayout(
+                    fullText,
+                    paint,
+                    width,
+                    Layout.Alignment.ALIGN_NORMAL,
+                    1.0f,
+                    0.0f,
+                    false
+                )
+
+                if (staticLayout.lineCount > 5) {
+                    val seeMoreText = " See More"
+                    val ellipsisWidth = paint.measureText("...")
+                    val seeMoreWidth = paint.measureText(seeMoreText)
+                    val totalAppendWidth = ellipsisWidth + seeMoreWidth
+
+                    // Find the maximum text that can fit in 5 lines including "See More"
+                    var low = 0
+                    var high = fullText.length
+                    var bestIndex = staticLayout.getLineEnd(4) // End of 5th line
+
+                    while (low <= high) {
+                        val mid = (low + high) / 2
+                        val testText = fullText.substring(0, mid).trim() + "..."
+
+                        val testLayout = StaticLayout(
+                            testText,
+                            paint,
+                            width,
+                            Layout.Alignment.ALIGN_NORMAL,
+                            1.0f,
+                            0.0f,
+                            false
+                        )
+
+                        if (testLayout.lineCount <= 5) {
+                            // This text fits in 5 lines, try to include more
+                            bestIndex = mid
+                            low = mid + 1
+                        } else {
+                            // Too long, reduce the text
+                            high = mid - 1
+                        }
+                    }
+
+                    // Now find where to actually truncate to make space for "See More"
+                    var truncatedText = fullText.substring(0, bestIndex).trim()
+
+                    // Create test layout with "See More" to check if it fits
+                    val testTextWithSeeMore = truncatedText + "..." + seeMoreText
+                    val finalLayout = StaticLayout(
+                        testTextWithSeeMore,
+                        paint,
+                        width,
+                        Layout.Alignment.ALIGN_NORMAL,
+                        1.0f,
+                        0.0f,
+                        false
+                    )
+
+                    // If it still doesn't fit, backtrack more
+                    if (finalLayout.lineCount > 5) {
+                        var newBestIndex = bestIndex
+                        while (newBestIndex > 0 && finalLayout.lineCount > 5) {
+                            newBestIndex--
+                            truncatedText = fullText.substring(0, newBestIndex).trim()
+                            val newTestText = truncatedText + "..." + seeMoreText
+                            val newLayout = StaticLayout(
+                                newTestText,
+                                paint,
+                                width,
+                                Layout.Alignment.ALIGN_NORMAL,
+                                1.0f,
+                                0.0f,
+                                false
+                            )
+                            if (newLayout.lineCount <= 5) {
+                                break
+                            }
+                        }
+                    }
+
+                    // Try to end at a word boundary
+                    val lastSpaceIndex = truncatedText.lastIndexOf(' ')
+                    if (lastSpaceIndex > 0 && lastSpaceIndex > truncatedText.length - 20) {
+                        truncatedText = truncatedText.substring(0, lastSpaceIndex).trim()
+                    }
+
+                    val displayText = truncatedText + "..." + seeMoreText
+                    setupSpannableText(textView, displayText, truncatedText + "...", fullText)
+
+                } else {
+                    // If text fits in 5 lines, just apply hashtag coloring and click
+                    val spannableText = createHashtagSpannableText(fullText)
+                    textView.text = spannableText
+                    setupHashtagClick(textView, fullText)
+                }
+            }
+        }
+    }
+
+    private fun setupSpannableText(
+        textView: TextView,
+        displayText: String,
+        truncatedText: String,
+        fullText: String
+    ) {
+        val spannableString = SpannableString(displayText)
+        var isExpanded = false
+
+        val seeMoreClickable = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                // When "See More" is clicked, show full text with hashtag formatting
+                val fullSpannableText = createHashtagSpannableText(fullText)
+                textView.text = fullSpannableText
+                setupHashtagClick(textView, fullText)
+                isExpanded = true
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                ds.isUnderlineText = false
+                ds.color = ContextCompat.getColor(textView.context, R.color.blue)
+            }
+        }
+
+        val truncatedClickable = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                // Do nothing for truncated text click
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                ds.isUnderlineText = false
+                ds.color = ContextCompat.getColor(textView.context, R.color.black)
+            }
+        }
+
+        spannableString.setSpan(
+            truncatedClickable,
+            0,
+            truncatedText.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        spannableString.setSpan(
+            seeMoreClickable,
+            truncatedText.length,
+            displayText.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        // Apply hashtag coloring to the truncated text
+        applyHashtagColoring(spannableString, truncatedText)
+
+        textView.movementMethod = LinkMovementMethod.getInstance()
+        textView.highlightColor = Color.TRANSPARENT
+        textView.text = spannableString
+        textView.setOnClickListener(null)
+    }
+
+    private fun createHashtagSpannableText(fullText: String): SpannableString {
+        val spannableString = SpannableString(fullText)
+
+        val newlineIndex = fullText.indexOf('\n')
+        if (newlineIndex != -1) {
+            // Color hashtags only after newline
+            val hashtagsLine = fullText.substring(newlineIndex + 1)
+            val hashtagPattern = "#\\w+".toRegex()
+
+            hashtagPattern.findAll(hashtagsLine).forEach { matchResult ->
+                val startIndex = newlineIndex + 1 + matchResult.range.first
+                val endIndex = newlineIndex + 1 + matchResult.range.last + 1
+
+                spannableString.setSpan(
+                    ForegroundColorSpan(ContextCompat.getColor(context, R.color.blue)),
+                    startIndex,
+                    endIndex,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+
+                // Make hashtag clickable
+                val hashtagClickable = object : ClickableSpan() {
+                    override fun onClick(widget: View) {
+                        onHashtagClick(matchResult.value)
+                    }
+
+                    override fun updateDrawState(ds: TextPaint) {
+                        ds.isUnderlineText = false
+                        ds.color = ContextCompat.getColor(context, R.color.blue)
+                    }
+                }
+
+                spannableString.setSpan(
+                    hashtagClickable,
+                    startIndex,
+                    endIndex,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+        } else {
+            // If no newline, color all hashtags (optional - remove if you don't want this)
+            val hashtagPattern = "#\\w+".toRegex()
+            hashtagPattern.findAll(fullText).forEach { matchResult ->
+                spannableString.setSpan(
+                    ForegroundColorSpan(ContextCompat.getColor(context, R.color.blue)),
+                    matchResult.range.first,
+                    matchResult.range.last + 1,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+
+                // Make hashtag clickable
+                val hashtagClickable = object : ClickableSpan() {
+                    override fun onClick(widget: View) {
+                        onHashtagClick(matchResult.value)
+                    }
+
+                    override fun updateDrawState(ds: TextPaint) {
+                        ds.isUnderlineText = false
+                        ds.color = ContextCompat.getColor(context, R.color.blue)
+                    }
+                }
+
+                spannableString.setSpan(
+                    hashtagClickable,
+                    matchResult.range.first,
+                    matchResult.range.last + 1,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+        }
+
+        return spannableString
+    }
+
+    private fun applyHashtagColoring(spannableString: SpannableString, text: String) {
+        val newlineIndex = text.indexOf('\n')
+        if (newlineIndex != -1) {
+            val hashtagsLine = text.substring(newlineIndex + 1)
+            val hashtagPattern = "#\\w+".toRegex()
+
+            hashtagPattern.findAll(hashtagsLine).forEach { matchResult ->
+                val startIndex = newlineIndex + 1 + matchResult.range.first
+                val endIndex = newlineIndex + 1 + matchResult.range.last + 1
+
+                spannableString.setSpan(
+                    ForegroundColorSpan(ContextCompat.getColor(context, R.color.blue)),
+                    startIndex,
+                    endIndex,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+        }
+    }
+
+    private fun setupHashtagClick(textView: TextView, fullText: String) {
+        textView.movementMethod = LinkMovementMethod.getInstance()
+        textView.highlightColor = Color.TRANSPARENT
+    }
+
+    private fun onHashtagClick(hashtag: String) {
+        onTagClick?.invoke(hashtag)
     }
 
 }

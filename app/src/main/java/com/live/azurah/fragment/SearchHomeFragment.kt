@@ -37,7 +37,7 @@ import java.util.Timer
 import java.util.TimerTask
 
 @AndroidEntryPoint
-class SearchHomeFragment : Fragment(), Observer<Resource<Any>> {
+class SearchHomeFragment(var hashTag: String? = null) : Fragment(), Observer<Resource<Any>> {
     private val tabList = arrayOf("Posts" to R.drawable.tag_user, "Users" to R.drawable.post_icon)
 
 //    private val loaderDialog by lazy { LoaderDialog(requireContext()) }
@@ -77,8 +77,12 @@ class SearchHomeFragment : Fragment(), Observer<Resource<Any>> {
             tab.text = tabList[position].first
         }.attach()
 
-        getRecentSearch()
 
+        if (hashTag != null){
+            binding.etSearch.setText(hashTag)
+        }else{
+            getRecentSearch()
+        }
     }
 
     private fun setViewPagerAdapter() {

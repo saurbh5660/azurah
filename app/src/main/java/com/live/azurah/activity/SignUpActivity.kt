@@ -29,6 +29,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.messaging.FirebaseMessaging
 import com.live.azurah.R
 import com.live.azurah.databinding.ActivitySignUpBinding
+import com.live.azurah.model.CommonResponse
 import com.live.azurah.model.SignUpResponse
 import com.live.azurah.retrofit.LoaderDialog
 import com.live.azurah.retrofit.Resource
@@ -119,15 +120,23 @@ class SignUpActivity : AppCompatActivity(), Observer<Resource<Any>> {
                     return@setOnClickListener
                 }
 
-                val map = HashMap<String,String>()
-                map["first_name"] = etFirstName.text.toString().trim()
-                map["last_name"] = etLastName.text.toString().trim()
-                map["email"] = etLEmailName.text.toString().trim()
-                map["password"] = etPassword.text.toString().trim()
-                map["device_type"] = "1"
-                map["device_token"] = deviceToken
+                if (binding.etReferralCode.text.toString().trim().isNotEmpty()){
+                    val map = HashMap<String,String>()
+                    map["referral_code"] = etReferralCode.text.toString().trim()
+                    viewModel.checkReferralCode(map,this@SignUpActivity).observe(this@SignUpActivity,this@SignUpActivity)
+                }else{
+                    val map = HashMap<String,String>()
+                    map["first_name"] = etFirstName.text.toString().trim()
+                    map["last_name"] = etLastName.text.toString().trim()
+                    map["email"] = etLEmailName.text.toString().trim()
+                    map["password"] = etPassword.text.toString().trim()
+                    map["device_type"] = "1"
+                    map["device_token"] = deviceToken
 
-                viewModel.signUp(map,this@SignUpActivity).observe(this@SignUpActivity,this@SignUpActivity)
+                    viewModel.signUp(map,this@SignUpActivity).observe(this@SignUpActivity,this@SignUpActivity)
+
+                }
+
             }
             tvSignIn.setOnClickListener {
                 startActivity(Intent(this@SignUpActivity,LoginActivity::class.java))
@@ -195,10 +204,21 @@ class SignUpActivity : AppCompatActivity(), Observer<Resource<Any>> {
                         savePreference("token",res?.access_token ?: "")
                         savePreference("email",res?.email ?: "")
 
-              /*          lifecycleScope.launch {
-                            delay(700)*/
-                            startActivity(Intent(this@SignUpActivity, VerificationActivity::class.java))
-//                        }
+                        startActivity(Intent(this@SignUpActivity, VerificationActivity::class.java))
+                    }
+
+                    is CommonResponse -> {
+                        val map = HashMap<String,String>()
+                        map["first_name"] = binding.etFirstName.text.toString().trim()
+                        map["last_name"] = binding.etLastName.text.toString().trim()
+                        map["email"] = binding.etLEmailName.text.toString().trim()
+                        map["password"] = binding.etPassword.text.toString().trim()
+                        map["device_type"] = "1"
+                        map["referral_code"] = binding.etReferralCode.text.toString().trim()
+                        map["device_token"] = deviceToken
+
+                        viewModel.signUp(map,this@SignUpActivity).observe(this@SignUpActivity,this@SignUpActivity)
+
                     }
 
                 }

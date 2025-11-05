@@ -101,6 +101,49 @@
                 tools:layout_editor_absoluteX="1dp"
                 tools:layout_editor_absoluteY="60dp" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivReward"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            app:tint="@color/black"
+            android:visibility="gone"
+            android:src="@drawable/gift_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvReward"
+            app:layout_constraintBottom_toBottomOf="@+id/tvReward"/>
+
+        <TextView
+            android:id="@+id/tvReward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="start"
+            android:includeFontPadding="false"
+            android:paddingVertical="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_14sdp"
+            android:visibility="gone"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:text="Referral Rewards"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivReportUser"
+            app:layout_constraintTop_toBottomOf="@+id/divider16" />
+
+        <View
+            android:id="@+id/divider18"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/divider_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvReward"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="60dp" />
+
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivBlockUser"
@@ -128,7 +171,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ivBlockUser"
-                app:layout_constraintTop_toBottomOf="@+id/divider16" />
+                app:layout_constraintTop_toBottomOf="@+id/divider18" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
