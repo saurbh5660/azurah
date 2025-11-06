@@ -39,7 +39,7 @@ class AdviceAdapter(val ctx: Context,val list : ArrayList<BibleQuestViewModel.Bo
 
             ivProduct.loadImage(ApiConstants.IMAGE_BASE_URL+model.product?.productImages?.firstOrNull()?.image)
             tvProductName.text = model.product?.name ?: ""
-            tvOverview.text = model.product?.description ?: ""
+//            tvOverview.text = model.product?.description ?: ""
             tvPrice.text = buildString {
                 append("£")
                 append(model.product?.price ?: "")
