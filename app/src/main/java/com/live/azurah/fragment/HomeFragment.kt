@@ -266,8 +266,7 @@ class HomeFragment : Fragment(),
         }
 
         postAdapter.shareListener = { pos, model ->
-            showCustomSnackbar(requireContext(), binding.root, "Share post coming soon.")
-            /* if (model.user?.profile_type == 2){
+             if (model.user?.profile_type == 2){
                  showShareDialog(pos,model.id.toString())
              }else{
                  if (model.user?.id.toString() == getPreference("id","")){
@@ -276,7 +275,7 @@ class HomeFragment : Fragment(),
                      showSharePrivateDialog()
                  }
 
-             }*/
+             }
         }
     }
 
@@ -1849,12 +1848,13 @@ class HomeFragment : Fragment(),
         resetBinding.btnLink.visibility = View.VISIBLE
 
         resetBinding.btnLink.text = buildString {
-            append("https://app.azrius.co.uk/admin/public-post/")
+//            append("https://app.azrius.co.uk/admin/public-post/")
+            append("https://app.azrius.co.uk/common_api/deepLinking/post?post_id=")
             append(id)
         }
         resetBinding.btnCopy.setOnClickListener {
             customDialog.dismiss()
-            copyToClipboard("https://app.azrius.co.uk/admin/public-post/" + id)
+            copyToClipboard("https://app.azrius.co.uk/common_api/deepLinking/post?post_id=$id")
         }
 
         resetBinding.ivCross.setOnClickListener {

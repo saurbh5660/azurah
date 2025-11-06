@@ -1186,4 +1186,12 @@ class CommonViewModel @Inject constructor(private val commonRepository: CommonRe
         }
     }
 
+    fun updateSubscription(map: HashMap<String, String>, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.updateSubscription(map, activity)
+            emit(response)
+        }
+    }
+
 }

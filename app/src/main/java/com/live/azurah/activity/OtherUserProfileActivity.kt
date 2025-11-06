@@ -805,19 +805,6 @@ class OtherUserProfileActivity : AppCompatActivity(), Observer<Resource<Any>> {
         super.onDestroy()
         binding.shimmerLayout.stopShimmer()
     }
-
-  /*  private fun handleDeepLink(intent: Intent) {
-        val data: Uri? = intent.data
-        data?.let {
-            // Example: https://yourdomain.com/profile/12345
-            val pathSegments = it.pathSegments
-            if (pathSegments.size >= 2 && pathSegments[0] == "profile") {
-                id = pathSegments[1]
-                Log.d("DeepLink", "User ID from link: $id")
-            }
-        }
-    }*/
-
     private fun handleDeepLink(intent: Intent) {
         val data: Uri? = intent.data
         data?.let {

@@ -29,25 +29,6 @@ class EventIntroFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-      /*  val backPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val currentTime = System.currentTimeMillis()
-                if (currentTime - backPressedTime < doubleBackToExitDuration) {
-                    requireActivity().finishAffinity()
-                    return
-                }
-                backPressedTime = currentTime
-                lifecycleScope.launch {
-                    (requireActivity() as HomeActivity).binding.clTapAgain.visibility = View.VISIBLE
-                    delay(2000)
-                    (requireActivity() as HomeActivity).binding.clTapAgain.visibility = View.GONE
-                }
-            }
-        }
-
-
-        requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), backPressedCallback)
-*/
 
         with(binding){
             ivNext.setOnClickListener {
@@ -56,6 +37,7 @@ class EventIntroFragment : Fragment() {
             }
             tvSkip.setOnClickListener {
                 (requireActivity() as HomeActivity).removeFragment()
+                (requireActivity() as HomeActivity).faithBuilderDialog()
             }
 
 

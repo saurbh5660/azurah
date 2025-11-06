@@ -11,6 +11,7 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -18,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.android.billingclient.api.AcknowledgePurchaseParams
 import com.android.billingclient.api.BillingClient
@@ -27,15 +29,30 @@ import com.live.azurah.R
 import com.live.azurah.databinding.ActivitySubscriptionBinding
 import com.live.azurah.fragment.ViewMoreFragment
 import com.live.azurah.listener.BillingUpdatesListener
+import com.live.azurah.model.CommonResponse
+import com.live.azurah.model.SignUpResponse
 import com.live.azurah.retrofit.LoaderDialog
+import com.live.azurah.retrofit.Resource
+import com.live.azurah.retrofit.Status
 import com.live.azurah.util.BillingManager
+import com.live.azurah.util.savePreference
 import com.live.azurah.util.showCustomSnackbar
+import com.live.azurah.viewmodel.CommonViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import kotlin.getValue
 
-class SubscriptionActivity : AppCompatActivity(), BillingUpdatesListener {
+@AndroidEntryPoint
+class SubscriptionActivity : AppCompatActivity(), BillingUpdatesListener,Observer<Resource<Any>> {
     private lateinit var binding: ActivitySubscriptionBinding
     private lateinit var billingManager: BillingManager
     private var monthlyProduct: ProductDetails? = null
+    private val viewModel by viewModels<CommonViewModel>()
+
     //   private val loaderDialog by lazy { LoaderDialog(this) }
 
 
@@ -181,20 +198,73 @@ class SubscriptionActivity : AppCompatActivity(), BillingUpdatesListener {
         billingManager.billingClient.acknowledgePurchase(params) { result ->
             if (result.responseCode == BillingClient.BillingResponseCode.OK) {
                 lifecycleScope.launch {
-                    showCustomSnackbar(
-                        this@SubscriptionActivity,
-                        binding.root,
-                        "Subscription purchased successfully."
-                    )
-                    finish()
+                    val startDate = formatDate(purchase.purchaseTime)
+                    val endDate = formatDate(getSubscriptionExpiryDate(purchase))
+
+                    updateSubscription(startDate, endDate,purchase.purchaseToken)
                 }
             }
         }
     }
 
+    private fun getSubscriptionExpiryDate(purchase: Purchase): Long {
+        return try {
+            val purchaseTime = purchase.purchaseTime
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = purchaseTime
+            calendar.add(Calendar.MONTH, 1) // Assuming 1 month subscription
+            calendar.timeInMillis
+        } catch (e: Exception) {
+            purchase.purchaseTime + (30L * 24 * 60 * 60 * 1000)
+        }
+    }
+
+    private fun formatDate(timestamp: Long): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return sdf.format(Date(timestamp))
+    }
+
 
     private fun replaceViewFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction().replace(binding.clMainSubscription.id, fragment).addToBackStack(null).commit()
+    }
+
+    override fun onChanged(value: Resource<Any>) {
+        when (value.status) {
+            Status.SUCCESS -> {
+                LoaderDialog.dismiss()
+                when (value.data) {
+                    is CommonResponse -> {
+                        showCustomSnackbar(
+                            this@SubscriptionActivity,
+                            binding.root,
+                            "Subscription purchased successfully."
+                        )
+                        finish()
+                    }
+                }
+            }
+
+            Status.LOADING -> {
+                LoaderDialog.show(this)
+            }
+
+            Status.ERROR -> {
+                LoaderDialog.dismiss()
+                showCustomSnackbar(this,binding.root, value.message.toString())
+            }
+        }
+    }
+
+    private fun updateSubscription(startDate: String, endDate: String,purchaseToken: String){
+        val map = HashMap<String,String>()
+        map["start_date"] = startDate
+        map["end_date"] = endDate
+        map["purchase_token"] = purchaseToken
+
+
+        viewModel.updateSubscription(map,this).observe(this,this)
+
     }
 }
 

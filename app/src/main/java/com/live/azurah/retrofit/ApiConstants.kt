@@ -136,6 +136,7 @@ object ApiConstants {
     const val GET_MY_REFERRAL_CODE = "appApi/auth/getMyReferralCode"
     const val CHECK_REFERRAL_CODE = "appApi/auth/checkReferralCode"
     const val HASHTAG_LIST = "appApi/post/hashtagList"
+    const val UPDATE_SUBSCRIPTION = "appApi/updateSubscription"
 
     var isMute = false
     var isNotification = false

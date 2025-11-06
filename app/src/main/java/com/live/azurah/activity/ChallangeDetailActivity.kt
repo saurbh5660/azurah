@@ -33,7 +33,6 @@ import com.android.billingclient.api.QueryPurchasesParams
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.live.azurah.R
-import com.live.azurah.adapter.ChallengeImageAdapter
 import com.live.azurah.adapter.ShopSliderAdapter
 import com.live.azurah.adapter.ViewPagerAdapter
 import com.live.azurah.databinding.ActivityChallangeDetailBinding
@@ -434,6 +433,8 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
             }
         }
     }
+
+
 
 
 }

@@ -1165,4 +1165,12 @@ class CommonRepository @Inject constructor(
         }
     }
 
+    suspend fun updateSubscription(map: HashMap<String, String>, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.updateSubscription(map))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
 }
