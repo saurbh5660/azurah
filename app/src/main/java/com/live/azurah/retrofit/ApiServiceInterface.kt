@@ -535,5 +535,10 @@ interface ApiServiceInterface {
     @POST(ApiConstants.CHECK_REFERRAL_CODE)
     suspend fun checkReferralCode(@FieldMap map: HashMap<String, String>): CommonResponse
 
+    @FormUrlEncoded
+    @POST(ApiConstants.UPDATE_SUBSCRIPTION)
+    suspend fun updateSubscription(@FieldMap map: HashMap<String, String>): CommonResponse
+
+
 }
 

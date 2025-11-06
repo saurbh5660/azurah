@@ -34,7 +34,9 @@ import com.live.azurah.R
 import com.live.azurah.adapter.ViewPagerAdapter
 import com.live.azurah.databinding.ActivityHomeBinding
 import com.live.azurah.databinding.DialogShareBinding
+import com.live.azurah.databinding.FaithBuilderDialogBinding
 import com.live.azurah.databinding.MenuReportBinding
+import com.live.azurah.databinding.SureDialogBinding
 import com.live.azurah.fragment.AllShopCategoryFragment
 import com.live.azurah.fragment.CategoryDetailFragment
 import com.live.azurah.fragment.DashBoardFragment
@@ -50,6 +52,10 @@ import com.live.azurah.fragment.ShopFragment
 import com.live.azurah.fragment.SongFragment
 import com.live.azurah.fragment.SuggetionForYouFragment
 import com.live.azurah.fragment.UserLikesFragment
+import com.live.azurah.model.CommonResponse
+import com.live.azurah.model.CommunityForumResponse
+import com.live.azurah.retrofit.LoaderDialog
+import com.live.azurah.retrofit.Status
 import com.live.azurah.util.getPreference
 import com.live.azurah.util.gone
 import com.live.azurah.util.showCustomSnackbar
@@ -599,9 +605,13 @@ class HomeActivity : AppCompatActivity() {
         customDialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         customDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
+        resetBinding.btnLink.text = buildString {
+            append("https://app.azrius.co.uk/common_api/deepLinking/profile?user_id=")
+            append(getPreference("id", ""))
+        }
         resetBinding.btnCopy.setOnClickListener {
             customDialog.dismiss()
-            copyToClipboard("https://app.azrius.co.uk/common_api/deepLinking?user_id="+ getPreference("id",""))
+            copyToClipboard("https://app.azrius.co.uk/common_api/deepLinking/profile?user_id="+ getPreference("id",""))
 
         }
 
@@ -674,8 +684,7 @@ class HomeActivity : AppCompatActivity() {
 
             tvNotDone.setOnClickListener {
                 myPopupWindow.dismiss()
-                showCustomSnackbar(this@HomeActivity,binding.root,"Share profile coming soon.")
-//                showShareDialog()
+                showShareDialog()
             }
 
             tvHaveDone.setOnClickListener {
@@ -699,6 +708,26 @@ class HomeActivity : AppCompatActivity() {
         }
 
         myPopupWindow.showAsDropDown(view1, 0, -60)
+
+    }
+
+    fun faithBuilderDialog(){
+        val customDialog = Dialog(this)
+        customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        val faithBuilderDialogBinding = FaithBuilderDialogBinding.inflate(layoutInflater)
+        customDialog.setContentView(faithBuilderDialogBinding.root)
+        customDialog.window?.setGravity(Gravity.CENTER)
+        customDialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        customDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        faithBuilderDialogBinding.ivClose.setOnClickListener {
+            customDialog.dismiss()
+        }
+        faithBuilderDialogBinding.btnInviteFriends.setOnClickListener {
+            customDialog.dismiss()
+            startActivity(Intent(this,ReferralActivity::class.java))
+        }
+        customDialog.show()
     }
 
 }

@@ -5,6 +5,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -123,6 +124,7 @@ class ViewPostActivity : AppCompatActivity(), Observer<Resource<Any>>, ScrollLis
         from = intent.getStringExtra("from") ?: ""
         initListener()
         setAdapter()
+        handleDeepLink(intent)
         getPosts()
     }
 
@@ -249,9 +251,8 @@ class ViewPostActivity : AppCompatActivity(), Observer<Resource<Any>>, ScrollLis
         }
 
         postAdapter.shareListener = { pos,model->
-            showCustomSnackbar(this,binding.root,"Share post coming soon.")
-
-           /* if (model.user?.profile_type == 2){
+//            showCustomSnackbar(this,binding.root,"Share post coming soon.")
+            if (model.user?.profile_type == 2){
                 showShareDialog(pos,model.id.toString())
             }else{
                 if (model.user?.id.toString() == getPreference("id","")){
@@ -260,7 +261,7 @@ class ViewPostActivity : AppCompatActivity(), Observer<Resource<Any>>, ScrollLis
                     showSharePrivateDialog()
                 }
 
-            }*/
+            }
         }
 
     }
@@ -1019,12 +1020,12 @@ class ViewPostActivity : AppCompatActivity(), Observer<Resource<Any>>, ScrollLis
         resetBinding.btnLink.visibility = View.VISIBLE
 
         resetBinding.btnLink.text = buildString {
-            append("https://app.azrius.co.uk/admin/public-post/")
+            append("https://app.azrius.co.uk/common_api/deepLinking/post?post_id=")
             append(id)
         }
         resetBinding.btnCopy.setOnClickListener {
             customDialog.dismiss()
-            copyToClipboard("https://app.azrius.co.uk/admin/public-post/"+id)
+            copyToClipboard("https://app.azrius.co.uk/common_api/deepLinking/post?post_id=$id")
         }
         resetBinding.ivCross.setOnClickListener {
             customDialog.dismiss()
@@ -1258,6 +1259,21 @@ class ViewPostActivity : AppCompatActivity(), Observer<Resource<Any>>, ScrollLis
     override fun listener() {
 
     }
+
+    private fun handleDeepLink(intent: Intent) {
+        val data: Uri? = intent.data
+        data?.let {
+            // Example: https://app.azrius.co.uk/common_api/deepLinking/post?post_id=1
+            val id = it.getQueryParameter("post_id")
+            if (!id.isNullOrEmpty()) {
+                Log.d("DeepLink", "Post ID from link: $id")
+                postId = id
+            } else {
+                Log.w("DeepLink", "No Post id found in the link")
+            }
+        }
+    }
+
 
 
 }
