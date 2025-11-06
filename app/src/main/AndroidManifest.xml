@@ -35,7 +35,8 @@
             android:name=".activity.ViewPostActivity"
             android:exported="true">
 
-            <intent-filter android:autoVerify="true">
+            <intent-filter android:autoVerify="true"
+                android:priority="1">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />

@@ -101,6 +101,8 @@ class ChallangeItemAdapter(
             sb.setSpan(imageSpan, sb.length - 1, sb.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
         textView.text = sb
+        textView.maxLines = 9
+
     }
 
 

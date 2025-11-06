@@ -88,17 +88,17 @@ class DashBoardFragment : Fragment(), Observer<Resource<Any>> {
                                 tvCommuDesc.text =  res?.allResult?.getOrNull(1)?.description ?: ""
                                 ivComm.loadImage(ApiConstants.IMAGE_BASE_URL+res?.allResult?.getOrNull(1)?.image)
 
-                                tvGroupForum.text =  res?.allResult?.getOrNull(2)?.title ?: ""
-                                tvGroupDesc.text =  res?.allResult?.getOrNull(2)?.description ?: ""
-                                ivGroup.loadImage(ApiConstants.IMAGE_BASE_URL+res?.allResult?.getOrNull(2)?.image)
+//                                tvGroupForum.text =  res?.allResult?.getOrNull(2)?.title ?: ""
+//                                tvGroupDesc.text =  res?.allResult?.getOrNull(2)?.description ?: ""
+//                                ivGroup.loadImage(ApiConstants.IMAGE_BASE_URL+res?.allResult?.getOrNull(2)?.image)
 
-                                tvRequest.text =  res?.allResult?.getOrNull(3)?.title ?: ""
-                                tvRequestMessage.text =  res?.allResult?.getOrNull(3)?.description ?: ""
-                                ivRequest.loadImage(ApiConstants.IMAGE_BASE_URL+res?.allResult?.getOrNull(3)?.image)
+                                tvRequest.text =  res?.allResult?.getOrNull(2)?.title ?: ""
+                                tvRequestMessage.text =  res?.allResult?.getOrNull(2)?.description ?: ""
+                                ivRequest.loadImage(ApiConstants.IMAGE_BASE_URL+res?.allResult?.getOrNull(2)?.image)
 
-                                tvTestimonies.text =  res?.allResult?.getOrNull(4)?.title ?: ""
-                                tvRequestTestimonies.text =  res?.allResult?.getOrNull(4)?.description ?: ""
-                                ivTestimonies.loadImage(ApiConstants.IMAGE_BASE_URL+res?.allResult?.getOrNull(4)?.image)
+                                tvTestimonies.text =  res?.allResult?.getOrNull(3)?.title ?: ""
+                                tvRequestTestimonies.text =  res?.allResult?.getOrNull(3)?.description ?: ""
+                                ivTestimonies.loadImage(ApiConstants.IMAGE_BASE_URL+res?.allResult?.getOrNull(3)?.image)
 
                             }
                         }

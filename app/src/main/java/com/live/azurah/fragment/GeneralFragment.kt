@@ -105,12 +105,13 @@ class GeneralFragment : Fragment(), SocketManager.Observer {
     private fun setAdapter() {
         adapter = InboxAdapter(requireContext(), list, 0)
         binding.rvInbox.adapter = adapter
-        if (list.isNotEmpty()) {
+       /* if (list.isNotEmpty()) {
             binding.tvNoDataFound.gone()
         } else {
             binding.tvNoDataFound.visible()
-            binding.tvNoDataFound.text = buildString { append("Start a conversation!") }
-        }
+            binding.tvNoDataFound.text = buildString { append("No messages yet. \n" +
+                    "Start the conversation!") }
+        }*/
     }
 
     override fun onError(event: String, vararg args: Any) {

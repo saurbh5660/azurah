@@ -158,7 +158,6 @@ class SearchProductFragment : Fragment() {
                         }
                     }, delay)
                 }
-
             })
         }
     }
@@ -220,9 +219,7 @@ class SearchProductFragment : Fragment() {
     private fun getLikeProduct() {
         apiType = 0
         isApiRunning = true
-        if (resetPage){
-            currentPage = 1
-        }
+        currentPage = 1
         val map = HashMap<String, String>()
         map["page"] = "1"
         map["limit"] = "5"
@@ -233,9 +230,7 @@ class SearchProductFragment : Fragment() {
                    LoaderDialog.dismiss()
                     when (value.data) {
                         is ProductResponse -> {
-                            if (resetPage) {
-                                productList.clear()
-                            }
+                            productList.clear()
                             value.data.body?.data?.let { productList.addAll(it) }
                             productAdapter?.notifyDataSetChanged()
 
@@ -285,7 +280,7 @@ class SearchProductFragment : Fragment() {
                         when (value.data) {
                             is AddWishlistResponse -> {
                                 productList[pos].is_wishlist =
-                                    (value?.data.body?.status ?: "0").toInt()
+                                    (value?.data?.body?.status ?: "0").toInt()
                                 productAdapter?.notifyItemChanged(pos)
                             }
                         }

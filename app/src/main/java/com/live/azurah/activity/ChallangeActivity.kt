@@ -19,13 +19,10 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayoutMediator
 import com.live.azurah.R
 import com.live.azurah.adapter.CategoryAdapter
-import com.live.azurah.adapter.ChallangeItemAdapter
 import com.live.azurah.adapter.ViewPagerAdapter
 import com.live.azurah.databinding.ActivityChallangeBinding
 import com.live.azurah.fragment.FreeQuestFragment
 import com.live.azurah.fragment.PaidQuestFragment
-import com.live.azurah.fragment.PrayerRequestFragment
-import com.live.azurah.fragment.TestimoniesFragment
 import com.live.azurah.model.CategoryModel
 import com.live.azurah.model.CommunityCategoryResponse
 import com.live.azurah.retrofit.LoaderDialog

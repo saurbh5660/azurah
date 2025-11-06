@@ -37,6 +37,10 @@ import com.live.azurah.adapter.ShopSliderAdapter
 import com.live.azurah.adapter.ViewPagerAdapter
 import com.live.azurah.databinding.ActivityChallangeDetailBinding
 import com.live.azurah.databinding.ConfirmationDialogBinding
+import com.live.azurah.databinding.FaithBuilderDialogBinding
+import com.live.azurah.databinding.PremiumBibleQuestDialogBinding
+import com.live.azurah.databinding.ReachedYourCourseLimitDialogBinding
+import com.live.azurah.databinding.ReachedYourLimitDialogBinding
 import com.live.azurah.fragment.AdviceFragment
 import com.live.azurah.fragment.OverviewFragment
 import com.live.azurah.model.BibleQuestViewModel
@@ -132,23 +136,101 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
             btnRestart.setOnClickListener {
                 if (isPremium == "1") {
                     if (subscribed) {
-                        confirmationDialog()
+                        if ((model?.totalPremiumJoinedChallenges ?: 0) > 1){
+                            if ((model?.isChallengeStarted?: 0) == 1){
+                                confirmationDialog()
+                            }else{
+                                reachedCourseLimitDialog()
+                            }
+                        }
+                        else{
+                            confirmationDialog()
+                        }
                     } else {
-                        startActivity(
-                            Intent(
-                                this@ChallangeDetailActivity,
-                                SubscriptionActivity::class.java
-                            )
-                        )
+                        premiumBibleQuestDialog()
                     }
                 } else {
-                    confirmationDialog()
+                    if ((model?.totalFreeJoinedChallenges ?: 0) > 0){
+                        if (subscribed){
+                            confirmationDialog()
+                        }else{
+                            if ((model?.isChallengeStarted?: 0) == 1){
+                                confirmationDialog()
+                            }else{
+                                reachedLimitDialog()
+                            }
+                        }
+                    }
+                    else{
+                        confirmationDialog()
+                    }
                 }
 
             }
             btnStartChallange.setOnClickListener {
                 if (isPremium == "1") {
                     if (subscribed) {
+                        if ((model?.totalPremiumJoinedChallenges ?: 0) > 1){
+                            if ((model?.isChallengeStarted?: 0) == 1){
+                                startActivity(
+                                    Intent(
+                                        this@ChallangeDetailActivity,
+                                        MarkChallangeActivity::class.java
+                                    ).apply {
+                                        putExtra("from", from)
+                                        putExtra("id", id)
+                                    })
+                            }else{
+                                reachedCourseLimitDialog()
+                            }
+                        }
+                        else{
+                            startActivity(
+                                Intent(
+                                    this@ChallangeDetailActivity,
+                                    MarkChallangeActivity::class.java
+                                ).apply {
+                                    putExtra("from", from)
+                                    putExtra("id", id)
+                                })
+                        }
+
+                    } else {
+                        premiumBibleQuestDialog()
+                       /* startActivity(
+                            Intent(
+                                this@ChallangeDetailActivity,
+                                SubscriptionActivity::class.java
+                            )
+                        )*/
+                    }
+                } else {
+                    if ((model?.totalFreeJoinedChallenges ?: 0) > 0){
+                        if (subscribed){
+                            startActivity(
+                                Intent(
+                                    this@ChallangeDetailActivity,
+                                    MarkChallangeActivity::class.java
+                                ).apply {
+                                    putExtra("from", from)
+                                    putExtra("id", id)
+                                })
+                        }else{
+                            if ((model?.isChallengeStarted?: 0) == 1){
+                                startActivity(
+                                    Intent(
+                                        this@ChallangeDetailActivity,
+                                        MarkChallangeActivity::class.java
+                                    ).apply {
+                                        putExtra("from", from)
+                                        putExtra("id", id)
+                                    })
+                            }else{
+                                reachedLimitDialog()
+                            }
+                        }
+                    }
+                    else{
                         startActivity(
                             Intent(
                                 this@ChallangeDetailActivity,
@@ -157,25 +239,8 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                                 putExtra("from", from)
                                 putExtra("id", id)
                             })
-                    } else {
-                        startActivity(
-                            Intent(
-                                this@ChallangeDetailActivity,
-                                SubscriptionActivity::class.java
-                            )
-                        )
                     }
-                } else {
-                    startActivity(
-                        Intent(
-                            this@ChallangeDetailActivity,
-                            MarkChallangeActivity::class.java
-                        ).apply {
-                            putExtra("from", from)
-                            putExtra("id", id)
-                        })
                 }
-
             }
             backIcon.setOnClickListener {
                 onBackPressedDispatcher.onBackPressed()
@@ -434,7 +499,77 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
         }
     }
 
+    fun premiumBibleQuestDialog(){
+        val customDialog = Dialog(this)
+        customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        val premiumBibleQuestDialogBinding = PremiumBibleQuestDialogBinding.inflate(layoutInflater)
+        customDialog.setContentView(premiumBibleQuestDialogBinding.root)
+        customDialog.window?.setGravity(Gravity.CENTER)
+        customDialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        customDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
+        premiumBibleQuestDialogBinding.ivClose.setOnClickListener {
+            customDialog.dismiss()
+        }
+        premiumBibleQuestDialogBinding.btnInviteFriends.setOnClickListener {
+            customDialog.dismiss()
+            startActivity(Intent(this,ReferralActivity::class.java))
+        }
+        premiumBibleQuestDialogBinding.btnSubscribeNow.setOnClickListener {
+            customDialog.dismiss()
+            startActivity(
+                Intent(
+                    this@ChallangeDetailActivity,
+                    SubscriptionActivity::class.java
+                )
+            )
 
+        }
+        customDialog.show()
+    }
+
+    fun reachedLimitDialog(){
+        val customDialog = Dialog(this)
+        customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        val reachedYourLimitDialogBinding = ReachedYourLimitDialogBinding.inflate(layoutInflater)
+        customDialog.setContentView(reachedYourLimitDialogBinding.root)
+        customDialog.window?.setGravity(Gravity.CENTER)
+        customDialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        customDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        reachedYourLimitDialogBinding.ivClose.setOnClickListener {
+            customDialog.dismiss()
+        }
+
+        reachedYourLimitDialogBinding.btnContinueCourse.setOnClickListener {
+            customDialog.dismiss()
+        }
+        reachedYourLimitDialogBinding.btnUpgradeToPremium.setOnClickListener {
+            customDialog.dismiss()
+            startActivity(
+                Intent(
+                    this@ChallangeDetailActivity,
+                    SubscriptionActivity::class.java
+                )
+            )
+        }
+        customDialog.show()
+    }
+
+    fun reachedCourseLimitDialog(){
+        val customDialog = Dialog(this)
+        customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        val reachedYourCourseLimitDialogBinding = ReachedYourCourseLimitDialogBinding.inflate(layoutInflater)
+        customDialog.setContentView(reachedYourCourseLimitDialogBinding.root)
+        customDialog.window?.setGravity(Gravity.CENTER)
+        customDialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        customDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        reachedYourCourseLimitDialogBinding.ivClose.setOnClickListener {
+            customDialog.dismiss()
+        }
+
+        customDialog.show()
+    }
 
 }

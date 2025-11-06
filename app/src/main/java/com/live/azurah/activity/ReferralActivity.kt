@@ -66,7 +66,7 @@ class ReferralActivity : AppCompatActivity() {
         binding.btnShareLink.setOnClickListener {
             val message = """
                 Hey! 👋  
-                Use my referral code **${binding.tvReferralCode}** to sign up and earn rewards!  
+                Use my referral code **${binding.tvReferralCode.text}** to sign up and earn rewards!  
                 Download the app here: https://play.google.com/store/apps/details?id=${packageName}
             """.trimIndent()
 

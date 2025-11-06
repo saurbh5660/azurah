@@ -92,14 +92,12 @@ class GroupChatFragment : Fragment() , SocketManager.Observer{
     private fun setAdapter() {
         adapter = InboxAdapter(requireContext(),list,1)
         binding.rvInbox.adapter = adapter
-        if (list.isNotEmpty()){
+       /* if (list.isNotEmpty()){
             binding.tvNoDataFound.gone()
         }else{
             binding.tvNoDataFound.visible()
             binding.tvNoDataFound.text = buildString { append("No message requests yet!") }
-          /*  binding.tvNoDataFound.text = buildString { append("Group chats you’ve \n" +
-                    "joined will appear here.") }*/
-        }
+        }*/
     }
 
     override fun onError(event: String, vararg args: Any) {

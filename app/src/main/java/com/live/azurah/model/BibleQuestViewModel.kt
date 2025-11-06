@@ -48,6 +48,16 @@ data class BibleQuestViewModel(
         val isChallengeCompleted: Int? = null,
         @SerializedName("is_challenge_started")
         val isChallengeStarted: Int? = null,
+        @SerializedName("free_order")
+        val freeOrder: Int? = null,
+        @SerializedName("premium_order")
+        val premiumOrder: Int? = null,
+        @SerializedName("show_order")
+        val showOrder: Int? = null,
+        @SerializedName("total_premium_joined_challenges")
+        val totalPremiumJoinedChallenges: Int? = null,
+        @SerializedName("total_free_joined_challenges")
+        val totalFreeJoinedChallenges: Int? = null,
         @SerializedName("is_deleted")
         val isDeleted: String? = null,
         @SerializedName("is_premium")
