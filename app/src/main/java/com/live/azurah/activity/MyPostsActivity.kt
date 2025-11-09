@@ -52,6 +52,7 @@ import com.live.azurah.databinding.MenuReportCommentBinding
 import com.live.azurah.databinding.MenuReportDeleteDialogBinding
 import com.live.azurah.databinding.MenuReportMemberBinding
 import com.live.azurah.databinding.SureDialogBinding
+import com.live.azurah.fragment.SearchHomeFragment
 import com.live.azurah.fragment.SuggetionForYouFragment
 import com.live.azurah.fragment.UserLikesFragment
 import com.live.azurah.model.CommentCommonResponse
@@ -188,6 +189,11 @@ class MyPostsActivity : AppCompatActivity(), Observer<Resource<Any>> , ScrollLis
         postAdapter.onSuggestionSeeAll = { pos ->
             replaceFragment(SuggetionForYouFragment())
         }
+
+        postAdapter.onTagClick={tag->
+            replaceFragment(SearchHomeFragment(tag))
+        }
+
         postAdapter.onLikeUnlike = { pos, model ->
             val map = HashMap<String, String>()
             map["post_id"] = model.id.toString()
@@ -291,10 +297,42 @@ class MyPostsActivity : AppCompatActivity(), Observer<Resource<Any>> , ScrollLis
 
         postAdapter.shareListener = { pos,model->
             if (model.user?.profile_type == 2){
-                showShareDialog(pos,model.id.toString())
+                if (model.user?.profile_type == 2) {
+                    val shareLink = buildString {
+                        append("Want to see this post?\n")
+                        append("Download Azrius – the Christian social media app where you can explore Bible Quests, share testimonies, join discussions, and connect with others through faith.\n")
+                        append("Available now on the App Store and Google Play.\n")
+                        append("Post link: https://app.azrius.co.uk/common_api/deepLinking/post?post_id=")
+                        append(model.id.toString())
+                    }
+
+                    val intent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT, shareLink)
+                    }
+
+                    startActivity(Intent.createChooser(intent, "Share Post"))
+                }
+//                showShareDialog(pos,model.id.toString())
             }else{
                 if (model.user?.id.toString() == getPreference("id","")){
-                    showShareDialog(pos,model.id.toString())
+                    if (model.user?.profile_type == 2) {
+                        val shareLink = buildString {
+                            append("Want to see this post?\n")
+                            append("Download Azrius – the Christian social media app where you can explore Bible Quests, share testimonies, join discussions, and connect with others through faith.\n")
+                            append("Available now on the App Store and Google Play.\n")
+                            append("Post link: https://app.azrius.co.uk/common_api/deepLinking/post?post_id=")
+                            append(model.id.toString())
+                        }
+
+                        val intent = Intent(Intent.ACTION_SEND).apply {
+                            type = "text/plain"
+                            putExtra(Intent.EXTRA_TEXT, shareLink)
+                        }
+
+                        startActivity(Intent.createChooser(intent, "Share Post"))
+                    }
+//                    showShareDialog(pos,model.id.toString())
                 }else{
                     showSharePrivateDialog()
                 }

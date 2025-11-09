@@ -8,6 +8,8 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -15,6 +17,10 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.Animation
+import android.view.animation.DecelerateInterpolator
+import android.view.animation.TranslateAnimation
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
@@ -109,6 +115,8 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
     private var messageRequest = 0
     private var isSenderBlockByAdmin = ""
     private var isReceiverBlockByAdmin = ""
+    private var receiverProfileType = 0
+    private var senderProfileType = 0
 
 
     private val typingHandler = android.os.Handler()
@@ -175,6 +183,9 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
             binding.tvMessage.visibility = View.GONE
             getGroupMessage()
         }
+        binding.cvTime.gone()
+        binding.cvTime.translationY = -binding.cvTime.height.toFloat()
+        binding.cvTime.alpha = 0f
         initListener()
         setChatAdapter()
         getMuteStatus()
@@ -219,6 +230,8 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
                                 messageRequest = res?.messageRequest ?: 0
                                 isReceiverBlockByAdmin = res?.isReceiverBlockByAdmin ?: ""
                                 isSenderBlockByAdmin = res?.isSenderBlockByAdmin ?: ""
+                                senderProfileType = res?.senderProfileType ?: 0
+                                receiverProfileType = res?.receiverProfileType ?: 0
 
                                 if (isSenderBlockByAdmin == "1"){
                                     showCustomToast(this@ChatActivity,"Your account has been blocked by the admin.")
@@ -252,16 +265,33 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
     }
 
     private fun setMessageLayout() {
-        if (isFollowByOther != 1 && isFollowByOther != 0) {
-            if (messageRequest == 1) {
-                binding.llRequestLayout.gone()
-            } else {
-                binding.llRequestLayout.visible()
-                binding.llSendRequest.visible()
-                binding.llRequested.gone()
+        if (receiverProfileType == 1){
+            if (isFollowByOther != 1 && isFollowByOther != 0) {
+                if (messageRequest == 1) {
+                    binding.llRequestLayout.gone()
+                } else {
+                    binding.llRequestLayout.visible()
+                    binding.llSendRequest.visible()
+                    binding.llRequested.gone()
+                }
+            }else{
+                Log.d("dcdc", messageRequest.toString())
+                
+                if (messageRequest == 0) {
+                    binding.llRequestLayout.visible()
+                    binding.llSendRequest.gone()
+                    binding.llRequested.visible()
+                } else {
+                    binding.llRequestLayout.gone()
+                }
             }
-        } else if (isFollowByMe != 1 && isFollowByMe != 0) {
-            Log.d("dcdc", messageRequest.toString())
+//            else if (isFollowByMe != 1 && isFollowByMe != 0) {
+
+           /* } else {
+                Log.d("dcdssssac", messageRequest.toString())
+                binding.llRequestLayout.gone()
+            } */
+        }else{
             if (messageRequest == 0) {
                 binding.llRequestLayout.visible()
                 binding.llSendRequest.gone()
@@ -269,10 +299,8 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
             } else {
                 binding.llRequestLayout.gone()
             }
-        } else {
-            Log.d("dcdssssac", messageRequest.toString())
-            binding.llRequestLayout.gone()
         }
+
     }
 
     private fun setChatAdapter() {
@@ -282,15 +310,19 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
         adapter.menuListener = { msgId, pos, view, userId, userName, type ->
             Log.d("ffsfsdfsdf", userName)
 
-            if (isFollowByOther != 1) {
-                if (messageRequest == 1) {
-                    setPopUpWindowReportDelete(view, msgId, type, userId, userName, pos)
+            if (receiverProfileType==1){
+                if (isFollowByOther != 1) {
+                    if (messageRequest == 1) {
+                        setPopUpWindowReportDelete(view, msgId, type, userId, userName, pos)
 
+                    }
+                }else{
+                    setPopUpWindowReportDelete(view, msgId, type, userId, userName, pos)
                 }
             }else{
                 setPopUpWindowReportDelete(view, msgId, type, userId, userName, pos)
-
             }
+
         }
 
         adapter.onPostImages = {pos,model->
@@ -307,26 +339,35 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
         with(binding) {
             ivProfile.loadImage(ApiConstants.IMAGE_BASE_URL + image, R.drawable.profile_icon)
             name.text = this@ChatActivity.username
+
             rvChat.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    val layoutManger = recyclerView.layoutManager as LinearLayoutManager
-                    val firstVisiblePosition = layoutManger.findFirstVisibleItemPosition()
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val firstVisiblePosition = layoutManager.findFirstVisibleItemPosition()
 
-                    if (firstVisiblePosition != 0 && !list[firstVisiblePosition].createdAt.isNullOrEmpty()) {
-                        binding.cvTime.visible()
-                        binding.tvDate.text = chatDate(list[firstVisiblePosition].createdAt ?: "")
+                    // Cancel any pending hide operations when scrolling
+                    hideJob?.cancel()
+
+                    // Only show date if we have a valid position with createdAt data
+                    val shouldShowDate = firstVisiblePosition != 0 &&
+                            firstVisiblePosition < list.size &&
+                            !list[firstVisiblePosition].createdAt.isNullOrEmpty()
+
+                    if (shouldShowDate) {
+                        showDateWithAnimation(chatDate(list[firstVisiblePosition].createdAt ?: ""))
                     } else {
-                        binding.cvTime.gone()
+                        hideDateWithAnimation()
                     }
 
                     if (isFirstLoad) {
                         isFirstLoad = false
                         return
                     }
-                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                    if (layoutManager.findFirstVisibleItemPosition() == 0 && !isLoadingOldMessages && offset <= totalPages) {
-                        Log.d("sdfgdsgdgdg", "sdfgsdgdsg")
+
+                    if (layoutManager.findFirstVisibleItemPosition() == 0 &&
+                        !isLoadingOldMessages &&
+                        offset <= totalPages) {
                         if (groupId.isEmpty()) {
                             loadSingleOlderMessages()
                         } else {
@@ -334,13 +375,22 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
                         }
                     }
                 }
+
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        startHideTimer()
-                    } else {
-                        hideJob?.cancel()
-                        binding.cvTime.visible()
+                    when (newState) {
+                        RecyclerView.SCROLL_STATE_IDLE -> {
+                            // Only start hide timer if we're actually showing a date
+                            if (binding.cvTime.visibility == View.VISIBLE) {
+                                startHideTimer()
+                            }
+                        }
+                        RecyclerView.SCROLL_STATE_DRAGGING -> {
+                            hideJob?.cancel()
+                        }
+                        RecyclerView.SCROLL_STATE_SETTLING -> {
+                            hideJob?.cancel()
+                        }
                     }
                 }
             })
@@ -426,36 +476,41 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
                     showCustomToast(this@ChatActivity,"Messaging with this user is currently restricted.")
                     return@setOnClickListener
                 }
-                if (isFollowByOther != 1 && isFollowByOther != 0) {
-                    if (messageRequest == 1) {
-                        sendMessage(binding.etMessage.text.toString(),"0")
-                        binding.etMessage.setText("")
-                    } else {
-                        if (list.size < 3) {
+                if (receiverProfileType == 1){
+                    if (isFollowByOther != 1 && isFollowByOther != 0) {
+                        if (messageRequest == 1) {
                             sendMessage(binding.etMessage.text.toString(),"0")
                             binding.etMessage.setText("")
-                            val jsonObject = JSONObject()
-                            jsonObject.put("sender_id", getPreference("id", ""))
-                            jsonObject.put("message_request", "0")
-                            if (groupId.isNotEmpty()) {
-                                jsonObject.put("group_id", groupId)
-                                jsonObject.put("receiver_id", "0")
-                            } else {
-                                jsonObject.put("group_id", "0")
-                                jsonObject.put("receiver_id", user2id)
-                            }
-                            Log.d("dsdgdsgd", jsonObject.toString())
-                            socketManager.messageRequest(jsonObject)
                         } else {
-                            showCustomSnackbar(
-                                this@ChatActivity,
-                                it,
-                                "You can't send message until they accept your request."
-                            )
+                            if (list.size < 3) {
+                                sendMessage(binding.etMessage.text.toString(),"0")
+                                binding.etMessage.setText("")
+                                val jsonObject = JSONObject()
+                                jsonObject.put("sender_id", getPreference("id", ""))
+                                jsonObject.put("message_request", "0")
+                                if (groupId.isNotEmpty()) {
+                                    jsonObject.put("group_id", groupId)
+                                    jsonObject.put("receiver_id", "0")
+                                } else {
+                                    jsonObject.put("group_id", "0")
+                                    jsonObject.put("receiver_id", user2id)
+                                }
+                                Log.d("dsdgdsgd", jsonObject.toString())
+                                socketManager.messageRequest(jsonObject)
+                            } else {
+                                showCustomSnackbar(
+                                    this@ChatActivity,
+                                    it,
+                                    "You can't send message until they accept your request."
+                                )
+                            }
                         }
+                    }else{
+                        sendMessage(binding.etMessage.text.toString(),"0")
+                        binding.etMessage.setText("")
                     }
-                }
-                else {
+
+                } else {
                     sendMessage(binding.etMessage.text.toString(),"0")
                     binding.etMessage.setText("")
                 }
@@ -511,11 +566,59 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
         }
     }
 
+    private fun showDateWithAnimation(date: String) {
+        // Don't do anything if we're already showing the same date
+        if (binding.cvTime.visibility == View.VISIBLE && binding.tvDate.text == date) {
+            return
+        }
+
+        binding.tvDate.text = date
+
+        if (binding.cvTime.visibility != View.VISIBLE) {
+            // Reset any previous animation and ensure view is properly hidden initially
+            binding.cvTime.clearAnimation()
+            binding.cvTime.animate().cancel()
+
+            // Set initial position above the screen
+            binding.cvTime.translationY = -binding.cvTime.height.toFloat()
+            binding.cvTime.alpha = 0f
+            binding.cvTime.visible()
+
+            // Slide in from top with fade effect
+            binding.cvTime.animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setDuration(300)
+                .setInterpolator(DecelerateInterpolator())
+                .start()
+        }
+    }
+
+    private fun hideDateWithAnimation() {
+        if (binding.cvTime.visibility == View.VISIBLE) {
+            // Cancel any ongoing animation
+            binding.cvTime.clearAnimation()
+            binding.cvTime.animate().cancel()
+
+            binding.cvTime.animate()
+                .translationY(-binding.cvTime.height.toFloat())
+                .alpha(0f)
+                .setDuration(300)
+                .setInterpolator(AccelerateInterpolator())
+                .withEndAction {
+                    binding.cvTime.gone()
+                    binding.cvTime.translationY = 0f
+                    binding.cvTime.alpha = 1f // Reset alpha for next time
+                }
+                .start()
+        }
+    }
+
     private fun startHideTimer() {
         hideJob?.cancel()
         hideJob = lifecycleScope.launch {
-            delay(3000)
-            binding.cvTime.gone()
+            delay(2000) // Increased to 2 seconds for better UX
+            hideDateWithAnimation()
         }
     }
 

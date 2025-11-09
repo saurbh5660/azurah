@@ -291,7 +291,7 @@
                     android:maxLength="15"
                     android:textColorHighlight="@color/cursor_color"
                     android:textColor="@color/black"
-                    android:inputType="textPersonName"
+                    android:inputType="text"
                     android:imeOptions="actionNext"
                     android:paddingTop="20dp"
                     android:paddingStart="20dp"

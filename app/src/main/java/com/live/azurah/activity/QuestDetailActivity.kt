@@ -71,7 +71,7 @@ import com.skydoves.balloon.BalloonAnimation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
+class QuestDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
     private lateinit var binding: ActivityQuestDetailBinding
 
     private var from = ""
@@ -103,7 +103,7 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
         WindowCompat.setDecorFitsSystemWindows(window, true)
         WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
-              val systemBars = insets.getInsets(
+            val systemBars = insets.getInsets(
                 WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
             )
             view.updatePadding(
@@ -118,14 +118,16 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
         from = intent.getStringExtra("from") ?: ""
         id = intent.getStringExtra("id") ?: ""
         initListener()
-        when(from){
-            "prayer"->{
+        when (from) {
+            "prayer" -> {
                 getPrayerDetail()
             }
-            "testimony"->{
+
+            "testimony" -> {
                 getTestimonyDetail()
             }
-            else->{
+
+            else -> {
                 getCommunityDetail()
             }
         }
@@ -133,25 +135,25 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
     }
 
 
-    private fun getPrayerDetail(){
-       viewModel.prayerView(id,this).observe(this,this)
+    private fun getPrayerDetail() {
+        viewModel.prayerView(id, this).observe(this, this)
     }
 
-    private fun getTestimonyDetail(){
-        viewModel.testimonyView(id,this).observe(this,this)
+    private fun getTestimonyDetail() {
+        viewModel.testimonyView(id, this).observe(this, this)
     }
 
-    private fun getCommunityDetail(){
-        viewModel.communityView(id,this).observe(this,this)
+    private fun getCommunityDetail() {
+        viewModel.communityView(id, this).observe(this, this)
     }
 
     private fun initListener() {
-        with(binding){
-            if (from == "prayer" || from == "testimony"){
+        with(binding) {
+            if (from == "prayer" || from == "testimony") {
                 tvPrayers.visibility = View.VISIBLE
                 dotPrayer.visibility = View.VISIBLE
                 ivPrayer.visibility = View.VISIBLE
-            }else{
+            } else {
                 tvPrayers.visibility = View.GONE
                 dotPrayer.visibility = View.GONE
                 ivPrayer.visibility = View.GONE
@@ -166,11 +168,33 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
             }
 
             tvCat.setOnClickListener {
-                setCategoryWindow(it,tvCat.text.toString())
+                setCategoryWindow(it, tvCat.text.toString())
 
             }
             backIcon.setOnClickListener {
                 onBackPressedDispatcher.onBackPressed()
+            }
+
+            tvPrayers.setOnClickListener {
+              val text = when (from) {
+                    "prayer" -> {
+                       "prayer_praise"
+                    }
+
+                    "testimony" -> {
+                        "testimony_praise"
+                    }
+
+                  else -> {
+                      ""
+                  }
+              }
+                val bundle = Bundle()
+                bundle.putString("postId", id)
+                bundle.putString("from", text)
+                val fragment = UserLikesFragment()
+                fragment.arguments = bundle
+                replaceFragment(fragment)
             }
 
             ivPrayer.setOnClickListener {
@@ -178,15 +202,21 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                     if (data.is_praise == 1) {
                         data.is_praise = 0
                         data.praiseCount = (data.praiseCount ?: 0).minus(1)
-                        ivPrayer.imageTintList = ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.black)
+                        ivPrayer.imageTintList =
+                            ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.black)
 
                     } else {
                         data.is_praise = 1
                         data.praiseCount = (data.praiseCount ?: 0).plus(1)
-                        ivPrayer.imageTintList = ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.golden_yellow)
+                        ivPrayer.imageTintList = ContextCompat.getColorStateList(
+                            this@QuestDetailActivity,
+                            R.color.golden_yellow
+                        )
 
                     }
-                    val text = if ((data.praiseCount ?: 0) > 1 || (data.praiseCount ?: 0) == 0) "Prayers" else "Prayer"
+                    val text = if ((data.praiseCount ?: 0) > 1 || (data.praiseCount
+                            ?: 0) == 0
+                    ) "Prayers" else "Prayer"
                     tvPrayers.text = buildString {
                         append(formatCount(data.praiseCount ?: 0))
                         append(" ")
@@ -196,36 +226,43 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                     val map = HashMap<String, String>()
                     map["status"] = data.is_praise.toString()
 
-                    if (from == "prayer"){
+                    if (from == "prayer") {
                         map["prayer_id"] = data.id.toString()
-                        viewModel.prayerPriseUnpraise(map,this@QuestDetailActivity).observe(this@QuestDetailActivity){
+                        viewModel.prayerPriseUnpraise(map, this@QuestDetailActivity)
+                            .observe(this@QuestDetailActivity) {
 
-                        }
-                    }else{
+                            }
+                    } else {
                         map["testimony_id"] = data.id.toString()
-                        viewModel.testimonyPriseUnpraise(map,this@QuestDetailActivity).observe(this@QuestDetailActivity){
+                        viewModel.testimonyPriseUnpraise(map, this@QuestDetailActivity)
+                            .observe(this@QuestDetailActivity) {
 
-                        }
+                            }
                     }
                 }
 
             }
 
             ivLike.setOnClickListener {
-                if (data.isLike == 0){
+                if (data.isLike == 0) {
                     data.isLike = 1
-                    data.likeCount= (data.likeCount?: 0).plus(1)
+                    data.likeCount = (data.likeCount ?: 0).plus(1)
                     ivLike.setImageResource(R.drawable.selected_heart)
-                    ivLike.imageTintList = ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.star_red_color)
+                    ivLike.imageTintList = ContextCompat.getColorStateList(
+                        this@QuestDetailActivity,
+                        R.color.star_red_color
+                    )
 
-                }else{
+                } else {
                     data.isLike = 0
-                    data.likeCount= (data.likeCount?: 0).minus(1)
+                    data.likeCount = (data.likeCount ?: 0).minus(1)
                     ivLike.setImageResource(R.drawable.unselected_heart)
-                    ivLike.imageTintList = ContextCompat.getColorStateList(this@QuestDetailActivity,R.color.black)
+                    ivLike.imageTintList =
+                        ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.black)
                 }
 
-                val text = if ((data.likeCount ?: 0) > 1 || (data.likeCount ?: 0) == 0) "Likes" else "Like"
+                val text =
+                    if ((data.likeCount ?: 0) > 1 || (data.likeCount ?: 0) == 0) "Likes" else "Like"
                 tvLikes.text = buildString {
                     append(formatCount(data.likeCount ?: 0))
                     append(" ")
@@ -233,39 +270,42 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                 }
 
                 val map = HashMap<String, String>()
-                if (data.isLike == 1){
+                if (data.isLike == 1) {
                     map["status"] = "0"
-                }else{
-                    
+                } else {
+
                     map["status"] = "1"
                 }
-                if (from == "prayer"){
+                if (from == "prayer") {
                     map["prayer_id"] = data.id.toString()
-                    viewModel.prayerLikeUnlike(map,this@QuestDetailActivity).observe(this@QuestDetailActivity){
-                    }
-                }else if (from == "testimony"){
+                    viewModel.prayerLikeUnlike(map, this@QuestDetailActivity)
+                        .observe(this@QuestDetailActivity) {
+                        }
+                } else if (from == "testimony") {
                     map["testimony_id"] = data.id.toString()
-                    viewModel.testimonyLikeUnlike(map,this@QuestDetailActivity).observe(this@QuestDetailActivity){
+                    viewModel.testimonyLikeUnlike(map, this@QuestDetailActivity)
+                        .observe(this@QuestDetailActivity) {
 
-                    }
-                }else{
+                        }
+                } else {
                     map["community_forum_id"] = data.id.toString()
-                    viewModel.communityLikeUnlike(map,this@QuestDetailActivity).observe(this@QuestDetailActivity){
+                    viewModel.communityLikeUnlike(map, this@QuestDetailActivity)
+                        .observe(this@QuestDetailActivity) {
 
-                    }
+                        }
                 }
             }
 
             tvLikes.setOnClickListener {
-                if ((data.likeCount ?: 0) >0){
+                if ((data.likeCount ?: 0) > 0) {
                     val bundle = Bundle()
-                    bundle.putString("postId",data.id.toString())
-                    if (from == "prayer"){
-                        bundle.putString("from","prayer")
-                    }else if (from == "testimony"){
-                        bundle.putString("from","testimony")
-                    }else{
-                        bundle.putString("from","community")
+                    bundle.putString("postId", data.id.toString())
+                    if (from == "prayer") {
+                        bundle.putString("from", "prayer")
+                    } else if (from == "testimony") {
+                        bundle.putString("from", "testimony")
+                    } else {
+                        bundle.putString("from", "community")
                     }
                     val fragment = UserLikesFragment()
                     fragment.arguments = bundle
@@ -276,23 +316,31 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
             ivMore.setOnClickListener {
                 setPopUpWindow(it)
             }
-            ivPosts.setOnClickListener{
+            ivPosts.setOnClickListener {
                 if (getPreference("id", "") != this@QuestDetailActivity.data.user?.id.toString()) {
-                    startActivity(Intent(this@QuestDetailActivity,OtherUserProfileActivity::class.java).apply {
-                        putExtra("user_id",this@QuestDetailActivity.data.user?.id.toString())
-                    })
+                    startActivity(
+                        Intent(
+                            this@QuestDetailActivity,
+                            OtherUserProfileActivity::class.java
+                        ).apply {
+                            putExtra("user_id", this@QuestDetailActivity.data.user?.id.toString())
+                        })
                 }
 
             }
 
-            tvName.setOnClickListener{
+            tvName.setOnClickListener {
                 if (getPreference("id", "") != this@QuestDetailActivity.data.user?.id.toString()) {
-                    startActivity(Intent(this@QuestDetailActivity,OtherUserProfileActivity::class.java).apply {
-                        putExtra("user_id",this@QuestDetailActivity.data.user?.id.toString())
-                    })
+                    startActivity(
+                        Intent(
+                            this@QuestDetailActivity,
+                            OtherUserProfileActivity::class.java
+                        ).apply {
+                            putExtra("user_id", this@QuestDetailActivity.data.user?.id.toString())
+                        })
                 }
             }
-            etMessage.addTextChangedListener(object: TextWatcher {
+            etMessage.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence?,
                     start: Int,
@@ -306,11 +354,15 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-                    if (s.toString().isNotEmpty()){
-                        ivSend.backgroundTintList = ContextCompat.getColorStateList(this@QuestDetailActivity,R.color.blue)
+                    if (s.toString().isNotEmpty()) {
+                        ivSend.backgroundTintList =
+                            ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.blue)
                         ivSend.isEnabled = true
-                    }else{
-                        ivSend.backgroundTintList = ContextCompat.getColorStateList(this@QuestDetailActivity,R.color.button_grey)
+                    } else {
+                        ivSend.backgroundTintList = ContextCompat.getColorStateList(
+                            this@QuestDetailActivity,
+                            R.color.button_grey
+                        )
                         ivSend.isEnabled = false
                     }
                 }
@@ -318,18 +370,19 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
         }
     }
 
-    fun replaceFragment(fragment: Fragment){
-        supportFragmentManager.beginTransaction().replace(binding.container.id, fragment).addToBackStack(null).commit()
+    fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(binding.container.id, fragment)
+            .addToBackStack(null).commit()
     }
 
-/*    private fun setCommentAdapter() {
-        val adapter = CommentAdapter(this,ArrayList())
-        binding.rvComments.adapter = adapter
+    /*    private fun setCommentAdapter() {
+            val adapter = CommentAdapter(this,ArrayList())
+            binding.rvComments.adapter = adapter
 
-        adapter.menuListener = {pos, view,model,item ->
-            setPopUpComment(view)
-        }
-    }*/
+            adapter.menuListener = {pos, view,model,item ->
+                setPopUpComment(view)
+            }
+        }*/
 
     private fun setPopUpWindow(view1: View) {
         val view = MenuReportBinding.inflate(layoutInflater)
@@ -340,24 +393,35 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
             RelativeLayout.LayoutParams.WRAP_CONTENT,
             true
         )
-        with(view){
+        with(view) {
             tvHaveDone.setOnClickListener {
                 myPopupWindow.dismiss()
-                startActivity(Intent(this@QuestDetailActivity, ReportPostActivity::class.java).apply {
-                    putExtra("from",from)
-                    putExtra("id",this@QuestDetailActivity.data.id.toString())
-                    putExtra("reportedTo",this@QuestDetailActivity.data.userId.toString())
-                })
+                startActivity(
+                    Intent(
+                        this@QuestDetailActivity,
+                        ReportPostActivity::class.java
+                    ).apply {
+                        putExtra("from", from)
+                        putExtra("id", this@QuestDetailActivity.data.id.toString())
+                        putExtra("reportedTo", this@QuestDetailActivity.data.userId.toString())
+                    })
             }
 
             tvNotDone.setOnClickListener {
                 myPopupWindow.dismiss()
-                startActivity(Intent(this@QuestDetailActivity, ReportUserActivity::class.java).apply {
-                    putExtra("from",from)
-                    putExtra("id",this@QuestDetailActivity.data.id.toString())
-                    putExtra("username", this@QuestDetailActivity.data.user?.username.toString())
+                startActivity(
+                    Intent(
+                        this@QuestDetailActivity,
+                        ReportUserActivity::class.java
+                    ).apply {
+                        putExtra("from", from)
+                        putExtra("id", this@QuestDetailActivity.data.id.toString())
+                        putExtra(
+                            "username",
+                            this@QuestDetailActivity.data.user?.username.toString()
+                        )
 
-                })
+                    })
             }
 
             tvBlockUser.setOnClickListener {
@@ -369,13 +433,16 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
         myPopupWindow.showAsDropDown(view1, 0, 6)
     }
 
-    private fun showMessageDialog(){
+    private fun showMessageDialog() {
         val customDialog = Dialog(this)
         customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         val resetBinding = DialogEditMessageBinding.inflate(layoutInflater)
         customDialog.setContentView(resetBinding.root)
         customDialog.window?.setGravity(Gravity.BOTTOM)
-        customDialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        customDialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         customDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         resetBinding.tvComments.setOnClickListener {
@@ -387,7 +454,7 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
         }
         customDialog.show()
 
-        resetBinding.tvDescription.addTextChangedListener(object: TextWatcher {
+        resetBinding.tvDescription.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(
                 s: CharSequence?,
                 start: Int,
@@ -401,11 +468,15 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if (s.toString().isNotEmpty()){
-                    resetBinding.tvReplies.backgroundTintList = ContextCompat.getColorStateList(this@QuestDetailActivity,R.color.blue)
+                if (s.toString().isNotEmpty()) {
+                    resetBinding.tvReplies.backgroundTintList =
+                        ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.blue)
                     resetBinding.tvReplies.isEnabled = true
-                }else{
-                    resetBinding.tvReplies.backgroundTintList = ContextCompat.getColorStateList(this@QuestDetailActivity,R.color.button_grey)
+                } else {
+                    resetBinding.tvReplies.backgroundTintList = ContextCompat.getColorStateList(
+                        this@QuestDetailActivity,
+                        R.color.button_grey
+                    )
                     resetBinding.tvReplies.isEnabled = false
                 }
             }
@@ -415,16 +486,20 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
     }
 
 
-    private fun sureDialog(){
+    private fun sureDialog() {
         val customDialog = Dialog(this)
         customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         val confirmationBinding = SureDialogBinding.inflate(layoutInflater)
         customDialog.setContentView(confirmationBinding.root)
         customDialog.window?.setGravity(Gravity.CENTER)
-        customDialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        customDialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         customDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-        confirmationBinding.tvMsg.text ="Blocking this user will prevent you both from viewing each other’s posts and sending each other messages."
+        confirmationBinding.tvMsg.text =
+            "Blocking this user will prevent you both from viewing each other’s posts and sending each other messages."
         confirmationBinding.tvUsernameTaken.text = buildString {
             append("Are you sure you want to block ")
             append("@")
@@ -436,26 +511,28 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
 
         confirmationBinding.tvYes.setOnClickListener {
             customDialog.dismiss()
-            val map = HashMap<String,String>()
-            map["block_by"] = getPreference("id","")
+            val map = HashMap<String, String>()
+            map["block_by"] = getPreference("id", "")
             map["block_to"] = data.user?.id.toString()
             map["status"] = "1"
-            viewModel.userBlock(map,this).observe(this){value->
+            viewModel.userBlock(map, this).observe(this) { value ->
                 when (value.status) {
                     Status.SUCCESS -> {
-                       LoaderDialog.dismiss()
-                        when(value.data){
+                        LoaderDialog.dismiss()
+                        when (value.data) {
                             is CommonResponse -> {
                                 val res = value.data.body
                                 showCustomSnackbar(this, binding.root, "User Blocked Successfully!")
                             }
                         }
                     }
+
                     Status.LOADING -> {
                         LoaderDialog.show(this)
                     }
+
                     Status.ERROR -> {
-                       LoaderDialog.dismiss()
+                        LoaderDialog.dismiss()
                         showCustomSnackbar(this, binding.root, value.message.toString())
                     }
                 }
@@ -476,18 +553,26 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
             RelativeLayout.LayoutParams.WRAP_CONTENT,
             true
         )
-        with(view){
+        with(view) {
             tvNotDone.setOnClickListener {
                 myPopupWindow.dismiss()
-                startActivity(Intent(this@QuestDetailActivity, ReportUserActivity::class.java).apply {
-                    putExtra("from","1")
-                })
+                startActivity(
+                    Intent(
+                        this@QuestDetailActivity,
+                        ReportUserActivity::class.java
+                    ).apply {
+                        putExtra("from", "1")
+                    })
             }
             ivUser.setOnClickListener {
                 myPopupWindow.dismiss()
-                startActivity(Intent(this@QuestDetailActivity, ReportUserActivity::class.java).apply {
-                    putExtra("from","1")
-                })
+                startActivity(
+                    Intent(
+                        this@QuestDetailActivity,
+                        ReportUserActivity::class.java
+                    ).apply {
+                        putExtra("from", "1")
+                    })
             }
 
         }
@@ -499,7 +584,7 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
     override fun onChanged(value: Resource<Any>) {
         when (value.status) {
             Status.SUCCESS -> {
-               LoaderDialog.dismiss()
+                LoaderDialog.dismiss()
                 binding.nvScrollView.visible()
                 when (value.data) {
                     is DetailResponse -> {
@@ -507,7 +592,7 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                         item?.let {
                             data = it
                         }
-                        with(binding){
+                        with(binding) {
                             clDetail.visible()
 
                             tvName.text = buildString {
@@ -518,18 +603,20 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                                 append(item?.title ?: "")
                             }
 
-                            when(from){
-                                "testimony"->{
-                                   if (item?.testimonyCategory == null) {
-                                       tvCat.gone()
-                                   }
+                            when (from) {
+                                "testimony" -> {
+                                    if (item?.testimonyCategory == null) {
+                                        tvCat.gone()
+                                    }
                                 }
-                                "prayer"->{
+
+                                "prayer" -> {
                                     if (item?.prayerCategory == null) {
                                         tvCat.gone()
                                     }
                                 }
-                                else->{
+
+                                else -> {
                                     if (item?.category == null) {
                                         tvCat.gone()
                                     }
@@ -541,37 +628,44 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                                     append(item.prayerCategory.name ?: "")
                                 } else if (item?.testimonyCategory != null) {
                                     append(item.testimonyCategory.name ?: "")
-                                }else{
+                                } else {
                                     append(item?.category?.name ?: "")
                                 }
                             }
 
-                            if (getPreference("id","") == item?.user?.id.toString()){
+                            if (getPreference("id", "") == item?.user?.id.toString()) {
                                 ivMore.gone()
-                                Log.d("fsdfsdf","sdfsfsf")
-                                val marginInPx = resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._16sdp)
-                                val layoutParams = tvCat.layoutParams as ViewGroup.MarginLayoutParams
+                                Log.d("fsdfsdf", "sdfsfsf")
+                                val marginInPx =
+                                    resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._16sdp)
+                                val layoutParams =
+                                    tvCat.layoutParams as ViewGroup.MarginLayoutParams
                                 layoutParams.marginEnd = marginInPx
                                 tvCat.layoutParams = layoutParams
-                            }else{
+                            } else {
                                 ivMore.visible()
                             }
 
-                            val likeText = if ((item?.likeCount ?: 0) > 1 || (item?.likeCount ?: 0) == 0) "Likes" else "Like"
+                            val likeText = if ((item?.likeCount ?: 0) > 1 || (item?.likeCount
+                                    ?: 0) == 0
+                            ) "Likes" else "Like"
                             tvLikes.text = buildString {
                                 append(formatCount(item?.likeCount ?: 0))
                                 append(" ")
                                 append(likeText)
                             }
 
-                            val commentText = if ((item?.commentCount ?: 0) > 1 || (item?.commentCount ?: 0) == 0) "Comments" else "Comment"
+                            val commentText =
+                                if ((item?.commentCount ?: 0) > 1 || (item?.commentCount
+                                        ?: 0) == 0
+                                ) "Comments" else "Comment"
                             tvComments.text = buildString {
                                 append(formatCount(item?.commentCount ?: 0))
                                 append(" ")
                                 append(commentText)
                             }
 
-                            if ((item?.commentCount ?: 0) > 0){
+                            if ((item?.commentCount ?: 0) > 0) {
                                 tvTotalComments.text = buildString {
                                     append("Comments (")
                                     append(formatCount((item?.commentCount ?: 0)))
@@ -579,7 +673,9 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                                 }
                             }
 
-                            val prayerText = if ((item?.praiseCount ?: 0) > 1 || (item?.praiseCount ?: 0) == 0) "Prayers" else "Prayer"
+                            val prayerText = if ((item?.praiseCount ?: 0) > 1 || (item?.praiseCount
+                                    ?: 0) == 0
+                            ) "Prayers" else "Prayer"
                             tvPrayers.text = buildString {
                                 append(formatCount(item?.praiseCount ?: 0))
                                 append(" ")
@@ -594,31 +690,43 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                             )
 
                             ivImage.loadImage(
-                                ApiConstants.IMAGE_BASE_URL + getPreference("image",""),
+                                ApiConstants.IMAGE_BASE_URL + getPreference("image", ""),
                                 placeholder = R.drawable.profile_icon
                             )
-                            tvDescription.text=item?.description ?: ""
+                            tvDescription.text = item?.description ?: ""
 //                            setupSeeMoreText(tvDescription, item?.description ?: "", this@QuestDetailActivity)
 
                             if (item?.isLike == 1) {
                                 ivLike.setImageResource(R.drawable.selected_heart)
-                                ivLike.imageTintList = ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.star_red_color)
+                                ivLike.imageTintList = ContextCompat.getColorStateList(
+                                    this@QuestDetailActivity,
+                                    R.color.star_red_color
+                                )
                             } else {
                                 ivLike.setImageResource(R.drawable.unselected_heart)
-                                ivLike.imageTintList = ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.black)
+                                ivLike.imageTintList = ContextCompat.getColorStateList(
+                                    this@QuestDetailActivity,
+                                    R.color.black
+                                )
                             }
 
                             if (item?.is_praise == 1) {
-                                ivPrayer.imageTintList = ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.golden_yellow)
+                                ivPrayer.imageTintList = ContextCompat.getColorStateList(
+                                    this@QuestDetailActivity,
+                                    R.color.golden_yellow
+                                )
                             } else {
-                                ivPrayer.imageTintList = ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.black)
+                                ivPrayer.imageTintList = ContextCompat.getColorStateList(
+                                    this@QuestDetailActivity,
+                                    R.color.black
+                                )
                             }
 
                             setCommentData()
                         }
                     }
 
-                    is CommonResponse->{
+                    is CommonResponse -> {
                     }
                 }
             }
@@ -628,7 +736,7 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
             }
 
             Status.ERROR -> {
-               LoaderDialog.dismiss()
+                LoaderDialog.dismiss()
                 showCustomSnackbar(this, binding.root, value.message.toString())
                 binding.nvScrollView.gone()
             }
@@ -636,7 +744,12 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
     }
 
 
-    private fun setPopUpComment(view1: View, model: CommentResponse, item: CommentResponse.Replies?,notificationId:String) {
+    private fun setPopUpComment(
+        view1: View,
+        model: CommentResponse,
+        item: CommentResponse.Replies?,
+        notificationId: String
+    ) {
         val view = MenuReportCommentBinding.inflate(layoutInflater)
 
         val myPopupWindow = PopupWindow(
@@ -648,37 +761,45 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
         with(view) {
             tvNotDone.setOnClickListener {
                 myPopupWindow.dismiss()
-                startActivity(Intent(this@QuestDetailActivity, ReportUserActivity::class.java).apply {
-                    putExtra("from", "postComment")
-                    if (item != null) {
-                        putExtra("id", item.id.toString())
-                        putExtra("reportedTo", item.user_id.toString())
-                        putExtra("postId", item.post_id.toString())
-                        putExtra("username", item.user?.username.toString())
+                startActivity(
+                    Intent(
+                        this@QuestDetailActivity,
+                        ReportUserActivity::class.java
+                    ).apply {
+                        putExtra("from", "postComment")
+                        if (item != null) {
+                            putExtra("id", item.id.toString())
+                            putExtra("reportedTo", item.user_id.toString())
+                            putExtra("postId", item.post_id.toString())
+                            putExtra("username", item.user?.username.toString())
 
-                    }else{
-                        putExtra("id", model.id.toString())
-                        putExtra("reportedTo", model.user_id.toString())
-                        putExtra("postId", model.post_id.toString())
-                        putExtra("username", model.user?.username.toString())
-                    }
+                        } else {
+                            putExtra("id", model.id.toString())
+                            putExtra("reportedTo", model.user_id.toString())
+                            putExtra("postId", model.post_id.toString())
+                            putExtra("username", model.user?.username.toString())
+                        }
 
-                })
+                    })
             }
             ivUser.setOnClickListener {
                 myPopupWindow.dismiss()
-                startActivity(Intent(this@QuestDetailActivity, ReportUserActivity::class.java).apply {
-                    putExtra("from", "postComment")
-                    if (item != null) {
-                        putExtra("id", item.id.toString())
-                        putExtra("reportedTo", item.user_id.toString())
-                        putExtra("postId", item.post_id.toString())
-                    }else{
-                        putExtra("id", model.id.toString())
-                        putExtra("reportedTo", model.user_id.toString())
-                        putExtra("postId", model.post_id.toString())
-                    }
-                })
+                startActivity(
+                    Intent(
+                        this@QuestDetailActivity,
+                        ReportUserActivity::class.java
+                    ).apply {
+                        putExtra("from", "postComment")
+                        if (item != null) {
+                            putExtra("id", item.id.toString())
+                            putExtra("reportedTo", item.user_id.toString())
+                            putExtra("postId", item.post_id.toString())
+                        } else {
+                            putExtra("id", model.id.toString())
+                            putExtra("reportedTo", model.user_id.toString())
+                            putExtra("postId", model.post_id.toString())
+                        }
+                    })
             }
         }
         myPopupWindow.showAsDropDown(view1, 0, -40)
@@ -708,12 +829,12 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
 
         with(binding) {
             ivImage.loadImage(
-                ApiConstants.IMAGE_BASE_URL + getPreference("image",""),
+                ApiConstants.IMAGE_BASE_URL + getPreference("image", ""),
                 R.drawable.profile_icon
             )
             ivSend.setOnClickListener {
                 addComment(data.id ?: 0, parentId)
-                Log.d("fgdgfdh",parentId.toString())
+                Log.d("fgdgfdh", parentId.toString())
                 username = ""
                 etMessage.setText("")
             }
@@ -760,26 +881,28 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
             Log.d("MapValues", "$key = $value")
         }
 
-        when(from){
-            "prayer"->{
+        when (from) {
+            "prayer" -> {
                 map["prayer_id"] = postId.toString()
-                viewModel.addPrayerComment(map, this).observe(this,addCommentObserver)
+                viewModel.addPrayerComment(map, this).observe(this, addCommentObserver)
             }
-            "testimony"->{
+
+            "testimony" -> {
                 map["testimony_id"] = postId.toString()
-                viewModel.addTestimonyComment(map, this).observe(this,addCommentObserver)
+                viewModel.addTestimonyComment(map, this).observe(this, addCommentObserver)
             }
-            else->{
+
+            else -> {
                 map["community_forum_id"] = postId.toString()
-                viewModel.addCommunityComment(map, this).observe(this,addCommentObserver)
+                viewModel.addCommunityComment(map, this).observe(this, addCommentObserver)
             }
         }
     }
 
-    private val addCommentObserver = Observer<Resource<Any>> { value->
+    private val addCommentObserver = Observer<Resource<Any>> { value ->
         when (value.status) {
             Status.SUCCESS -> {
-               LoaderDialog.dismiss()
+                LoaderDialog.dismiss()
                 when (value.data) {
                     is CommentCommonResponse -> {
                         with(binding) {
@@ -818,9 +941,9 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
 
                             }
 
-                            data.commentCount = (data.commentCount ?:0)+1
+                            data.commentCount = (data.commentCount ?: 0) + 1
 
-                            if ((data.commentCount ?: 0) > 0){
+                            if ((data.commentCount ?: 0) > 0) {
                                 tvTotalComments.text = buildString {
                                     append("Comments (")
                                     append(formatCount(data.commentCount ?: 0))
@@ -828,9 +951,10 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                                 }
                             }
 
-                            val commentText = if ((data.commentCount ?: 0) > 1) "Comments" else "Comment"
+                            val commentText =
+                                if ((data.commentCount ?: 0) > 1) "Comments" else "Comment"
                             tvComments.text = buildString {
-                                append(formatCount( data.commentCount ?: 0))
+                                append(formatCount(data.commentCount ?: 0))
                                 append(" ")
                                 append(commentText)
                             }
@@ -852,24 +976,26 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
 
     private fun getCommentList() {
         isApiRunning = true
-        if (resetCommentPage){
+        if (resetCommentPage) {
             currentCommentPage = 1
         }
         val map = HashMap<String, String>()
         map["limit"] = "15"
         map["page"] = currentCommentPage.toString()
-        when(from){
-            "prayer"->{
+        when (from) {
+            "prayer" -> {
                 map["prayer_id"] = data.id.toString()
-                viewModel.prayerCommentList(map, this).observe(this,getCommentListObserver)
+                viewModel.prayerCommentList(map, this).observe(this, getCommentListObserver)
             }
-            "testimony"->{
+
+            "testimony" -> {
                 map["testimony_id"] = data.id.toString()
-                viewModel.testimonyCommentList(map, this).observe(this,getCommentListObserver)
+                viewModel.testimonyCommentList(map, this).observe(this, getCommentListObserver)
             }
-            else->{
+
+            else -> {
                 map["community_forum_id"] = data.id.toString()
-                viewModel.communityCommentList(map, this).observe(this,getCommentListObserver)
+                viewModel.communityCommentList(map, this).observe(this, getCommentListObserver)
             }
         }
     }
@@ -878,7 +1004,7 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
         when (value.status) {
             Status.SUCCESS -> {
                 isApiRunning = false
-               LoaderDialog.dismiss()
+                LoaderDialog.dismiss()
                 when (value.data) {
                     is PostCommentListResposne -> {
                         with(binding) {
@@ -888,24 +1014,26 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                             }
                             commentList.addAll(res?.data ?: ArrayList())
                             commentAdapter?.notifyItemRangeChanged(0, commentList.size)
-                            if(commentList.isEmpty()) {
+                            if (commentList.isEmpty()) {
                                 tvNoDataFound.visible()
                             } else {
                                 tvNoDataFound.gone()
                             }
-                            currentCommentPage = (res?.current_page?:0) + 1
+                            currentCommentPage = (res?.current_page ?: 0) + 1
                             totalCommentPageCount = res?.total_pages ?: 0
                         }
                     }
                 }
             }
+
             Status.ERROR -> {
                 isApiRunning = false
-               LoaderDialog.dismiss()
+                LoaderDialog.dismiss()
                 showCustomSnackbar(this, binding.root, value.message.toString())
             }
+
             Status.LOADING -> {
-               LoaderDialog.dismiss()
+                LoaderDialog.dismiss()
             }
         }
     }
@@ -927,83 +1055,116 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
         commentList.clear()
         commentAdapter = CommentAdapter(this, commentList)
         binding.rvComments.adapter = commentAdapter
-        commentAdapter?.menuListener = { pos, view,repPos,mainComment,item,notificationId->
-            if (data.user?.id.toString() == getPreference("id","")){
-                if (item != null){
-                    if (item.user?.id.toString() == getPreference("id","")){
-                        setPopUpWindowDelete(view,pos,repPos,item.id.toString(),notificationId)
-                    }else{
-                        setPopUpWindowReportDelete(view,pos,repPos,item.id.toString(),mainComment,item,notificationId)
+        commentAdapter?.menuListener = { pos, view, repPos, mainComment, item, notificationId ->
+            if (data.user?.id.toString() == getPreference("id", "")) {
+                if (item != null) {
+                    if (item.user?.id.toString() == getPreference("id", "")) {
+                        setPopUpWindowDelete(view, pos, repPos, item.id.toString(), notificationId)
+                    } else {
+                        setPopUpWindowReportDelete(
+                            view,
+                            pos,
+                            repPos,
+                            item.id.toString(),
+                            mainComment,
+                            item,
+                            notificationId
+                        )
                     }
-                }else{
-                    if (mainComment.user?.id.toString() == getPreference("id","")){
-                        setPopUpWindowDelete(view,pos,repPos,mainComment.id.toString(),notificationId)
-                    }else{
-                        setPopUpWindowReportDelete(view,pos,repPos,mainComment.id.toString(),mainComment,null,notificationId)
+                } else {
+                    if (mainComment.user?.id.toString() == getPreference("id", "")) {
+                        setPopUpWindowDelete(
+                            view,
+                            pos,
+                            repPos,
+                            mainComment.id.toString(),
+                            notificationId
+                        )
+                    } else {
+                        setPopUpWindowReportDelete(
+                            view,
+                            pos,
+                            repPos,
+                            mainComment.id.toString(),
+                            mainComment,
+                            null,
+                            notificationId
+                        )
                     }
                 }
-            }else{
-                if (item != null){
-                    if (item.user?.id.toString() == getPreference("id","")){
-                        setPopUpWindowDelete(view,pos,repPos,item.id.toString(),notificationId)
-                    }else{
-                        setPopUpComment(view,mainComment,item,notificationId)
+            } else {
+                if (item != null) {
+                    if (item.user?.id.toString() == getPreference("id", "")) {
+                        setPopUpWindowDelete(view, pos, repPos, item.id.toString(), notificationId)
+                    } else {
+                        setPopUpComment(view, mainComment, item, notificationId)
                     }
-                }else{
-                    if (mainComment.user?.id.toString() == getPreference("id","")){
-                        setPopUpWindowDelete(view,pos,repPos,mainComment.id.toString(),notificationId)
-                    }else{
-                        setPopUpComment(view,mainComment,null,notificationId)
+                } else {
+                    if (mainComment.user?.id.toString() == getPreference("id", "")) {
+                        setPopUpWindowDelete(
+                            view,
+                            pos,
+                            repPos,
+                            mainComment.id.toString(),
+                            notificationId
+                        )
+                    } else {
+                        setPopUpComment(view, mainComment, null, notificationId)
                     }
                 }
             }
         }
 
-        commentAdapter?.onLikeUnlike = { pos, id,status,postId ->
+        commentAdapter?.onLikeUnlike = { pos, id, status, postId ->
             val map = HashMap<String, String>()
             map["status"] = status
-            when(from){
-                "prayer"->{
+            when (from) {
+                "prayer" -> {
                     map["prayer_id"] = data.id.toString()
                     map["prayer_comment_id"] = id
-                    viewModel.prayerCommentLikeUnlike(map, this).observe(this,commentLikeUnlikeObserver)
+                    viewModel.prayerCommentLikeUnlike(map, this)
+                        .observe(this, commentLikeUnlikeObserver)
                 }
-                "testimony"->{
+
+                "testimony" -> {
                     map["testimony_id"] = data.id.toString()
                     map["testimony_comment_id"] = id
-                    viewModel.testimonyCommentLikeUnlike(map, this).observe(this,commentLikeUnlikeObserver)
+                    viewModel.testimonyCommentLikeUnlike(map, this)
+                        .observe(this, commentLikeUnlikeObserver)
                 }
-                else->{
+
+                else -> {
                     map["community_forum_id"] = data.id.toString()
                     map["community_forum_comment_id"] = id
-                    viewModel.communityCommentLikeUnlike(map, this).observe(this,commentLikeUnlikeObserver)
+                    viewModel.communityCommentLikeUnlike(map, this)
+                        .observe(this, commentLikeUnlikeObserver)
                 }
             }
         }
 
-        commentAdapter?.onCommentEdit = {pos,repPos,commentId,desc,notificationId->
-            showMessageDialog(pos,repPos,commentId,data.id.toString(),desc,notificationId)
+        commentAdapter?.onCommentEdit = { pos, repPos, commentId, desc, notificationId ->
+            showMessageDialog(pos, repPos, commentId, data.id.toString(), desc, notificationId)
         }
 
-     /*   commentAdapter?.replyListener = { pos, view, item, replyModel, replyPosition ->
-            binding.etMessage.isFocusable = true
-            parentId = item.id ?: 0
-            mainPos = pos
-            if (replyModel?.user != null) {
-                taggedId = replyModel.user.id ?: 0
-                username = replyModel.user.username.let { "@$it " }
-                binding.etMessage.setText(username)
-                binding.etMessage.setSelection(binding.etMessage.text.toString().length)
-                Log.d("kjfdsjbds",replyModel.user.first_name.toString())
-                Log.d("kjfdsjbds",replyModel.user.username.toString())
-            } else {
-                username = item.user?.username.let { "@$it " }
-                taggedId = item.user?.id ?: 0
-                binding.etMessage.setText(username)
-                binding.etMessage.setSelection(binding.etMessage.text.toString().length)
-            }
-            binding.etMessage.showKeyboard()
-        }*/
+        /*   commentAdapter?.replyListener = { pos, view, item, replyModel, replyPosition ->
+               binding.etMessage.isFocusable = true
+               parentId = item.id ?: 0
+               mainPos = pos
+               if (replyModel?.user != null) {
+                   taggedId = replyModel.user.id ?: 0
+                   username = replyModel.user.username.let { "@$it " }
+                   binding.etMessage.setText(username)
+                   binding.etMessage.setSelection(binding.etMessage.text.toString().length)
+                   Log.d("kjfdsjbds",replyModel.user.first_name.toString())
+                   Log.d("kjfdsjbds",replyModel.user.username.toString())
+               } else {
+                   username = item.user?.username.let { "@$it " }
+                   taggedId = item.user?.id ?: 0
+                   binding.etMessage.setText(username)
+                   binding.etMessage.setSelection(binding.etMessage.text.toString().length)
+               }
+               binding.etMessage.showKeyboard()
+           }*/
 
 
         commentAdapter?.replyListener = { pos, view, item, replyModel, replyPosition ->
@@ -1037,8 +1198,10 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
         when (value.status) {
             Status.SUCCESS -> {
             }
+
             Status.LOADING -> {
             }
+
             Status.ERROR -> {
                 showCustomSnackbar(
                     this,
@@ -1124,7 +1287,10 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                     binding.ivSend.isEnabled = true
                 } else {
                     binding.ivSend.backgroundTintList =
-                        ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.button_grey)
+                        ContextCompat.getColorStateList(
+                            this@QuestDetailActivity,
+                            R.color.button_grey
+                        )
                     binding.ivSend.isEnabled = false
                 }
             }
@@ -1139,7 +1305,12 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                     val start = matchResult.range.first
                     val end = matchResult.range.last + 1
 
-                    val colorSpan = ForegroundColorSpan(ContextCompat.getColor(this@QuestDetailActivity, R.color.blue))
+                    val colorSpan = ForegroundColorSpan(
+                        ContextCompat.getColor(
+                            this@QuestDetailActivity,
+                            R.color.blue
+                        )
+                    )
                     s.setSpan(colorSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 }
             }
@@ -1177,69 +1348,69 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
 
     private fun observeTextChanges(etMessage: EditText) {
         setupMentionTextWatcher(etMessage)
-      /*  etMessage.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        /*  etMessage.addTextChangedListener(object : TextWatcher {
+              override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val text = s?.toString() ?: return
-                val cursorPos = etMessage.selectionStart
+              override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                  val text = s?.toString() ?: return
+                  val cursorPos = etMessage.selectionStart
 
-                // ---------- Mention Search ----------
-                if (cursorPos > 0) {
-                    val atIndex = text.lastIndexOf("@", cursorPos - 1)
-                    if (atIndex != -1 && (atIndex == 0 || text[atIndex - 1].isWhitespace())) {
-                        val query = text.substring(atIndex + 1, cursorPos)
+                  // ---------- Mention Search ----------
+                  if (cursorPos > 0) {
+                      val atIndex = text.lastIndexOf("@", cursorPos - 1)
+                      if (atIndex != -1 && (atIndex == 0 || text[atIndex - 1].isWhitespace())) {
+                          val query = text.substring(atIndex + 1, cursorPos)
 
-                        mentionList.clear()
-                        val filtered = if (query.isEmpty()) {
-                            dummyFollowers
-                        } else {
-                            dummyFollowers.filter {
-                                it.username.startsWith(query, ignoreCase = true)
-                            }
-                        }
-                        mentionList.addAll(filtered.distinctBy { it.username })
+                          mentionList.clear()
+                          val filtered = if (query.isEmpty()) {
+                              dummyFollowers
+                          } else {
+                              dummyFollowers.filter {
+                                  it.username.startsWith(query, ignoreCase = true)
+                              }
+                          }
+                          mentionList.addAll(filtered.distinctBy { it.username })
 
-                        if (mentionList.isNotEmpty()) {
-                            binding.rvMentions.visible()
-                            mentionAdapter?.notifyDataSetChanged()
-                        } else {
-                            binding.rvMentions.gone()
-                        }
-                    } else {
-                        binding.rvMentions.gone()
-                    }
-                } else {
-                    binding.rvMentions.gone()
-                }
-            }
+                          if (mentionList.isNotEmpty()) {
+                              binding.rvMentions.visible()
+                              mentionAdapter?.notifyDataSetChanged()
+                          } else {
+                              binding.rvMentions.gone()
+                          }
+                      } else {
+                          binding.rvMentions.gone()
+                      }
+                  } else {
+                      binding.rvMentions.gone()
+                  }
+              }
 
-            override fun afterTextChanged(s: Editable?) {
-                val currentText = s?.toString() ?: ""
+              override fun afterTextChanged(s: Editable?) {
+                  val currentText = s?.toString() ?: ""
 
-                if (parentId != 0 && username.isNotEmpty() &&
-                    !currentText.startsWith(username.trim())
-                ) {
-                    Log.d("dsgghdfh",username.trim())
-                    Log.d("dsgghdfh",currentText.trim())
-                    parentId = 0
-                    username = ""
-                }
-                if (s.toString().isNotEmpty()) {
-                    binding.ivSend.backgroundTintList =
-                        ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.blue)
-                    binding.ivSend.isEnabled = true
-                } else {
-                    binding.ivSend.backgroundTintList =
-                        ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.button_grey)
-                    binding.ivSend.isEnabled = false
-                }
-            }
-        })*/
+                  if (parentId != 0 && username.isNotEmpty() &&
+                      !currentText.startsWith(username.trim())
+                  ) {
+                      Log.d("dsgghdfh",username.trim())
+                      Log.d("dsgghdfh",currentText.trim())
+                      parentId = 0
+                      username = ""
+                  }
+                  if (s.toString().isNotEmpty()) {
+                      binding.ivSend.backgroundTintList =
+                          ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.blue)
+                      binding.ivSend.isEnabled = true
+                  } else {
+                      binding.ivSend.backgroundTintList =
+                          ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.button_grey)
+                      binding.ivSend.isEnabled = false
+                  }
+              }
+          })*/
     }
 
     inner class CustomSpannableFactory : Spannable.Factory() {
-         fun newEditable(source: CharSequence): Editable {
+        fun newEditable(source: CharSequence): Editable {
             return SpannableStringBuilder(source)
         }
     }
@@ -1346,7 +1517,7 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
             for ((key, value) in map) {
                 Log.d("MapValues", "$key = $value")
             }
-            when(from) {
+            when (from) {
                 "prayer" -> {
                     map["prayer_id"] = postId
                     map["prayer_comment_id"] = commentId
@@ -1354,25 +1525,27 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                         when (value.status) {
                             Status.SUCCESS -> {
                                 LoaderDialog.dismiss()
-                                when(value.data){
+                                when (value.data) {
                                     is CommentCommonResponse -> {
-                                        Log.d("dsgdgdg","afdgGDSgds")
+                                        Log.d("dsgdgdg", "afdgGDSgds")
                                         val res = value.data.body
                                         if (repPos != -1) {
-                                            commentList[pos].replies[repPos] =  CommentResponse.Replies(
-                                                user = res?.user,
-                                                is_like = res?.is_like,
-                                                like_count = res?.like_count,
-                                                description = res?.description,
-                                                created_at = res?.created_at,
-                                                notification_id = res?.notification_id,
-                                                parent_transaction_id = res?.parent_transaction_id,
-                                                post_id = res?.post_id,
-                                                user_id = res?.user_id,
-                                                id = res?.id,
-                                                tagged_user_data = res?.tagged_user_data,
-                                                post_comment_tags = res?.post_comment_tags ?: ArrayList()
-                                            )
+                                            commentList[pos].replies[repPos] =
+                                                CommentResponse.Replies(
+                                                    user = res?.user,
+                                                    is_like = res?.is_like,
+                                                    like_count = res?.like_count,
+                                                    description = res?.description,
+                                                    created_at = res?.created_at,
+                                                    notification_id = res?.notification_id,
+                                                    parent_transaction_id = res?.parent_transaction_id,
+                                                    post_id = res?.post_id,
+                                                    user_id = res?.user_id,
+                                                    id = res?.id,
+                                                    tagged_user_data = res?.tagged_user_data,
+                                                    post_comment_tags = res?.post_comment_tags
+                                                        ?: ArrayList()
+                                                )
                                         } else {
                                             commentList[pos] = res ?: CommentResponse()
                                         }
@@ -1398,6 +1571,7 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                         }
                     }
                 }
+
                 "testimony" -> {
                     map["testimony_id"] = postId
                     map["testimony_comment_id"] = commentId
@@ -1405,25 +1579,27 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                         when (value.status) {
                             Status.SUCCESS -> {
                                 LoaderDialog.dismiss()
-                                when(value.data){
+                                when (value.data) {
                                     is CommentCommonResponse -> {
-                                        Log.d("dsgdgdg","afdgGDSgds")
+                                        Log.d("dsgdgdg", "afdgGDSgds")
                                         val res = value.data.body
                                         if (repPos != -1) {
-                                            commentList[pos].replies[repPos] =  CommentResponse.Replies(
-                                                user = res?.user,
-                                                is_like = res?.is_like,
-                                                like_count = res?.like_count,
-                                                description = res?.description,
-                                                created_at = res?.created_at,
-                                                notification_id = res?.notification_id,
-                                                parent_transaction_id = res?.parent_transaction_id,
-                                                post_id = res?.post_id,
-                                                user_id = res?.user_id,
-                                                id = res?.id,
-                                                tagged_user_data = res?.tagged_user_data,
-                                                post_comment_tags = res?.post_comment_tags ?: ArrayList()
-                                            )
+                                            commentList[pos].replies[repPos] =
+                                                CommentResponse.Replies(
+                                                    user = res?.user,
+                                                    is_like = res?.is_like,
+                                                    like_count = res?.like_count,
+                                                    description = res?.description,
+                                                    created_at = res?.created_at,
+                                                    notification_id = res?.notification_id,
+                                                    parent_transaction_id = res?.parent_transaction_id,
+                                                    post_id = res?.post_id,
+                                                    user_id = res?.user_id,
+                                                    id = res?.id,
+                                                    tagged_user_data = res?.tagged_user_data,
+                                                    post_comment_tags = res?.post_comment_tags
+                                                        ?: ArrayList()
+                                                )
                                         } else {
                                             commentList[pos] = res ?: CommentResponse()
                                             commentList[pos].description =
@@ -1433,12 +1609,14 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                                         showCustomSnackbar(this, it, "Changes Saved.")
                                     }
 
-                                    is CommonResponse->{
+                                    is CommonResponse -> {
                                         val res = value.data.body
-                                        if (repPos != -1){
-                                            commentList[pos].replies[repPos].description = resetBinding.tvDescription.text.toString().trim()
-                                        }else{
-                                            commentList[pos].description = resetBinding.tvDescription.text.toString().trim()
+                                        if (repPos != -1) {
+                                            commentList[pos].replies[repPos].description =
+                                                resetBinding.tvDescription.text.toString().trim()
+                                        } else {
+                                            commentList[pos].description =
+                                                resetBinding.tvDescription.text.toString().trim()
                                         }
                                         commentAdapter?.notifyItemChanged(pos)
                                         showCustomSnackbar(this, it, "Changes Saved.")
@@ -1462,32 +1640,35 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                         }
                     }
                 }
-                else->{
+
+                else -> {
                     map["community_forum_id"] = postId
                     map["community_forum_comment_id"] = commentId
                     viewModel.communityCommentEdit(map, this).observe(this) { value ->
                         when (value.status) {
                             Status.SUCCESS -> {
                                 LoaderDialog.dismiss()
-                                when(value.data){
+                                when (value.data) {
                                     is CommentCommonResponse -> {
-                                        Log.d("dsgdgdg","afdgGDSgds")
+                                        Log.d("dsgdgdg", "afdgGDSgds")
                                         val res = value.data.body
                                         if (repPos != -1) {
-                                            commentList[pos].replies[repPos] =  CommentResponse.Replies(
-                                                user = res?.user,
-                                                is_like = res?.is_like,
-                                                like_count = res?.like_count,
-                                                description = res?.description,
-                                                created_at = res?.created_at,
-                                                notification_id = res?.notification_id,
-                                                parent_transaction_id = res?.parent_transaction_id,
-                                                post_id = res?.post_id,
-                                                user_id = res?.user_id,
-                                                id = res?.id,
-                                                tagged_user_data = res?.tagged_user_data,
-                                                post_comment_tags = res?.post_comment_tags ?: ArrayList()
-                                            )
+                                            commentList[pos].replies[repPos] =
+                                                CommentResponse.Replies(
+                                                    user = res?.user,
+                                                    is_like = res?.is_like,
+                                                    like_count = res?.like_count,
+                                                    description = res?.description,
+                                                    created_at = res?.created_at,
+                                                    notification_id = res?.notification_id,
+                                                    parent_transaction_id = res?.parent_transaction_id,
+                                                    post_id = res?.post_id,
+                                                    user_id = res?.user_id,
+                                                    id = res?.id,
+                                                    tagged_user_data = res?.tagged_user_data,
+                                                    post_comment_tags = res?.post_comment_tags
+                                                        ?: ArrayList()
+                                                )
                                         } else {
                                             commentList[pos] = res ?: CommentResponse()
                                             commentList[pos].description =
@@ -1521,7 +1702,12 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
         customDialog.show()
 
         // Setup mention functionality for the edit dialog
-        setupEditDialogMentionTextWatcher(resetBinding.tvDescription, resetBinding.rvMentions, dialogMentionList, dialogMentionAdapter)
+        setupEditDialogMentionTextWatcher(
+            resetBinding.tvDescription,
+            resetBinding.rvMentions,
+            dialogMentionList,
+            dialogMentionAdapter
+        )
 
         // Enable/disable reply button based on initial text
         resetBinding.tvReplies.isEnabled = initialComment.isNotEmpty()
@@ -1601,13 +1787,18 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                 }
 
                 // Enable/disable reply button
-                val replyButton = editText.rootView.findViewById<android.widget.Button>(R.id.tvReplies)
+                val replyButton =
+                    editText.rootView.findViewById<android.widget.Button>(R.id.tvReplies)
                 replyButton?.let { button ->
                     if (s.toString().isNotEmpty()) {
-                        button.backgroundTintList = ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.blue)
+                        button.backgroundTintList =
+                            ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.blue)
                         button.isEnabled = true
                     } else {
-                        button.backgroundTintList = ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.button_grey)
+                        button.backgroundTintList = ContextCompat.getColorStateList(
+                            this@QuestDetailActivity,
+                            R.color.button_grey
+                        )
                         button.isEnabled = false
                     }
                 }
@@ -1622,7 +1813,12 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
                 mentionPattern.findAll(s.toString()).forEach { matchResult ->
                     val start = matchResult.range.first
                     val end = matchResult.range.last + 1
-                    val colorSpan = ForegroundColorSpan(ContextCompat.getColor(this@QuestDetailActivity, R.color.blue))
+                    val colorSpan = ForegroundColorSpan(
+                        ContextCompat.getColor(
+                            this@QuestDetailActivity,
+                            R.color.blue
+                        )
+                    )
                     s.setSpan(colorSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 }
             }
@@ -1657,6 +1853,7 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
             }
         })
     }
+
     private fun applyInitialMentionStyling(editText: EditText, text: String) {
         val mentionPattern = Regex("@([A-Za-z0-9_]+)")
         val spannable = SpannableStringBuilder(text)
@@ -1671,156 +1868,156 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
         editText.setText(spannable)
         editText.setSelection(text.length)
     }
-  /*  private fun showMessageDialog(
-        pos: Int,
-        repPos: Int,
-        commentId: String,
-        postId: String,
-        desc: String,
-        notificationId: String
-    ) {
-        val customDialog = Dialog(this)
-        customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        val resetBinding = DialogEditMessageBinding.inflate(layoutInflater)
-        customDialog.setContentView(resetBinding.root)
-        customDialog.window?.setGravity(Gravity.BOTTOM)
-        customDialog.window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        customDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+    /*  private fun showMessageDialog(
+          pos: Int,
+          repPos: Int,
+          commentId: String,
+          postId: String,
+          desc: String,
+          notificationId: String
+      ) {
+          val customDialog = Dialog(this)
+          customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+          val resetBinding = DialogEditMessageBinding.inflate(layoutInflater)
+          customDialog.setContentView(resetBinding.root)
+          customDialog.window?.setGravity(Gravity.BOTTOM)
+          customDialog.window?.setLayout(
+              ViewGroup.LayoutParams.MATCH_PARENT,
+              ViewGroup.LayoutParams.WRAP_CONTENT
+          )
+          customDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-        resetBinding.tvComments.setOnClickListener {
-            customDialog.dismiss()
-            deletePost(pos,repPos,commentId,notificationId)
-        }
+          resetBinding.tvComments.setOnClickListener {
+              customDialog.dismiss()
+              deletePost(pos,repPos,commentId,notificationId)
+          }
 
-        if (repPos != -1) {
-            val comment = removeMentionIfMatches(
-                desc ?: "",
-                commentList[pos].replies[repPos].user?.username ?: ""
-            )
-            resetBinding.tvDescription.setText(comment)
-        } else {
-            val comment = removeMentionIfMatches(desc ?: "", commentList[pos].user?.username ?: "")
-            resetBinding.tvDescription.setText(comment)
-        }
+          if (repPos != -1) {
+              val comment = removeMentionIfMatches(
+                  desc ?: "",
+                  commentList[pos].replies[repPos].user?.username ?: ""
+              )
+              resetBinding.tvDescription.setText(comment)
+          } else {
+              val comment = removeMentionIfMatches(desc ?: "", commentList[pos].user?.username ?: "")
+              resetBinding.tvDescription.setText(comment)
+          }
 
-        resetBinding.tvReplies.setOnClickListener {
-            if (containsBannedWord(resetBinding.tvDescription.text.toString().trim())) {
-                showCustomSnackbar(
-                    this,
-                    resetBinding.root,
-                    "Your comment contains banned or inappropriate words. Please remove them before posting."
-                )
-                return@setOnClickListener
-            }
-            customDialog.dismiss()
-            val map = HashMap<String, String>()
-            map["description"] = resetBinding.tvDescription.text.toString().trim()
-            val oldComment = desc ?: ""
-            val newComment = resetBinding.tvDescription.text.toString().trim()
+          resetBinding.tvReplies.setOnClickListener {
+              if (containsBannedWord(resetBinding.tvDescription.text.toString().trim())) {
+                  showCustomSnackbar(
+                      this,
+                      resetBinding.root,
+                      "Your comment contains banned or inappropriate words. Please remove them before posting."
+                  )
+                  return@setOnClickListener
+              }
+              customDialog.dismiss()
+              val map = HashMap<String, String>()
+              map["description"] = resetBinding.tvDescription.text.toString().trim()
+              val oldComment = desc ?: ""
+              val newComment = resetBinding.tvDescription.text.toString().trim()
 
-            val mentionPattern = Regex("@([A-Za-z0-9_]+)")
+              val mentionPattern = Regex("@([A-Za-z0-9_]+)")
 
-            val oldMentions = mentionPattern.findAll(oldComment)
-                .map { it.groupValues[1] }
-                .toList()
+              val oldMentions = mentionPattern.findAll(oldComment)
+                  .map { it.groupValues[1] }
+                  .toList()
 
-            val newMentions = mentionPattern.findAll(newComment)
-                .map { it.groupValues[1] }
-                .toList()
+              val newMentions = mentionPattern.findAll(newComment)
+                  .map { it.groupValues[1] }
+                  .toList()
 
-            val allMentions = (oldMentions + newMentions).distinct()
+              val allMentions = (oldMentions + newMentions).distinct()
 
-            if (allMentions.isNotEmpty()) {
-                map["tagged_user_id"] = allMentions.joinToString(separator = ",")
-            }
+              if (allMentions.isNotEmpty()) {
+                  map["tagged_user_id"] = allMentions.joinToString(separator = ",")
+              }
 
-            for ((key, value) in map) {
-                Log.d("MapValues", "$key = $value")
-            }
-            when(from) {
-                "prayer" -> {
-                    map["prayer_id"] = postId
-                    map["prayer_comment_id"] = commentId
-                    viewModel.prayerCommentEdit(map, this).observe(this) { value ->
-                        when (value.status) {
-                            Status.SUCCESS -> {
-                                LoaderDialog.dismiss()
-                                when(value.data){
-                                    is CommentCommonResponse -> {
-                                        Log.d("dsgdgdg","afdgGDSgds")
-                                        val res = value.data.body
-                                        if (repPos != -1) {
-                                            commentList[pos].replies[repPos] =  CommentResponse.Replies(
-                                                user = res?.user,
-                                                is_like = res?.is_like,
-                                                like_count = res?.like_count,
-                                                description = res?.description,
-                                                created_at = res?.created_at,
-                                                notification_id = res?.notification_id,
-                                                parent_transaction_id = res?.parent_transaction_id,
-                                                post_id = res?.post_id,
-                                                user_id = res?.user_id,
-                                                id = res?.id,
-                                                tagged_user_data = res?.tagged_user_data,
-                                                post_comment_tags = res?.post_comment_tags ?: ArrayList()
-                                            )
-                                        } else {
-                                            commentList[pos] = res ?: CommentResponse()
-                                        }
-                                        commentAdapter?.notifyItemChanged(pos)
-                                        showCustomSnackbar(this, it, "Changes Saved.")
-                                    }
-                                }
+              for ((key, value) in map) {
+                  Log.d("MapValues", "$key = $value")
+              }
+              when(from) {
+                  "prayer" -> {
+                      map["prayer_id"] = postId
+                      map["prayer_comment_id"] = commentId
+                      viewModel.prayerCommentEdit(map, this).observe(this) { value ->
+                          when (value.status) {
+                              Status.SUCCESS -> {
+                                  LoaderDialog.dismiss()
+                                  when(value.data){
+                                      is CommentCommonResponse -> {
+                                          Log.d("dsgdgdg","afdgGDSgds")
+                                          val res = value.data.body
+                                          if (repPos != -1) {
+                                              commentList[pos].replies[repPos] =  CommentResponse.Replies(
+                                                  user = res?.user,
+                                                  is_like = res?.is_like,
+                                                  like_count = res?.like_count,
+                                                  description = res?.description,
+                                                  created_at = res?.created_at,
+                                                  notification_id = res?.notification_id,
+                                                  parent_transaction_id = res?.parent_transaction_id,
+                                                  post_id = res?.post_id,
+                                                  user_id = res?.user_id,
+                                                  id = res?.id,
+                                                  tagged_user_data = res?.tagged_user_data,
+                                                  post_comment_tags = res?.post_comment_tags ?: ArrayList()
+                                              )
+                                          } else {
+                                              commentList[pos] = res ?: CommentResponse()
+                                          }
+                                          commentAdapter?.notifyItemChanged(pos)
+                                          showCustomSnackbar(this, it, "Changes Saved.")
+                                      }
+                                  }
 
-                            }
+                              }
 
-                            Status.LOADING -> {
-                                LoaderDialog.show(this)
-                            }
+                              Status.LOADING -> {
+                                  LoaderDialog.show(this)
+                              }
 
-                            Status.ERROR -> {
-                                LoaderDialog.dismiss()
-                                showCustomSnackbar(
-                                    this,
-                                    binding.root,
-                                    value.message.toString()
-                                )
-                            }
-                        }
-                    }
-                }
-                "testimony" -> {
-                    map["testimony_id"] = postId
-                    map["testimony_comment_id"] = commentId
-                    viewModel.testimonyCommentEdit(map, this).observe(this) { value ->
-                        when (value.status) {
-                            Status.SUCCESS -> {
-                                LoaderDialog.dismiss()
-                                when(value.data){
-                                    is CommentCommonResponse -> {
-                                        Log.d("dsgdgdg","afdgGDSgds")
-                                        val res = value.data.body
-                                        if (repPos != -1) {
-                                            commentList[pos].replies[repPos] =  CommentResponse.Replies(
-                                                user = res?.user,
-                                                is_like = res?.is_like,
-                                                like_count = res?.like_count,
-                                                description = res?.description,
-                                                created_at = res?.created_at,
-                                                notification_id = res?.notification_id,
-                                                parent_transaction_id = res?.parent_transaction_id,
-                                                post_id = res?.post_id,
-                                                user_id = res?.user_id,
-                                                id = res?.id,
-                                                tagged_user_data = res?.tagged_user_data,
-                                                post_comment_tags = res?.post_comment_tags ?: ArrayList()
-                                            )
-                                        } else {
-                                            commentList[pos] = res ?: CommentResponse()
-                                            *//*commentList[pos].description =
+                              Status.ERROR -> {
+                                  LoaderDialog.dismiss()
+                                  showCustomSnackbar(
+                                      this,
+                                      binding.root,
+                                      value.message.toString()
+                                  )
+                              }
+                          }
+                      }
+                  }
+                  "testimony" -> {
+                      map["testimony_id"] = postId
+                      map["testimony_comment_id"] = commentId
+                      viewModel.testimonyCommentEdit(map, this).observe(this) { value ->
+                          when (value.status) {
+                              Status.SUCCESS -> {
+                                  LoaderDialog.dismiss()
+                                  when(value.data){
+                                      is CommentCommonResponse -> {
+                                          Log.d("dsgdgdg","afdgGDSgds")
+                                          val res = value.data.body
+                                          if (repPos != -1) {
+                                              commentList[pos].replies[repPos] =  CommentResponse.Replies(
+                                                  user = res?.user,
+                                                  is_like = res?.is_like,
+                                                  like_count = res?.like_count,
+                                                  description = res?.description,
+                                                  created_at = res?.created_at,
+                                                  notification_id = res?.notification_id,
+                                                  parent_transaction_id = res?.parent_transaction_id,
+                                                  post_id = res?.post_id,
+                                                  user_id = res?.user_id,
+                                                  id = res?.id,
+                                                  tagged_user_data = res?.tagged_user_data,
+                                                  post_comment_tags = res?.post_comment_tags ?: ArrayList()
+                                              )
+                                          } else {
+                                              commentList[pos] = res ?: CommentResponse()
+                                              *//*commentList[pos].description =
                                                 resetBinding.tvDescription.text.toString().trim()*//*
                                         }
                                         commentAdapter?.notifyItemChanged(pos)
@@ -2011,7 +2208,13 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
     }*/
 
 
-    private fun setPopUpWindowDelete(view1: View, pos: Int,repPos: Int,commentId: String,notificationId: String) {
+    private fun setPopUpWindowDelete(
+        view1: View,
+        pos: Int,
+        repPos: Int,
+        commentId: String,
+        notificationId: String
+    ) {
         val view = MenuReportMemberBinding.inflate(layoutInflater)
 
         val myPopupWindow = PopupWindow(
@@ -2020,13 +2223,14 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
             RelativeLayout.LayoutParams.WRAP_CONTENT,
             true
         )
-        with(view){
+        with(view) {
             ivUser.setImageResource(R.drawable.del_icon)
-            ivUser.imageTintList = ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.black)
+            ivUser.imageTintList =
+                ContextCompat.getColorStateList(this@QuestDetailActivity, R.color.black)
             tvNotDone.text = "Delete Comment"
             tvNotDone.setOnClickListener {
                 myPopupWindow.dismiss()
-                deletePost(pos,repPos,commentId,notificationId)
+                deletePost(pos, repPos, commentId, notificationId)
 
             }
         }
@@ -2041,7 +2245,7 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
         commentId: String,
         mainComment: CommentResponse,
         item: CommentResponse.Replies?,
-        notificationId:String
+        notificationId: String
     ) {
         val view = MenuReportDeleteDialogBinding.inflate(layoutInflater)
 
@@ -2051,230 +2255,249 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
             RelativeLayout.LayoutParams.WRAP_CONTENT,
             true
         )
-        with(view){
+        with(view) {
             clDeleteUser.setOnClickListener {
                 myPopupWindow.dismiss()
-                deletePost(pos,repPos,commentId,notificationId)
+                deletePost(pos, repPos, commentId, notificationId)
             }
 
             tvNotDone.setOnClickListener {
                 myPopupWindow.dismiss()
-                startActivity(Intent(this@QuestDetailActivity, ReportUserActivity::class.java).apply {
-                    putExtra("from", "postComment")
-                    if (item != null) {
-                        putExtra("id", item.id.toString())
-                        putExtra("reportedTo", item.user_id.toString())
-                        putExtra("postId", item.post_id.toString())
-                        putExtra("username", item.user?.username.toString())
+                startActivity(
+                    Intent(
+                        this@QuestDetailActivity,
+                        ReportUserActivity::class.java
+                    ).apply {
+                        putExtra("from", "postComment")
+                        if (item != null) {
+                            putExtra("id", item.id.toString())
+                            putExtra("reportedTo", item.user_id.toString())
+                            putExtra("postId", item.post_id.toString())
+                            putExtra("username", item.user?.username.toString())
 
-                    }else{
-                        putExtra("id", mainComment.id.toString())
-                        putExtra("reportedTo", mainComment.user_id.toString())
-                        putExtra("postId", mainComment.post_id.toString())
-                        putExtra("username", mainComment.user?.username.toString())
-                    }
+                        } else {
+                            putExtra("id", mainComment.id.toString())
+                            putExtra("reportedTo", mainComment.user_id.toString())
+                            putExtra("postId", mainComment.post_id.toString())
+                            putExtra("username", mainComment.user?.username.toString())
+                        }
 
-                })
+                    })
             }
             ivUser.setOnClickListener {
                 myPopupWindow.dismiss()
-                startActivity(Intent(this@QuestDetailActivity, ReportUserActivity::class.java).apply {
-                    putExtra("from", "postComment")
-                    if (item != null) {
-                        putExtra("id", item.id.toString())
-                        putExtra("reportedTo", item.user_id.toString())
-                        putExtra("postId", item.post_id.toString())
-                        putExtra("username", item.user?.username.toString())
+                startActivity(
+                    Intent(
+                        this@QuestDetailActivity,
+                        ReportUserActivity::class.java
+                    ).apply {
+                        putExtra("from", "postComment")
+                        if (item != null) {
+                            putExtra("id", item.id.toString())
+                            putExtra("reportedTo", item.user_id.toString())
+                            putExtra("postId", item.post_id.toString())
+                            putExtra("username", item.user?.username.toString())
 
-                    }else{
-                        putExtra("id", mainComment.id.toString())
-                        putExtra("reportedTo", mainComment.user_id.toString())
-                        putExtra("postId", mainComment.post_id.toString())
-                        putExtra("username", mainComment.user?.username.toString())
+                        } else {
+                            putExtra("id", mainComment.id.toString())
+                            putExtra("reportedTo", mainComment.user_id.toString())
+                            putExtra("postId", mainComment.post_id.toString())
+                            putExtra("username", mainComment.user?.username.toString())
 
-                    }
-                })
+                        }
+                    })
             }
         }
 
         myPopupWindow.showAsDropDown(view1, 0, -80)
     }
 
-    private fun deletePost(pos: Int, repPos: Int, commentId: String,notificationId:String) {
-        when(from){
-            "prayer"->{
-                viewModel.prayerCommentDelete(commentId, this,notificationId).observe(this) { value ->
-                    when (value.status) {
-                        Status.SUCCESS -> {
-                           LoaderDialog.dismiss()
-                            when(value.data){
-                                is CommonResponse->{
-                                    val res = value.data.body
-                                    if (repPos != -1){
-                                        commentList[pos].replies.removeAt(repPos)
-                                    }else{
-                                        commentList.removeAt(pos)
-                                    }
-                                    commentAdapter?.notifyDataSetChanged()
-                                    showCustomSnackbar(this, binding.root, "Comment Deleted.")
+    private fun deletePost(pos: Int, repPos: Int, commentId: String, notificationId: String) {
+        when (from) {
+            "prayer" -> {
+                viewModel.prayerCommentDelete(commentId, this, notificationId)
+                    .observe(this) { value ->
+                        when (value.status) {
+                            Status.SUCCESS -> {
+                                LoaderDialog.dismiss()
+                                when (value.data) {
+                                    is CommonResponse -> {
+                                        val res = value.data.body
+                                        if (repPos != -1) {
+                                            commentList[pos].replies.removeAt(repPos)
+                                        } else {
+                                            commentList.removeAt(pos)
+                                        }
+                                        commentAdapter?.notifyDataSetChanged()
+                                        showCustomSnackbar(this, binding.root, "Comment Deleted.")
 
-                                    if (commentList.isNotEmpty()){
-                                        binding.tvNoDataFound.gone()
-                                    }else{
-                                        binding.tvNoDataFound.visible()
-                                    }
+                                        if (commentList.isNotEmpty()) {
+                                            binding.tvNoDataFound.gone()
+                                        } else {
+                                            binding.tvNoDataFound.visible()
+                                        }
 
-                                    data.commentCount = (data.commentCount ?:0)-1
+                                        data.commentCount = (data.commentCount ?: 0) - 1
 
-                                    if ((data.commentCount ?: 0) > 0){
-                                        binding.tvTotalComments.text = buildString {
-                                            append("Comments (")
+                                        if ((data.commentCount ?: 0) > 0) {
+                                            binding.tvTotalComments.text = buildString {
+                                                append("Comments (")
+                                                append(formatCount(data.commentCount ?: 0))
+                                                append(")")
+                                            }
+                                        }
+
+                                        val commentText = if ((data.commentCount
+                                                ?: 0) > 1
+                                        ) "Comments" else "Comment"
+                                        binding.tvComments.text = buildString {
                                             append(formatCount(data.commentCount ?: 0))
-                                            append(")")
+                                            append(" ")
+                                            append(commentText)
                                         }
                                     }
-
-                                    val commentText = if ((data.commentCount ?: 0) > 1) "Comments" else "Comment"
-                                    binding.tvComments.text = buildString {
-                                        append(formatCount( data.commentCount ?: 0))
-                                        append(" ")
-                                        append(commentText)
-                                    }
                                 }
+
                             }
 
-                        }
+                            Status.LOADING -> {
+                                LoaderDialog.show(this)
+                            }
 
-                        Status.LOADING -> {
-                            LoaderDialog.show(this)
-                        }
-
-                        Status.ERROR -> {
-                           LoaderDialog.dismiss()
-                            showCustomSnackbar(
-                                this,
-                                binding.root,
-                                value.message.toString()
-                            )
+                            Status.ERROR -> {
+                                LoaderDialog.dismiss()
+                                showCustomSnackbar(
+                                    this,
+                                    binding.root,
+                                    value.message.toString()
+                                )
+                            }
                         }
                     }
-                }
             }
-            "testimony"->{
-                viewModel.testimonyCommentDelete(commentId, this,notificationId).observe(this) { value ->
-                    when (value.status) {
-                        Status.SUCCESS -> {
-                           LoaderDialog.dismiss()
-                            when(value.data){
-                                is CommonResponse->{
-                                    val res = value.data.body
-                                    if (repPos != -1){
-                                        commentList[pos].replies.removeAt(repPos)
-                                    }else{
-                                        commentList.removeAt(pos)
-                                    }
-                                    commentAdapter?.notifyDataSetChanged()
-                                    showCustomSnackbar(this, binding.root, "Comment Deleted.")
 
-                                    if (commentList.isNotEmpty()){
-                                        binding.tvNoDataFound.gone()
-                                    }else{
-                                        binding.tvNoDataFound.visible()
-                                    }
+            "testimony" -> {
+                viewModel.testimonyCommentDelete(commentId, this, notificationId)
+                    .observe(this) { value ->
+                        when (value.status) {
+                            Status.SUCCESS -> {
+                                LoaderDialog.dismiss()
+                                when (value.data) {
+                                    is CommonResponse -> {
+                                        val res = value.data.body
+                                        if (repPos != -1) {
+                                            commentList[pos].replies.removeAt(repPos)
+                                        } else {
+                                            commentList.removeAt(pos)
+                                        }
+                                        commentAdapter?.notifyDataSetChanged()
+                                        showCustomSnackbar(this, binding.root, "Comment Deleted.")
 
-                                    data.commentCount = (data.commentCount ?:0)-1
+                                        if (commentList.isNotEmpty()) {
+                                            binding.tvNoDataFound.gone()
+                                        } else {
+                                            binding.tvNoDataFound.visible()
+                                        }
 
-                                    if ((data.commentCount ?: 0) > 0){
-                                        binding.tvTotalComments.text = buildString {
-                                            append("Comments (")
+                                        data.commentCount = (data.commentCount ?: 0) - 1
+
+                                        if ((data.commentCount ?: 0) > 0) {
+                                            binding.tvTotalComments.text = buildString {
+                                                append("Comments (")
+                                                append(formatCount(data.commentCount ?: 0))
+                                                append(")")
+                                            }
+                                        }
+
+                                        val commentText = if ((data.commentCount
+                                                ?: 0) > 1
+                                        ) "Comments" else "Comment"
+                                        binding.tvComments.text = buildString {
                                             append(formatCount(data.commentCount ?: 0))
-                                            append(")")
+                                            append(" ")
+                                            append(commentText)
                                         }
                                     }
-
-                                    val commentText = if ((data.commentCount ?: 0) > 1) "Comments" else "Comment"
-                                    binding.tvComments.text = buildString {
-                                        append(formatCount( data.commentCount ?: 0))
-                                        append(" ")
-                                        append(commentText)
-                                    }
                                 }
+
                             }
 
-                        }
+                            Status.LOADING -> {
+                                LoaderDialog.show(this)
+                            }
 
-                        Status.LOADING -> {
-                            LoaderDialog.show(this)
-                        }
-
-                        Status.ERROR -> {
-                           LoaderDialog.dismiss()
-                            showCustomSnackbar(
-                                this,
-                                binding.root,
-                                value.message.toString()
-                            )
+                            Status.ERROR -> {
+                                LoaderDialog.dismiss()
+                                showCustomSnackbar(
+                                    this,
+                                    binding.root,
+                                    value.message.toString()
+                                )
+                            }
                         }
                     }
-                }
             }
-            else->{
-                viewModel.communityCommentDelete(commentId, this,notificationId).observe(this) { value ->
-                    when (value.status) {
-                        Status.SUCCESS -> {
-                           LoaderDialog.dismiss()
-                            when(value.data){
-                                is CommonResponse->{
-                                    val res = value.data.body
-                                    if (repPos != -1){
-                                        commentList[pos].replies.removeAt(repPos)
-                                    }else{
-                                        commentList.removeAt(pos)
-                                    }
-                                    commentAdapter?.notifyDataSetChanged()
-                                    showCustomSnackbar(this, binding.root, "Comment Deleted.")
 
-                                    if (commentList.isNotEmpty()){
-                                        binding.tvNoDataFound.gone()
-                                    }else{
-                                        binding.tvNoDataFound.visible()
-                                    }
+            else -> {
+                viewModel.communityCommentDelete(commentId, this, notificationId)
+                    .observe(this) { value ->
+                        when (value.status) {
+                            Status.SUCCESS -> {
+                                LoaderDialog.dismiss()
+                                when (value.data) {
+                                    is CommonResponse -> {
+                                        val res = value.data.body
+                                        if (repPos != -1) {
+                                            commentList[pos].replies.removeAt(repPos)
+                                        } else {
+                                            commentList.removeAt(pos)
+                                        }
+                                        commentAdapter?.notifyDataSetChanged()
+                                        showCustomSnackbar(this, binding.root, "Comment Deleted.")
 
-                                    data.commentCount = (data.commentCount ?:0)-1
+                                        if (commentList.isNotEmpty()) {
+                                            binding.tvNoDataFound.gone()
+                                        } else {
+                                            binding.tvNoDataFound.visible()
+                                        }
 
-                                    if ((data.commentCount ?: 0) > 0){
-                                        binding.tvTotalComments.text = buildString {
-                                            append("Comments (")
+                                        data.commentCount = (data.commentCount ?: 0) - 1
+
+                                        if ((data.commentCount ?: 0) > 0) {
+                                            binding.tvTotalComments.text = buildString {
+                                                append("Comments (")
+                                                append(formatCount(data.commentCount ?: 0))
+                                                append(")")
+                                            }
+                                        }
+
+                                        val commentText = if ((data.commentCount
+                                                ?: 0) > 1
+                                        ) "Comments" else "Comment"
+                                        binding.tvComments.text = buildString {
                                             append(formatCount(data.commentCount ?: 0))
-                                            append(")")
+                                            append(" ")
+                                            append(commentText)
                                         }
                                     }
-
-                                    val commentText = if ((data.commentCount ?: 0) > 1) "Comments" else "Comment"
-                                    binding.tvComments.text = buildString {
-                                        append(formatCount( data.commentCount ?: 0))
-                                        append(" ")
-                                        append(commentText)
-                                    }
                                 }
+
                             }
 
-                        }
+                            Status.LOADING -> {
+                                LoaderDialog.show(this)
+                            }
 
-                        Status.LOADING -> {
-                            LoaderDialog.show(this)
-                        }
-
-                        Status.ERROR -> {
-                           LoaderDialog.dismiss()
-                            showCustomSnackbar(
-                                this,
-                                binding.root,
-                                value.message.toString()
-                            )
+                            Status.ERROR -> {
+                                LoaderDialog.dismiss()
+                                showCustomSnackbar(
+                                    this,
+                                    binding.root,
+                                    value.message.toString()
+                                )
+                            }
                         }
                     }
-                }
             }
         }
     }
@@ -2294,7 +2517,7 @@ class QuestDetailActivity : AppCompatActivity(),Observer<Resource<Any>> {
             .setCornerRadius(12f)
             .setMarginLeft(4)
             .setMarginRight(8)
-            .setBackgroundColor(ContextCompat.getColor(this,R.color.black_translucent))
+            .setBackgroundColor(ContextCompat.getColor(this, R.color.black_translucent))
             .setBalloonAnimation(BalloonAnimation.OVERSHOOT)
             .setLifecycleOwner(this)
             .build()

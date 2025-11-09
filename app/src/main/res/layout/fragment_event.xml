@@ -142,18 +142,30 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tvUpcoming"
                 app:layout_constraintTop_toTopOf="@+id/tvUpcoming" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvEvents"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:orientation="vertical"
-                tools:listitem="@layout/item_events"
+                android:layout_height="0dp"
                 android:layout_marginHorizontal="@dimen/_8sdp"
                 app:layout_constraintTop_toBottomOf="@+id/tvUpcoming"
                 android:layout_marginTop="@dimen/_3sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvEvents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="vertical"
+                    tools:listitem="@layout/item_events"
+                    />
+
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmerLayout"

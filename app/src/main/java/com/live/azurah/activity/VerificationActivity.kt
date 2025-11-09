@@ -237,7 +237,7 @@ class VerificationActivity : AppCompatActivity(), Observer<Resource<Any>> {
     }
 
     private fun sendOtpTimer() {
-        val durationInMillis: Long = 60000
+        val durationInMillis: Long = 180000
 
         val timer = object : CountDownTimer(durationInMillis, 1000) {
             override fun onTick(millisUntilFinished: Long) {

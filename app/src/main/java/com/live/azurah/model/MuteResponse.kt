@@ -18,6 +18,8 @@ data class MuteResponse(
         val receiver_id: String? = null,
         val sender_id: String? = null,
         val isBlockedByMe: String? = null,
-        val isBlockedByOther: String? = null
+        val isBlockedByOther: String? = null,
+        val senderProfileType: Int? = null,
+        val receiverProfileType: Int? = null,
     )
 }

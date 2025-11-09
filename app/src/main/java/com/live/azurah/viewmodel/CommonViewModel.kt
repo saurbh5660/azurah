@@ -1194,4 +1194,12 @@ class CommonViewModel @Inject constructor(private val commonRepository: CommonRe
         }
     }
 
+    fun removeSuggestion(map: HashMap<String, String>, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.removeSuggestion(map, activity)
+            emit(response)
+        }
+    }
+
 }

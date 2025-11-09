@@ -73,6 +73,16 @@ class PrayerRequestAdapter(
         with(holder.binding) {
             val item = prayerList[holder.absoluteAdapterPosition]
 
+            val marginInPx = if (position == prayerList.size - 1) {
+                ctx.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._60sdp)
+            } else {
+                0
+            }
+
+            val layoutParams = root.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.bottomMargin = marginInPx
+            root.layoutParams = layoutParams
+
            /* if (from == 1){
                 if (position == 0){
                     ivPosts.setImageResource(R.drawable.image125)

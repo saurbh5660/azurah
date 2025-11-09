@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,7 @@ import com.live.azurah.activity.ShopDetailFragment
 import com.live.azurah.adapter.SearchShopAdapter
 import com.live.azurah.databinding.FragmentSearchProductBinding
 import com.live.azurah.model.AddWishlistResponse
+import com.live.azurah.model.CountResponse
 import com.live.azurah.model.ProductResponse
 import com.live.azurah.retrofit.LoaderDialog
 import com.live.azurah.retrofit.Status
@@ -27,6 +29,7 @@ import com.live.azurah.util.gone
 import com.live.azurah.util.showCustomSnackbar
 import com.live.azurah.util.visible
 import com.live.azurah.viewmodel.CommonViewModel
+import com.live.azurah.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,10 +40,14 @@ import java.util.TimerTask
 @AndroidEntryPoint
 class SearchProductFragment : Fragment() {
   private lateinit var binding: FragmentSearchProductBinding
+    private lateinit var sharedViewModel: SharedViewModel
+
   private var productList = ArrayList<ProductResponse.Body.Data>()
+  private var likeProductList = ArrayList<ProductResponse.Body.Data>()
 //    private val loaderDialog by lazy { LoaderDialog(requireActivity()) }
     private val viewModel by viewModels<CommonViewModel>()
     private var productAdapter: SearchShopAdapter? = null
+    private var likeProductAdapter: SearchShopAdapter? = null
     private var search = ""
     private lateinit var receiver : BroadcastReceiver
     private var showDialog = false
@@ -63,10 +70,12 @@ class SearchProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setCatAdapter()
+        setLikesCatAdapter()
         initListener()
         showDialog = true
         resetPage = true
         binding.tvSongWeek.visible()
+        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         getLikeProduct()
 
         receiver = object : BroadcastReceiver(){
@@ -189,8 +198,12 @@ class SearchProductFragment : Fragment() {
 
                             if (productList.isEmpty()){
                                 binding.tvNoDataFound.visible()
+                                binding.rvLikesProducts.gone()
+                                binding.rvProducts.gone()
                             }else{
                                 binding.tvNoDataFound.gone()
+                                binding.rvLikesProducts.gone()
+                                binding.rvProducts.visible()
                                 currentPage = (value.data.body?.current_page?:0) + 1
                             }
                             totalPageCount = value.data.body?.total_pages ?: 0
@@ -230,17 +243,21 @@ class SearchProductFragment : Fragment() {
                    LoaderDialog.dismiss()
                     when (value.data) {
                         is ProductResponse -> {
-                            productList.clear()
-                            value.data.body?.data?.let { productList.addAll(it) }
-                            productAdapter?.notifyDataSetChanged()
+                            likeProductList.clear()
+                            value.data.body?.data?.let { likeProductList.addAll(it) }
+                            likeProductAdapter?.notifyDataSetChanged()
 
-                            if (productList.isEmpty()){
+                            if (likeProductList.isEmpty()){
                                 binding.tvNoDataFound.visible()
+                                binding.rvLikesProducts.gone()
+                                binding.rvProducts.gone()
                             }else{
                                 binding.tvNoDataFound.gone()
-                                currentPage = (value.data.body?.current_page?:0) + 1
+                                binding.rvLikesProducts.visible()
+                                binding.rvProducts.gone()
+//                                currentPage = (value.data.body?.current_page?:0) + 1
                             }
-                            totalPageCount = value.data.body?.total_pages ?: 0
+//                            totalPageCount = value.data.body?.total_pages ?: 0
 
                         }
                     }
@@ -279,10 +296,27 @@ class SearchProductFragment : Fragment() {
                        LoaderDialog.dismiss()
                         when (value.data) {
                             is AddWishlistResponse -> {
+
                                 productList[pos].is_wishlist =
-                                    (value?.data?.body?.status ?: "0").toInt()
+                                    if (!value?.data?.body?.status.isNullOrEmpty()){
+                                        (value.data?.body?.status ?: "0").toInt()
+                                    }else{
+                                        0
+                                    }
+
                                 productAdapter?.notifyItemChanged(pos)
+
+                               val counts = sharedViewModel.count.value
+                               var favCount = counts?.favouriteProductsCount ?: 0
+                                if (productList[pos].is_wishlist == 1) {
+                                    favCount = favCount +1
+                                } else {
+                                    favCount = favCount - 1
+                                }
+                                counts?.favouriteProductsCount = favCount
+                                sharedViewModel.setCount(counts)
                             }
+
                         }
                     }
 
@@ -299,6 +333,71 @@ class SearchProductFragment : Fragment() {
         }
 
         productAdapter?.productClickListener = {pos, model ->
+            val bundle = Bundle()
+            bundle.putString("id",model.id.toString())
+            val fragment = ShopDetailFragment().apply {
+                arguments = bundle
+            }
+            replaceFragment(fragment)
+        }
+    }
+
+    private fun setLikesCatAdapter() {
+        likeProductAdapter = SearchShopAdapter(requireContext(),likeProductList)
+        binding.rvLikesProducts.adapter = likeProductAdapter
+
+        likeProductAdapter?.heartListener = { pos, model ->
+            val map = HashMap<String, String>()
+            map["product_id"] = model.id.toString()
+            map["category_id"] = model.product_category_id.toString()
+            if (model.is_wishlist == 1) {
+                map["status"] = "0"
+            } else {
+                map["status"] = "1"
+            }
+            viewModel.addWishList(map, requireActivity()).observe(viewLifecycleOwner) { value ->
+                when (value.status) {
+                    Status.SUCCESS -> {
+                        LoaderDialog.dismiss()
+                        when (value.data) {
+                            is AddWishlistResponse -> {
+
+                                likeProductList[pos].is_wishlist =
+                                    if (!value?.data?.body?.status.isNullOrEmpty()){
+                                        (value.data?.body?.status ?: "0").toInt()
+                                    }else{
+                                        0
+                                    }
+
+                                likeProductAdapter?.notifyItemChanged(pos)
+
+                                val counts = sharedViewModel.count.value
+                                var favCount = counts?.favouriteProductsCount ?: 0
+                                if (likeProductList[pos].is_wishlist == 1) {
+                                    favCount = favCount +1
+                                } else {
+                                    favCount = favCount - 1
+                                }
+                                counts?.favouriteProductsCount = favCount
+                                sharedViewModel.setCount(counts)
+                            }
+
+                        }
+                    }
+
+                    Status.LOADING -> {
+                        LoaderDialog.show(requireActivity())
+                    }
+
+                    Status.ERROR -> {
+                        LoaderDialog.dismiss()
+                        showCustomSnackbar(requireActivity(), binding.root, value.message.toString())
+                    }
+                }
+            }
+        }
+
+        likeProductAdapter?.productClickListener = {pos, model ->
             val bundle = Bundle()
             bundle.putString("id",model.id.toString())
             val fragment = ShopDetailFragment().apply {

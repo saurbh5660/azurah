@@ -159,6 +159,30 @@ class HomeFragment : Fragment(),
         binding.rvPosts.adapter = postAdapter
         postAdapter.submitList(list)
 
+        postAdapter?.removeSuggestionListener = {pos,model->
+            val map = HashMap<String, String>()
+            map["block_by"] = getPreference("id", "")
+            map["block_to"] = model.id.toString()
+            map["status"] = "1"
+            viewModel.removeSuggestion(map, requireActivity()).observe(viewLifecycleOwner) { value ->
+                when (value.status) {
+                    Status.SUCCESS -> {
+                    }
+
+                    Status.LOADING -> {
+                    }
+
+                    Status.ERROR -> {
+                        showCustomSnackbar(
+                            requireActivity(),
+                            binding.root,
+                            value.message.toString()
+                        )
+                    }
+                }
+            }
+        }
+
         postAdapter.onTagClick={tag->
             with(requireActivity() as HomeActivity){
                 replaceFragment(SearchHomeFragment(tag))
@@ -267,10 +291,41 @@ class HomeFragment : Fragment(),
 
         postAdapter.shareListener = { pos, model ->
              if (model.user?.profile_type == 2){
-                 showShareDialog(pos,model.id.toString())
+                 val shareLink = buildString {
+                     append("Want to see this post?\n")
+                     append("Download Azrius – the Christian social media app where you can explore Bible Quests, share testimonies, join discussions, and connect with others through faith.\n")
+                     append("Available now on the App Store and Google Play.\n")
+                     append("Post link: https://app.azrius.co.uk/common_api/deepLinking/post?post_id=")
+                     append(model.id.toString())
+                 }
+
+                 val intent = Intent(Intent.ACTION_SEND).apply {
+                     type = "text/plain"
+                     putExtra(Intent.EXTRA_TEXT, shareLink)
+                 }
+
+                 startActivity(Intent.createChooser(intent, "Share Post"))
+
+//                 showShareDialog(pos,model.id.toString())
              }else{
                  if (model.user?.id.toString() == getPreference("id","")){
-                     showShareDialog(pos,model.id.toString())
+                     if (model.user?.profile_type == 2) {
+                         val shareLink = buildString {
+                             append("Want to see this post?\n")
+                             append("Download Azrius – the Christian social media app where you can explore Bible Quests, share testimonies, join discussions, and connect with others through faith.\n")
+                             append("Available now on the App Store and Google Play.\n")
+                             append("Post link: https://app.azrius.co.uk/common_api/deepLinking/post?post_id=")
+                             append(model.id.toString())
+                         }
+
+                         val intent = Intent(Intent.ACTION_SEND).apply {
+                             type = "text/plain"
+                             putExtra(Intent.EXTRA_TEXT, shareLink)
+                         }
+
+                         startActivity(Intent.createChooser(intent, "Share Post"))
+                     }
+//                     showShareDialog(pos,model.id.toString())
                  }else{
                      showSharePrivateDialog()
                  }

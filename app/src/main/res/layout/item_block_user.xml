@@ -24,6 +24,21 @@
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/ivImage"
         app:layout_constraintTop_toTopOf="@+id/ivImage"
+        app:layout_constraintBottom_toTopOf="@+id/tvUserName"
+        android:layout_marginStart="@dimen/_16sdp"/>
+
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kemal_5561"
+        android:includeFontPadding="false"
+        android:textSize="@dimen/_12sdp"
+        android:visibility="gone"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/ivImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
         app:layout_constraintBottom_toBottomOf="@+id/ivImage"
         android:layout_marginStart="@dimen/_16sdp"/>
 

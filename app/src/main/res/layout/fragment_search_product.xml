@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.SearchProductFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,10 +46,10 @@
             android:layout_height="@dimen/_18sdp"
             android:layout_marginStart="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:src="@drawable/fav_icon"
             android:layout_marginEnd="@dimen/_16sdp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/fav_icon"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -58,8 +58,8 @@
         android:id="@+id/clSearch"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
-        android:layout_marginTop="@dimen/_16sdp"
         android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_20sdp"
         android:background="@drawable/large_round_corner_background"
         android:backgroundTint="@color/search_color"
@@ -86,16 +86,16 @@
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:backgroundTint="@android:color/transparent"
             android:fontFamily="@font/poppins"
-            android:textColorHighlight="@color/cursor_color"
-            android:hint="Search Products"
             android:gravity="center_vertical"
-            android:textColor="@color/black"
-            android:maxLines="1"
-            android:textCursorDrawable="@drawable/custom_cursor"
+            android:hint="Search Products"
             android:includeFontPadding="false"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/cursor_color"
             android:textColorHint="@color/search_grey"
+            android:textCursorDrawable="@drawable/custom_cursor"
             android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivSerch"
             app:layout_constraintTop_toTopOf="parent" />
@@ -105,10 +105,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
             android:contentDescription="@string/app_name"
             android:src="@drawable/cross_blue_icon"
             android:visibility="gone"
-            android:layout_marginEnd="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -122,8 +122,8 @@
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_16sdp"
-        android:text="You may like:"
         android:fontFamily="@font/poppins_semibold"
+        android:text="You may like:"
         android:textColor="@color/black"
         android:textSize="@dimen/_13sdp"
         app:layout_constraintStart_toStartOf="parent"
@@ -134,22 +134,36 @@
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginBottom="@dimen/_8sdp"
-        app:layout_constraintTop_toBottomOf="@+id/tvSongWeek"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSongWeek">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvProducts"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/item_search_product"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="vertical"
-   />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvProducts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_search_product" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvLikesProducts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_search_product" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -157,14 +171,14 @@
         android:id="@+id/tvNoDataFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
         android:text="No Favourites available"
-        android:textSize="@dimen/_14sdp"
         android:textColor="@color/black"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="@dimen/_14sdp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:fontFamily="@font/poppins_medium"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

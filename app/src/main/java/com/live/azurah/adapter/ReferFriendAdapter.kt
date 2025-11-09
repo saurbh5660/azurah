@@ -19,6 +19,7 @@ import com.live.azurah.util.gone
 import com.live.azurah.util.isInternetAvailable
 import com.live.azurah.util.loadImage
 import com.live.azurah.util.showCustomSnackbar
+import com.live.azurah.util.visible
 
 class ReferFriendAdapter(val ctx: Context, val blockList: ArrayList<ReferralRewardResponse.Body.Referral>):RecyclerView.Adapter<ReferFriendAdapter.ViewHolder>() {
 
@@ -39,9 +40,30 @@ class ReferFriendAdapter(val ctx: Context, val blockList: ArrayList<ReferralRewa
         with(holder.binding){
 
             ivImage.loadImage(ApiConstants.IMAGE_BASE_URL+model?.image,placeholder = R.drawable.profile_icon)
-            tvName.text = buildString {
-                append(model?.username ?: "")
+
+            if (model?.display_name_preference == "1") {
+                tvName.text = buildString {
+                    append(model?.firstName ?: "")
+                }
+            } else {
+                tvName.text = buildString {
+                    append(model?.firstName ?: "")
+                    append(" ")
+                    append(model?.lastName ?: "")
+                }
             }
+
+            if (model.username.toString().contains("@")) {
+                tvName.text = buildString {
+                    append(model.username ?: "")
+                }
+            } else {
+                tvUserName.text = buildString {
+                    append("@")
+                    append(model.username ?: "")
+                }
+            }
+            tvUserName.visible()
             root.setOnClickListener {
                 ctx.startActivity(Intent(ctx, OtherUserProfileActivity::class.java).apply {
                     putExtra("user_id",model?.id.toString())

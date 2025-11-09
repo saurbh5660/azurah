@@ -21,6 +21,7 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
+import android.text.util.Linkify
 import android.util.Log
 import android.util.Patterns
 import android.util.TypedValue
@@ -35,6 +36,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
+import androidx.core.text.util.LinkifyCompat
 import com.android.billingclient.api.Purchase
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -417,7 +419,7 @@ fun openUrlInBrowser(context: Context, url: String) {
     }
 }*/
 
-fun formatStartEndTimeRange(input: String): String {
+/*fun formatStartEndTimeRange(input: String): String {
     return try {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd,HH:mm", Locale.getDefault())
         val outputFormat = SimpleDateFormat("HH:mm", Locale.getDefault()) // <-- Only time
@@ -437,9 +439,51 @@ fun formatStartEndTimeRange(input: String): String {
     } catch (e: Exception) {
         "Error: ${e.message}"
     }
+}*/
+
+fun formatStartEndTimeRange(input: String): String {
+    return try {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd,HH:mm", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("HH:mm", Locale.getDefault()) // Only time
+
+        val dateTimePairs = input.split("44")
+        Log.d("TimeRange", dateTimePairs.toString())
+
+        if (dateTimePairs.isEmpty() || dateTimePairs[0].isBlank()) {
+            throw IllegalArgumentException("Invalid input format: Start date-time missing")
+        }
+
+        // Parse start date-time
+        val startDate = inputFormat.parse(dateTimePairs[0].trim())
+            ?: throw IllegalArgumentException("")
+        val formattedStartTime = outputFormat.format(startDate)
+
+        // If end date-time is missing or blank → return only start time
+        if (dateTimePairs.size < 2 || dateTimePairs[1].isBlank()) {
+            return formattedStartTime
+        }
+
+        // Try parsing end date-time
+        val endDate = try {
+            inputFormat.parse(dateTimePairs[1].trim())
+        } catch (_: Exception) {
+            null
+        }
+
+        return if (endDate != null) {
+            val formattedEndTime = outputFormat.format(endDate)
+            "$formattedStartTime - $formattedEndTime"
+        } else {
+            formattedStartTime
+        }
+
+    } catch (e: Exception) {
+        "Error: ${e.message}"
+    }
 }
 
-fun formatStartEndRange(input: String): String {
+
+/*fun formatStartEndRange(input: String): String {
     return try {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd,HH:mm", Locale.getDefault())
         val outputFormat = SimpleDateFormat("EEE dd MMM yy", Locale.getDefault()) // <-- Only date, no time
@@ -459,7 +503,49 @@ fun formatStartEndRange(input: String): String {
     } catch (e: Exception) {
         "Error: ${e.message}"
     }
+}*/
+
+fun formatStartEndRange(input: String): String {
+    return try {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd,HH:mm", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("EEE dd MMM yy", Locale.getDefault())
+
+        val dateTimePairs = input.split("44")
+
+        if (dateTimePairs.isEmpty() || dateTimePairs[0].isBlank()) {
+            throw IllegalArgumentException("")
+        }
+
+        // Parse start date-time
+        val startDate = inputFormat.parse(dateTimePairs[0].trim())
+            ?: throw IllegalArgumentException("")
+
+        val formattedStartDate = outputFormat.format(startDate)
+
+        // If there's no valid end date-time, return only start date
+        if (dateTimePairs.size < 2 || dateTimePairs[1].isBlank()) {
+            return formattedStartDate
+        }
+
+        // Try to parse end date-time
+        val endDate = try {
+            inputFormat.parse(dateTimePairs[1].trim())
+        } catch (_: Exception) {
+            null
+        }
+
+        return if (endDate != null) {
+            val formattedEndDate = outputFormat.format(endDate)
+            "$formattedStartDate - $formattedEndDate"
+        } else {
+            formattedStartDate
+        }
+
+    } catch (e: Exception) {
+        "Error: ${e.message}"
+    }
 }
+
 
 
 fun isInternetAvailable(context: Context): Boolean {
@@ -1273,4 +1359,33 @@ fun colorOnlyHashtagsLine(fullText: String,ctx:Context): SpannableString {
 }
 fun Purchase.isExpired(): Boolean {
     return !this.isAcknowledged && !this.isAutoRenewing
+}
+
+fun makeLinksClickable(textView: TextView, message: String?) {
+    if (message.isNullOrEmpty()) {
+        textView.text = ""
+        return
+    }
+
+    textView.text = message
+    textView.setTextColor(ContextCompat.getColor(textView.context, R.color.black))
+
+    // Detect if the message contains any valid URL
+    val urlPattern = "(https?://[\\w\\-._~:/?#\\[\\]@!$&'()*+,;=%]+)"
+    val regex = Regex(urlPattern, RegexOption.IGNORE_CASE)
+
+    if (regex.containsMatchIn(message)) {
+        // Make URLs clickable and blue
+        textView.autoLinkMask = Linkify.WEB_URLS
+        LinkifyCompat.addLinks(textView, Linkify.WEB_URLS)
+        textView.linksClickable = true
+        textView.movementMethod = LinkMovementMethod.getInstance()
+        textView.setLinkTextColor(ContextCompat.getColor(textView.context, R.color.blue))
+    } else {
+        // Normal message (non-link)
+        textView.autoLinkMask = 0
+        textView.linksClickable = false
+        textView.movementMethod = null
+        textView.setLinkTextColor(ContextCompat.getColor(textView.context, R.color.black))
+    }
 }

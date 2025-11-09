@@ -347,7 +347,7 @@ class BiblePostAdapter(val ctx: Context,val listener: ClickListener,val type:Int
         }
     }
 
-    private fun setupSpannableText(
+ /*   private fun setupSpannableText(
         textView: TextView,
         displayText: String,
         truncatedText: String,
@@ -409,11 +409,79 @@ class BiblePostAdapter(val ctx: Context,val listener: ClickListener,val type:Int
         textView.setOnClickListener(null)
     }
     private fun openDetailActivity(id: String) {
+
+    }*/
+
+    private fun setupSpannableText(
+        textView: TextView,
+        displayText: String,
+        truncatedText: String,
+        fullText: String,
+        id: String
+    ) {
+        val spannableString = SpannableString(displayText)
+        var isExpanded = false
+
+        val seeMoreClickable = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                openDetailActivity(id)
+
+                /*textView.text = fullText
+                isExpanded = true
+                textView.post {
+                    textView.setOnClickListener {
+                        if (isExpanded) {
+                            openDetailActivity(id)
+                        }
+                    }
+                }*/
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                ds.isUnderlineText = false
+                ds.color = ContextCompat.getColor(textView.context, R.color.blue)
+            }
+        }
+
+        val truncatedClickable = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+//                if (!isExpanded) {
+                openDetailActivity(id)
+//                }
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                ds.isUnderlineText = false
+                ds.color = ContextCompat.getColor(textView.context, R.color.black)
+            }
+        }
+
+        spannableString.setSpan(
+            truncatedClickable,
+            0,
+            truncatedText.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        spannableString.setSpan(
+            seeMoreClickable,
+            truncatedText.length,
+            displayText.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        textView.movementMethod = LinkMovementMethod.getInstance()
+        textView.highlightColor = Color.TRANSPARENT
+        textView.text = spannableString
+        textView.setOnClickListener(null)
+    }
+    private fun openDetailActivity(id: String) {
         ctx.startActivity(Intent(ctx, QuestDetailActivity::class.java).apply {
             putExtra("from","community")
             putExtra("id", id)
         })
     }
+
 
     interface ClickListener{
         fun onCLick(view: View)

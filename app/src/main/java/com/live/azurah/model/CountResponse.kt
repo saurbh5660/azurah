@@ -17,7 +17,7 @@ data class CountResponse(
         @SerializedName("eventBookmarksCount")
         val eventBookmarksCount: Int? = null,
         @SerializedName("favouriteProductsCount")
-        val favouriteProductsCount: Int? = null,
+        var favouriteProductsCount: Int? = null,
         @SerializedName("notificationUnreadCount")
         val notificationUnreadCount: Int? = null
     )

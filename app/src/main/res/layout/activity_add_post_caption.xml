@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/mainContainer"
     android:background="@color/white"
     tools:context=".activity.AddPostCaptionActivity">
 
@@ -177,6 +178,22 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <TextView
+                        android:id="@+id/tvSeeMore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="See More"
+                        android:textColor="@color/blue"
+                        android:fontFamily="@font/poppins_medium"
+                        android:includeFontPadding="false"
+                        android:visibility="gone"
+                        app:layout_constraintTop_toBottomOf="@+id/clHastag"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                    </TextView>
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvHashTag"
                         android:layout_width="match_parent"
@@ -186,8 +203,9 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         android:orientation="vertical"
                         tools:itemCount="5"
-                        android:layout_marginTop="@dimen/_18sdp"
-                        app:layout_constraintTop_toBottomOf="@+id/clHastag"
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/tvSeeMore"
                         tools:listitem="@layout/item_hashtag" />
 
 

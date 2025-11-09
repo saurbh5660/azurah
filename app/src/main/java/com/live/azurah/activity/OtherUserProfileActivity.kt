@@ -132,10 +132,10 @@ class OtherUserProfileActivity : AppCompatActivity(), Observer<Resource<Any>> {
             }
 
             ivChat.setOnClickListener {
-                val profileData = sharedViewModel.profile.value
-                if (profileData?.isFollowByMe != 1 && profileData?.isFollowByMe != 0) {
+                    val profileData = sharedViewModel.profile.value
+             /*   if (profileData?.isFollowByMe != 1 && profileData?.isFollowByMe != 0) {
                     messageDialog()
-                } else {
+                } else {*/
                     Log.d("dsfdsfds", sharedViewModel.profile.value?.id.toString())
                     startActivity(
                         Intent(
@@ -150,7 +150,7 @@ class OtherUserProfileActivity : AppCompatActivity(), Observer<Resource<Any>> {
                             )
                             putExtra("image", sharedViewModel.profile.value?.image.toString())
                         })
-                }
+//                }
             }
 
             clFollowers.setOnClickListener {
@@ -289,7 +289,7 @@ class OtherUserProfileActivity : AppCompatActivity(), Observer<Resource<Any>> {
                                     )
                                 binding.ivChat.imageTintList = ContextCompat.getColorStateList(
                                     this@OtherUserProfileActivity,
-                                    R.color.grey
+                                    R.color.black
                                 )
                                 binding.btnPost.setTextColor(
                                     ContextCompat.getColorStateList(
@@ -485,7 +485,7 @@ class OtherUserProfileActivity : AppCompatActivity(), Observer<Resource<Any>> {
                         )
                     binding.ivChat.imageTintList = ContextCompat.getColorStateList(
                         this@OtherUserProfileActivity,
-                        R.color.grey
+                        R.color.black
                     )
                     binding.btnPost.setTextColor(
                         ContextCompat.getColorStateList(

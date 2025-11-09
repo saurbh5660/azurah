@@ -238,7 +238,7 @@ Premium access unlocks if the goal has been
 met.</string>
     <string name="share_invite_link">Share Invite Link</string>
     <string name="you_haven_t_referred_any_friends_yet">You haven\'t referred any friends yet.</string>
-    <string name="referral_code">Referral Code</string>
+    <string name="referral_code">Referral Code (Optional)</string>
     <string name="upload_music_songs_of_the_day_week"><![CDATA[Upload Music (Songs of the Day & Week)]]></string>
     <string name="you_re_in_the_challenge_has_begun">You’re in - the challenge has begun!</string>
     <string name="invite_friends_and_grow_in_faith_together_the_more_you_invite_the_longer_you_unlock_free_premium_access_to_all_bible_quests">Invite friends and grow in faith together.The more you invite, the longer you unlock free Premium access to all Bible Quests.</string>
@@ -254,4 +254,6 @@ met.</string>
     <string name="upgrade_to_premium">Upgrade to Premium</string>
     <string name="you_ve_reached_your_course_limit">You\'ve Reached Your Course Limit</string>
     <string name="you_can_study_up_to_two_bible_quests_at_a_time_with_your_premium_plan_to_start_a_new_one_please_finish_or_end_one_of_your_current_courses_first">You can study up to two Bible Quests at a time with your Premium plan. To start a new one, please finish or end one of your current courses first.</string>
+    <string name="add_a_profile_photo_to_help_others_recognise_and_connect_with_you">Add a profile photo to help others recognise and connect with you.</string>
+    <string name="invite_friends_unlock_free_premium"><![CDATA[Invite Friends & Unlock Free Premium!]]></string>
 </resources>

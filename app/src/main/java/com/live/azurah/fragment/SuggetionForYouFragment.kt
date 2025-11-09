@@ -56,7 +56,30 @@ class SuggetionForYouFragment : Fragment() {
         suggestionAdapter = SuggestionCompleteAdapter(requireContext(), 0, suggestionList)
         binding.rvSuggestions.adapter = suggestionAdapter
 
-        suggestionAdapter?.removeSuggestionListener = {
+        suggestionAdapter?.removeSuggestionListener = {pos,model->
+            val map = HashMap<String, String>()
+            map["block_by"] = getPreference("id", "")
+            map["block_to"] = model.id.toString()
+            map["status"] = "1"
+            viewModel.removeSuggestion(map, requireActivity()).observe(viewLifecycleOwner) { value ->
+                when (value.status) {
+                    Status.SUCCESS -> {
+                    }
+
+                    Status.LOADING -> {
+                    }
+
+                    Status.ERROR -> {
+                        showCustomSnackbar(
+                            requireActivity(),
+                            binding.root,
+                            value.message.toString()
+                        )
+                    }
+                }
+            }
+            suggestionList.removeAt(pos)
+            suggestionAdapter?.notifyItemRemoved(pos)
             if (suggestionList.isEmpty()) {
                 binding.tvNoDataFound.visible()
             } else {

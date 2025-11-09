@@ -83,6 +83,18 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/invite_friends_unlock_free_premium"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:textSize="@dimen/_18sdp"
+                android:gravity="center_horizontal"
+                android:layout_marginHorizontal="@dimen/_35sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:includeFontPadding="false"/>
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_35sdp"

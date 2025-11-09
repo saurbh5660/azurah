@@ -188,7 +188,7 @@
 
                 <data
                     android:host="app.azrius.co.uk"
-                    android:pathPrefix="/common_api/deepLinking/profile"
+                    android:pathPrefix="/common_api/deepLinking/user"
                     android:scheme="https" />
             </intent-filter>
         </activity>

@@ -3,7 +3,8 @@ package com.live.azurah.retrofit
 object ApiConstants {
 
     const val BASE_URL = "https://app.azrius.co.uk/"
-    const val IMAGE_BASE_URL = "https://app.azrius.co.uk"
+//    const val IMAGE_BASE_URL = "https://app.azrius.co.uk"
+    const val IMAGE_BASE_URL = "https://azurahapp.s3.eu-west-2.amazonaws.com"
     const val SOCKET_BASE_URL = "https://app.azrius.co.uk/"
     const val SECRET_KEY = "sk_JcD7u1vLzOFDRx5wb+1Tyb+KZwB9U61D2jQEJpct6iYYRiR7+kj+faZ4j1sxcTVJ"
     const val PUBLISH_KEY = "pk_GqRWp8OVtrgFqCmPYSCecmMUK/je2/4N/OgH2mQ/5hzawiKSAAZKna3pWJNQS9Fa8g=="
@@ -137,6 +138,7 @@ object ApiConstants {
     const val CHECK_REFERRAL_CODE = "appApi/auth/checkReferralCode"
     const val HASHTAG_LIST = "appApi/post/hashtagList"
     const val UPDATE_SUBSCRIPTION = "appApi/updateSubscription"
+    const val REMOVE_SUGGESTION = "appApi/user/removeFromSuggestion"
 
     var isMute = false
     var isNotification = false

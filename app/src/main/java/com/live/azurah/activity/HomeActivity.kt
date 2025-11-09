@@ -279,7 +279,22 @@ class HomeActivity : AppCompatActivity() {
             }
 
             ivShare.setOnClickListener {
-                showShareDialog()
+                val userName = getPreference("username","")
+
+                val shareLink = buildString {
+                    append("$userName invited you to join Azrius.\n")
+                    append("Azrius is a Christian social media platform where you can grow in faith, find community, join Bible Quests, share prayer requests, and explore uplifting content.\n")
+                    append("Download the app to get started.\n")
+                    append("https://app.azrius.co.uk/common_api/deepLinking/user?user_id=${getPreference("id","")}")
+                }
+                val intent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, shareLink)
+                }
+
+                startActivity(Intent.createChooser(intent, "Share Post"))
+
+//                showShareDialog()
             }
 
             backIcon.setOnClickListener {
@@ -606,12 +621,12 @@ class HomeActivity : AppCompatActivity() {
         customDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         resetBinding.btnLink.text = buildString {
-            append("https://app.azrius.co.uk/common_api/deepLinking/profile?user_id=")
+            append("https://app.azrius.co.uk/common_api/deepLinking/user?user_id=")
             append(getPreference("id", ""))
         }
         resetBinding.btnCopy.setOnClickListener {
             customDialog.dismiss()
-            copyToClipboard("https://app.azrius.co.uk/common_api/deepLinking/profile?user_id="+ getPreference("id",""))
+            copyToClipboard("https://app.azrius.co.uk/common_api/deepLinking/user?user_id="+ getPreference("id",""))
 
         }
 
@@ -684,7 +699,22 @@ class HomeActivity : AppCompatActivity() {
 
             tvNotDone.setOnClickListener {
                 myPopupWindow.dismiss()
-                showShareDialog()
+                val userName = getPreference("username","")
+
+                val shareLink = buildString {
+                    append("$userName invited you to join Azrius.\n")
+                    append("Azrius is a Christian social media platform where you can grow in faith, find community, join Bible Quests, share prayer requests, and explore uplifting content.\n")
+                    append("Download the app to get started.\n")
+                    append("https://app.azrius.co.uk/common_api/deepLinking/user?user_id=${getPreference("id","")}")
+                }
+                val intent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, shareLink)
+                }
+
+                startActivity(Intent.createChooser(intent, "Share Post"))
+
+//                showShareDialog()
             }
 
             tvHaveDone.setOnClickListener {

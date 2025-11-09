@@ -18,6 +18,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
+import androidx.fragment.app.Fragment
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
@@ -27,6 +28,7 @@ import com.live.azurah.R
 import com.live.azurah.adapter.AddPostImageAdapter
 import com.live.azurah.databinding.ActivityAddPostCaptionBinding
 import com.live.azurah.databinding.LayoutPlayerBinding
+import com.live.azurah.fragment.HashTagFragment
 import com.live.azurah.model.BlockResposne
 import com.live.azurah.model.FullImageModel
 import com.live.azurah.model.HashTagResponse
@@ -36,7 +38,9 @@ import com.live.azurah.retrofit.LoaderDialog
 import com.live.azurah.retrofit.Status
 import com.live.azurah.util.ShowImagesDialogFragment
 import com.live.azurah.util.containsBannedWord
+import com.live.azurah.util.gone
 import com.live.azurah.util.showCustomSnackbar
+import com.live.azurah.util.visible
 import com.live.azurah.viewmodel.CommonViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -50,6 +54,7 @@ class AddPostCaptionActivity : AppCompatActivity(), AddPostImageAdapter.ClickLis
     private lateinit var adapter: AddPostImageAdapter
     private lateinit var hashtagAdapter: HashtagAdapter
     private var player: ExoPlayer? = null
+    var hashTagList = ArrayList<HashTagResponse.Body.Data>()
     private val viewModel by viewModels<CommonViewModel>()
     private var hashtagJob: Job? = null
     private var isInsertingHashtag = false // Flag to prevent reopening after selection
@@ -100,6 +105,10 @@ class AddPostCaptionActivity : AppCompatActivity(), AddPostImageAdapter.ClickLis
         with(binding) {
             backIcon.setOnClickListener {
                 onBackPressedDispatcher.onBackPressed()
+            }
+
+            tvSeeMore.setOnClickListener {
+                replaceFragment(HashTagFragment())
             }
 
             btnPost.setOnClickListener {
@@ -221,29 +230,32 @@ class AddPostCaptionActivity : AppCompatActivity(), AddPostImageAdapter.ClickLis
             delay(500)
 
             val map = HashMap<String, String>()
-            map["limit"] = "10"
+            map["limit"] = "20"
             map["page"] = "1"
             map["search_string"] = searchQuery
 
             viewModel.getHashTagList(map, this@AddPostCaptionActivity).observe(this@AddPostCaptionActivity){resource->
                 when (resource.status) {
                     Status.LOADING -> {
-                        // Show loading indicator if needed
                     }
                     Status.SUCCESS -> {
                         when(resource.data){
                             is HashTagResponse -> {
                                 val res = resource.data.body?.data ?: ArrayList()
+                                hashTagList = res as ArrayList
+
                                 if (res.isNotEmpty()){
-                                    // Limit to maximum 3 hashtags
                                     val limitedList = if (res.size > 3) {
+                                        binding.tvSeeMore.visible()
                                         res.subList(0, 3)
                                     } else {
+                                        binding.tvSeeMore.gone()
                                         res
                                     }
                                     hashtagAdapter.updateList(limitedList)
                                     binding.rvHashTag.visibility = View.VISIBLE
                                 } else {
+                                    binding.tvSeeMore.gone()
                                     binding.rvHashTag.visibility = View.GONE
                                 }
                             }
@@ -267,7 +279,7 @@ class AddPostCaptionActivity : AppCompatActivity(), AddPostImageAdapter.ClickLis
         binding.rvHashTag.visibility = View.GONE
     }
 
-    private fun insertHashtagIntoEditText(tag: String) {
+    fun insertHashtagIntoEditText(tag: String) {
         isInsertingHashtag = true
 
         val currentText = binding.etDes1.text.toString()
@@ -305,6 +317,7 @@ class AddPostCaptionActivity : AppCompatActivity(), AddPostImageAdapter.ClickLis
 
         // Hide the hashtag list after selection and reset flag after a delay
         binding.rvHashTag.visibility = View.GONE
+        binding.tvSeeMore.gone()
 
         // Reset the flag after text change is complete
         binding.etDes1.post {
@@ -413,5 +426,10 @@ class AddPostCaptionActivity : AppCompatActivity(), AddPostImageAdapter.ClickLis
     override fun onPause() {
         super.onPause()
         pausePlayer()
+    }
+
+    fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(binding.mainContainer.id, fragment)
+            .addToBackStack(null).commit()
     }
 }

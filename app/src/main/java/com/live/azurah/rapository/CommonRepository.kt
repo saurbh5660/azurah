@@ -1173,4 +1173,12 @@ class CommonRepository @Inject constructor(
         }
     }
 
+    suspend fun removeSuggestion(map: HashMap<String, String>, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.removeSuggestion(map))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
 }

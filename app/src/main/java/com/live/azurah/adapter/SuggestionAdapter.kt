@@ -23,7 +23,7 @@ class SuggestionAdapter(
 ) : RecyclerView.Adapter<SuggestionAdapter.ViewHolder>() {
     var followUnfollowListener: ((pos: Int, model: PostResponse.Body.Data.SuggestedUser, view: View) -> Unit)? =
         null
-    var removeSuggestionListener: ((pos: Int) -> Unit)? = null
+    var removeSuggestionListener: ((pos: Int,model:PostResponse.Body.Data.SuggestedUser) -> Unit)? = null
 
     class ViewHolder(val binding: ItemSuggestionsBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -140,9 +140,15 @@ class SuggestionAdapter(
             }
 
             ivCross.setOnClickListener {
-                suggestedUsers.removeAt(holder.absoluteAdapterPosition)
-                notifyItemRemoved(holder.absoluteAdapterPosition)
-                removeSuggestionListener?.invoke(holder.absoluteAdapterPosition)
+                if (isInternetAvailable(ctx)) {
+//                    suggestedUsers.removeAt(holder.absoluteAdapterPosition)
+                    removeSuggestionListener?.invoke(holder.absoluteAdapterPosition,model)
+//                    notifyItemRemoved(holder.absoluteAdapterPosition)
+
+                } else {
+                    showCustomSnackbar(ctx, holder.binding.tvFollow, "Internet not available")
+                }
+
             }
 
             root.setOnClickListener {

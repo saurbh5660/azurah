@@ -76,10 +76,12 @@ class UserLikesFragment : Fragment(), Observer<Resource<Any>> {
             viewModel.getPrayerLikeList(map,requireActivity()).observe(viewLifecycleOwner,this)
 
         }else if(from == "prayer_praise"){
+            binding.tvSongWeek.text = buildString { append("This post was prayed for by:") }
             map["prayer_id"] = postId
             viewModel.getPraiseLikeList(map,requireActivity()).observe(viewLifecycleOwner,this)
 
         }else if(from == "testimony_praise"){
+            binding.tvSongWeek.text = buildString { append("This post was prayed for by:") }
             map["testimony_id"] = postId
             viewModel.getTestimonyPraiseList(map,requireActivity()).observe(viewLifecycleOwner,this)
 

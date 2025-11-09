@@ -64,6 +64,12 @@ class EventFragment : Fragment(), Observer<Resource<Any>> {
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         getEvents()
 
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            getEvents()
+            binding.swipeRefreshLayout.isRefreshing = true
+        }
+
+
         binding.tvRecommendationsSeeAll.setOnClickListener {
             startActivity(Intent(requireActivity(), BookmarkEventActivity::class.java).apply {
                 putExtra("from","2")
@@ -127,7 +133,7 @@ class EventFragment : Fragment(), Observer<Resource<Any>> {
                         when (value.data) {
                             is AddBookmarkResponse -> {
                                 popularList[pos].isBookmark =
-                                    (value?.data.body?.isBooking ?: "0").toString().toInt()
+                                    (value?.data?.body?.isBooking ?: "0").toString().toInt()
                                 eventPopularAdapter?.notifyItemChanged(pos)
                             }
                         }
@@ -170,6 +176,8 @@ class EventFragment : Fragment(), Observer<Resource<Any>> {
                     is EventListResponse -> {
                         binding.shimmerLayout.gone()
                         binding.rvEvents.visible()
+                        binding.swipeRefreshLayout.isRefreshing = false
+
                         binding.shimmerLayout.stopShimmer()
                         upcomingList.clear()
                         popularList.clear()
@@ -226,6 +234,7 @@ class EventFragment : Fragment(), Observer<Resource<Any>> {
 
             Status.ERROR -> {
                LoaderDialog.dismiss()
+                binding.swipeRefreshLayout.isRefreshing = false
                 showCustomSnackbar(requireActivity(), binding.root, value.message.toString())
                 binding.shimmerLayout.gone()
                 binding.shimmerLayout.stopShimmer()

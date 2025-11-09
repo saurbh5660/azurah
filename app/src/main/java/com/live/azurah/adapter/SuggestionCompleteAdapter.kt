@@ -26,7 +26,7 @@ class SuggestionCompleteAdapter(
     val from: Int,
     val list: ArrayList<PostLikesResposne.Body.Data>
 ) : RecyclerView.Adapter<SuggestionCompleteAdapter.ViewHolder>() {
-    var removeSuggestionListener: ((pos: Int) -> Unit)? = null
+    var removeSuggestionListener: ((pos: Int,model: PostLikesResposne.Body.Data,) -> Unit)? = null
     var followUnfollowListener: ((pos: Int, model: PostLikesResposne.Body.Data, view: View) -> Unit)? =
         null
 
@@ -183,9 +183,12 @@ class SuggestionCompleteAdapter(
 
 
             ivCross.setOnClickListener {
-                list.removeAt(holder.absoluteAdapterPosition)
-                notifyItemRemoved(holder.absoluteAdapterPosition)
-                removeSuggestionListener?.invoke(holder.absoluteAdapterPosition)
+                if (isInternetAvailable(ctx)) {
+                    removeSuggestionListener?.invoke(holder.absoluteAdapterPosition,model)
+                } else {
+                    showCustomSnackbar(ctx, holder.binding.tvFollow, "Internet not available")
+                }
+
             }
 
             tvFollow.setOnClickListener {

@@ -51,6 +51,7 @@ class PostDetailAdapter(var context: Context, val recyclerView: RecyclerView,val
     var menuListener: ((pos: Int,model: PostResponse.Body.Data,view:View) -> Unit)? = null
     var followUnfollowListener: ((pos: Int,model: PostResponse.Body.Data.SuggestedUser,view:View) -> Unit)? = null
     var onPostImages: ((parentPos: Int,pos:Int,image: List<PostResponse.Body.Data.PostImage?>?) -> Unit)? = null
+    var removeSuggestionListener: ((pos: Int,model:PostResponse.Body.Data.SuggestedUser) -> Unit)? = null
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PostResponse.Body.Data>() {
@@ -132,7 +133,10 @@ class PostDetailAdapter(var context: Context, val recyclerView: RecyclerView,val
                 adapter.followUnfollowListener = {pos, model, view ->
                     followUnfollowListener?.invoke(pos,model,view)
                 }
-                adapter.removeSuggestionListener= {
+                adapter.removeSuggestionListener= {pos,model->
+                    removeSuggestionListener?.invoke(pos,model)
+                    item.suggestedUsers?.removeAt(pos)
+                    adapter.notifyItemRemoved(pos)
                     if (!item.suggestedUsers.isNullOrEmpty()){
                         clFollow.visible()
                         view122.visible()

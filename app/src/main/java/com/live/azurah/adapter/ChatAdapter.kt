@@ -36,6 +36,7 @@ import androidx.core.net.toUri
 import com.live.azurah.model.FullImageModel
 import com.live.azurah.model.PostResponse
 import com.live.azurah.util.ShowImagesDialogFragment
+import com.live.azurah.util.makeLinksClickable
 import com.live.azurah.util.showCustomToast
 import com.live.azurah.util.showMaterialDialog
 import com.live.azurah.util.showSaveDialog
@@ -197,7 +198,7 @@ class ChatAdapter(
                     if (model.messageSender?.id.toString() == getPreference("id", "")) {
                         clSSender.visible()
                         clReceiver.gone()
-                        senderMsg.text = model.message ?: ""
+                        makeLinksClickable(senderMsg, model.message)
                         tvSenderTime.text = model.created?.let { convertTimestampToTime(it) }
                         senderProfile.loadImage(
                             ApiConstants.IMAGE_BASE_URL + model.messageSender?.image,
@@ -206,7 +207,7 @@ class ChatAdapter(
                     } else {
                         clSSender.gone()
                         clReceiver.visible()
-                        receiverMsg.text = model.message ?: ""
+                        makeLinksClickable(receiverMsg, model.message)
                         tvTime.text = model.created?.let { convertTimestampToTime(it) }
                         ivProfile.loadImage(
                             ApiConstants.IMAGE_BASE_URL + model.messageSender?.image,
@@ -238,7 +239,7 @@ class ChatAdapter(
                             senderMsg.visible()
                             ivSenderImage.gone()
                             ivSenderDownload.gone()
-                            senderMsg.text = model.message ?: ""
+                            makeLinksClickable(senderMsg, model.message)
 
                         } else {
                             senderMsg.gone()
@@ -270,12 +271,13 @@ class ChatAdapter(
                     } else {
                         clSSender.gone()
                         clReceiver.visible()
-                        receiverMsg.text = model.message ?: ""
+                        makeLinksClickable(receiverMsg, model.message)
+
                         if (model.msgType == 0) {
                             receiverMsg.visible()
                             ivReceiverImage.gone()
                             ivReceiverDownload.gone()
-                            receiverMsg.text = model.message ?: ""
+                            makeLinksClickable(receiverMsg, model.message)
 
                         } else {
                             receiverMsg.gone()
@@ -337,6 +339,7 @@ class ChatAdapter(
             showCustomToast(ctx,"Download failed: ${e.message}")
         }
     }
+
 
 
 }

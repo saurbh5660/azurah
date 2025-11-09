@@ -16,6 +16,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@color/divider_grey"
+        app:cardBackgroundColor="@color/otp_grey"
+        android:background="@color/otp_grey"
         app:strokeWidth="1dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout

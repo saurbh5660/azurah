@@ -17,6 +17,7 @@ import com.live.azurah.databinding.ActivityReferralBinding
 import com.live.azurah.model.ReferralRewardResponse
 import com.live.azurah.retrofit.LoaderDialog
 import com.live.azurah.retrofit.Status
+import com.live.azurah.util.getPreference
 import com.live.azurah.util.gone
 import com.live.azurah.util.showCustomSnackbar
 import com.live.azurah.util.visible
@@ -64,16 +65,26 @@ class ReferralActivity : AppCompatActivity() {
         }
 
         binding.btnShareLink.setOnClickListener {
-            val message = """
+           /* val message = """
                 Hey! 👋  
                 Use my referral code **${binding.tvReferralCode.text}** to sign up and earn rewards!  
                 Download the app here: https://play.google.com/store/apps/details?id=${packageName}
-            """.trimIndent()
+            """.trimIndent()*/
+            val userName = getPreference("username","")
+
+            val shareLink = buildString {
+                append("Hey!\n")
+                append("Use my referral code **${binding.tvReferralCode.text}** to sign up and earn rewards!")
+                append("$userName invited you to join Azrius.\n")
+                append("Azrius is a Christian social media platform where you can grow in faith, find community, join Bible Quests, share prayer requests, and explore uplifting content.\n")
+                append("Download the app to get started.\n")
+                append("https://app.azrius.co.uk/common_api/deepLinking/referral?referral_code=${binding.tvReferralCode.text}")
+            }
 
             val shareIntent = Intent(Intent.ACTION_SEND)
             shareIntent.type = "text/plain"
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Invite via Referral Code")
-            shareIntent.putExtra(Intent.EXTRA_TEXT, message)
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareLink)
             startActivity(Intent.createChooser(shareIntent, "Share Referral Code via"))
         }
     }

@@ -36,6 +36,8 @@ data class ReferralRewardResponse(
             val referralCode: String? = null,
             @SerializedName("username")
             val username: String? = null,
+            @SerializedName("display_name_preference")
+            val display_name_preference: String? = null,
             @SerializedName("image")
             val image: String? = null
         )

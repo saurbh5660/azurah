@@ -539,6 +539,10 @@ interface ApiServiceInterface {
     @POST(ApiConstants.UPDATE_SUBSCRIPTION)
     suspend fun updateSubscription(@FieldMap map: HashMap<String, String>): CommonResponse
 
+    @FormUrlEncoded
+    @POST(ApiConstants.REMOVE_SUGGESTION)
+    suspend fun removeSuggestion(@FieldMap map: HashMap<String, String>): CommonResponse
+
 
 }
 
