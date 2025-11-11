@@ -208,6 +208,11 @@ class SignUpActivity : AppCompatActivity(), Observer<Resource<Any>> {
                     }
 
                     is CommonResponse -> {
+                        val msg = value.data.message ?: ""
+                        if (msg == "Refer code not found !"){
+                            showCustomSnackbar(this,binding.root, msg)
+                            return
+                        }
                         val map = HashMap<String,String>()
                         map["first_name"] = binding.etFirstName.text.toString().trim()
                         map["last_name"] = binding.etLastName.text.toString().trim()
@@ -218,7 +223,6 @@ class SignUpActivity : AppCompatActivity(), Observer<Resource<Any>> {
                         map["device_token"] = deviceToken
 
                         viewModel.signUp(map,this@SignUpActivity).observe(this@SignUpActivity,this@SignUpActivity)
-
                     }
 
                 }

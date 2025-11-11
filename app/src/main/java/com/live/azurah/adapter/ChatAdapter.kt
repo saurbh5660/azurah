@@ -253,7 +253,7 @@ class ChatAdapter(
                             Log.d("fgdsgadsgdsg","fdsgfdsg")
                             ivSenderDownload.setOnClickListener {
                                 ctx.showSaveDialog("Save Image","Are you sure you want to save this image in your phone?"){
-                                    downloadImage(ctx,ApiConstants.IMAGE_BASE_URL + model.message,"image_${System.currentTimeMillis()}")
+                                    downloadImage(ctx,ApiConstants.IMAGE_BASE_URL + model.message,"image_${System.currentTimeMillis()}.jpg")
                                 }
                             }
 
@@ -289,7 +289,7 @@ class ChatAdapter(
                             )
                             ivReceiverDownload.setOnClickListener {
                                 ctx.showSaveDialog("Save Image","Are you sure you want to save this image in your phone?"){
-                                    downloadImage(ctx,ApiConstants.IMAGE_BASE_URL + model.message,"image_${System.currentTimeMillis()}")
+                                    downloadImage(ctx,ApiConstants.IMAGE_BASE_URL + model.message,"image_${System.currentTimeMillis()}.jpg")
                                 }
 
                             }
@@ -321,6 +321,7 @@ class ChatAdapter(
 
     fun downloadImage(context: Context, url: String, fileName: String) {
         try {
+            Log.d("asgvsnas",url)
             val request = DownloadManager.Request(url.toUri())
                 .setTitle(fileName)
                 .setDescription("Downloading image...")
@@ -328,6 +329,7 @@ class ChatAdapter(
                 .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
                 .setAllowedOverMetered(true)
                 .setAllowedOverRoaming(true)
+                .setMimeType("image/jpeg")
 
             val downloadManager =
                 context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
