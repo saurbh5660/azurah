@@ -12,6 +12,7 @@ data class MuteResponse(
         val isFollowByMe: Int? = null,
         val isFollowByOther: Int? = null,
         val messageRequest: Int? = null,
+        val requestedSenderId: Int? = null,
         val isMutedByOther: String? = null,
         val isSenderBlockByAdmin: String? = null,
         val isReceiverBlockByAdmin: String? = null,

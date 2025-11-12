@@ -42,11 +42,11 @@ class ReferFriendAdapter(val ctx: Context, val blockList: ArrayList<ReferralRewa
             ivImage.loadImage(ApiConstants.IMAGE_BASE_URL+model?.image,placeholder = R.drawable.profile_icon)
 
             if (model?.display_name_preference == "1") {
-                tvName.text = buildString {
+                tvUserName.text = buildString {
                     append(model?.firstName ?: "")
                 }
             } else {
-                tvName.text = buildString {
+                tvUserName.text = buildString {
                     append(model?.firstName ?: "")
                     append(" ")
                     append(model?.lastName ?: "")
@@ -58,8 +58,8 @@ class ReferFriendAdapter(val ctx: Context, val blockList: ArrayList<ReferralRewa
                     append(model.username ?: "")
                 }
             } else {
-                tvUserName.text = buildString {
-                    append("@")
+                tvName.text = buildString {
+//                    append("@")
                     append(model.username ?: "")
                 }
             }

@@ -73,8 +73,6 @@ class ReferralActivity : AppCompatActivity() {
             val userName = getPreference("username","")
 
             val shareLink = buildString {
-                append("Hey!\n")
-                append("Use my referral code **${binding.tvReferralCode.text}** to sign up and earn rewards!")
                 append("$userName invited you to join Azrius.\n")
                 append("Azrius is a Christian social media platform where you can grow in faith, find community, join Bible Quests, share prayer requests, and explore uplifting content.\n")
                 append("Download the app to get started.\n")

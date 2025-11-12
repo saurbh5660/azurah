@@ -68,6 +68,7 @@ data class BlockResposne(
                 var isFollowByMe: Int? = null,
                 val isFollowByOther: Int? = null,
                 val profile_type: Int? = null,
+                val display_name_preference: Int? = null,
 
                 )
         }

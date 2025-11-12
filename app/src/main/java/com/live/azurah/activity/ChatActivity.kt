@@ -3,13 +3,8 @@ package com.live.azurah.activity
 import android.app.Dialog
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -18,18 +13,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.animation.AccelerateInterpolator
-import android.view.animation.Animation
 import android.view.animation.DecelerateInterpolator
-import android.view.animation.TranslateAnimation
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -39,7 +30,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
 import com.live.azurah.R
 import com.live.azurah.adapter.ChatAdapter
@@ -49,16 +39,11 @@ import com.live.azurah.databinding.ChatMenuBinding
 import com.live.azurah.databinding.LogoutDialogBinding
 import com.live.azurah.databinding.MenuReportDeleteDialogBinding
 import com.live.azurah.model.ChatResponse
-import com.live.azurah.model.CommentResponse
-import com.live.azurah.model.CommonResponse
 import com.live.azurah.model.FileUploadResponse
 import com.live.azurah.model.FullImageModel
-import com.live.azurah.model.ImageVideoModel
 import com.live.azurah.model.MuteResponse
-import com.live.azurah.model.PostResponse
 import com.live.azurah.retrofit.ApiConstants
 import com.live.azurah.retrofit.LoaderDialog
-import com.live.azurah.retrofit.Resource
 import com.live.azurah.retrofit.Status
 import com.live.azurah.socket.SocketManager
 import com.live.azurah.util.ImagePickerActivity
@@ -85,7 +70,6 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.File
 import kotlin.collections.set
-import kotlin.coroutines.resumeWithException
 
 @AndroidEntryPoint
 class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
@@ -117,6 +101,7 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
     private var isReceiverBlockByAdmin = ""
     private var receiverProfileType = 0
     private var senderProfileType = 0
+    private var requestedSenderId = 0
 
 
     private val typingHandler = android.os.Handler()
@@ -228,6 +213,7 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
                                 isFollowByMe = res?.isFollowByMe ?: 0
                                 isFollowByOther = res?.isFollowByOther ?: 0
                                 messageRequest = res?.messageRequest ?: 0
+                                requestedSenderId = res?.requestedSenderId ?: 0
                                 isReceiverBlockByAdmin = res?.isReceiverBlockByAdmin ?: ""
                                 isSenderBlockByAdmin = res?.isSenderBlockByAdmin ?: ""
                                 senderProfileType = res?.senderProfileType ?: 0
@@ -270,13 +256,28 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
                 if (messageRequest == 1) {
                     binding.llRequestLayout.gone()
                 } else {
-                    binding.llRequestLayout.visible()
-                    binding.llSendRequest.visible()
-                    binding.llRequested.gone()
+                    if (messageRequest == 0) {
+                        binding.llRequestLayout.visible()
+                        binding.llSendRequest.gone()
+                        binding.llRequested.visible()
+                       /* if (requestedSenderId.toString() == getPreference("id","")){
+                            binding.llRequestLayout.visible()
+                            binding.llSendRequest.visible()
+                            binding.llRequested.gone()
+                        }else{
+                            binding.llRequestLayout.visible()
+                            binding.llSendRequest.gone()
+                            binding.llRequested.visible()
+                        }*/
+                    } else {
+                        binding.llRequestLayout.visible()
+                        binding.llSendRequest.visible()
+                        binding.llRequested.gone()
+                    }
+
                 }
             }else{
                 Log.d("dcdc", messageRequest.toString())
-                
                 if (messageRequest == 0) {
                     binding.llRequestLayout.visible()
                     binding.llSendRequest.gone()
@@ -483,20 +484,25 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
                             binding.etMessage.setText("")
                         } else {
                             if (list.size < 3) {
-                                sendMessage(binding.etMessage.text.toString(),"0")
-                                binding.etMessage.setText("")
-                                val jsonObject = JSONObject()
-                                jsonObject.put("sender_id", getPreference("id", ""))
-                                jsonObject.put("message_request", "0")
-                                if (groupId.isNotEmpty()) {
-                                    jsonObject.put("group_id", groupId)
-                                    jsonObject.put("receiver_id", "0")
-                                } else {
-                                    jsonObject.put("group_id", "0")
-                                    jsonObject.put("receiver_id", user2id)
+                                if (messageRequest != 0){
+                                    sendMessage(binding.etMessage.text.toString(),"0")
+                                    binding.etMessage.setText("")
+                                    val jsonObject = JSONObject()
+                                    jsonObject.put("sender_id", getPreference("id", ""))
+                                    jsonObject.put("message_request", "0")
+                                    if (groupId.isNotEmpty()) {
+                                        jsonObject.put("group_id", groupId)
+                                        jsonObject.put("receiver_id", "0")
+                                    } else {
+                                        jsonObject.put("group_id", "0")
+                                        jsonObject.put("receiver_id", user2id)
+                                    }
+                                    Log.d("dsdgdsgd", jsonObject.toString())
+                                    socketManager.messageRequest(jsonObject)
+                                }else{
+                                    sendMessage(binding.etMessage.text.toString(),"0")
+                                    binding.etMessage.setText("")
                                 }
-                                Log.d("dsdgdsgd", jsonObject.toString())
-                                socketManager.messageRequest(jsonObject)
                             } else {
                                 showCustomSnackbar(
                                     this@ChatActivity,

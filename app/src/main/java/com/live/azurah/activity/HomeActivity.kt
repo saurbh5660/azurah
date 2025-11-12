@@ -286,6 +286,7 @@ class HomeActivity : AppCompatActivity() {
                     append("Azrius is a Christian social media platform where you can grow in faith, find community, join Bible Quests, share prayer requests, and explore uplifting content.\n")
                     append("Download the app to get started.\n")
                     append("https://app.azrius.co.uk/common_api/deepLinking/user?user_id=${getPreference("id","")}")
+
                 }
                 val intent = Intent(Intent.ACTION_SEND).apply {
                     type = "text/plain"

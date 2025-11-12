@@ -18,6 +18,7 @@ import com.live.azurah.util.gone
 import com.live.azurah.util.isInternetAvailable
 import com.live.azurah.util.loadImage
 import com.live.azurah.util.showCustomSnackbar
+import com.live.azurah.util.visible
 
 class BlockAdapter(val ctx: Context,val blockList: ArrayList<BlockResposne.Body.Data>,var from : String = ""):RecyclerView.Adapter<BlockAdapter.ViewHolder>() {
 
@@ -39,9 +40,37 @@ class BlockAdapter(val ctx: Context,val blockList: ArrayList<BlockResposne.Body.
         with(holder.binding){
 
             ivImage.loadImage(ApiConstants.IMAGE_BASE_URL+model.blockToUser?.image,placeholder = R.drawable.profile_icon)
-            tvName.text = buildString {
-                append(model.blockToUser?.username ?: "")
+
+            if (from == "search"){
+                if (model?.blockToUser?.display_name_preference == 1) {
+                    tvUserName.text = buildString {
+                        append(model?.blockToUser?.firstName ?: "")
+                    }
+                } else {
+                    tvUserName.text = buildString {
+                        append(model?.blockToUser?.firstName ?: "")
+                        append(" ")
+                        append(model?.blockToUser?.lastName ?: "")
+                    }
+                }
+                tvUserName.visible()
+                tvUserName.setTextColor(ContextCompat.getColor(ctx ,R.color.blue))
+                if (model.blockToUser?.username.toString().contains("@")) {
+                    tvName.text = buildString {
+                        append(model.blockToUser?.username ?: "")
+                    }
+                } else {
+                    tvName.text = buildString {
+//                        append("@")
+                        append(model.blockToUser?.username ?: "")
+                    }
+                }
+            }else{
+                tvName.text = buildString {
+                    append(model.blockToUser?.username ?: "")
+                }
             }
+
 
             if (from == "search"){
                 when (model.blockToUser?.isFollowByMe) {

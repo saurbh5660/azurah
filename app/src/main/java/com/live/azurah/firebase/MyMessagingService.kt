@@ -36,7 +36,7 @@ class MyMessagingService : FirebaseMessagingService() {
                                 val senderName = remoteMessage.data["sender_name"] ?: ""
                                 val senderImage = remoteMessage.data["sender_image"] ?: ""
                                 val constantId = remoteMessage.data["chat_constant_id"] ?: ""
-                                val username = remoteMessage.data["username"] ?: ""
+                                val username = remoteMessage.data["sender_username"] ?: ""
 
                                 intent = Intent(this, ChatActivity::class.java).apply {
                                         putExtra("uid2", senderId)

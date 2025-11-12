@@ -256,6 +256,7 @@ class SearchHomeFragment(var hashTag: String? = null) : Fragment(), Observer<Res
                                         last_name = it.user?.last_name,
                                         username = it.user?.username,
                                         id = it.user?.id,
+                                        display_name_preference=it.user?.display_name_preference,
                                         image = it.user?.image,
                                         image_thumb = it.user?.image_thumb,
                                     )
@@ -273,6 +274,7 @@ class SearchHomeFragment(var hashTag: String? = null) : Fragment(), Observer<Res
                                         firstName = it.first_name,
                                         lastName = it.last_name,
                                         username = it.username,
+                                        display_name_preference = it.display_name_preference,
                                         image = it.image,
                                         isFollowByMe = it.isFollowByMe,
                                         isFollowByOther = it.isFollowByOther,
