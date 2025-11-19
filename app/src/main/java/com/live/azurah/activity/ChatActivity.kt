@@ -213,7 +213,7 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
                                 isFollowByMe = res?.isFollowByMe ?: 0
                                 isFollowByOther = res?.isFollowByOther ?: 0
                                 messageRequest = res?.messageRequest ?: 0
-                                requestedSenderId = res?.requestedSenderId ?: 0
+                                requestedSenderId = res?.messageRequestSenderId ?: 0
                                 isReceiverBlockByAdmin = res?.isReceiverBlockByAdmin ?: ""
                                 isSenderBlockByAdmin = res?.isSenderBlockByAdmin ?: ""
                                 senderProfileType = res?.senderProfileType ?: 0
@@ -257,10 +257,10 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
                     binding.llRequestLayout.gone()
                 } else {
                     if (messageRequest == 0) {
-                        binding.llRequestLayout.visible()
+                      /*  binding.llRequestLayout.visible()
                         binding.llSendRequest.gone()
-                        binding.llRequested.visible()
-                       /* if (requestedSenderId.toString() == getPreference("id","")){
+                        binding.llRequested.visible()*/
+                        if (requestedSenderId.toString() == getPreference("id","")){
                             binding.llRequestLayout.visible()
                             binding.llSendRequest.visible()
                             binding.llRequested.gone()
@@ -268,7 +268,7 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
                             binding.llRequestLayout.visible()
                             binding.llSendRequest.gone()
                             binding.llRequested.visible()
-                        }*/
+                        }
                     } else {
                         binding.llRequestLayout.visible()
                         binding.llSendRequest.visible()
