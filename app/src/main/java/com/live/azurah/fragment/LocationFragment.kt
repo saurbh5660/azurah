@@ -185,7 +185,6 @@ class LocationFragment : Fragment(), Observer<Resource<Any>> {
 
         adapter = CountryPickerAdapter(requireContext(),countryList)
         countryBinding.rvCountry.adapter = adapter
-
         adapter?.listener = {model, pos ->
             countryCode = model.countryCode
             binding.etCoutries.setText(model.name)

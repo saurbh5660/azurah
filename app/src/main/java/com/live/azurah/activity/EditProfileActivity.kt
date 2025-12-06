@@ -2,18 +2,23 @@ package com.live.azurah.activity
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
+import android.util.Base64
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
 import androidx.activity.viewModels
@@ -75,6 +80,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.ByteArrayOutputStream
 import java.io.File
 
 @AndroidEntryPoint
@@ -87,6 +93,7 @@ class EditProfileActivity : ImagePickerActivity(), InterestAdapter.ClickListener
     private var type = false
     private var namePreference = 2
     private var christianJourney = ""
+    private var selectedFlagUrl = ""
     private var myPopupWindow: PopupWindow? = null
     private var countryList = ArrayList<CountryModel>()
     private var countryAdapter: CountryPickerAdapter? = null
@@ -483,6 +490,38 @@ class EditProfileActivity : ImagePickerActivity(), InterestAdapter.ClickListener
 
     }
 
+    private fun uploadFlagImage(){
+        val map = HashMap<String, RequestBody>()
+        map["type"] = "image".toRequestBody("text/plain".toMediaTypeOrNull())
+        map["folder"] = "users".toRequestBody("text/plain".toMediaTypeOrNull())
+
+        val list = ArrayList<MultipartBody.Part>()
+        list.add(prepareFilePart("image", File(image)))
+        viewModel.fileUpload(map,list,this).observe(this) { value ->
+            when (value.status) {
+                Status.SUCCESS -> {
+                    LoaderDialog.dismiss()
+                    when (value.data) {
+                        is FileUploadResponse -> {
+                            selectedFlagUrl = Gson().toJson(value.data.body)
+                        }
+                    }
+                }
+
+                Status.LOADING -> {
+                    LoaderDialog.show(this)
+                }
+
+                Status.ERROR -> {
+                    LoaderDialog.dismiss()
+                    showCustomSnackbar(this, binding.root, value.message.toString())
+
+                }
+            }
+        }
+
+    }
+
     private fun uploadCoverImage(){
         val map = HashMap<String, RequestBody>()
         map["type"] = "image".toRequestBody("text/plain".toMediaTypeOrNull())
@@ -801,7 +840,6 @@ class EditProfileActivity : ImagePickerActivity(), InterestAdapter.ClickListener
                     binding.viewLocation.visibility = View.VISIBLE
                     binding.ivFlag.setImageResource(model.flag!!)
                     binding.ivDrop.setImageResource(R.drawable.cross_grey_icon)
-
                     customDialog.dismiss()
                 }
             }
@@ -827,6 +865,7 @@ class EditProfileActivity : ImagePickerActivity(), InterestAdapter.ClickListener
             binding.viewLocation.visibility = View.VISIBLE
             binding.ivFlag.setImageResource(model.flag!!)
             binding.ivDrop.setImageResource(R.drawable.cross_grey_icon)
+            uploadFlagImage()
             customDialog.dismiss()
         }
         countryBinding.backIcon.setOnClickListener {
@@ -836,5 +875,6 @@ class EditProfileActivity : ImagePickerActivity(), InterestAdapter.ClickListener
         customDialog.show()
 
     }
+
 
 }

@@ -7,7 +7,8 @@ internal val countryInfoList = listOf(
     CountryModel(
         name = "Afghanistan",
         flag = R.drawable.flag_afghanistan,
-        countryCode = "+93"
+        countryCode = "+93",
+
     ),
     CountryModel(
         name = "Albania",
@@ -36,8 +37,8 @@ internal val countryInfoList = listOf(
     CountryModel(
         name = "Antigua and Barbuda",
         flag =R.drawable.flag_antigua_and_barbuda,
-        countryCode = "+1268"
-
+        countryCode = "+1268",
+        flagUrl = "/uploads/users/1765039206803-file.png"
     ),
     CountryModel(
         name = "Argentina",
@@ -49,7 +50,8 @@ internal val countryInfoList = listOf(
     CountryModel(
         name = "Armenia",
         flag =R.drawable.flag_armenia,
-        countryCode = "+374"
+        countryCode = "+374",
+        flagUrl = "/uploads/users/1765039388183-file.png"
     ),
     CountryModel(
         name = "Australia",
@@ -66,13 +68,15 @@ internal val countryInfoList = listOf(
     CountryModel(
         name = "Azerbaijan",
         flag =R.drawable.flag_azerbaijan,
-        countryCode = "+994"
+        countryCode = "+994",
+        flagUrl = "/uploads/users/1765039388355-file.png"
 
     ),
     CountryModel(
         name = "Bahamas",
         flag =R.drawable.flag_bahamas,
-        countryCode = "+1242"
+        countryCode = "+1242",
+        flagUrl = "/uploads/users/1765039388493-file.png"
     ),
     CountryModel(
         name = "Bahrain",
@@ -83,7 +87,8 @@ internal val countryInfoList = listOf(
     CountryModel(
         name = "Bangladesh",
         flag =R.drawable.flag_bangladesh,
-        countryCode = "+880"
+        countryCode = "+880",
+        flagUrl = "/uploads/users/1765039593940-file.png"
 
     ),
     CountryModel(
@@ -101,7 +106,8 @@ internal val countryInfoList = listOf(
     CountryModel(
         name = "Belgium",
         flag =R.drawable.flag_belgium,
-        countryCode = "+32"
+        countryCode = "+32",
+        flagUrl = "/uploads/users/1765039594105-file.png"
 
     ),
     CountryModel(
@@ -145,7 +151,8 @@ internal val countryInfoList = listOf(
     CountryModel(
         name = "Brazil",
         flag =R.drawable.flag_brazil,
-        countryCode = "+55"
+        countryCode = "+55",
+        flagUrl = "/uploads/users/1765039594239-file.png"
 
     ),
     CountryModel(
@@ -175,13 +182,15 @@ internal val countryInfoList = listOf(
     CountryModel(
         name = "Côte d'Ivoire",
         flag =R.drawable.flag_cote_divoire,
-        countryCode = "+225"
-
+        countryCode = "+225",
+        flagUrl = "/uploads/users/1765039744847-file.png"
     ),
+
     CountryModel(
         name = "Cabo Verde",
         flag =R.drawable.flag_cape_verde,
-        countryCode = "+238"
+        countryCode = "+238",
+
 
     ),
     CountryModel(
@@ -235,7 +244,8 @@ internal val countryInfoList = listOf(
     CountryModel(
         name = "Comoros",
         flag =R.drawable.flag_comoros,
-        countryCode = "+269"
+        countryCode = "+269",
+        flagUrl = "/uploads/users/1765039744717-file.png"
 
     ),
     CountryModel(
@@ -295,7 +305,8 @@ internal val countryInfoList = listOf(
     CountryModel(
         name = "Dominica",
         flag =R.drawable.flag_dominica,
-        countryCode = "+1767"
+        countryCode = "+1767",
+        flagUrl = "/uploads/users/1765039744969-file.png"
 
     ),
     CountryModel(

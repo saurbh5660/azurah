@@ -1,6 +1,7 @@
 package com.live.azurah.activity
 
 import android.app.Dialog
+import android.content.ClipboardManager
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Build
@@ -8,7 +9,10 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.ActionMode
 import android.view.Gravity
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
@@ -69,6 +73,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.File
+import java.util.regex.Pattern
 import kotlin.collections.set
 
 @AndroidEntryPoint
@@ -553,6 +558,22 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
 
                 override fun afterTextChanged(s: Editable?) {
                     if (s.toString().isNotEmpty()) {
+
+                        val text = s.toString()
+                        val urlPattern = "(https?://[^\\s]+)"
+                        val pattern = Pattern.compile(urlPattern)
+                        val matcher = pattern.matcher(text)
+
+                        if (matcher.find()) {
+                            val url = matcher.group(1) ?: ""
+                            if (url.startsWith("https://app.azrius.co.uk/common_api/deepLinking/referral?referral_code=")){
+                                binding.etMessage.removeTextChangedListener(this)
+                                binding.etMessage.setText(url)
+                                binding.etMessage.setSelection(url.length)
+                                binding.etMessage.addTextChangedListener(this)
+                            }
+                        }
+
                         binding.ivSendMessage.backgroundTintList = getColorStateList(R.color.blue)
                         binding.ivSendMessage.isEnabled = true
                         typing("1")

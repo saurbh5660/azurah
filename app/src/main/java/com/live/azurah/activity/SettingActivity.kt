@@ -227,7 +227,8 @@ class SettingActivity : AppCompatActivity(), Observer<Resource<Any>> {
     private fun inviteFriend() {
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "Hey! Check out this amazing app: https://play.google.com/store/apps/details?id=${packageName}")
+//            putExtra(Intent.EXTRA_TEXT, "Hey! Check out this amazing app: https://play.google.com/store/apps/details?id=${packageName}")
+            putExtra(Intent.EXTRA_TEXT, "Hey! Check out this amazing app: https://app.azrius.co.uk/common_api/downloadApp")
             type = "text/plain"
         }
         startActivity(Intent.createChooser(shareIntent, "Invite a friend via"))
