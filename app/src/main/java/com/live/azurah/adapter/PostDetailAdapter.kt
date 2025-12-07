@@ -576,7 +576,8 @@ class PostDetailAdapter(var context: Context, val recyclerView: RecyclerView,val
         truncatedText: String,
         fullText: String
     ) {
-        val spannableString = SpannableString(displayText)
+        val spannableString = createHashtagSpannableText(displayText)
+//        val spannableString = SpannableString(displayText)
         var isExpanded = false
 
         val seeMoreClickable = object : ClickableSpan() {
@@ -620,7 +621,9 @@ class PostDetailAdapter(var context: Context, val recyclerView: RecyclerView,val
         )
 
         // Apply hashtag coloring to the truncated text
-        applyHashtagColoring(spannableString, truncatedText)
+//        applyHashtagColoring(spannableString, truncatedText)
+        applyHashtagClickable(spannableString, truncatedText)
+
 
         textView.movementMethod = LinkMovementMethod.getInstance()
         textView.highlightColor = Color.TRANSPARENT
@@ -726,6 +729,47 @@ class PostDetailAdapter(var context: Context, val recyclerView: RecyclerView,val
         textView.movementMethod = LinkMovementMethod.getInstance()
         textView.highlightColor = Color.TRANSPARENT
     }
+
+    private fun applyHashtagClickable(
+        spannableString: SpannableString,
+        text: String,
+        offset: Int = 0
+    ) {
+        val hashtagPattern = "#\\w+".toRegex()
+
+        hashtagPattern.findAll(text).forEach { matchResult ->
+            val start = offset + matchResult.range.first
+            val end = offset + matchResult.range.last + 1
+
+            // Apply color
+            spannableString.setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(context, R.color.blue)),
+                start,
+                end,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            // Apply click
+            val clickable = object : ClickableSpan() {
+                override fun onClick(widget: View) {
+                    onHashtagClick(matchResult.value)
+                }
+
+                override fun updateDrawState(ds: TextPaint) {
+                    ds.isUnderlineText = false
+                    ds.color = ContextCompat.getColor(context, R.color.blue)
+                }
+            }
+
+            spannableString.setSpan(
+                clickable,
+                start,
+                end,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+    }
+
 
     private fun onHashtagClick(hashtag: String) {
         onTagClick?.invoke(hashtag)

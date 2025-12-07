@@ -6,6 +6,7 @@ object ApiConstants {
 //    const val IMAGE_BASE_URL = "https://app.azrius.co.uk"
     const val IMAGE_BASE_URL = "https://azurahapp.s3.eu-west-2.amazonaws.com"
     const val SOCKET_BASE_URL = "https://app.azrius.co.uk/"
+    const val FLAG_URL = "https://azurahapp.s3.eu-west-2.amazonaws.com/falgs/"
     const val SECRET_KEY = "sk_JcD7u1vLzOFDRx5wb+1Tyb+KZwB9U61D2jQEJpct6iYYRiR7+kj+faZ4j1sxcTVJ"
     const val PUBLISH_KEY = "pk_GqRWp8OVtrgFqCmPYSCecmMUK/je2/4N/OgH2mQ/5hzawiKSAAZKna3pWJNQS9Fa8g=="
     const val LOCALE = "en"

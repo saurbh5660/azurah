@@ -37,6 +37,8 @@ class LocationFragment : Fragment(), Observer<Resource<Any>> {
 //    private val loaderDialog by lazy { LoaderDialog(requireContext()) }
     private val viewModel by viewModels<CommonViewModel>()
     private var countryCode = ""
+    private var selectedFlagUrl = ""
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,6 +93,7 @@ class LocationFragment : Fragment(), Observer<Resource<Any>> {
         val map = HashMap<String,String>()
         map["country"] = country
         map["country_code"] = countryCode
+        map["country_flag"] = selectedFlagUrl
         map["form_step"] = "5"
 
         viewModel.editProfile(map,requireActivity()).observe(viewLifecycleOwner,this)
@@ -165,6 +168,7 @@ class LocationFragment : Fragment(), Observer<Resource<Any>> {
                     binding.viewLocation.visibility = View.VISIBLE
                     binding.ivFlag.visibility = View.VISIBLE
                     binding.ivFlag.setImageResource(model.flag!!)
+                    selectedFlagUrl = model.flagUrl ?: ""
                     Log.d("gfdgdfdf","meeeeeeeeee")
                     binding.btnNext.backgroundTintList = ActivityCompat.getColorStateList(requireContext(),
                         R.color.blue
@@ -192,6 +196,8 @@ class LocationFragment : Fragment(), Observer<Resource<Any>> {
             binding.ivFlag.visibility = View.VISIBLE
             binding.viewLocation.visibility = View.VISIBLE
             binding.ivFlag.setImageResource(model.flag!!)
+            selectedFlagUrl = model.flagUrl ?: ""
+
             Log.d("gfdgdfdf","dsdfgfdgdfg")
             binding.btnNext.backgroundTintList = ActivityCompat.getColorStateList(requireContext(),
                 R.color.blue

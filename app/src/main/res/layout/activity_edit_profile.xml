@@ -167,7 +167,6 @@
                     android:layout_marginEnd="@dimen/_1sdp"
                     android:elevation="2dp"
                     android:padding="@dimen/_3sdp"
-                    android:src="@drawable/unselected_christian_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tvType"
                     app:layout_constraintStart_toStartOf="parent"

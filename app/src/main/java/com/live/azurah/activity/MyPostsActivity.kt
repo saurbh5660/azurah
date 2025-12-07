@@ -299,9 +299,7 @@ class MyPostsActivity : AppCompatActivity(), Observer<Resource<Any>> , ScrollLis
             if (model.user?.profile_type == 2){
                 if (model.user?.profile_type == 2) {
                     val shareLink = buildString {
-                        append("Want to see this post?\n")
-                        append("Download Azrius – the Christian social media app where you can explore Bible Quests, share testimonies, join discussions, and connect with others through faith.\n")
-                        append("Available now on the App Store and Google Play.\n")
+                        append("Want to view this post? Download Azrius today to join a supportive Christian community.\n")
                         append("Post link: https://app.azrius.co.uk/common_api/deepLinking/post?post_id=")
                         append(model.id.toString())
                     }
@@ -318,9 +316,7 @@ class MyPostsActivity : AppCompatActivity(), Observer<Resource<Any>> , ScrollLis
                 if (model.user?.id.toString() == getPreference("id","")){
                     if (model.user?.profile_type == 2) {
                         val shareLink = buildString {
-                            append("Want to see this post?\n")
-                            append("Download Azrius – the Christian social media app where you can explore Bible Quests, share testimonies, join discussions, and connect with others through faith.\n")
-                            append("Available now on the App Store and Google Play.\n")
+                            append("Want to view this post? Download Azrius today to join a supportive Christian community.\n")
                             append("Post link: https://app.azrius.co.uk/common_api/deepLinking/post?post_id=")
                             append(model.id.toString())
                         }

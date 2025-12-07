@@ -285,6 +285,7 @@ class EditProfileActivity : ImagePickerActivity(), InterestAdapter.ClickListener
                 map["bio"] = etPostDesc.text.toString().trim()
                 map["christian_journey"] = christianJourney
                 map["country"] = country
+                map["country_flag"] = selectedFlagUrl
                 map["country_code"] = countryCode
                 map["display_name_preference"] = namePreference.toString()
                 map["interest_ids"] = selectedInterest.joinToString(prefix = "[", separator = ",", postfix = "]")
@@ -490,38 +491,6 @@ class EditProfileActivity : ImagePickerActivity(), InterestAdapter.ClickListener
 
     }
 
-    private fun uploadFlagImage(){
-        val map = HashMap<String, RequestBody>()
-        map["type"] = "image".toRequestBody("text/plain".toMediaTypeOrNull())
-        map["folder"] = "users".toRequestBody("text/plain".toMediaTypeOrNull())
-
-        val list = ArrayList<MultipartBody.Part>()
-        list.add(prepareFilePart("image", File(image)))
-        viewModel.fileUpload(map,list,this).observe(this) { value ->
-            when (value.status) {
-                Status.SUCCESS -> {
-                    LoaderDialog.dismiss()
-                    when (value.data) {
-                        is FileUploadResponse -> {
-                            selectedFlagUrl = Gson().toJson(value.data.body)
-                        }
-                    }
-                }
-
-                Status.LOADING -> {
-                    LoaderDialog.show(this)
-                }
-
-                Status.ERROR -> {
-                    LoaderDialog.dismiss()
-                    showCustomSnackbar(this, binding.root, value.message.toString())
-
-                }
-            }
-        }
-
-    }
-
     private fun uploadCoverImage(){
         val map = HashMap<String, RequestBody>()
         map["type"] = "image".toRequestBody("text/plain".toMediaTypeOrNull())
@@ -619,6 +588,7 @@ class EditProfileActivity : ImagePickerActivity(), InterestAdapter.ClickListener
                                 countryCode = countryInfoList[pos].countryCode
                                 country = countryInfoList[pos].name
                                 binding.ivFlag.setImageResource(countryInfoList[pos].flag!!)
+                                selectedFlagUrl = countryInfoList[pos].flagUrl ?: ""
                                 binding.ivFlag.visibility = View.VISIBLE
                                 binding.viewLocation.visibility = View.VISIBLE
                                 binding.ivDrop.setImageResource(R.drawable.cross_grey_icon)
@@ -839,6 +809,7 @@ class EditProfileActivity : ImagePickerActivity(), InterestAdapter.ClickListener
                     binding.ivFlag.visibility = View.VISIBLE
                     binding.viewLocation.visibility = View.VISIBLE
                     binding.ivFlag.setImageResource(model.flag!!)
+                    selectedFlagUrl = model.flagUrl ?: ""
                     binding.ivDrop.setImageResource(R.drawable.cross_grey_icon)
                     customDialog.dismiss()
                 }
@@ -864,8 +835,8 @@ class EditProfileActivity : ImagePickerActivity(), InterestAdapter.ClickListener
             binding.ivFlag.visibility = View.VISIBLE
             binding.viewLocation.visibility = View.VISIBLE
             binding.ivFlag.setImageResource(model.flag!!)
+            selectedFlagUrl = model.flagUrl ?: ""
             binding.ivDrop.setImageResource(R.drawable.cross_grey_icon)
-            uploadFlagImage()
             customDialog.dismiss()
         }
         countryBinding.backIcon.setOnClickListener {

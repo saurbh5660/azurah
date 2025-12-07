@@ -282,9 +282,7 @@ class HomeActivity : AppCompatActivity() {
                 val userName = getPreference("username","")
 
                 val shareLink = buildString {
-                    append("$userName invited you to join Azrius.\n")
-                    append("Azrius is a Christian social media platform where you can grow in faith, find community, join Bible Quests, share prayer requests, and explore uplifting content.\n")
-                    append("Download the app to get started.\n")
+                    append("$userName invited you to join Azrius! Download the app today to join a supportive Christian community.\n")
                     append("https://app.azrius.co.uk/common_api/deepLinking/user?user_id=${getPreference("id","")}")
 
                 }
@@ -703,9 +701,7 @@ class HomeActivity : AppCompatActivity() {
                 val userName = getPreference("username","")
 
                 val shareLink = buildString {
-                    append("$userName invited you to join Azrius.\n")
-                    append("Azrius is a Christian social media platform where you can grow in faith, find community, join Bible Quests, share prayer requests, and explore uplifting content.\n")
-                    append("Download the app to get started.\n")
+                    append("$userName invited you to join Azrius! Download the app today to join a supportive Christian community.\n")
                     append("https://app.azrius.co.uk/common_api/deepLinking/user?user_id=${getPreference("id","")}")
                 }
                 val intent = Intent(Intent.ACTION_SEND).apply {
