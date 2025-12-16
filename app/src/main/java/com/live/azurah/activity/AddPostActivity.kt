@@ -114,6 +114,17 @@ class AddPostActivity : ImagePickerActivity(),AddPostImageAdapter.ClickListener 
         }
 
         bottomSheetBehavior = BottomSheetBehavior.from(binding.inPost.clPostSheet)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.inPost.clPostSheet) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            view.setPadding(
+                view.paddingLeft,
+                view.paddingTop,
+                view.paddingRight,
+                systemBars.bottom
+            )
+            insets
+        }
         list.clear()
         list.add(ImageVideoModel())
 

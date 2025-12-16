@@ -201,13 +201,13 @@ class SubscriptionActivity : AppCompatActivity(), BillingUpdatesListener,Observe
                     val startDate = formatDate(purchase.purchaseTime)
                     val endDate = formatDate(getSubscriptionExpiryDate(purchase))
 
-                   /* showCustomSnackbar(
+                    showCustomSnackbar(
                         this@SubscriptionActivity,
                         binding.root,
                         "Subscription purchased successfully."
                     )
-                    finish()*/
-                    updateSubscription(startDate, endDate,purchase.purchaseToken)
+                    finish()
+//                    updateSubscription(startDate, endDate,purchase.purchaseToken)
                 }
             }
         }

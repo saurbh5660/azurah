@@ -32,7 +32,6 @@ import com.live.azurah.util.showCustomSnackbar
 import com.live.azurah.util.visible
 import com.live.azurah.viewmodel.CommonViewModel
 import dagger.hilt.android.AndroidEntryPoint
-
 @AndroidEntryPoint
 class DashBoardFragment : Fragment(), Observer<Resource<Any>> {
     private lateinit var binding: FragmentDashBoardBinding
