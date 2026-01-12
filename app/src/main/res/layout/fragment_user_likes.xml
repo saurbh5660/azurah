@@ -32,7 +32,7 @@
             android:id="@+id/ivHeading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="AZURAH"
+            android:text="AZRIUS"
             android:layout_marginTop="@dimen/_16sdp"
             android:textColor="@color/black"
             android:includeFontPadding="false"

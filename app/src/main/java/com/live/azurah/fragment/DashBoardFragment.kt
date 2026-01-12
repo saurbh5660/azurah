@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.live.azurah.R
 import com.live.azurah.activity.ChallangeActivity
 import com.live.azurah.activity.GroupActivity
@@ -17,6 +18,7 @@ import com.live.azurah.activity.QuestActivity
 import com.live.azurah.activity.RequestActivity
 import com.live.azurah.adapter.SongAdapter
 import com.live.azurah.databinding.FragmentDashBoardBinding
+import com.live.azurah.model.CountResponse
 import com.live.azurah.model.DashBoardResponse
 import com.live.azurah.model.DashboardDataResposne
 import com.live.azurah.model.SongModel
@@ -31,12 +33,15 @@ import com.live.azurah.util.loadImage
 import com.live.azurah.util.showCustomSnackbar
 import com.live.azurah.util.visible
 import com.live.azurah.viewmodel.CommonViewModel
+import com.live.azurah.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DashBoardFragment : Fragment(), Observer<Resource<Any>> {
     private lateinit var binding: FragmentDashBoardBinding
 //    private val loaderDialog by lazy { LoaderDialog(requireActivity()) }
     private val viewModel by viewModels<CommonViewModel>()
+    private lateinit var sharedViewModel: SharedViewModel
+
     private var songAdapter : SongAdapter? = null
     private var weekAdapter : SongAdapter? = null
     private var songList = ArrayList<SongModel>()
@@ -53,6 +58,7 @@ class DashBoardFragment : Fragment(), Observer<Resource<Any>> {
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
         initListener()
+        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         binding.shimmerLayout.visible()
         binding.shimmerLayout.startShimmer()
         getDashboard()
@@ -260,6 +266,28 @@ class DashBoardFragment : Fragment(), Observer<Resource<Any>> {
 
             }
         }
+
+        viewModel.getCounts(requireActivity()).observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    when (it.data) {
+                        is CountResponse -> {
+                            val res = it.data.body
+                            sharedViewModel.setCount(res)
+                        }
+                    }
+                }
+
+                Status.LOADING -> {
+                }
+
+                Status.ERROR -> {
+                    showCustomSnackbar(requireActivity(), binding.root, it.message.toString())
+
+                }
+            }
+        }
+
     }
 
 }

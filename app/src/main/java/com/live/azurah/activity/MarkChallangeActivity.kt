@@ -113,11 +113,6 @@ class MarkChallangeActivity : AppCompatActivity(), Observer<Resource<Any>> {
         dayAdapter?.onClick = { pos: Int ->
             Log.d("csdfdsfdsf",pos.toString())
 
-            val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-            val firstNonEmptyDate = list
-                .map { it.completedDate }
-                .firstOrNull { !it.isNullOrEmpty() }
-                ?.let { LocalDate.parse(it, dateFormatter) }
 
             if (list[pos].isCompleted == 1){
                 binding.btnMarkComplete.backgroundTintList =
@@ -134,91 +129,6 @@ class MarkChallangeActivity : AppCompatActivity(), Observer<Resource<Any>> {
                     )
                 binding.btnMarkComplete.isEnabled = true
             }
-
-
-          /*  if (firstNonEmptyDate != null) {
-                Log.d("csdfdsfdsf",list[pos].isCompleted.toString())
-
-                val daysBetween = ChronoUnit.DAYS.between(
-                    firstNonEmptyDate,
-                    LocalDate.parse(getCurrentDate(), dateFormatter)
-                )
-                if ((list[pos].dayNo ?: 0) <= daysBetween.toInt()+1) {
-                    if (pos != 0) {
-                        if (list[pos - 1].isCompleted == 0) {
-                            binding.btnMarkComplete.backgroundTintList =
-                                ActivityCompat.getColorStateList(
-                                    this@MarkChallangeActivity,
-                                    R.color.button_grey
-                                )
-                            binding.btnMarkComplete.isEnabled = false
-                        } else if (list[pos].isCompleted == 1) {
-
-                            binding.btnMarkComplete.backgroundTintList =
-                                ActivityCompat.getColorStateList(
-                                    this@MarkChallangeActivity,
-                                    R.color.button_grey
-                                )
-                            binding.btnMarkComplete.isEnabled = false
-
-                        }else{
-                            binding.btnMarkComplete.backgroundTintList =
-                                ActivityCompat.getColorStateList(
-                                    this@MarkChallangeActivity,
-                                    R.color.blue
-                                )
-                            binding.btnMarkComplete.isEnabled = true
-                        }
-                    } else {
-                        if (list[pos].isCompleted == 1) {
-                            binding.btnMarkComplete.backgroundTintList =
-                                ActivityCompat.getColorStateList(
-                                    this@MarkChallangeActivity,
-                                    R.color.button_grey
-                                )
-                            binding.btnMarkComplete.isEnabled = false
-                        } else {
-                            binding.btnMarkComplete.backgroundTintList =
-                                ActivityCompat.getColorStateList(
-                                    this@MarkChallangeActivity,
-                                    R.color.blue
-                                )
-                            binding.btnMarkComplete.isEnabled = true
-                        }
-                    }
-                }else{
-                    binding.btnMarkComplete.backgroundTintList =
-                        ActivityCompat.getColorStateList(
-                            this@MarkChallangeActivity,
-                            R.color.button_grey
-                        )
-                    binding.btnMarkComplete.isEnabled = false
-                }
-            }
-            else{
-                if (pos != 0) {
-                    if (list[pos - 1].isCompleted == 0) {
-                        binding.btnMarkComplete.backgroundTintList =
-                            ActivityCompat.getColorStateList(this@MarkChallangeActivity, R.color.button_grey)
-                        binding.btnMarkComplete.isEnabled = false
-                    }else{
-                        binding.btnMarkComplete.backgroundTintList =
-                            ActivityCompat.getColorStateList(this@MarkChallangeActivity, R.color.blue)
-                        binding.btnMarkComplete.isEnabled = true
-                    }
-                }else{
-                    if (list[pos].isCompleted == 1){
-                        binding.btnMarkComplete.backgroundTintList =
-                            ActivityCompat.getColorStateList(this@MarkChallangeActivity, R.color.button_grey)
-                        binding.btnMarkComplete.isEnabled = false
-                    }else{
-                        binding.btnMarkComplete.backgroundTintList =
-                            ActivityCompat.getColorStateList(this@MarkChallangeActivity, R.color.blue)
-                        binding.btnMarkComplete.isEnabled = true
-                    }
-                }
-            }*/
-
 
             binding.tvTitle.text = list[pos].title ?: ""
 
@@ -348,7 +258,7 @@ class MarkChallangeActivity : AppCompatActivity(), Observer<Resource<Any>> {
         }
         confirmationBinding.tvYes.setOnClickListener {
             customDialog.dismiss()
-            if(day == list.size) {
+//            if(day == list.size) {
                 startActivity(
                     Intent(
                         this@MarkChallangeActivity,
@@ -358,7 +268,7 @@ class MarkChallangeActivity : AppCompatActivity(), Observer<Resource<Any>> {
                     }
                 )
                 finish()
-            }
+//            }
         }
         customDialog.show()
     }

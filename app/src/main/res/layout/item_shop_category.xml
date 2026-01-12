@@ -23,9 +23,11 @@
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
             android:src="@drawable/hoodie"
-            android:scaleType="fitCenter"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:layout_marginHorizontal="@dimen/_1sdp"
+            android:layout_marginVertical="@dimen/_2sdp"
             android:background="@drawable/circle_background"
-            android:padding="@dimen/_3sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>

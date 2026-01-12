@@ -48,6 +48,7 @@ data class FollowFollowingResponse(
                 val image: String? = null,
                 val image_thumb: String? = null,
                 val last_name: String? = null,
+                val display_name_preference: String? = null,
                 val username: String? = null,
 
             )

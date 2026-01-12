@@ -111,13 +111,13 @@ class ViewMoreFragment : Fragment(), BillingUpdatesListener,Observer<Resource<An
                     val startDate = formatDate(purchase.purchaseTime)
                     val endDate = formatDate(getSubscriptionExpiryDate(purchase))
 
-                    showCustomSnackbar(
+                   /* showCustomSnackbar(
                         requireContext(),
                         binding.root,
                         "Subscription purchased successfully."
                     )
-                    requireActivity().finish()
-//                    updateSubscription(startDate, endDate,purchase.purchaseToken)
+                    requireActivity().finish()*/
+                    updateSubscription(startDate, endDate,purchase.purchaseToken)
                 }
             }
         }

@@ -39,8 +39,12 @@ import androidx.core.text.HtmlCompat
 import androidx.core.text.util.LinkifyCompat
 import com.android.billingclient.api.Purchase
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
+import com.bumptech.glide.load.resource.bitmap.Downsampler
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.live.azurah.R
@@ -289,6 +293,26 @@ fun View.gone() {
     visibility = View.GONE
 }
 
+fun ImageView.loadImage1(url: String?) {
+    // 3x is the sweet spot for sharpness. 9x is too much and causes noise.
+    val targetSize = (75 * resources.displayMetrics.density).toInt() * 3
+
+    Glide.with(this.context)
+        .asBitmap()
+        .load(url)
+        .apply(RequestOptions()
+            .format(DecodeFormat.PREFER_ARGB_8888)
+            // This is the "Magic" line: tells Glide NOT to use hardware bitmaps
+            // which often cause the blur on scaled text
+            .set(Downsampler.ALLOW_HARDWARE_CONFIG, false)
+            .override(targetSize)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+        )
+        // centerInside is mathematically sharper for text than centerCrop
+        .centerInside()
+        .into(this)
+}
+
 fun ImageView.loadImage(
     url: String?,
     placeholder: Int? = null,
@@ -299,11 +323,13 @@ fun ImageView.loadImage(
         placeholder?.let { placeholder(it) }
         error?.let { error(it) }
         diskCacheStrategy(cacheStrategy)
+        format(DecodeFormat.PREFER_ARGB_8888)
     }
 
     Glide.with(this.context)
         .load(url)
         .apply(options)
+        .override(Target.SIZE_ORIGINAL)
         .into(this)
 
 

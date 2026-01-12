@@ -36,6 +36,7 @@ import com.live.azurah.retrofit.LoaderDialog
 import com.live.azurah.retrofit.Resource
 import com.live.azurah.retrofit.Status
 import com.live.azurah.util.containsBannedWord
+import com.live.azurah.util.getPreference
 import com.live.azurah.util.set30Characters
 import com.live.azurah.util.showCustomSnackbar
 import com.live.azurah.viewmodel.CommonViewModel
@@ -99,6 +100,7 @@ class ContactUsActivity : AppCompatActivity(), Observer<Resource<Any>> {
             map["title"] = binding.etTitle.text.toString().trim()
             map["description"] = binding.etDesc.text.toString().trim()
             map["category"] = categoryDesc
+            map["user_id"] = getPreference("id","")
             /* if (type == 1) {
                  map["category"] = "Positive"
              }else{

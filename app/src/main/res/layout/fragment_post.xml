@@ -31,13 +31,13 @@
         android:fontFamily="@font/poppins_medium"
         android:textSize="@dimen/_14sdp"
         android:gravity="center"
+        android:layout_marginTop="@dimen/_30sdp"
         android:layout_marginHorizontal="@dimen/_30sdp"
         android:layout_centerInParent="true"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 

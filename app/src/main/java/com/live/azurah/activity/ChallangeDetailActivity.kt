@@ -274,6 +274,8 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                         model = value.data.body ?: BibleQuestViewModel.Body()
                         with(binding) {
                             tvTitle.text = model.title ?: ""
+                            subscribed = model.isSubscription == "1"
+                            Log.d("asfsgdsgds",subscribed.toString())
                             val imagesList =
                                 res?.bibleQuestImages?.map { it?.image ?: "" } as ArrayList
 
@@ -395,7 +397,7 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
     override fun onResume() {
         super.onResume()
         getDetail()
-        checkSubscriptionStatus()
+//        checkSubscriptionStatus()
 
     }
 
@@ -462,7 +464,7 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver)
     }
 
-    private fun checkSubscriptionStatus() {
+   /* private fun checkSubscriptionStatus() {
         billingClient = BillingClient.newBuilder(this)
             .enablePendingPurchases()
             .setListener { billingResult, purchases ->
@@ -481,7 +483,7 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                 // Retry logic if needed
             }
         })
-    }
+    }*/
 
     private fun queryActivePurchases() {
         billingClient.queryPurchasesAsync(

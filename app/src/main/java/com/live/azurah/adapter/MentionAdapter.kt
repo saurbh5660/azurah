@@ -16,6 +16,17 @@ class MentionAdapter(
     inner class ViewHolder(val binding: ItemMentionBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(user: Follower) {
+            if (user.displayNamePreference == "1"){
+                binding.tvUserName.text = buildString {
+                    append(user.firstName)
+                }
+            }else{
+                binding.tvUserName.text = buildString {
+                    append(user.firstName)
+                    append(" ")
+                    append(user.lastName)
+                }
+            }
             binding.tvName.text = user.username
             binding.ivImage.loadImage(ApiConstants.IMAGE_BASE_URL+user.profileImageUrl, R.drawable.profile_icon)
             binding.root.setOnClickListener { onUserSelected(user) }

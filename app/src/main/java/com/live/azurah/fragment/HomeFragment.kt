@@ -2096,7 +2096,10 @@ class HomeFragment : Fragment(),
                                         Follower(
                                             id = (it.id ?: 0).toString(),
                                             username = it.follow_to_user?.username ?: "",
-                                            profileImageUrl = (it.follow_to_user?.image ?: "")
+                                            profileImageUrl = (it.follow_to_user?.image ?: ""),
+                                            displayNamePreference = (it.follow_to_user?.display_name_preference ?: ""),
+                                            firstName = (it.follow_to_user?.first_name ?: ""),
+                                            lastName = (it.follow_to_user?.last_name ?: ""),
                                         )
                                     } ?: emptyList())
                                 }

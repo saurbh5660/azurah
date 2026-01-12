@@ -12,6 +12,7 @@ import com.live.azurah.model.ProductResponse
 import com.live.azurah.model.ShopCategoryResponse
 import com.live.azurah.retrofit.ApiConstants
 import com.live.azurah.util.loadImage
+import com.live.azurah.util.loadImage1
 
 class ShopCategoryAdapter(val ctx: Context, val catList: ArrayList<ShopCategoryResponse.Body.Data>):RecyclerView.Adapter<ShopCategoryAdapter.ViewHolder>() {
     var categoryClickListener : ((pos:Int, model: ShopCategoryResponse.Body.Data)->Unit)? = null
@@ -29,7 +30,7 @@ class ShopCategoryAdapter(val ctx: Context, val catList: ArrayList<ShopCategoryR
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.binding){
             tvCat.text = catList[position].name
-            ivCatImage.loadImage(ApiConstants.IMAGE_BASE_URL+catList[position].image)
+            ivCatImage.loadImage1(ApiConstants.IMAGE_BASE_URL+catList[position].image)
 
             root.setOnClickListener {
                 categoryClickListener?.invoke(holder.absoluteAdapterPosition,catList[holder.absoluteAdapterPosition])

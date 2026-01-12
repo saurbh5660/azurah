@@ -35,7 +35,7 @@
             android:layout_marginTop="@dimen/_16sdp"
             android:fontFamily="@font/cinzel_bold"
             android:includeFontPadding="false"
-            android:text="AZURAH"
+            android:text="AZRIUS"
             android:textColor="@color/black"
             android:textSize="@dimen/_19sdp"
             app:layout_constraintEnd_toEndOf="parent"

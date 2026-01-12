@@ -2,6 +2,8 @@ package com.live.azurah.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ImageSpan
@@ -14,6 +16,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.live.azurah.R
 import com.live.azurah.activity.ChallangeDetailActivity
 import com.live.azurah.databinding.ItemChallangeBinding
@@ -54,7 +59,42 @@ class ChallangeItemAdapter(
             }else{
                 ivTick.setImageResource(R.drawable.unselected_tick_grey)
             }
-            ivChallange.loadImage(ApiConstants.IMAGE_BASE_URL+model.bibleQuestImages?.firstOrNull()?.image)
+//            ivChallange.loadImage(ApiConstants.IMAGE_BASE_URL+model.bibleQuestImages?.firstOrNull()?.image)
+
+
+            val maxWidth = ctx.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._120sdp)
+            val maxHeight = ctx.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._140sdp)
+
+            Glide.with(ctx)
+                .asBitmap()
+                .load(ApiConstants.IMAGE_BASE_URL+model.bibleQuestImages?.firstOrNull()?.image)
+                .into(object : CustomTarget<Bitmap>() {
+
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        val imageWidth = resource.width
+                        val imageHeight = resource.height
+
+                        // Calculate scaling factors for both dimensions
+                        val widthRatio = maxWidth.toFloat() / imageWidth.toFloat()
+                        val heightRatio = maxHeight.toFloat() / imageHeight.toFloat()
+
+                        // Use the smaller ratio to ensure the image fits entirely inside the bounds
+                        val scale = Math.min(widthRatio, heightRatio)
+
+                        val params = ivChallange.layoutParams
+                        params.width = (imageWidth * scale).toInt()
+                        params.height = (imageHeight * scale).toInt()
+
+                        ivChallange.layoutParams = params
+                        ivChallange.setImageBitmap(resource)
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                    }
+                })
            /* val snapHelper: SnapHelper = PagerSnapHelper()
             ivChallange.onFlingListener = null
             snapHelper.attachToRecyclerView(ivChallange)

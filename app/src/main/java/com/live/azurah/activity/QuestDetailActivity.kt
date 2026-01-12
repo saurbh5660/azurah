@@ -244,6 +244,7 @@ class QuestDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
             }
 
             ivLike.setOnClickListener {
+                Log.d("gSGDSgds",data.isLike.toString())
                 if (data.isLike == 0) {
                     data.isLike = 1
                     data.likeCount = (data.likeCount ?: 0).plus(1)
@@ -270,10 +271,9 @@ class QuestDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                 }
 
                 val map = HashMap<String, String>()
-                if (data.isLike == 1) {
+                if (data.isLike == 0) {
                     map["status"] = "0"
                 } else {
-
                     map["status"] = "1"
                 }
                 if (from == "prayer") {
@@ -2552,7 +2552,10 @@ class QuestDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                                         Follower(
                                             id = (it.id ?: 0).toString(),
                                             username = it.follow_to_user?.username ?: "",
-                                            profileImageUrl = (it.follow_to_user?.image ?: "")
+                                            profileImageUrl = (it.follow_to_user?.image ?: ""),
+                                            displayNamePreference = (it.follow_to_user?.display_name_preference ?: ""),
+                                            firstName = (it.follow_to_user?.first_name ?: ""),
+                                            lastName = (it.follow_to_user?.last_name ?: ""),
                                         )
                                     } ?: emptyList())
                                 }

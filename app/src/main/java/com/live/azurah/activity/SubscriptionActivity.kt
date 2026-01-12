@@ -201,13 +201,13 @@ class SubscriptionActivity : AppCompatActivity(), BillingUpdatesListener,Observe
                     val startDate = formatDate(purchase.purchaseTime)
                     val endDate = formatDate(getSubscriptionExpiryDate(purchase))
 
-                    showCustomSnackbar(
+                  /*  showCustomSnackbar(
                         this@SubscriptionActivity,
                         binding.root,
                         "Subscription purchased successfully."
                     )
-                    finish()
-//                    updateSubscription(startDate, endDate,purchase.purchaseToken)
+                    finish()*/
+                    updateSubscription(startDate, endDate,purchase.purchaseToken)
                 }
             }
         }
@@ -264,8 +264,8 @@ class SubscriptionActivity : AppCompatActivity(), BillingUpdatesListener,Observe
 
     private fun updateSubscription(startDate: String, endDate: String,purchaseToken: String){
         val map = HashMap<String,String>()
-        map["start_date"] = startDate
-        map["end_date"] = endDate
+//        map["start_date"] = startDate
+//        map["end_date"] = endDate
         map["purchase_token"] = purchaseToken
 
         viewModel.updateSubscription(map,this).observe(this,this)

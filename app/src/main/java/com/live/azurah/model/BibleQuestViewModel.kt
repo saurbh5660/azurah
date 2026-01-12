@@ -62,6 +62,8 @@ data class BibleQuestViewModel(
         val isDeleted: String? = null,
         @SerializedName("is_premium")
         val isPremium: String? = null,
+        @SerializedName("is_subscription")
+        val isSubscription: String? = null,
         @SerializedName("status")
         val status: String? = null,
         @SerializedName("title")

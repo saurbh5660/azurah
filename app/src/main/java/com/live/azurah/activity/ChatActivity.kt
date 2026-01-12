@@ -256,7 +256,7 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
     }
 
     private fun setMessageLayout() {
-        if (receiverProfileType == 1){
+//        if (receiverProfileType == 1){
             if (isFollowByOther != 1 && isFollowByOther != 0) {
                 if (messageRequest == 1) {
                     binding.llRequestLayout.gone()
@@ -281,7 +281,8 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
                     }
 
                 }
-            }else{
+            }
+            else{
                 Log.d("dcdc", messageRequest.toString())
                 if (messageRequest == 0) {
                     binding.llRequestLayout.visible()
@@ -291,13 +292,7 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
                     binding.llRequestLayout.gone()
                 }
             }
-//            else if (isFollowByMe != 1 && isFollowByMe != 0) {
-
-           /* } else {
-                Log.d("dcdssssac", messageRequest.toString())
-                binding.llRequestLayout.gone()
-            } */
-        }else{
+      /*  }else{
             if (messageRequest == 0) {
                 binding.llRequestLayout.visible()
                 binding.llSendRequest.gone()
@@ -305,7 +300,7 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
             } else {
                 binding.llRequestLayout.gone()
             }
-        }
+        }*/
 
     }
 
@@ -315,19 +310,17 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
 
         adapter.menuListener = { msgId, pos, view, userId, userName, type ->
             Log.d("ffsfsdfsdf", userName)
-
-            if (receiverProfileType==1){
+//            if (receiverProfileType==1){
                 if (isFollowByOther != 1) {
                     if (messageRequest == 1) {
                         setPopUpWindowReportDelete(view, msgId, type, userId, userName, pos)
-
                     }
                 }else{
                     setPopUpWindowReportDelete(view, msgId, type, userId, userName, pos)
                 }
-            }else{
+          /*  }else{
                 setPopUpWindowReportDelete(view, msgId, type, userId, userName, pos)
-            }
+            }*/
 
         }
 
@@ -482,7 +475,7 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
                     showCustomToast(this@ChatActivity,"Messaging with this user is currently restricted.")
                     return@setOnClickListener
                 }
-                if (receiverProfileType == 1){
+//                if (receiverProfileType == 1){
                     if (isFollowByOther != 1 && isFollowByOther != 0) {
                         if (messageRequest == 1) {
                             sendMessage(binding.etMessage.text.toString(),"0")
@@ -516,15 +509,16 @@ class ChatActivity : ImagePickerActivity(), SocketManager.Observer {
                                 )
                             }
                         }
-                    }else{
+                    }
+                    else{
                         sendMessage(binding.etMessage.text.toString(),"0")
                         binding.etMessage.setText("")
                     }
 
-                } else {
+               /* } else {
                     sendMessage(binding.etMessage.text.toString(),"0")
                     binding.etMessage.setText("")
-                }
+                }*/
             }
 
             name.setOnClickListener {
