@@ -23,11 +23,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.SnapHelper
 import com.android.billingclient.api.BillingClient
-import com.android.billingclient.api.BillingClientStateListener
-import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.QueryPurchasesParams
 import com.google.android.material.tabs.TabLayout
@@ -37,7 +33,6 @@ import com.live.azurah.adapter.ShopSliderAdapter
 import com.live.azurah.adapter.ViewPagerAdapter
 import com.live.azurah.databinding.ActivityChallangeDetailBinding
 import com.live.azurah.databinding.ConfirmationDialogBinding
-import com.live.azurah.databinding.FaithBuilderDialogBinding
 import com.live.azurah.databinding.PremiumBibleQuestDialogBinding
 import com.live.azurah.databinding.ReachedYourCourseLimitDialogBinding
 import com.live.azurah.databinding.ReachedYourLimitDialogBinding
@@ -45,6 +40,7 @@ import com.live.azurah.fragment.AdviceFragment
 import com.live.azurah.fragment.OverviewFragment
 import com.live.azurah.model.BibleQuestViewModel
 import com.live.azurah.model.CommonResponse
+import com.live.azurah.model.MyChallengeResponse
 import com.live.azurah.model.ShopBannerModel
 import com.live.azurah.retrofit.LoaderDialog
 import com.live.azurah.retrofit.Resource
@@ -72,6 +68,7 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
 
     private val viewModel by viewModels<CommonViewModel>()
     private lateinit var sharedViewModel: SharedViewModel
+    private var myChallengeList = ArrayList<MyChallengeResponse.Body.Data>()
     private var model = BibleQuestViewModel.Body()
     private lateinit var receiver: BroadcastReceiver
     private lateinit var billingClient: BillingClient
@@ -86,7 +83,7 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
         WindowCompat.setDecorFitsSystemWindows(window, true)
         WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
-              val systemBars = insets.getInsets(
+            val systemBars = insets.getInsets(
                 WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
             )
             view.updatePadding(
@@ -129,6 +126,62 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
 
     private fun getDetail() {
         viewModel.getBibleView(id, this).observe(this, this)
+        val map = HashMap<String, String>()
+        map["user_id"] = getPreference("id", "")
+        viewModel.myChallengeList(map, this).observe(this, Observer { value ->
+            when (value.status) {
+                Status.SUCCESS -> {
+                    when (value.data) {
+                        is MyChallengeResponse -> {
+                            val res = value.data.body
+                            value.data.body?.data?.let {
+                                myChallengeList = it
+                            }
+                        }
+                    }
+                }
+
+                Status.LOADING -> {
+                }
+
+                Status.ERROR -> {
+                    showCustomSnackbar(this, binding.root, value.message.toString())
+                }
+            }
+        })
+    }
+
+    private fun quitChallenge(questId: String) {
+        val map = HashMap<String, String>()
+        map["user_id"] = getPreference("id", "")
+        map["bible_quest_id"] = questId
+        viewModel.quitChallenge(map, this).observe(this, Observer { value ->
+            when (value.status) {
+                Status.SUCCESS -> {
+                    LoaderDialog.dismiss()
+                    when (value.data) {
+                        is CommonResponse -> {
+                            startActivity(
+                                Intent(
+                                    this@ChallangeDetailActivity,
+                                    MarkChallangeActivity::class.java
+                                ).apply {
+                                    putExtra("from", from)
+                                    putExtra("id", id)
+                                })
+                        }
+                    }
+                }
+                Status.LOADING -> {
+                    LoaderDialog.show(this)
+                }
+
+                Status.ERROR -> {
+                    LoaderDialog.dismiss()
+                    showCustomSnackbar(this, binding.root, value.message.toString())
+                }
+            }
+        })
     }
 
     private fun initListener() {
@@ -136,32 +189,30 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
             btnRestart.setOnClickListener {
                 if (isPremium == "1") {
                     if (subscribed) {
-                        if ((model?.totalPremiumJoinedChallenges ?: 0) > 1){
-                            if ((model?.isChallengeStarted?: 0) == 1){
+                        if ((model?.totalPremiumJoinedChallenges ?: 0) > 1) {
+                            if ((model?.isChallengeStarted ?: 0) == 1) {
                                 confirmationDialog()
-                            }else{
+                            } else {
                                 reachedCourseLimitDialog()
                             }
-                        }
-                        else{
+                        } else {
                             confirmationDialog()
                         }
                     } else {
                         premiumBibleQuestDialog()
                     }
                 } else {
-                    if ((model?.totalFreeJoinedChallenges ?: 0) > 0){
-                        if (subscribed){
+                    if ((model?.totalFreeJoinedChallenges ?: 0) > 0) {
+                        if (subscribed) {
                             confirmationDialog()
-                        }else{
-                            if ((model?.isChallengeStarted?: 0) == 1){
+                        } else {
+                            if ((model?.isChallengeStarted ?: 0) == 1) {
                                 confirmationDialog()
-                            }else{
+                            } else {
                                 reachedLimitDialog()
                             }
                         }
-                    }
-                    else{
+                    } else {
                         confirmationDialog()
                     }
                 }
@@ -170,8 +221,8 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
             btnStartChallange.setOnClickListener {
                 if (isPremium == "1") {
                     if (subscribed) {
-                        if ((model?.totalPremiumJoinedChallenges ?: 0) > 1){
-                            if ((model?.isChallengeStarted?: 0) == 1){
+                        if ((model?.totalPremiumJoinedChallenges ?: 0) > 1) {
+                            if ((model?.isChallengeStarted ?: 0) == 1) {
                                 startActivity(
                                     Intent(
                                         this@ChallangeDetailActivity,
@@ -180,15 +231,13 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                                         putExtra("from", from)
                                         putExtra("id", id)
                                     })
-                            }else{
+                            } else {
                                 reachedCourseLimitDialog()
                             }
-                        }
-                        else{
+                        } else {
                             startActivity(
                                 Intent(
-                                    this@ChallangeDetailActivity,
-                                    MarkChallangeActivity::class.java
+                                    this@ChallangeDetailActivity, MarkChallangeActivity::class.java
                                 ).apply {
                                     putExtra("from", from)
                                     putExtra("id", id)
@@ -196,27 +245,25 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                         }
 
                     } else {
-                        premiumBibleQuestDialog()
-                       /* startActivity(
-                            Intent(
-                                this@ChallangeDetailActivity,
-                                SubscriptionActivity::class.java
-                            )
-                        )*/
+                        premiumBibleQuestDialog()/* startActivity(
+                             Intent(
+                                 this@ChallangeDetailActivity,
+                                 SubscriptionActivity::class.java
+                             )
+                         )*/
                     }
                 } else {
-                    if ((model?.totalFreeJoinedChallenges ?: 0) > 0){
-                        if (subscribed){
+                    if ((model?.totalFreeJoinedChallenges ?: 0) > 0) {
+                        if (subscribed) {
                             startActivity(
                                 Intent(
-                                    this@ChallangeDetailActivity,
-                                    MarkChallangeActivity::class.java
+                                    this@ChallangeDetailActivity, MarkChallangeActivity::class.java
                                 ).apply {
                                     putExtra("from", from)
                                     putExtra("id", id)
                                 })
-                        }else{
-                            if ((model?.isChallengeStarted?: 0) == 1){
+                        } else {
+                            if ((model?.isChallengeStarted ?: 0) == 1) {
                                 startActivity(
                                     Intent(
                                         this@ChallangeDetailActivity,
@@ -225,16 +272,14 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                                         putExtra("from", from)
                                         putExtra("id", id)
                                     })
-                            }else{
+                            } else {
                                 reachedLimitDialog()
                             }
                         }
-                    }
-                    else{
+                    } else {
                         startActivity(
                             Intent(
-                                this@ChallangeDetailActivity,
-                                MarkChallangeActivity::class.java
+                                this@ChallangeDetailActivity, MarkChallangeActivity::class.java
                             ).apply {
                                 putExtra("from", from)
                                 putExtra("id", id)
@@ -267,7 +312,7 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                 binding.shimmerLayout.stopShimmer()
                 binding.btnStartChallange.visible()
                 binding.clLayout.visible()
-               LoaderDialog.dismiss()
+                LoaderDialog.dismiss()
                 when (value.data) {
                     is BibleQuestViewModel -> {
                         val res = value.data.body
@@ -275,15 +320,13 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                         with(binding) {
                             tvTitle.text = model.title ?: ""
                             subscribed = model.isSubscription == "1"
-                            Log.d("asfsgdsgds",subscribed.toString())
+                            Log.d("asfsgdsgds", subscribed.toString())
                             val imagesList =
                                 res?.bibleQuestImages?.map { it?.image ?: "" } as ArrayList
 
                             val modelList = res.bibleQuestImages.map {
                                 ShopBannerModel(
-                                    image = it?.image,
-                                    id = it?.id,
-                                    type = 0
+                                    image = it?.image, id = it?.id, type = 0
                                 )
                             } as ArrayList<ShopBannerModel>
 
@@ -305,10 +348,14 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                                 override fun onTabSelected(tab: TabLayout.Tab) {
                                     tab.setIcon(R.drawable.dot_selected)
                                     val scaleUp = ScaleAnimation(
-                                        1.0f, 1.0f,
-                                        1.0f, 1.0f,
-                                        ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
-                                        ScaleAnimation.RELATIVE_TO_SELF, 0.5f
+                                        1.0f,
+                                        1.0f,
+                                        1.0f,
+                                        1.0f,
+                                        ScaleAnimation.RELATIVE_TO_SELF,
+                                        0.5f,
+                                        ScaleAnimation.RELATIVE_TO_SELF,
+                                        0.5f
                                     ).apply {
                                         duration = 200
                                         fillAfter = true
@@ -319,10 +366,14 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                                 override fun onTabUnselected(tab: TabLayout.Tab) {
                                     tab.setIcon(R.drawable.dot_unselected)
                                     val scaleDown = ScaleAnimation(
-                                        1.0f, 1.0f,  // Start and end X scale
-                                        1.0f, 1.0f,  // Start and end Y scale
-                                        ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
-                                        ScaleAnimation.RELATIVE_TO_SELF, 0.5f
+                                        1.0f,
+                                        1.0f,  // Start and end X scale
+                                        1.0f,
+                                        1.0f,  // Start and end Y scale
+                                        ScaleAnimation.RELATIVE_TO_SELF,
+                                        0.5f,
+                                        ScaleAnimation.RELATIVE_TO_SELF,
+                                        0.5f
                                     ).apply {
                                         duration = 200
                                         fillAfter = true
@@ -337,19 +388,12 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                             Log.d("fjsdbjdfkgfg", res.bibleVerse.toString().trim())
 
 //                            val cleanedText = res.bibleVerse.toString().trim().replace("&nbsp;", " ")
-                            val cleanedText = res.bibleVerse
-                                .toString()
-                                .replace("&nbsp;", " ")
-                                .replace("<p>", "")
-                                .replace("</p>", "")
-                                .replace("<br>", "")
-                                .replace("<br/>", "")
-                                .replace("<div>", "")
-                                .replace("</div>", "")
-                                .trim()
+                            val cleanedText =
+                                res.bibleVerse.toString().replace("&nbsp;", " ").replace("<p>", "")
+                                    .replace("</p>", "").replace("<br>", "").replace("<br/>", "")
+                                    .replace("<div>", "").replace("</div>", "").trim()
                             tvMessage.text = HtmlCompat.fromHtml(
-                                cleanedText,
-                                HtmlCompat.FROM_HTML_MODE_COMPACT
+                                cleanedText, HtmlCompat.FROM_HTML_MODE_COMPACT
                             )
                             tvVerse.text = res.bibleVersion ?: ""
                             sharedViewModel.setChallengeData(res)
@@ -370,8 +414,7 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                                     ?: 0) > 0 && res.isChallengeCompleted == 1
                             ) {
                                 binding.btnStartChallange.gone()
-                                binding.btnRestart.visible()
-                                /* binding.btnStartChallange.text =
+                                binding.btnRestart.visible()/* binding.btnStartChallange.text =
                                      getString(R.string.restart_challenge_1)*/
                             }
                         }
@@ -388,7 +431,7 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                 binding.shimmerLayout.stopShimmer()
                 binding.btnStartChallange.gone()
                 binding.clLayout.gone()
-               LoaderDialog.dismiss()
+                LoaderDialog.dismiss()
                 showCustomSnackbar(this, binding.root, value.message.toString())
             }
         }
@@ -408,8 +451,7 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
         customDialog.setContentView(confirmationBinding.root)
         customDialog.window?.setGravity(Gravity.CENTER)
         customDialog.window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
         customDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
@@ -432,13 +474,12 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
         viewModel.markAsRestart(map, this).observe(this) { value ->
             when (value.status) {
                 Status.SUCCESS -> {
-                   LoaderDialog.dismiss()
+                    LoaderDialog.dismiss()
                     when (value.data) {
                         is CommonResponse -> {
                             startActivity(
                                 Intent(
-                                    this@ChallangeDetailActivity,
-                                    MarkChallangeActivity::class.java
+                                    this@ChallangeDetailActivity, MarkChallangeActivity::class.java
                                 ).apply {
                                     putExtra("from", from)
                                     putExtra("id", id)
@@ -452,7 +493,7 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                 }
 
                 Status.ERROR -> {
-                   LoaderDialog.dismiss()
+                    LoaderDialog.dismiss()
                     showCustomSnackbar(this, binding.root, value.message.toString())
                 }
             }
@@ -464,32 +505,30 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver)
     }
 
-   /* private fun checkSubscriptionStatus() {
-        billingClient = BillingClient.newBuilder(this)
-            .enablePendingPurchases()
-            .setListener { billingResult, purchases ->
-                // You usually don't need to handle this here for checking past purchases
-            }
-            .build()
+    /* private fun checkSubscriptionStatus() {
+         billingClient = BillingClient.newBuilder(this)
+             .enablePendingPurchases()
+             .setListener { billingResult, purchases ->
+                 // You usually don't need to handle this here for checking past purchases
+             }
+             .build()
 
-        billingClient.startConnection(object : BillingClientStateListener {
-            override fun onBillingSetupFinished(billingResult: BillingResult) {
-                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                    queryActivePurchases()
-                }
-            }
+         billingClient.startConnection(object : BillingClientStateListener {
+             override fun onBillingSetupFinished(billingResult: BillingResult) {
+                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                     queryActivePurchases()
+                 }
+             }
 
-            override fun onBillingServiceDisconnected() {
-                // Retry logic if needed
-            }
-        })
-    }*/
+             override fun onBillingServiceDisconnected() {
+                 // Retry logic if needed
+             }
+         })
+     }*/
 
     private fun queryActivePurchases() {
         billingClient.queryPurchasesAsync(
-            QueryPurchasesParams.newBuilder()
-                .setProductType(BillingClient.ProductType.SUBS)
-                .build()
+            QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.SUBS).build()
         ) { billingResult, purchasesList ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                 val isSubscribed = purchasesList.any { purchase ->
@@ -501,13 +540,15 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
         }
     }
 
-    fun premiumBibleQuestDialog(){
+    fun premiumBibleQuestDialog() {
         val customDialog = Dialog(this)
         customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         val premiumBibleQuestDialogBinding = PremiumBibleQuestDialogBinding.inflate(layoutInflater)
         customDialog.setContentView(premiumBibleQuestDialogBinding.root)
         customDialog.window?.setGravity(Gravity.CENTER)
-        customDialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        customDialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         customDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         premiumBibleQuestDialogBinding.ivClose.setOnClickListener {
@@ -515,14 +556,13 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
         }
         premiumBibleQuestDialogBinding.btnInviteFriends.setOnClickListener {
             customDialog.dismiss()
-            startActivity(Intent(this,ReferralActivity::class.java))
+            startActivity(Intent(this, ReferralActivity::class.java))
         }
         premiumBibleQuestDialogBinding.btnSubscribeNow.setOnClickListener {
             customDialog.dismiss()
             startActivity(
                 Intent(
-                    this@ChallangeDetailActivity,
-                    SubscriptionActivity::class.java
+                    this@ChallangeDetailActivity, SubscriptionActivity::class.java
                 )
             )
 
@@ -530,13 +570,15 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
         customDialog.show()
     }
 
-    fun reachedLimitDialog(){
+    fun reachedLimitDialog() {
         val customDialog = Dialog(this)
         customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         val reachedYourLimitDialogBinding = ReachedYourLimitDialogBinding.inflate(layoutInflater)
         customDialog.setContentView(reachedYourLimitDialogBinding.root)
         customDialog.window?.setGravity(Gravity.CENTER)
-        customDialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        customDialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         customDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         reachedYourLimitDialogBinding.ivClose.setOnClickListener {
@@ -545,32 +587,64 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
 
         reachedYourLimitDialogBinding.btnContinueCourse.setOnClickListener {
             customDialog.dismiss()
+            quitQuest()
         }
         reachedYourLimitDialogBinding.btnUpgradeToPremium.setOnClickListener {
             customDialog.dismiss()
             startActivity(
                 Intent(
-                    this@ChallangeDetailActivity,
-                    SubscriptionActivity::class.java
+                    this@ChallangeDetailActivity, SubscriptionActivity::class.java
                 )
             )
         }
         customDialog.show()
     }
 
-    fun reachedCourseLimitDialog(){
+    fun reachedCourseLimitDialog() {
         val customDialog = Dialog(this)
         customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        val reachedYourCourseLimitDialogBinding = ReachedYourCourseLimitDialogBinding.inflate(layoutInflater)
+        val reachedYourCourseLimitDialogBinding =
+            ReachedYourCourseLimitDialogBinding.inflate(layoutInflater)
         customDialog.setContentView(reachedYourCourseLimitDialogBinding.root)
         customDialog.window?.setGravity(Gravity.CENTER)
-        customDialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        customDialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         customDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         reachedYourCourseLimitDialogBinding.ivClose.setOnClickListener {
             customDialog.dismiss()
         }
 
+        customDialog.show()
+    }
+
+    private fun quitQuest() {
+        val customDialog = Dialog(this)
+        customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        val confirmationBinding = ConfirmationDialogBinding.inflate(layoutInflater)
+        customDialog.setContentView(confirmationBinding.root)
+        customDialog.window?.setGravity(Gravity.CENTER)
+        customDialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        customDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        confirmationBinding.tvUsernameTaken.text = buildString {
+            append("Quit Quest?")
+        }
+        confirmationBinding.tvMsg.text = buildString {
+            append("Are you sure you want to quit this challenge ${myChallengeList.firstOrNull()?.bibleQuest?.title ?: ""}? You joined this quest on ${model.title ?: ""}")
+        }
+        confirmationBinding.ivCross.gone()
+
+        confirmationBinding.tvNo.setOnClickListener {
+            customDialog.dismiss()
+        }
+        confirmationBinding.tvYes.setOnClickListener {
+            customDialog.dismiss()
+            quitChallenge(myChallengeList.firstOrNull()?.bibleQuest?.id.toString());
+        }
         customDialog.show()
     }
 

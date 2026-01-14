@@ -258,7 +258,7 @@ class MarkChallangeActivity : AppCompatActivity(), Observer<Resource<Any>> {
         }
         confirmationBinding.tvYes.setOnClickListener {
             customDialog.dismiss()
-//            if(day == list.size) {
+            if(day == list.size) {
                 startActivity(
                     Intent(
                         this@MarkChallangeActivity,
@@ -268,7 +268,7 @@ class MarkChallangeActivity : AppCompatActivity(), Observer<Resource<Any>> {
                     }
                 )
                 finish()
-//            }
+            }
         }
         customDialog.show()
     }

@@ -534,7 +534,7 @@ fun formatStartEndTimeRange(input: String): String {
 fun formatStartEndRange(input: String): String {
     return try {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd,HH:mm", Locale.getDefault())
-        val outputFormat = SimpleDateFormat("EEE dd MMM yy", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("EEEE dd MMMM yyyy", Locale.getDefault())
 
         val dateTimePairs = input.split("44")
 

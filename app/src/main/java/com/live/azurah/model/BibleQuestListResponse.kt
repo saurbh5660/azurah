@@ -77,6 +77,8 @@ data class BibleQuestListResponse(
             val isChallengeCompleted: Int? = null,
             @SerializedName("is_challenge_started")
             val isChallengeStarted: Int? = null,
+            @SerializedName("cover_image")
+            val coverImage: String? = null,
         ) {
             data class BibleQuestAdvice(
                 @SerializedName("bible_quest_id")

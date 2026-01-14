@@ -27,6 +27,7 @@ import com.live.azurah.model.HomeSearchResposne
 import com.live.azurah.model.InterestResponse
 import com.live.azurah.model.LoginResponse
 import com.live.azurah.model.MuteResponse
+import com.live.azurah.model.MyChallengeResponse
 import com.live.azurah.model.NotificationListingResponse
 import com.live.azurah.model.PostCommentListResposne
 import com.live.azurah.model.PostLikesResposne
@@ -542,6 +543,14 @@ interface ApiServiceInterface {
     @FormUrlEncoded
     @POST(ApiConstants.REMOVE_SUGGESTION)
     suspend fun removeSuggestion(@FieldMap map: HashMap<String, String>): CommonResponse
+
+
+    @GET(ApiConstants.MY_CHALLENGE)
+    suspend fun myChallengeList(@QueryMap map: HashMap<String, String>): MyChallengeResponse
+
+    @FormUrlEncoded
+    @POST(ApiConstants.QUIT_CHALLENGE)
+    suspend fun quitChallenge(@FieldMap map: HashMap<String, String>): CommonResponse
 
 
 }

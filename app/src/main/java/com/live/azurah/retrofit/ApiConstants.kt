@@ -140,7 +140,8 @@ object ApiConstants {
     const val HASHTAG_LIST = "appApi/post/hashtagList"
     const val UPDATE_SUBSCRIPTION = "appApi/auth/updateSubscription"
     const val REMOVE_SUGGESTION = "appApi/user/removeFromSuggestion"
-
+    const val MY_CHALLENGE = "appApi/dashboard/bibleQuest/challenge/myList"
+    const val QUIT_CHALLENGE = "appApi/dashboard/bibleQuest/challenge/quit"
     var isMute = false
     var isNotification = false
 

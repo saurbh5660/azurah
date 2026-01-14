@@ -1202,4 +1202,20 @@ class CommonViewModel @Inject constructor(private val commonRepository: CommonRe
         }
     }
 
+    fun myChallengeList(map: HashMap<String, String>, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.myChallengeList(map, activity)
+            emit(response)
+        }
+    }
+
+    fun quitChallenge(map: HashMap<String, String>, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.quitChallenge(map, activity)
+            emit(response)
+        }
+    }
+
 }

@@ -93,11 +93,25 @@ class FollowUnfollowListAdapter(
                 )
                 tvName.text = buildString {
                     append(model.follow_to_user?.username ?: "")
-                    if (getPreference("id","") == (model.follow_to_user?.id ?: "")){
-                        tvFollow.gone()
-                    }
 
                 }
+
+                if (getPreference("id","") == (model.follow_to_user?.id ?: "")){
+                    tvFollow.gone()
+                }
+
+                if (model.follow_to_user?.display_name_preference == "1"){
+                    tvUserName.text = buildString {
+                        append(model.follow_to_user.first_name ?: "")
+                    }
+                }else{
+                    tvUserName.text = buildString {
+                        append(model.follow_to_user?.first_name ?: "")
+                        append(" ")
+                        append(model.follow_to_user?.last_name)
+                    }
+                }
+
             }else{
                 ivImage.loadImage(
                     ApiConstants.IMAGE_BASE_URL + model.follow_by_user?.image,
@@ -108,6 +122,17 @@ class FollowUnfollowListAdapter(
                 }
                 if (getPreference("id","") == (model.follow_by_user?.id ?: "")){
                     tvFollow.gone()
+                }
+                if (model.follow_by_user?.display_name_preference == "1"){
+                    tvUserName.text = buildString {
+                        append(model.follow_by_user.first_name ?: "")
+                    }
+                }else{
+                    tvUserName.text = buildString {
+                        append(model.follow_by_user?.first_name ?: "")
+                        append(" ")
+                        append(model.follow_by_user?.last_name)
+                    }
                 }
             }
 

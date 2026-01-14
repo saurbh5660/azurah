@@ -59,10 +59,10 @@ class ChallangeItemAdapter(
             }else{
                 ivTick.setImageResource(R.drawable.unselected_tick_grey)
             }
-//            ivChallange.loadImage(ApiConstants.IMAGE_BASE_URL+model.bibleQuestImages?.firstOrNull()?.image)
+            ivChallange.loadImage(ApiConstants.IMAGE_BASE_URL+model.coverImage)
 
 
-            val maxWidth = ctx.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._120sdp)
+           /* val maxWidth = ctx.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._120sdp)
             val maxHeight = ctx.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._140sdp)
 
             Glide.with(ctx)
@@ -94,7 +94,8 @@ class ChallangeItemAdapter(
 
                     override fun onLoadCleared(placeholder: Drawable?) {
                     }
-                })
+                })*/
+
            /* val snapHelper: SnapHelper = PagerSnapHelper()
             ivChallange.onFlingListener = null
             snapHelper.attachToRecyclerView(ivChallange)

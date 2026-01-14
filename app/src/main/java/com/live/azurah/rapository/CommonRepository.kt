@@ -1181,4 +1181,20 @@ class CommonRepository @Inject constructor(
         }
     }
 
+    suspend fun myChallengeList(map: HashMap<String, String>, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.myChallengeList(map))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
+    suspend fun quitChallenge(map: HashMap<String, String>, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.quitChallenge(map))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
 }
