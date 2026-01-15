@@ -12,6 +12,7 @@ import com.live.azurah.model.EventListResponse
 import com.live.azurah.retrofit.ApiConstants
 import com.live.azurah.util.convertDateRange
 import com.live.azurah.util.formatStartEndRange
+import com.live.azurah.util.formatStartEndRange1
 import com.live.azurah.util.formatStartEndTimeRange
 import com.live.azurah.util.loadImage
 
@@ -43,7 +44,7 @@ class EventAdapter(
 
             tvLoc.text = model.location ?: ""
 //            tvDate.text = convertDateRange(model.startDate+","+model.endDate)
-            tvDate.text = formatStartEndRange(model.startDate+","+model.startTime+" 44 "+model.endDate+","+model.endTime)
+            tvDate.text = formatStartEndRange1(model.startDate+","+model.startTime+" 44 "+model.endDate+","+model.endTime)
             tvClock.text = formatStartEndTimeRange(model.startDate+","+model.startTime+" 44 "+model.endDate+","+model.endTime)
             Log.d("dvdsggdfg",model.startDate+","+model.startTime+"-"+model.endDate+","+model.endTime)
 

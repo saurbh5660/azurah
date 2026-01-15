@@ -631,10 +631,10 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
         customDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         confirmationBinding.tvUsernameTaken.text = buildString {
-            append("Quit Quest?")
+            append("Are you sure you want to quit this quest?")
         }
         confirmationBinding.tvMsg.text = buildString {
-            append("Are you sure you want to quit this challenge ${myChallengeList.firstOrNull()?.bibleQuest?.title ?: ""}? You joined this quest on ${model.title ?: ""}")
+            append("You’re about to quit ${myChallengeList.firstOrNull()?.bibleQuest?.title ?: ""}. If you continue, your progress in this course will be lost and you’ll need to start from the beginning if you join again.")
         }
         confirmationBinding.ivCross.gone()
 

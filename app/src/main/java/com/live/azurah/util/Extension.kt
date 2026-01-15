@@ -572,6 +572,46 @@ fun formatStartEndRange(input: String): String {
     }
 }
 
+fun formatStartEndRange1(input: String): String {
+    return try {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd,HH:mm", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("EEE dd MMM yy", Locale.getDefault())
+
+        val dateTimePairs = input.split("44")
+
+        if (dateTimePairs.isEmpty() || dateTimePairs[0].isBlank()) {
+            throw IllegalArgumentException("")
+        }
+
+        // Parse start date-time
+        val startDate = inputFormat.parse(dateTimePairs[0].trim())
+            ?: throw IllegalArgumentException("")
+
+        val formattedStartDate = outputFormat.format(startDate)
+
+        // If there's no valid end date-time, return only start date
+        if (dateTimePairs.size < 2 || dateTimePairs[1].isBlank()) {
+            return formattedStartDate
+        }
+
+        // Try to parse end date-time
+        val endDate = try {
+            inputFormat.parse(dateTimePairs[1].trim())
+        } catch (_: Exception) {
+            null
+        }
+
+        return if (endDate != null) {
+            val formattedEndDate = outputFormat.format(endDate)
+            "$formattedStartDate - $formattedEndDate"
+        } else {
+            formattedStartDate
+        }
+
+    } catch (e: Exception) {
+        "Error: ${e.message}"
+    }
+}
 
 
 fun isInternetAvailable(context: Context): Boolean {
