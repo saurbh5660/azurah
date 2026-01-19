@@ -9,9 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.animation.ScaleAnimation
+import android.widget.PopupWindow
+import android.widget.RelativeLayout
 import androidx.activity.viewModels
 import androidx.core.text.HtmlCompat
 import androidx.core.view.ViewCompat
@@ -33,6 +36,8 @@ import com.live.azurah.adapter.ShopSliderAdapter
 import com.live.azurah.adapter.ViewPagerAdapter
 import com.live.azurah.databinding.ActivityChallangeDetailBinding
 import com.live.azurah.databinding.ConfirmationDialogBinding
+import com.live.azurah.databinding.MenuQuitBinding
+import com.live.azurah.databinding.MenuReportBinding
 import com.live.azurah.databinding.PremiumBibleQuestDialogBinding
 import com.live.azurah.databinding.ReachedYourCourseLimitDialogBinding
 import com.live.azurah.databinding.ReachedYourLimitDialogBinding
@@ -151,7 +156,7 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
         })
     }
 
-    private fun quitChallenge(questId: String) {
+    private fun quitChallenge(questId: String,from: String) {
         val map = HashMap<String, String>()
         map["user_id"] = getPreference("id", "")
         map["bible_quest_id"] = questId
@@ -161,14 +166,19 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                     LoaderDialog.dismiss()
                     when (value.data) {
                         is CommonResponse -> {
-                            startActivity(
-                                Intent(
-                                    this@ChallangeDetailActivity,
-                                    MarkChallangeActivity::class.java
-                                ).apply {
-                                    putExtra("from", from)
-                                    putExtra("id", id)
-                                })
+                            if (from == "1"){
+                                finish()
+                            }else{
+                                startActivity(
+                                    Intent(
+                                        this@ChallangeDetailActivity,
+                                        MarkChallangeActivity::class.java
+                                    ).apply {
+                                        putExtra("from", from)
+                                        putExtra("id", id)
+                                    })
+                            }
+
                         }
                     }
                 }
@@ -290,6 +300,10 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
             backIcon.setOnClickListener {
                 onBackPressedDispatcher.onBackPressed()
             }
+
+            ivMore.setOnClickListener {
+                quitThisChallenge(it)
+            }
         }
     }
 
@@ -319,6 +333,11 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                         model = value.data.body ?: BibleQuestViewModel.Body()
                         with(binding) {
                             tvTitle.text = model.title ?: ""
+                            if (model.isChallengeStarted == 1){
+                                ivMore.visible()
+                            }else{
+                                ivMore.gone()
+                            }
                             subscribed = model.isSubscription == "1"
                             Log.d("asfsgdsgds", subscribed.toString())
                             val imagesList =
@@ -587,8 +606,13 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
 
         reachedYourLimitDialogBinding.btnContinueCourse.setOnClickListener {
             customDialog.dismiss()
+        }
+
+        reachedYourLimitDialogBinding.btnQuit.setOnClickListener {
+            customDialog.dismiss()
             quitQuest()
         }
+
         reachedYourLimitDialogBinding.btnUpgradeToPremium.setOnClickListener {
             customDialog.dismiss()
             startActivity(
@@ -631,7 +655,7 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
         customDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         confirmationBinding.tvUsernameTaken.text = buildString {
-            append("Are you sure you want to quit this quest?")
+            append("Quit quest?")
         }
         confirmationBinding.tvMsg.text = buildString {
             append("You’re about to quit ${myChallengeList.firstOrNull()?.bibleQuest?.title ?: ""}. If you continue, your progress in this course will be lost and you’ll need to start from the beginning if you join again.")
@@ -643,9 +667,31 @@ class ChallangeDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
         }
         confirmationBinding.tvYes.setOnClickListener {
             customDialog.dismiss()
-            quitChallenge(myChallengeList.firstOrNull()?.bibleQuest?.id.toString());
+            quitChallenge(myChallengeList.firstOrNull()?.bibleQuest?.id.toString(),"2")
         }
         customDialog.show()
+    }
+
+
+    private fun quitThisChallenge(view1: View) {
+        val menuBinding = MenuQuitBinding.inflate(layoutInflater)
+
+        val myPopupWindow = PopupWindow(
+            menuBinding.root,
+            RelativeLayout.LayoutParams.WRAP_CONTENT,
+            RelativeLayout.LayoutParams.WRAP_CONTENT,
+            true
+        )
+
+        with(menuBinding){
+            clQuit.setOnClickListener {
+                myPopupWindow.dismiss()
+                quitChallenge(model.id.toString(),"1")
+            }
+        }
+
+        myPopupWindow.showAsDropDown(view1, 0, -60)
+
     }
 
 }

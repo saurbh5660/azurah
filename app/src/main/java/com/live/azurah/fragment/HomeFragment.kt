@@ -292,8 +292,8 @@ class HomeFragment : Fragment(),
         postAdapter.shareListener = { pos, model ->
              if (model.user?.profile_type == 2){
                  val shareLink = buildString {
-                     append("Want to view this post? Download Azrius today to join a supportive Christian community.\n")
-                     append("Post link: https://app.azrius.co.uk/common_api/deepLinking/post?post_id=")
+//                     append("Want to view this post? Download Azrius today to join a supportive Christian community.\n")
+                     append("https://app.azrius.co.uk/common_api/deepLinking/post?post_id=")
                      append(model.id.toString())
                  }
 

@@ -41,14 +41,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-            <!--<androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="@dimen/_70sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:src="@drawable/azurah_heading_icon"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivMore"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_17sdp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/hamburger"
+            android:tint="@color/black"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="@dimen/_16sdp"/>
+
+
+        <!--<androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/azurah_heading_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

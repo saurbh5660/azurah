@@ -1,16 +1,20 @@
 package com.live.azurah.activity
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
@@ -30,6 +34,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import com.google.android.play.core.appupdate.AppUpdateInfo
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.live.azurah.R
 import com.live.azurah.adapter.ViewPagerAdapter
 import com.live.azurah.databinding.ActivityHomeBinding
@@ -71,6 +80,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var sharedViewModel: SharedViewModel
 
     lateinit var binding : ActivityHomeBinding
+    private var updateDialog: Dialog? = null
     private lateinit var fragmentList: MutableList<Fragment>
     private lateinit var viewpagerAdapter: ViewPagerAdapter
     private var searchType = 0
@@ -755,6 +765,102 @@ class HomeActivity : AppCompatActivity() {
             startActivity(Intent(this,ReferralActivity::class.java))
         }
         customDialog.show()
+    }
+
+    private fun checkForAppUpdate() {
+        val appUpdateManager: AppUpdateManager = AppUpdateManagerFactory.create(this)
+
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo: AppUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            ) {
+                val availableVersionCode = appUpdateInfo.availableVersionCode()
+                showUpdateDialog(availableVersionCode)
+
+            }
+        }.addOnFailureListener { exception ->
+            Log.e("AppUpdate", "Failed to check for updates", exception)
+        }
+    }
+
+    private fun showUpdateDialog(availableVersionCode: Int) {
+        if (updateDialog?.isShowing == true) return
+
+        updateDialog = Dialog(this)
+        updateDialog!!.setContentView(R.layout.dialoag_app_update)
+
+        // Make the dialog background transparent so the rounded corners show
+        updateDialog!!.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        updateDialog!!.setCancelable(false)
+        updateDialog!!.setCanceledOnTouchOutside(false)
+        val tvMessage = updateDialog!!.findViewById<TextView>(R.id.tvMessage)
+        val btnUpdate = updateDialog!!.findViewById<Button>(R.id.btnUpdate)
+        val btnLater = updateDialog!!.findViewById<Button>(R.id.btnRemindLater)
+
+        val currentVersion = getCurrentAppVersion(this).second
+        tvMessage.text = "We've added new features to help you grow in faith and stay connected with your community.\nA new version of the app ($availableVersionCode) is available.\nPlease update from your current version ($currentVersion)."
+
+        btnUpdate.setOnClickListener {
+            openPlayStore()
+            updateDialog!!.dismiss()
+        }
+
+        btnLater.setOnClickListener {
+            updateDialog!!.dismiss()
+        }
+
+        updateDialog!!.show()
+    }
+
+    private fun openPlayStore() {
+        val packageName = applicationContext.packageName
+        Log.d("dskfjbdjkd", packageName)
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
+        } catch (e: Exception) {
+            // If Google Play Store app is not available, redirect to browser
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                )
+            )
+        }
+    }
+
+    private fun getCurrentAppVersion(context: Context): Pair<Long, String> {
+        return try {
+            val packageManager = context.packageManager
+            val packageName = context.packageName
+
+            val packageInfo = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0))
+            } else {
+                @Suppress("DEPRECATION")
+                packageManager.getPackageInfo(packageName, 0)
+            }
+
+            // longVersionCode handles both old 'versionCode' and newer 'longVersionCode'
+            val versionCode = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+                packageInfo.longVersionCode
+            } else {
+                @Suppress("DEPRECATION")
+                packageInfo.versionCode.toLong()
+            }
+
+            val versionName = packageInfo.versionName ?: "0.0.0"
+
+            Pair(versionCode, versionName)
+        } catch (e: Exception) {
+            Pair(0L, "0.0.0")
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkForAppUpdate()
     }
 
 }

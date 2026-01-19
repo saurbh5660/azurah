@@ -91,7 +91,7 @@ class FollowUnfollowListAdapter(
                     ApiConstants.IMAGE_BASE_URL + model.follow_to_user?.image,
                     placeholder = R.drawable.profile_icon
                 )
-                tvName.text = buildString {
+                tvUserName.text = buildString {
                     append(model.follow_to_user?.username ?: "")
 
                 }
@@ -101,11 +101,11 @@ class FollowUnfollowListAdapter(
                 }
 
                 if (model.follow_to_user?.display_name_preference == "1"){
-                    tvUserName.text = buildString {
+                    tvName.text = buildString {
                         append(model.follow_to_user.first_name ?: "")
                     }
                 }else{
-                    tvUserName.text = buildString {
+                    tvName.text = buildString {
                         append(model.follow_to_user?.first_name ?: "")
                         append(" ")
                         append(model.follow_to_user?.last_name)
@@ -117,18 +117,18 @@ class FollowUnfollowListAdapter(
                     ApiConstants.IMAGE_BASE_URL + model.follow_by_user?.image,
                     placeholder = R.drawable.profile_icon
                 )
-                tvName.text = buildString {
+                tvUserName.text = buildString {
                     append(model.follow_by_user?.username ?: "")
                 }
                 if (getPreference("id","") == (model.follow_by_user?.id ?: "")){
                     tvFollow.gone()
                 }
                 if (model.follow_by_user?.display_name_preference == "1"){
-                    tvUserName.text = buildString {
+                    tvName.text = buildString {
                         append(model.follow_by_user.first_name ?: "")
                     }
                 }else{
-                    tvUserName.text = buildString {
+                    tvName.text = buildString {
                         append(model.follow_by_user?.first_name ?: "")
                         append(" ")
                         append(model.follow_by_user?.last_name)

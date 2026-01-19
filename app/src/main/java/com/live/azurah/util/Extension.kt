@@ -468,68 +468,48 @@ fun openUrlInBrowser(context: Context, url: String) {
 }*/
 
 fun formatStartEndTimeRange(input: String): String {
-    return try {
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd,HH:mm", Locale.getDefault())
-        val outputFormat = SimpleDateFormat("HH:mm", Locale.getDefault()) // Only time
+    val dateTimeFormat = SimpleDateFormat("yyyy-MM-dd,HH:mm", Locale.getDefault())
+    val timeOnlyFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
 
+    fun parseTime(raw: String): String? {
+        val value = raw.trim().removePrefix(",")
+
+        // Try full date + time
+        runCatching {
+            dateTimeFormat.parse(value)
+        }.getOrNull()?.let {
+            return timeOnlyFormat.format(it)
+        }
+
+        // Try only time HH:mm
+        return if (value.matches(Regex("\\d{2}:\\d{2}"))) {
+            value
+        } else null
+    }
+
+    return try {
         val dateTimePairs = input.split("44")
         Log.d("TimeRange", dateTimePairs.toString())
 
-        if (dateTimePairs.isEmpty() || dateTimePairs[0].isBlank()) {
-            throw IllegalArgumentException("Invalid input format: Start date-time missing")
-        }
+        val startTime = parseTime(dateTimePairs[0]) ?: return ""
 
-        // Parse start date-time
-        val startDate = inputFormat.parse(dateTimePairs[0].trim())
-            ?: throw IllegalArgumentException("")
-        val formattedStartTime = outputFormat.format(startDate)
-
-        // If end date-time is missing or blank → return only start time
         if (dateTimePairs.size < 2 || dateTimePairs[1].isBlank()) {
-            return formattedStartTime
+            return startTime
         }
 
-        // Try parsing end date-time
-        val endDate = try {
-            inputFormat.parse(dateTimePairs[1].trim())
-        } catch (_: Exception) {
-            null
-        }
+        val endTime = parseTime(dateTimePairs[1])
 
-        return if (endDate != null) {
-            val formattedEndTime = outputFormat.format(endDate)
-            "$formattedStartTime - $formattedEndTime"
+        if (endTime != null) {
+            "$startTime - $endTime"
         } else {
-            formattedStartTime
+            startTime
         }
 
     } catch (e: Exception) {
-        "Error: ${e.message}"
+        ""
     }
 }
 
-
-/*fun formatStartEndRange(input: String): String {
-    return try {
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd,HH:mm", Locale.getDefault())
-        val outputFormat = SimpleDateFormat("EEE dd MMM yy", Locale.getDefault()) // <-- Only date, no time
-        val dateTimePairs = input.split("44")
-        Log.d("mjbdsjfdsf", dateTimePairs.toString())
-        if (dateTimePairs.size != 2) {
-            throw IllegalArgumentException("Invalid input format: Expected two date-time pairs separated by '44'")
-        }
-        val startDate = inputFormat.parse(dateTimePairs[0].trim())
-        val endDate = inputFormat.parse(dateTimePairs[1].trim())
-        if (startDate == null || endDate == null) {
-            throw IllegalArgumentException("Invalid date-time format in input string")
-        }
-        val formattedStartDate = outputFormat.format(startDate)
-        val formattedEndDate = outputFormat.format(endDate)
-        "$formattedStartDate - $formattedEndDate"
-    } catch (e: Exception) {
-        "Error: ${e.message}"
-    }
-}*/
 
 fun formatStartEndRange(input: String): String {
     return try {
@@ -575,7 +555,7 @@ fun formatStartEndRange(input: String): String {
 fun formatStartEndRange1(input: String): String {
     return try {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd,HH:mm", Locale.getDefault())
-        val outputFormat = SimpleDateFormat("EEE dd MMM yy", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("EEE dd MMM yyyy", Locale.getDefault())
 
         val dateTimePairs = input.split("44")
 

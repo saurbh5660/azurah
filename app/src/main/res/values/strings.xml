@@ -248,7 +248,7 @@ met.</string>
     <string name="or_if_you_d_prefer_instant_access_you_can_start_your_premium_membership_now">Or, if you\'d prefer instant access, you can start your Premium membership now.</string>
     <string name="invite_friends_for_free_access">Invite Friends for Free Access</string>
     <string name="subscribe_now">Subscribe Now</string>
-    <string name="you_ve_reached_your_limit">You\'ve Reached Your Limit</string>
+    <string name="you_ve_reached_your_limit">"🔔 You\'ve Reached Your Limit</string>
     <string name="you_can_only_take_one_bible_quest_at_a_time_on_the_free_plan_finish_your_current_course_or_upgrade_to_premium_to_unlock_more">You can only take one Bible Quest at a time on the free plan. Finish your current course or upgrade to Premium to unlock more.</string>
     <string name="continue_current_course">Continue Current Course</string>
     <string name="upgrade_to_premium">Upgrade to Premium</string>

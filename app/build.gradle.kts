@@ -15,8 +15,8 @@ android {
         applicationId = "com.live.azurah"
         minSdk = 24
         targetSdk = 36
-        versionCode = 17
-        versionName = "1.1.6"
+        versionCode = 20
+        versionName = "1.1.9"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -88,6 +88,7 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("com.google.android.play:app-update-ktx:2.1.0")
 
     //viewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4")

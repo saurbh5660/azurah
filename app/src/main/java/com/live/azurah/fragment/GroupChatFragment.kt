@@ -69,7 +69,7 @@ class GroupChatFragment : Fragment() , SocketManager.Observer{
                 binding.tvNoDataFound.gone()
             }else{
                 binding.tvNoDataFound.visible()
-                binding.tvNoDataFound.text = buildString { append("No message request yet!") }
+                binding.tvNoDataFound.text = buildString { append("No message request yet.") }
 
                /* binding.tvNoDataFound.text = buildString { append("Group chats you’ve \n" +
                         "joined will appear here.") }*/
@@ -122,7 +122,7 @@ class GroupChatFragment : Fragment() , SocketManager.Observer{
                         adapter.notifyDataSetChanged()
                         if (list.isEmpty()){
                             binding.tvNoDataFound.visible()
-                            binding.tvNoDataFound.text = buildString { append("No message requests yet!") }
+                            binding.tvNoDataFound.text = buildString { append("No message requests yet.") }
                            /* binding.tvNoDataFound.text = buildString { append("Group chats you’ve \n" +
                                     "joined will appear here.") }*/
                         }else{
