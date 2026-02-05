@@ -10,7 +10,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Time for an Update 🙌"
+        android:text="Time for a quick update 🙌"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -22,7 +22,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="20dp"
         android:gravity="center"
-        android:text="We've added new features... \n A new version (1.5) is available."
+        android:text="A new version of Azrius is now available. Update to get the latest improvements and enjoy a better experience."
         android:textColor="#333333"
         android:textSize="14sp" />
 

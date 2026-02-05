@@ -97,16 +97,15 @@ class PostDetailImagesAdapter(
 //                view.gone()
 
                 (ivPostImage.layoutParams as ConstraintLayout.LayoutParams).dimensionRatio =
-                    "640:840"
-                ivPostImage.scaleType = ImageView.ScaleType.CENTER_CROP
+                    "640:900"
+                ivPostImage.scaleType = ImageView.ScaleType.FIT_XY
 
-                if (item.image.toString().contains("i.ibb")){
+               /* if (item.image.toString().contains("i.ibb")){
                     loadImageWithDominantColor(ivPostImage,blurBackground, item.image.toString(),ivProgressBar,shimmerLayout)
+                }else{*/
+                loadImageWithDominantColor(ivPostImage,blurBackground,ApiConstants.IMAGE_BASE_URL+item.image,ivProgressBar,shimmerLayout)
 
-                }else{
-                    loadImageWithDominantColor(ivPostImage,blurBackground,ApiConstants.IMAGE_BASE_URL+item.image,ivProgressBar,shimmerLayout)
-
-                }
+//                }
 
                 ivPostImage.setOnClickListener {
                     Log.d("sgsdgdssd","gSGSH")
@@ -120,7 +119,7 @@ class PostDetailImagesAdapter(
                 playerView.reset()
                 playerView.id = View.generateViewId()
                 (ivPostImage.layoutParams as ConstraintLayout.LayoutParams).dimensionRatio =
-                    "640:840"
+                    "640:900"
                 playerView.setVideoUri(
                     Uri.parse(ApiConstants.IMAGE_BASE_URL + item.image),
                     "0",

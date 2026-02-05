@@ -29,7 +29,7 @@
                 android:layout_height="0dp"
                 android:background="@drawable/image_background_gradient"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="640:840"
+                app:layout_constraintDimensionRatio="640:900"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="640:840"
+                app:layout_constraintDimensionRatio="640:900"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +47,7 @@
                 android:id="@+id/shimmerLayout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="640:840"
+                app:layout_constraintDimensionRatio="640:900"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +60,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/cp_divider_color"
                     android:src="@color/cp_divider_color"
-                    app:layout_constraintDimensionRatio="640:840"
+                    app:layout_constraintDimensionRatio="640:900"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

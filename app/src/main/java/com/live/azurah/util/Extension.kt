@@ -816,29 +816,26 @@ fun containsBannedWord(description: String): Boolean {
         "mashallah", "bismillah", "hadith", "prophet muhammad", "allah",
         "thot", "dm to join", "eid mubarak", "ramadan kareem", "fetish",
         "jesus is a prophet", "jesus prophet", "cult", "sky daddy",
-        "imaginary friend", "hail satan", "six six six","666"
+        "imaginary friend", "hail satan", "six six six", "666"
     )
 
+    // Normalize text: lowercase and remove punctuation, but PRESERVE spaces.
     val normalizedText = description
         .lowercase()
-        .replace(Regex("[^a-z0-9\\s]"), "")
-        .replace(Regex("\\s+"), " ")
+        .replace(Regex("[^a-z0-9\\s]"), "") // Keeps only letters, numbers, and spaces
+        .replace(Regex("\\s+"), " ")        // Collapses multiple spaces into one
         .trim()
-
-    val noSpaceText = normalizedText.replace(" ", "")
 
     return bannedWords.any { word ->
         val normalizedWord = word
             .lowercase()
             .replace(Regex("[^a-z0-9\\s]"), "")
-            .replace(Regex("\\s+"), " ")
             .trim()
 
-        val noSpaceWord = normalizedWord.replace(" ", "")
-
-        // Match full words or compacted form
-        Regex("\\b${Regex.escape(normalizedWord)}\\b").containsMatchIn(normalizedText) ||
-                noSpaceText.contains(noSpaceWord)
+        // Match only if the banned word is a whole word (using \b)
+        // This prevents "ass" from matching inside "class"
+        val pattern = "\\b${Regex.escape(normalizedWord)}\\b"
+        Regex(pattern).containsMatchIn(normalizedText)
     }
 }
 

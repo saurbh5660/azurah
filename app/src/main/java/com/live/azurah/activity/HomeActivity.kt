@@ -93,6 +93,87 @@ class HomeActivity : AppCompatActivity() {
     private var backPressedTime: Long = 0
     private val doubleBackToExitDuration: Long = 2000
 
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // Save the current tab position and search type
+        outState.putInt("SAVED_TAB_POS", currentPos)
+        outState.putInt("SAVED_SEARCH_TYPE", searchType)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        WindowCompat.setDecorFitsSystemWindows(window, true)
+        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
+            val systemBars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
+            )
+            view.updatePadding(
+                left = systemBars.left,
+                bottom = systemBars.bottom,
+                right = systemBars.right,
+                top = systemBars.top
+            )
+            insets
+        }
+        sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
+        from = intent.getStringExtra("from") ?: ""
+        initData()
+        initFragment()
+        binding.viewPager.isUserInputEnabled = false
+
+        if (savedInstanceState != null) {
+            // Restore saved values from the bundle
+            currentPos = savedInstanceState.getInt("SAVED_TAB_POS", 0)
+            searchType = savedInstanceState.getInt("SAVED_SEARCH_TYPE", 0)
+
+            // ViewPager2 usually restores its own index, but we force it for safety
+            binding.viewPager.setCurrentItem(currentPos, false)
+
+            // IMPORTANT: Highlight the correct icon in the Bottom Nav
+            restoreTabUI(currentPos)
+        } else {
+            // FIRST TIME OPENING (Not a restoration)
+            from = intent.getStringExtra("from") ?: ""
+            if (from == "1") {
+                window.statusBarColor = getColor(R.color.black_translucent)
+                window.navigationBarColor = getColor(R.color.black_translucent)
+                replaceIntroFragment(HomeIntroFragment())
+            } else {
+                window.statusBarColor = getColor(R.color.white)
+                window.navigationBarColor = getColor(R.color.white)
+            }
+
+            // Set default tab to Home
+            setTabBackgroundView(binding.ivHome, binding.tvHome, R.drawable.selected_home_icon)
+            searchType = 0
+            binding.viewPager.setCurrentItem(0,false)
+            currentPos = 0
+
+//            showHideHomeIcon(0)
+        }
+        showHideHomeIcon(currentPos)
+        initListener()
+
+    }
+
+    private fun restoreTabUI(position: Int) {
+        when(position) {
+            0 -> setTabBackgroundView(binding.ivHome, binding.tvHome, R.drawable.selected_home_icon)
+            1 -> setTabBackgroundView(binding.ivDash, binding.tvDash, R.drawable.selected_bookmark)
+            2 -> setTabBackgroundView(binding.ivEvents, binding.tvEvents, R.drawable.selected_event)
+            3 -> setTabBackgroundView(binding.ivShop, binding.tvShop, R.drawable.selected_shop)
+            4 -> setTabBackgroundView(binding.ivProfile, binding.tvProfile, R.drawable.selected_profile)
+            7 -> { // Favorite tab
+                setTabBackgroundView(binding.ivShop, binding.tvShop, R.drawable.selected_shop)
+            }
+        }
+    }
+
+/*
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -127,6 +208,7 @@ class HomeActivity : AppCompatActivity() {
         initData()
         initFragment()
     }
+*/
 
     private fun initListener() {
         binding.apply {
@@ -158,7 +240,7 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
 
-            sharedViewModel.getPostData.observe(this@HomeActivity, Observer {
+            /*sharedViewModel.getPostData.observe(this@HomeActivity, Observer {
                 it?.let {
                     notificationCount = it.unreadNotificationCount ?: 0
                     messageCount = it.unreadMessageCount ?: 0
@@ -176,6 +258,38 @@ class HomeActivity : AppCompatActivity() {
                     }else{
                         binding.ivChatCount.gone()
 
+                    }
+                }
+            })*/
+
+            sharedViewModel.getPostData.observe(this@HomeActivity, Observer {
+                it?.let {
+                    notificationCount = it.unreadNotificationCount ?: 0
+                    messageCount = it.unreadMessageCount ?: 0
+
+                    binding.ivNotificationCount.text = if (notificationCount > 99) "99+" else notificationCount.toString()
+                    binding.ivChatCount.text = if (messageCount > 99) "99+" else messageCount.toString()
+                    /* if (notificationCount > 0){
+                         binding.ivNotificationCount.visible()
+                     }else{
+                         binding.ivNotificationCount.gone()
+
+                     }
+                     if (messageCount > 0){
+                         binding.ivChatCount.visible()
+                     }else{
+                         binding.ivChatCount.gone()
+
+                     }*/
+
+                    val currentTab = binding.viewPager.currentItem
+                    if (currentTab == 0 || currentTab == 1) {
+                        if (notificationCount > 0) binding.ivNotificationCount.visible() else binding.ivNotificationCount.gone()
+                        if (messageCount > 0) binding.ivChatCount.visible() else binding.ivChatCount.gone()
+                    } else {
+                        // Force them GONE if we are on Favorites (7) or any other tab
+                        binding.ivNotificationCount.gone()
+                        binding.ivChatCount.gone()
                     }
                 }
             })
@@ -242,10 +356,10 @@ class HomeActivity : AppCompatActivity() {
             }
 
             onBackPressedDispatcher.addCallback(this@HomeActivity, backPressedCallback)
-            setTabBackgroundView(ivHome,tvHome,R.drawable.selected_home_icon)
-            searchType = 0
-            binding.viewPager.setCurrentItem(0,false)
-            showHideHomeIcon(0)
+//            setTabBackgroundView(ivHome,tvHome,R.drawable.selected_home_icon)
+//            searchType = 0
+//            binding.viewPager.setCurrentItem(0,false)
+//            showHideHomeIcon(0)
 
             ivNotification.setOnClickListener {
                 startActivity(Intent(this@HomeActivity,NotificationActivity::class.java))
@@ -569,6 +683,7 @@ class HomeActivity : AppCompatActivity() {
                     ivNotification.visibility = View.GONE
                     ivNotificationCount.visibility = View.GONE
                     ivChatCount.visibility = View.GONE
+                    ivChat.visibility = View.GONE
                     ivSearch.visibility = View.GONE
                     ivBookmark.visibility = View.GONE
                     ivBookmarkCount.visibility = View.GONE
@@ -800,7 +915,7 @@ class HomeActivity : AppCompatActivity() {
         val btnLater = updateDialog!!.findViewById<Button>(R.id.btnRemindLater)
 
         val currentVersion = getCurrentAppVersion(this).second
-        tvMessage.text = "We've added new features to help you grow in faith and stay connected with your community.\nA new version of the app ($availableVersionCode) is available.\nPlease update from your current version ($currentVersion)."
+        tvMessage.text = "A new version of Azrius is now available. Update to get the latest improvements and enjoy a better experience."
 
         btnUpdate.setOnClickListener {
             openPlayStore()

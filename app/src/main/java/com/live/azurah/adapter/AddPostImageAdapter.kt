@@ -84,7 +84,7 @@ class AddPostImageAdapter(val ctx: Context, val list: ArrayList<ImageVideoModel>
 //                    ivPosts.setBackgroundColor(ContextCompat.getColor(ctx,R.color.black))
                 }else{
                     ivPlay.visibility = View.GONE
-                    ivPosts.scaleType = ImageView.ScaleType.CENTER_CROP
+                    ivPosts.scaleType = ImageView.ScaleType.FIT_XY
 //                    ivPosts.setBackgroundColor(ContextCompat.getColor(ctx,R.color.black))
                 }
             }

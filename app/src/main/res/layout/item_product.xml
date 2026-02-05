@@ -24,6 +24,7 @@
             android:contentDescription="@string/app_name"
             app:riv_corner_radius="@dimen/_14sdp"
             android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_6sdp"

@@ -154,7 +154,7 @@
                 android:gravity="center"
                 android:enabled="false"
                 app:layout_constraintTop_toBottomOf="@+id/tlPassword"
-                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_26sdp"
                 android:text="@string/sign_in"
                 android:textAllCaps="false"
                 android:textColor="@color/white"/>

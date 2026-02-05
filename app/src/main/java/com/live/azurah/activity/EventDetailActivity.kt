@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.core.text.HtmlCompat
+import androidx.core.text.HtmlCompat.FROM_HTML_MODE_COMPACT
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -161,7 +163,10 @@ class EventDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                                 tvClock.text = formatStartEndTimeRange(res?.startDate+","+res?.startTime+" 44 "+res?.endDate+","+res?.endTime)
                                 Log.d("dvdsggdfg",res?.startDate+","+res?.startTime+"-"+res?.endDate+","+res?.endTime)
 
-                                tvName.text = res?.description
+//                                tvName.text = res?.description
+                                binding.tvName.apply {
+                                    text = HtmlCompat.fromHtml(it.description ?: "",FROM_HTML_MODE_COMPACT)
+                                }
                                 btnViewGroup.text = "£"+res?.price
                                 if (res?.organizer?.lastName.toString().trim().uppercase() == "ADMIN"){
                                     tvOrganizerName.text = res?.organizer?.firstName ?: ""

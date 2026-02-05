@@ -83,7 +83,7 @@ class BookmarkEventActivity : AppCompatActivity(), Observer<Resource<Any>> {
             binding.shimmerLayout.startShimmer()
             getEvents()
         }else{
-            binding.tvNoDataFound.visible()
+            binding.tvNoDataFound.gone()
         }
         when (from) {
             "0" -> {
@@ -246,7 +246,7 @@ class BookmarkEventActivity : AppCompatActivity(), Observer<Resource<Any>> {
                             binding.tvNoDataFound.gone()
                             currentPage = (value.data.body?.getData?.currentPage ?: 0) + 1
                         }else{
-                            binding.tvNoDataFound.visible()
+                            binding.tvNoDataFound.gone()
                         }
                         Log.d("fsfsdfd",list.size.toString())
                         eventAdapter?.notifyDataSetChanged()

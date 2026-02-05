@@ -15,8 +15,8 @@ android {
         applicationId = "com.live.azurah"
         minSdk = 24
         targetSdk = 36
-        versionCode = 20
-        versionName = "1.1.9"
+        versionCode = 21
+        versionName = "1.2.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

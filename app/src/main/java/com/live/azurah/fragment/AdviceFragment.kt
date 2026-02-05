@@ -25,6 +25,7 @@ import com.live.azurah.retrofit.ApiConstants
 import com.live.azurah.retrofit.LoaderDialog
 import com.live.azurah.retrofit.Resource
 import com.live.azurah.retrofit.Status
+import com.live.azurah.util.gone
 import com.live.azurah.util.loadImage
 import com.live.azurah.util.showCustomSnackbar
 import com.live.azurah.util.visible
@@ -117,6 +118,11 @@ class AdviceFragment : Fragment() {
         data?.let {
             list.clear()
             list.addAll(data.bibleQuestAdvices ?: ArrayList())
+            if (list.isEmpty()){
+                binding.tvTitle.gone()
+            }else{
+                binding.tvTitle.visible()
+            }
             setAdapter()
 
 

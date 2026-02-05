@@ -57,6 +57,7 @@ class AddPostActivity : ImagePickerActivity(),AddPostImageAdapter.ClickListener 
 
     override fun selectedImage(imagePath: String?, code: Int) {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        binding.inPost.clPostSheet.visibility = View.GONE
 
         if (!imagePath.isNullOrEmpty()){
             if (code == 10 || code == 11){
@@ -112,7 +113,6 @@ class AddPostActivity : ImagePickerActivity(),AddPostImageAdapter.ClickListener 
             )
             insets
         }
-
         bottomSheetBehavior = BottomSheetBehavior.from(binding.inPost.clPostSheet)
         ViewCompat.setOnApplyWindowInsetsListener(binding.inPost.clPostSheet) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -131,6 +131,7 @@ class AddPostActivity : ImagePickerActivity(),AddPostImageAdapter.ClickListener 
         setAdapter()
         initListener()
         initBottomSheetBehavior()
+        binding.inPost.clPostSheet.visibility = View.GONE
 
         val dontShowAgain= getPreference("showAgain",false)
         if (!dontShowAgain){
@@ -194,15 +195,33 @@ class AddPostActivity : ImagePickerActivity(),AddPostImageAdapter.ClickListener 
     }
 
     private fun initBottomSheetBehavior() {
-        bottomSheetBehavior.peekHeight = BottomSheetBehavior.STATE_EXPANDED
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+//        bottomSheetBehavior.peekHeight = BottomSheetBehavior.STATE_EXPANDED
+//        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        bottomSheetBehavior.isHideable = true // This allows it to be completely hidden
+        bottomSheetBehavior.skipCollapsed = true
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
+               when(newState){
+                   BottomSheetBehavior.STATE_HIDDEN -> {
+                       binding.inPost.clPostSheet.visibility = View.GONE
+                   }
+                   BottomSheetBehavior.STATE_EXPANDED -> {
+                       // Expanded and visible
+                       binding.inPost.clPostSheet.visibility = View.VISIBLE
+                   }
+                   BottomSheetBehavior.STATE_COLLAPSED -> {
+                       // Collapsed state - you can hide it here too if you want
+                       binding.inPost.clPostSheet.visibility = View.GONE
+                       bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                   }
+               }
             }
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 Log.d("kjbdgjfg",slideOffset.toString())
             }
+
         })
     }
 
@@ -219,18 +238,31 @@ class AddPostActivity : ImagePickerActivity(),AddPostImageAdapter.ClickListener 
         val cancel = dialog.findViewById<TextView>(R.id.cancel)
         val gallery = dialog.findViewById<TextView>(R.id.select_photo_library)
         cancel.setOnClickListener { dialog.dismiss() }
-
+        var isCameraOrGallerySelected = false
         camera.setOnClickListener {
             dialog.dismiss()
+            isCameraOrGallerySelected = true
             isVideo = false
+            binding.inPost.clPostSheet.visibility = View.VISIBLE
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
         gallery.setOnClickListener {
             dialog.dismiss()
+            isCameraOrGallerySelected = true
             isVideo = true
+            binding.inPost.clPostSheet.visibility = View.VISIBLE
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
 
+        }
+
+        dialog.setOnDismissListener {
+            // Only hide bottom sheet if user didn't select camera or gallery
+            if (!isCameraOrGallerySelected) {
+                // Ensure bottom sheet stays hidden
+                binding.inPost.clPostSheet.visibility = View.GONE
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
         }
         dialog.show()
     }
