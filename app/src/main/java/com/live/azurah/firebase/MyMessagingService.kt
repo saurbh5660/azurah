@@ -18,13 +18,9 @@ import org.json.JSONObject
 import java.util.Date
 
 class MyMessagingService : FirebaseMessagingService() {
-
         override fun onMessageReceived(remoteMessage: RemoteMessage) {
                 super.onMessageReceived(remoteMessage)
-
                 Log.d("FCM_DEBUG", remoteMessage.data.toString())
-
-
                 val title = (remoteMessage.data["title"] ?: "").uppercase()
                 val body = remoteMessage.data["message"] ?: ""
                 val type = remoteMessage.data["type"] ?: ""
@@ -93,6 +89,10 @@ class MyMessagingService : FirebaseMessagingService() {
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle(title)
                         .setContentText(message)
+//                        .setCategory(NotificationCompat.CATEGORY_EVENT) // Tells Android this is an Event/Alert, not a Chat
+//                        .setShortcutId(null)
+//                        .setAllowSystemGeneratedContextualActions(false)// Ensures it doesn't link to a "Conversation" shortcut
+//                        .setGroup("app_updates")
                         .setStyle(NotificationCompat.BigTextStyle().bigText(message))
                         .setAutoCancel(true)
                         .setSound(sound)

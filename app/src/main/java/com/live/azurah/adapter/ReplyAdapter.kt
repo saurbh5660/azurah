@@ -54,7 +54,11 @@ class ReplyAdapter(val ctx: Context,val replies: ArrayList<CommentResponse.Repli
             val model = replies[holder.absoluteAdapterPosition]
 
             if (model.user?.id.toString() == getPreference("id","")){
-                ivEdit.visible()
+                if (isCommentEditable(model.created_at.toString())) {
+                    ivEdit.visible()
+                }else{
+                    ivEdit.gone()
+                }
             }else{
                 ivEdit.gone()
             }
@@ -101,11 +105,6 @@ class ReplyAdapter(val ctx: Context,val replies: ArrayList<CommentResponse.Repli
                 }
             }
 
-            if (isCommentEditable(model.created_at.toString())) {
-                ivEdit.visible()
-            }else{
-                ivEdit.gone()
-            }
 
             tvCommentsText.text = buildString {
                 append(formatCount(model.like_count ?: 0))

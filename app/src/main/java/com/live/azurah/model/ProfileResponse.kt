@@ -119,9 +119,9 @@ data class ProfileResponse(
         @SerializedName("username")
         val username: String? = null,
         @SerializedName("followerCount")
-        val followerCount: String? = null,
+        var followerCount: String? = null,
         @SerializedName("followingCount")
-        val followingCount: String? = null,
+        var followingCount: String? = null,
         @SerializedName("postCount")
         val postCount: String? = null,
         var isFollowByMe: Int? = null,

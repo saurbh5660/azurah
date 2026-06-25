@@ -832,7 +832,8 @@ class HomeFragment : Fragment(),
                             notificationId
                         )
                     }
-                } else {
+                }
+                else {
                     if (mainComment.user?.id.toString() == getPreference("id", "")) {
                         setPopUpWindowDelete(
                             view,

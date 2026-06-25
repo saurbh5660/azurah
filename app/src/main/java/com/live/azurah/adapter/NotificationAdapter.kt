@@ -48,7 +48,7 @@ class NotificationAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.binding) {
             val model = list[holder.absoluteAdapterPosition]
-            if (model.entity_type== "ADMIN_WARNING"){
+            if (model.entity_type== "ADMIN_WARNING" || model.entity_type == "REFERRAL_CODE"){
                 name.text = "\uD83D\uDCCC Message from Azrius Admin"
             }else{
                 name.text = model.message ?: ""
@@ -80,7 +80,8 @@ class NotificationAdapter(
                     .getColorStateList(R.color.transparent_blue)
                 ivDot.visible()
             }
-
+//            clItem.backgroundTintList = ctx
+//                .getColorStateList(R.color.white)
             tvWeekName.text = formatNotificationTime(model.created_at ?: "")
             if (position > 0) {
                 if (formatNotificationTime(
@@ -113,7 +114,11 @@ class NotificationAdapter(
                             ctx.showMaterialDialog("Admin Notification",model.message ?: "")
                         }
 
-                       "TESTIMONY_COMMENT" -> {
+                        "REFERRAL_CODE"->{
+                            ctx.showMaterialDialog("Admin Notification",model.message ?: "")
+                        }
+
+                        "TESTIMONY_COMMENT" -> {
                             ctx.startActivity(Intent(ctx,QuestDetailActivity::class.java).apply {
                                 putExtra("id",model.entity_id?.toString())
                                 putExtra("from","testimony")
@@ -138,12 +143,12 @@ class NotificationAdapter(
                                 putExtra("from","prayer")
                             })
                         }
-                        "COMMUNITY_COMMENT" -> {
+                        "COMMUNITY_FORUM_COMMENT" -> {
                             ctx.startActivity(Intent(ctx,QuestDetailActivity::class.java).apply {
                                 putExtra("id",model.entity_id?.toString())
                             })
                         }
-                        "COMMUNITY_LIKE" -> {
+                        "COMMUNITY_FORUM_LIKE" -> {
                             ctx.startActivity(Intent(ctx,QuestDetailActivity::class.java).apply {
                                 putExtra("id",model.entity_id?.toString())
                             })

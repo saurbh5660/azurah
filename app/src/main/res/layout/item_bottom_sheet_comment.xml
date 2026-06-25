@@ -125,6 +125,7 @@
                 android:textSize="@dimen/_12sdp"
                 android:textColor="@color/black"
                 android:maxLength="150"
+                android:singleLine="true"
                 android:includeFontPadding="false"
                 android:textColorHighlight="@color/cursor_color"
                 android:layout_marginStart="@dimen/_8sdp"

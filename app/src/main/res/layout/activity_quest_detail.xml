@@ -412,6 +412,7 @@
             android:textColor="@color/black"
             android:includeFontPadding="false"
             android:maxLength="150"
+            android:singleLine="true"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:background="@drawable/less_round_stroke_background"

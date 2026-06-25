@@ -59,7 +59,12 @@ class CommentAdapter(val ctx: Context, private val commentList: ArrayList<Commen
             val model = commentList[holder.absoluteAdapterPosition]
 
             if (model.user?.id.toString() == getPreference("id", "")) {
-                ivEdit.visible()
+//                ivEdit.visible()
+                if (isCommentEditable(model.created_at.toString())) {
+                    ivEdit.visible()
+                }else{
+                    ivEdit.gone()
+                }
             } else {
                 ivEdit.gone()
             }
@@ -114,11 +119,7 @@ class CommentAdapter(val ctx: Context, private val commentList: ArrayList<Commen
 
             Log.d("dsvsdvsd", model.created_at.toString())
 
-            if (isCommentEditable(model.created_at.toString())) {
-                ivEdit.visible()
-            }else{
-                ivEdit.gone()
-            }
+
 
             tvName.setOnClickListener {
                 if (getPreference("id", "") != model.user?.id.toString()) {

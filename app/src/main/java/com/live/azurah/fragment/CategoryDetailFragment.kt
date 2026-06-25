@@ -84,7 +84,7 @@ class CategoryDetailFragment : Fragment(), Observer<Resource<Any>> {
                         when (value.data) {
                             is AddWishlistResponse -> {
                                 productList[pos].is_wishlist =
-                                    (value?.data.body?.status ?: "0").toInt()
+                                    (value?.data?.body?.status ?: "0").toInt()
                                 productAdapter?.notifyItemChanged(pos)
                             }
                         }

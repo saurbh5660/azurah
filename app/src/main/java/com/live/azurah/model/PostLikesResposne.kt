@@ -24,6 +24,7 @@ data class PostLikesResposne(
             val last_name: String? = null,
             val image: String? = null,
             var isFollowByMe: Int? = null,
+            val display_name_preference: String? = null,
             var isFollowByOther: Int? = null,
             val profile_type: Int? = null,
 

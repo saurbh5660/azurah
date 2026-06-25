@@ -64,6 +64,7 @@ class SuggestionCompleteAdapter(
                     ivProfile.borderColor = ContextCompat.getColor(ctx, android.R.color.transparent)
                     ivProfile.borderWidth = 0
                 }
+                Log.d("fDSFSDFDsds--------  ",model.user?.display_name_preference.toString())
                 if (model.user?.display_name_preference == "1") {
                     tvName.text = buildString {
                         append(model.user.first_name ?: "")
@@ -109,7 +110,9 @@ class SuggestionCompleteAdapter(
                     ivProfile.borderColor = ContextCompat.getColor(ctx, android.R.color.transparent)
                     ivProfile.borderWidth = 0
                 }
-                if (model.user?.display_name_preference == "1") {
+                Log.d("vdvdvdvdgg--------  ",model.display_name_preference.toString())
+
+                if (model.display_name_preference == "1") {
                     tvName.text = buildString {
                         append(model.first_name ?: "")
                     }
@@ -128,7 +131,7 @@ class SuggestionCompleteAdapter(
                 }
 
                 root.setOnClickListener {
-                    if (getPreference("id", "") != model.user?.id.toString()) {
+                    if (getPreference("id", "") != model.id.toString()) {
                         ctx.startActivity(Intent(ctx, OtherUserProfileActivity::class.java).apply {
                             putExtra("user_id", model.id.toString())
                         })

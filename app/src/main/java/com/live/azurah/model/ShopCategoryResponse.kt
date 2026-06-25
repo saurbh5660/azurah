@@ -18,6 +18,7 @@ data class ShopCategoryResponse(
             val deleted_at: Any? = null,
             val id: Int? = null,
             val image: String? = null,
+            val cover_image: String? = null,
             val image_thumb: String? = null,
             val is_deleted: String? = null,
             val name: String? = null,

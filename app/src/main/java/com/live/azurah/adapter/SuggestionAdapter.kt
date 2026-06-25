@@ -2,6 +2,7 @@ package com.live.azurah.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,6 +56,8 @@ class SuggestionAdapter(
                 ivProfile.borderColor = ContextCompat.getColor(ctx, android.R.color.transparent)
                 ivProfile.borderWidth = 0
             }
+
+            Log.d("vdvdvdvdggdddddd--------  ",model.display_name_preference.toString())
 
             if (model.display_name_preference == 1){
                 tvName.text = buildString {

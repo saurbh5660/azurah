@@ -26,7 +26,7 @@
             android:layout_width="@dimen/_16sdp"
             android:layout_height="@dimen/_16sdp"
             android:layout_marginStart="@dimen/_12sdp"
-            android:src="@drawable/cross_black_icon"
+            android:src="@drawable/cross_red_icon"
             app:layout_constraintBottom_toBottomOf="@+id/tvNotDone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvNotDone" />
@@ -42,7 +42,7 @@
             android:includeFontPadding="false"
             android:paddingVertical="@dimen/_8sdp"
             android:text="Quit Quest"
-            android:textColor="@color/black"
+            android:textColor="@color/star_red_color"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

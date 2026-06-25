@@ -250,6 +250,9 @@ class OtherUserProfileActivity : AppCompatActivity(), Observer<Resource<Any>> {
                             }
 
                             "1" -> {
+                                sharedViewModel.profile.value?.followerCount =
+                                    ((sharedViewModel.profile.value?.followerCount ?: "0").toInt() + 1).toString()
+                                tvFollowers.text = sharedViewModel.profile.value?.followerCount.toString()
                                 binding.btnPost.text = "Following"
                                 binding.btnPost.backgroundTintList =
                                     ContextCompat.getColorStateList(
@@ -568,6 +571,9 @@ class OtherUserProfileActivity : AppCompatActivity(), Observer<Resource<Any>> {
         }
         confirmationBinding.tvYes.setOnClickListener {
             customDialog.dismiss()
+            sharedViewModel.profile.value?.followerCount =
+                ((sharedViewModel.profile.value?.followerCount ?: "0").toInt() - 1).toString()
+            binding.tvFollowers.text = sharedViewModel.profile.value?.followerCount.toString()
             followUnfollowApi(status)
         }
 

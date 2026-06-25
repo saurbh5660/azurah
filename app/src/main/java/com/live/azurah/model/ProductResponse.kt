@@ -24,6 +24,7 @@ data class ProductResponse(
             var is_wishlist: Int? = null,
             val name: String? = null,
             val price: String? = null,
+            val cover_image: String? = null,
             val product_category: ProductCategory? = null,
             val product_category_id: Int? = null,
             val product_images: List<ProductImage?>? = null,

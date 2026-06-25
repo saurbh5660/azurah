@@ -1,5 +1,7 @@
 package com.live.azurah.util
 
+import android.R.attr.textAllCaps
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -768,13 +770,24 @@ fun sanitizeHtml(html: String?): SpannableStringBuilder {
 }
 
 fun Context.showMaterialDialog(title: String, message: String) {
-    MaterialAlertDialogBuilder(this)
+    val builder = MaterialAlertDialogBuilder(this, R.style.CustomMaterialDialog)
         .setTitle(title)
         .setMessage(message)
         .setPositiveButton("OK") { dialog, _ ->
             dialog.dismiss()
         }
-        .show()
+
+    val dialog = builder.show()
+
+    // 1. Set Message color to Black
+    dialog.findViewById<TextView>(android.R.id.message)?.apply {
+        setTextColor(Color.BLACK)
+    }
+
+    // 2. Button Styling (Black text and aligned right)
+    dialog.getButton(AlertDialog.BUTTON_POSITIVE).apply {
+        setTextColor(Color.BLACK)
+    }
 }
 
 fun Context.showSaveDialog(

@@ -30,7 +30,8 @@ class ShopCategoryAdapter(val ctx: Context, val catList: ArrayList<ShopCategoryR
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.binding){
             tvCat.text = catList[position].name
-            ivCatImage.loadImage1(ApiConstants.IMAGE_BASE_URL+catList[position].image)
+//            ivCatImage.loadImage1(ApiConstants.IMAGE_BASE_URL+catList[position].image)
+            ivCatImage.loadImage1(ApiConstants.IMAGE_BASE_URL+catList[position].cover_image)
 
             root.setOnClickListener {
                 categoryClickListener?.invoke(holder.absoluteAdapterPosition,catList[holder.absoluteAdapterPosition])

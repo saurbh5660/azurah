@@ -43,7 +43,8 @@ class ShopAdapter(
             root.setOnClickListener {
                 productClickListener?.invoke(holder.absoluteAdapterPosition, model)
             }
-            ivProduct.loadImage(ApiConstants.IMAGE_BASE_URL + model.product_images?.firstOrNull()?.image)
+//            ivProduct.loadImage(ApiConstants.IMAGE_BASE_URL + model.product_images?.firstOrNull()?.image)
+            ivProduct.loadImage(ApiConstants.IMAGE_BASE_URL + model.cover_image)
             tvProductName.text = model.name ?: ""
             tvPrice.text = buildString {
                 append("£")
