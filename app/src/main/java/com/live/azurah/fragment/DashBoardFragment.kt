@@ -16,6 +16,7 @@ import com.live.azurah.activity.GroupActivity
 import com.live.azurah.activity.HomeActivity
 import com.live.azurah.activity.QuestActivity
 import com.live.azurah.activity.RequestActivity
+import com.live.azurah.activity.StreakHistoryActivity
 import com.live.azurah.adapter.SongAdapter
 import com.live.azurah.databinding.FragmentDashBoardBinding
 import com.live.azurah.model.CountResponse
@@ -83,29 +84,7 @@ class DashBoardFragment : Fragment(), Observer<Resource<Any>> {
                    LoaderDialog.dismiss()
                     when (value.data) {
                         is DashboardDataResposne -> {
-                            val res = value.data.body
-                            with(binding){
-                                tvAvailable.text =  res?.allResult?.getOrNull(0)?.title ?: ""
-                                tvExplore.text =  res?.allResult?.getOrNull(0)?.description ?: ""
-                                ivBible.loadImage(ApiConstants.IMAGE_BASE_URL+res?.allResult?.getOrNull(0)?.image)
-
-                                tvCommunityForum.text =  res?.allResult?.getOrNull(1)?.title ?: ""
-                                tvCommuDesc.text =  res?.allResult?.getOrNull(1)?.description ?: ""
-                                ivComm.loadImage(ApiConstants.IMAGE_BASE_URL+res?.allResult?.getOrNull(1)?.image)
-
-//                                tvGroupForum.text =  res?.allResult?.getOrNull(2)?.title ?: ""
-//                                tvGroupDesc.text =  res?.allResult?.getOrNull(2)?.description ?: ""
-//                                ivGroup.loadImage(ApiConstants.IMAGE_BASE_URL+res?.allResult?.getOrNull(2)?.image)
-
-                                tvRequest.text =  res?.allResult?.getOrNull(2)?.title ?: ""
-                                tvRequestMessage.text =  res?.allResult?.getOrNull(2)?.description ?: ""
-                                ivRequest.loadImage(ApiConstants.IMAGE_BASE_URL+res?.allResult?.getOrNull(2)?.image)
-
-                                tvTestimonies.text =  res?.allResult?.getOrNull(3)?.title ?: ""
-                                tvRequestTestimonies.text =  res?.allResult?.getOrNull(3)?.description ?: ""
-                                ivTestimonies.loadImage(ApiConstants.IMAGE_BASE_URL+res?.allResult?.getOrNull(3)?.image)
-
-                            }
+                            // Dashboard cards use the fixed design copy/icons from the layout.
                         }
                     }
                 }
@@ -132,6 +111,9 @@ class DashBoardFragment : Fragment(), Observer<Resource<Any>> {
             clBibleQuest.setOnClickListener {
                 startActivity(Intent(requireActivity(),ChallangeActivity::class.java))
             }
+            ivQuestCalendar.setOnClickListener {
+                startActivity(Intent(requireActivity(), StreakHistoryActivity::class.java))
+            }
             clPrayerRequest.setOnClickListener {
                 startActivity(Intent(requireActivity(),RequestActivity::class.java).apply {
                     putExtra("type","0")
@@ -142,6 +124,12 @@ class DashBoardFragment : Fragment(), Observer<Resource<Any>> {
                     putExtra("type","1")
 
                 })
+            }
+            clShop.setOnClickListener {
+                (requireActivity() as HomeActivity).binding.llShop.performClick()
+            }
+            ivHeaderShop.setOnClickListener {
+                (requireActivity() as HomeActivity).binding.llShop.performClick()
             }
             tvSongViewMore.setOnClickListener {
                 with(requireActivity() as HomeActivity){
@@ -251,18 +239,12 @@ class DashBoardFragment : Fragment(), Observer<Resource<Any>> {
         super.onResume()
         binding.ivProfile.loadImage(ApiConstants.IMAGE_BASE_URL+ getPreference("image",""),placeholder = R.drawable.profile_icon)
         if (getPreference("displayNamePreference",1) == 1){
-            binding.tvTime.text = buildString {
-                append("Hey, ")
-                append(getPreference("firstName",""))
-                append("!")
-            }
+            binding.tvTime.text = getPreference("firstName","")
         }else{
             binding.tvTime.text = buildString {
-                append("Hey, ")
                 append(getPreference("firstName",""))
-                /*append(" ")
-                append(getPreference("lastName",""))*/
-                append("!")
+                append(" ")
+                append(getPreference("lastName",""))
 
             }
         }

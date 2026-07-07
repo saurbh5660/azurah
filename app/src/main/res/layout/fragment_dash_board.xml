@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/dashboard_background"
     tools:context=".fragment.DashBoardFragment">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:fillViewport="true"
         android:visibility="gone"
-        android:layout_marginBottom="@dimen/_12sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,690 +20,949 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_18sdp">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ivProfile"
-                android:layout_width="@dimen/_45sdp"
-                android:layout_height="@dimen/_45sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/profile_icon"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
-
-            <TextView
-                android:id="@+id/tvGood"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:fontFamily="@font/poppins"
-                android:text="Hey, Willam Ben!"
-                android:includeFontPadding="false"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:visibility="gone"
-                app:layout_constraintVertical_chainStyle="packed"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintBottom_toTopOf="@+id/tvTime"
-                app:layout_constraintStart_toEndOf="@+id/ivProfile"
-                app:layout_constraintTop_toTopOf="@+id/ivProfile" />
-
-            <TextView
-                android:id="@+id/tvTime"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Hey, William Ben!"
-                android:includeFontPadding="false"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_15sdp"
-                app:layout_constraintBottom_toBottomOf="@+id/ivProfile"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clHeader"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_82sdp"
+                android:background="@drawable/dashboard_header_background"
+                android:paddingHorizontal="@dimen/_12sdp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ivProfile"
-                app:layout_constraintTop_toBottomOf="@+id/tvGood" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tvLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0.12"
+                    android:text="AZRIUS"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13sdp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivHeaderSearch"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:background="@drawable/dashboard_icon_circle"
+                    android:contentDescription="@string/app_name"
+                    android:padding="@dimen/_7sdp"
+                    android:src="@drawable/ic_dashboard_search"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toStartOf="@+id/ivHeaderShop"
+                    app:layout_constraintTop_toTopOf="@+id/tvLogo" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivHeaderShop"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:background="@drawable/dashboard_icon_circle"
+                    android:contentDescription="@string/app_name"
+                    android:padding="@dimen/_7sdp"
+                    android:src="@drawable/ic_dashboard_shop"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toStartOf="@+id/ivHeaderNotification"
+                    app:layout_constraintTop_toTopOf="@+id/tvLogo" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivHeaderNotification"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:background="@drawable/dashboard_icon_circle"
+                    android:contentDescription="@string/app_name"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/notification_icon"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvLogo" />
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_18sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivProfile"
+                    app:layout_constraintEnd_toStartOf="@+id/ivProfile"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/ivProfile"
+                    tools:text="Jenny" />
+
+                <TextView
+                    android:id="@+id/tvGood"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@+id/tvTime"
+                    app:layout_constraintTop_toTopOf="@+id/tvTime" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivProfile"
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/profile_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clVerseDay"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:background="@drawable/round_stroke_with_background"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/dashboard_verse_background"
+                android:paddingHorizontal="@dimen/_14sdp"
+                android:paddingVertical="@dimen/_12sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivProfile">
-
-                <TextView
-                    android:id="@+id/tvBible"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="center"
-                    android:includeFontPadding="false"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_13sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/clHeader">
 
                 <TextView
                     android:id="@+id/tvMessage"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="center"
+                    android:fontFamily="@font/poppins"
                     android:includeFontPadding="false"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12sdp"
+                    android:lineSpacingExtra="@dimen/_2sdp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_11sdp"
+                    android:textStyle="italic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvBible" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Be kind and compassionate to one another, forgiving each other, just as in Christ God forgave you." />
+
+                <TextView
+                    android:id="@+id/tvBible"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:includeFontPadding="false"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMessage"
+                    tools:text="EPHESIANS 4:32" />
 
                 <TextView
                     android:id="@+id/tvVerse"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_16sdp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="center"
-                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:fontFamily="@font/poppins"
                     android:includeFontPadding="false"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_8sdp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvMessage" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvBible" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivBibleQuest"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_19sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/bible_icon"
+            <TextView
+                android:id="@+id/tvBibleQuest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:includeFontPadding="false"
+                android:text="@string/bible_quests"
+                android:textColor="@color/dashboard_card_text"
+                android:textSize="@dimen/_18sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/clVerseDay" />
 
             <TextView
-                android:id="@+id/tvBibleQuest"
-                android:layout_width="0dp"
+                android:id="@+id/tvBibleViewAll"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="@string/bible_quests"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_13sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:text="View all  →"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvBibleQuest"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ivBibleQuest"
-                app:layout_constraintTop_toBottomOf="@+id/clVerseDay" />
+                app:layout_constraintTop_toTopOf="@+id/tvBibleQuest" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBibleQuest"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="@dimen/_1sdp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvBibleQuest" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clBibleQuest"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:background="@drawable/large_round_corner_background"
-                android:backgroundTint="@color/transparent_blue"
+                android:background="@drawable/dashboard_card_background"
+                android:elevation="@dimen/_3sdp"
+                android:padding="@dimen/_20sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvBibleQuest">
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/ivBible"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_250sdp"
+                    android:layout_width="@dimen/_1sdp"
+                    android:layout_height="@dimen/_1sdp"
                     android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop"
-                    android:visibility="visible"
-                    android:layout_marginHorizontal="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    app:riv_corner_radius="@dimen/_24sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/bible_quest_icon"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-           <!--     <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivQuest"
-                    android:layout_width="@dimen/_35sdp"
-                    android:layout_height="@dimen/_35sdp"
-                    android:layout_marginVertical="@dimen/_16sdp"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/medal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toToBottomOf="" />-->
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_corner_radius="@dimen/_8sdp" />
 
                 <TextView
                     android:id="@+id/tvAvailable"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
                     android:fontFamily="@font/poppins_semibold"
-                    android:text="Discover Bible Quests!"
-                    android:textColor="@color/black"
                     android:includeFontPadding="false"
-                    android:textSize="@dimen/_13sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                android:text="🔥Day Streak"
+                    android:textColor="@color/dashboard_card_text"
+                    android:textSize="@dimen/_14sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/ivQuestCalendar"
+                app:layout_constraintStart_toEndOf="@+id/tvStreakCount"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvStreakCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:fontFamily="@font/cinzel_bold"
+                    android:includeFontPadding="false"
+                    android:text="12"
+                    android:textColor="@color/dashboard_card_text"
+                    android:textSize="@dimen/_26sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvExplore"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ivBible"
-                    app:layout_constraintVertical_chainStyle="packed" />
+                    app:layout_constraintTop_toTopOf="@+id/tvAvailable" />
 
                 <TextView
                     android:id="@+id/tvExplore"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:fontFamily="@font/poppins"
-                    android:visibility="visible"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:fontFamily="@font/poppins_semibold"
                     android:includeFontPadding="false"
-                    android:layout_marginBottom="@dimen/_8sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:maxLines="2"
+                    android:text="Best: 21 days"
+                    android:textColor="@color/red_color"
+                    android:textSize="@dimen/_7sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvAvailable"
+                    app:layout_constraintStart_toStartOf="@+id/tvAvailable"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAvailable"
+                    tools:text="Best: 21 days" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivQuestCalendar"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:background="@drawable/dashboard_card_background"
+                    android:contentDescription="@string/app_name"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/calendar_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvQuestHint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:background="@drawable/dashboard_hint_background"
+                    android:fontFamily="@font/poppins"
+                    android:includeFontPadding="false"
+                    android:paddingHorizontal="@dimen/_16sdp"
+                    android:paddingVertical="@dimen/_14sdp"
+                    android:text="⚡ You're 9 days away from your personal best —&#10;    keep going, Jenny!"
+                    android:textColor="@color/dashboard_subtitle"
+                    android:textSize="@dimen/_11sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvAvailable"
-                    app:layout_constraintVertical_chainStyle="packed" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvExplore" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/llQuestDays"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="7"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvQuestHint">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="@dimen/_28sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            android:background="@drawable/dashboard_day_filled"
+                            android:gravity="center"
+                            android:text="🔥"
+                            android:textSize="@dimen/_12sdp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="MON"
+                            android:textColor="#98A6BC"
+                            android:textSize="@dimen/_7sdp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="@dimen/_28sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            android:background="@drawable/dashboard_day_filled"
+                            android:gravity="center"
+                            android:text="🔥"
+                            android:textSize="@dimen/_12sdp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="TUE"
+                            android:textColor="#98A6BC"
+                            android:textSize="@dimen/_7sdp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="@dimen/_28sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            android:background="@drawable/dashboard_day_filled"
+                            android:gravity="center"
+                            android:text="🔥"
+                            android:textSize="@dimen/_12sdp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="WED"
+                            android:textColor="#98A6BC"
+                            android:textSize="@dimen/_7sdp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="@dimen/_28sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            android:background="@drawable/dashboard_day_filled"
+                            android:gravity="center"
+                            android:text="🔥"
+                            android:textSize="@dimen/_12sdp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="THU"
+                            android:textColor="#98A6BC"
+                            android:textSize="@dimen/_7sdp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="@dimen/_28sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            android:background="@drawable/dashboard_day_today"
+                            android:gravity="center"
+                            android:text="•"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_18sdp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="TODAY"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_7sdp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="@dimen/_28sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            android:background="@drawable/dashboard_day_empty"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="SAT"
+                            android:textColor="@color/day_unselected_color"
+                            android:textSize="@dimen/_7sdp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="@dimen/_28sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            android:background="@drawable/dashboard_day_empty"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="SUN"
+                            android:textColor="@color/day_unselected_color"
+                            android:textSize="@dimen/_7sdp" />
+                    </LinearLayout>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <TextView
+                    android:id="@+id/tvContinueQuest"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_54sdp"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:background="@drawable/dashboard_button_background"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="🔥 Continue Today's Quest"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/llQuestDays" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <TextView
+                android:id="@+id/tvCommunity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:includeFontPadding="false"
+                android:text="@string/community_hub"
+                android:textColor="@color/dashboard_card_text"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clBibleQuest" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivCommunity"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/community_forum_icon"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="@dimen/_1sdp"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clBibleQuest" />
-
-            <TextView
-                android:id="@+id/tvCommunity"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="@string/community_hub"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_13sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ivCommunity"
-                app:layout_constraintTop_toBottomOf="@+id/clBibleQuest" />
+                app:layout_constraintTop_toTopOf="@+id/tvCommunity" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/llCommunity"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginHorizontal="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:orientation="horizontal"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvCommunity">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clCommunity"
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_4sdp"
-                    android:background="@drawable/less_round_corner_background"
-                    android:backgroundTint="@color/transparent_blue"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCommunity">
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clCommunity"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_85sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/dashboard_card_background"
+                        android:padding="@dimen/_10sdp">
 
                         <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/ivComm"
-                            android:layout_width="@dimen/_120sdp"
-                            android:layout_height="@dimen/_100sdp"
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="@dimen/_1sdp"
                             android:contentDescription="@string/app_name"
                             android:scaleType="centerCrop"
-                            android:layout_marginStart="@dimen/_8sdp"
-                            app:riv_corner_radius="@dimen/_12sdp"
-                            android:layout_gravity="center_vertical"
-                            app:layout_constraintEnd_toEndOf="parent"
+                            android:src="@drawable/community_forum_icon"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:riv_corner_radius="@dimen/_6sdp" />
+
+                        <TextView
+                            android:id="@+id/tvForumIcon"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
+                            android:gravity="center"
+                            android:text="💬"
+                            android:textColor="#1E293B"
+                            android:textSize="@dimen/_15sdp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/appCompatImageView"
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/arrow_right"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                            <TextView
-                                android:id="@+id/tvCommunityForum"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_8sdp"
-                                android:layout_marginEnd="@dimen/_4sdp"
-                                android:fontFamily="@font/poppins_semibold"
-                                android:text="@string/community_forum"
-                                android:includeFontPadding="false"
-                                android:layout_alignParentStart="true"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_13sdp"
-                                android:layout_toStartOf="@+id/appCompatImageView"
-                                android:layout_marginTop="@dimen/_10sdp" />
+                        <TextView
+                            android:id="@+id/tvCommunityForum"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:includeFontPadding="false"
+                            android:maxLines="1"
+                            android:text="Forum"
+                            android:textColor="@color/dashboard_card_text"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvForumIcon"
+                            tools:text="Forum" />
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/appCompatImageView"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/_16sdp"
-                                android:visibility="gone"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginTop="@dimen/_24sdp"
-                                android:contentDescription="@string/app_name"
-                                android:src="@drawable/arrow_left" />
+                        <TextView
+                            android:id="@+id/tvCommuDesc"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:fontFamily="@font/poppins"
+                            android:includeFontPadding="false"
+                            android:maxLines="1"
+                            android:text="Discussions &amp; Ideas"
+                            android:textColor="@color/dashboard_subtitle"
+                            android:textSize="@dimen/_7sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvCommunityForum"
+                            tools:text="Discussion and ideas" />
 
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                            <TextView
-                                android:id="@+id/tvCommuDesc"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_8sdp"
-                                android:layout_marginEnd="@dimen/_4sdp"
-                                android:fontFamily="@font/poppins"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12sdp"
-                                android:includeFontPadding="false"
-                                android:layout_below="@+id/tvCommunityForum"
-                                android:layout_marginTop="@dimen/_1sdp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                android:layout_marginBottom="@dimen/_8sdp" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clPrayerRequest"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_85sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/dashboard_card_background"
+                        android:padding="@dimen/_10sdp">
 
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/ivRequest"
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="@dimen/_1sdp"
+                            android:contentDescription="@string/app_name"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/prayer_icon"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:riv_corner_radius="@dimen/_6sdp" />
 
-                        </RelativeLayout>
+                        <TextView
+                            android:id="@+id/tvPrayerIcon"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
+                            android:gravity="center"
+                            android:text="🙏"
+                            android:textColor="#1E293B"
+                            android:textSize="@dimen/_15sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    </LinearLayout>
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivPrayerArrow"
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/arrow_right"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
+                        <TextView
+                            android:id="@+id/tvRequest"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:includeFontPadding="false"
+                            android:maxLines="1"
+                            android:text="Prayer"
+                            android:textColor="@color/dashboard_card_text"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvPrayerIcon"
+                            tools:text="Prayer" />
 
+                        <TextView
+                            android:id="@+id/tvRequestMessage"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:fontFamily="@font/poppins"
+                            android:includeFontPadding="false"
+                            android:maxLines="1"
+                            android:text="Request &amp; intercede"
+                            android:textColor="@color/dashboard_subtitle"
+                            android:textSize="@dimen/_7sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvRequest"
+                            tools:text="Request and praise" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clTestimonies"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_85sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/dashboard_card_background"
+                        android:padding="@dimen/_10sdp">
+
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/ivTestimonies"
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="@dimen/_1sdp"
+                            android:contentDescription="@string/app_name"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/bible_quest_icon"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:riv_corner_radius="@dimen/_6sdp" />
+
+                        <TextView
+                            android:id="@+id/tvTestimonyIcon"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
+                            android:gravity="center"
+                            android:text="⭐"
+                            android:textColor="#1E293B"
+                            android:textSize="@dimen/_15sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivTestimonyArrow"
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/arrow_right"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvTestimonies"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:includeFontPadding="false"
+                            android:maxLines="1"
+                            android:text="Testimonies"
+                            android:textColor="@color/dashboard_card_text"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvTestimonyIcon"
+                            tools:text="Testimonies" />
+
+                        <TextView
+                            android:id="@+id/tvRequestTestimonies"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:fontFamily="@font/poppins"
+                            android:includeFontPadding="false"
+                            android:maxLines="1"
+                            android:text="Share answered prayer"
+                            android:textColor="@color/dashboard_subtitle"
+                            android:textSize="@dimen/_7sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvTestimonies"
+                            tools:text="Share answered prayer" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clShop"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_85sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/dashboard_card_background"
+                        android:padding="@dimen/_10sdp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivShopCard"
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="@dimen/_1sdp"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/selected_shop"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvShopIcon"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
+                            android:gravity="center"
+                            android:text="🛍️"
+                            android:textColor="#1E293B"
+                            android:textSize="@dimen/_15sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivShopArrow"
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/arrow_right"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvShopTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:includeFontPadding="false"
+                            android:text="Shop"
+                            android:textColor="@color/dashboard_card_text"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvShopIcon" />
+
+                        <TextView
+                            android:id="@+id/tvShopDesc"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:fontFamily="@font/poppins"
+                            android:includeFontPadding="false"
+                            android:maxLines="1"
+                            android:text="Faith and fitness merch"
+                            android:textColor="@color/dashboard_subtitle"
+                            android:textSize="@dimen/_7sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvShopTitle" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/clGroup"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_300sdp"
-                    android:layout_weight="1"
-                    android:visibility="gone"
-                    android:layout_marginStart="@dimen/_4sdp"
-                    android:background="@drawable/less_round_corner_background"
-                    android:backgroundTint="@color/transparent_blue"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/clCommunity"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCommunity">
-
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/ivGroup"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_100sdp"
-                        android:contentDescription="@string/app_name"
-                        android:scaleType="centerCrop"
-                        android:layout_marginHorizontal="@dimen/_5sdp"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        app:riv_corner_radius="@dimen/_12sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvGroupForum"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:layout_marginBottom="@dimen/_8sdp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:text="Join Group Chats"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_13sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/appCompatImageView2"
-                        app:layout_constraintTop_toBottomOf="@+id/ivGroup" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/appCompatImageView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/arrow_left"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvGroupForum"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tvGroupForum" />
-
-                    <TextView
-                        android:id="@+id/tvGroupDesc"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:layout_marginBottom="@dimen/_8sdp"
-                        android:fontFamily="@font/poppins"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12sdp"
-                        android:includeFontPadding="false"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvGroupForum"
-                        app:layout_constraintVertical_bias="0.0" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
+                    android:layout_width="1dp"
+                    android:layout_height="1dp"
+                    android:visibility="gone" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivPrayer"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/prayer_praise_icon"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="@dimen/_1sdp"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/llCommunity" />
 
             <TextView
                 android:id="@+id/tvPrayer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Prayer and Praise"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_13sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ivPrayer"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="@dimen/_1sdp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/llCommunity" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/llPrayer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="@dimen/_1sdp"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:orientation="horizontal"
-                android:weightSum="2"
-                app:layout_constraintTop_toBottomOf="@+id/tvPrayer">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clPrayerRequest"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_230sdp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="@dimen/_4sdp"
-                    android:background="@drawable/less_round_corner_background"
-                    android:backgroundTint="@color/transparent_blue"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvPrayer">
-
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/ivRequest"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_100sdp"
-                        android:contentDescription="@string/app_name"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:scaleType="centerCrop"
-                        android:layout_marginHorizontal="@dimen/_5sdp"
-                        app:riv_corner_radius="@dimen/_12sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvRequest"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:text="Prayer Requests"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_13sdp"
-                        android:includeFontPadding="false"
-                        app:layout_constraintEnd_toStartOf="@+id/ivPrayerArrow"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ivRequest" />
-
-                    <TextView
-                        android:id="@+id/tvRequestMessage"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:fontFamily="@font/poppins"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12sdp"
-                        android:includeFontPadding="false"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginBottom="@dimen/_8sdp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvRequest" />
-
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/ivPrayerArrow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_16sdp"
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/arrow_left"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvRequest"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tvRequest" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clTestimonies"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_230sdp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="@dimen/_4sdp"
-                    android:background="@drawable/less_round_corner_background"
-                    android:backgroundTint="@color/transparent_blue"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/clPrayerRequest"
-                    app:layout_constraintTop_toBottomOf="@+id/tvPrayer">
-
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/ivTestimonies"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_100sdp"
-                        android:contentDescription="@string/app_name"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:scaleType="centerCrop"
-                        android:layout_marginHorizontal="@dimen/_5sdp"
-                        app:riv_corner_radius="@dimen/_12sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvTestimonies"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:text="Testimonies"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_13sdp"
-                        android:includeFontPadding="false"
-                        app:layout_constraintEnd_toStartOf="@+id/ivTestimonyArrow"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ivTestimonies" />
-
-                    <TextView
-                        android:id="@+id/tvRequestTestimonies"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:layout_marginBottom="@dimen/_8sdp"
-                        android:fontFamily="@font/poppins"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12sdp"
-                        android:includeFontPadding="false"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvTestimonies"
-                        app:layout_constraintVertical_bias="0.0" />
-
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/ivTestimonyArrow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_16sdp"
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/arrow_left"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvTestimonies"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tvTestimonies" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                app:layout_constraintTop_toBottomOf="@+id/llCommunity" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivSong"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_18sdp"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/song_icon"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/llPrayer" />
+                app:layout_constraintTop_toBottomOf="@+id/llCommunity" />
 
             <TextView
                 android:id="@+id/tvSong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
                 android:fontFamily="@font/poppins_semibold"
+                android:includeFontPadding="false"
                 android:text="Songs of the Day"
-                android:textColor="@color/black"
+                android:textColor="@color/dashboard_card_text"
                 android:textSize="@dimen/_13sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/ivSong"
                 app:layout_constraintStart_toEndOf="@+id/ivSong"
-                app:layout_constraintTop_toBottomOf="@+id/llPrayer" />
+                app:layout_constraintTop_toTopOf="@+id/ivSong" />
 
             <TextView
                 android:id="@+id/tvSongViewMore"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
                 android:text="@string/view_more"
                 android:textColor="@color/blue"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvSong"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/llPrayer" />
+                app:layout_constraintTop_toTopOf="@+id/tvSong" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clSongDay"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:layout_marginBottom="@dimen/_20sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/dashboard_card_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvSong">
 
-                <com.google.android.material.card.MaterialCardView
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvDaySong"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:cardBackgroundColor="@color/white"
-                    app:strokeColor="@color/white"
-                    app:cardCornerRadius="@dimen/_14sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvDaySong"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        android:orientation="vertical"
-                        tools:listitem="@layout/item_song"
-                        tools:itemCount="2"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
-
-                </com.google.android.material.card.MaterialCardView>
-
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_song" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivSongWeek"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/song_week_icon"
                 app:layout_constraintStart_toStartOf="parent"
@@ -714,52 +973,52 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
                 android:fontFamily="@font/poppins_semibold"
+                android:includeFontPadding="false"
                 android:text="@string/songs_of_the_week"
-                android:textColor="@color/black"
+                android:textColor="@color/dashboard_card_text"
                 android:textSize="@dimen/_13sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/ivSongWeek"
                 app:layout_constraintStart_toEndOf="@+id/ivSongWeek"
-                app:layout_constraintTop_toBottomOf="@+id/clSongDay" />
+                app:layout_constraintTop_toTopOf="@+id/ivSongWeek" />
 
             <TextView
                 android:id="@+id/tvSongWeekViewMore"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
                 android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
                 android:text="@string/view_more"
                 android:textColor="@color/blue"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvSongWeek"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clSongDay" />
+                app:layout_constraintTop_toTopOf="@+id/tvSongWeek" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clSongWeek"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/dashboard_card_background"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="@dimen/_16sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSongWeekViewMore">
+                app:layout_constraintTop_toBottomOf="@+id/tvSongWeek">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvSong"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="vertical"
-                    tools:listitem="@layout/item_song"
-                    tools:itemCount="2"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_song" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -777,419 +1036,46 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nestedScrollView1"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/dashboard_background"
+            android:padding="@dimen/_12sdp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <View
+                android:id="@+id/shimmerHeader"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_132sdp"
+                android:background="@drawable/dashboard_header_background"
+                android:backgroundTint="@color/cp_divider_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/ivProfile1"
-                    android:layout_width="@dimen/_45sdp"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/cp_divider_color"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+            <View
+                android:id="@+id/shimmerVerse"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_74sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/dashboard_card_background"
+                android:backgroundTint="@color/cp_divider_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shimmerHeader" />
 
-                <TextView
-                    android:id="@+id/tvGood1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:fontFamily="@font/poppins"
-                    android:text="Hey, Willam Ben!"
-                    android:includeFontPadding="false"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:visibility="gone"
-                    app:layout_constraintVertical_chainStyle="packed"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintBottom_toTopOf="@+id/tvTime1"
-                    app:layout_constraintStart_toEndOf="@+id/ivProfile1"
-                    app:layout_constraintTop_toTopOf="@+id/ivProfile1" />
+            <View
+                android:id="@+id/shimmerQuest"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_150sdp"
+                android:layout_marginTop="@dimen/_32sdp"
+                android:background="@drawable/dashboard_card_background"
+                android:backgroundTint="@color/cp_divider_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shimmerVerse" />
 
-                <TextView
-                    android:id="@+id/tvTime1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:includeFontPadding="false"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_15sdp"
-                    android:background="@color/cp_divider_color"
-                    app:layout_constraintBottom_toBottomOf="@+id/ivProfile1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/ivProfile1"
-                    app:layout_constraintTop_toBottomOf="@+id/tvGood1" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clVerseDay1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:background="@drawable/round_stroke_with_background"
-                    android:backgroundTint="@color/cp_divider_color"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ivProfile1">
-
-                    <TextView
-                        android:id="@+id/tvBible1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_16sdp"
-                        android:layout_marginHorizontal="@dimen/_16sdp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:gravity="center"
-                        android:includeFontPadding="false"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_13sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvMessage1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_16sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginEnd="@dimen/_16sdp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:gravity="center"
-                        android:includeFontPadding="false"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvBible1" />
-
-                    <TextView
-                        android:id="@+id/tvVerse1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_16sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginBottom="@dimen/_16sdp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:gravity="center"
-                        android:includeFontPadding="false"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12sdp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvMessage1" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivBibleQuest1"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_19sdp"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:contentDescription="@string/app_name"
-                    android:background="@color/cp_divider_color"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/clVerseDay1" />
-
-                <TextView
-                    android:id="@+id/tvBibleQuest1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:background="@color/cp_divider_color"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_13sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/ivBibleQuest1"
-                    app:layout_constraintTop_toBottomOf="@+id/clVerseDay1" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clBibleQuest1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@drawable/large_round_corner_background"
-                    android:backgroundTint="@color/cp_divider_color"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvBibleQuest1">
-
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/ivBible1"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_250sdp"
-                        android:contentDescription="@string/app_name"
-                        android:scaleType="centerCrop"
-                        android:layout_marginHorizontal="@dimen/_5sdp"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        app:riv_corner_radius="@dimen/_24sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <!--     <androidx.appcompat.widget.AppCompatImageView
-                             android:id="@+id/ivQuest"
-                             android:layout_width="@dimen/_35sdp"
-                             android:layout_height="@dimen/_35sdp"
-                             android:layout_marginVertical="@dimen/_16sdp"
-                             android:layout_marginStart="@dimen/_16sdp"
-                             android:contentDescription="@string/app_name"
-                             android:src="@drawable/medal"
-                             app:layout_constraintBottom_toBottomOf="parent"
-                             app:layout_constraintStart_toStartOf="parent"
-                             app:layout_constraintTop_toToBottomOf="" />-->
-
-                    <TextView
-                        android:id="@+id/tvAvailable1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_marginEnd="@dimen/_16sdp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:background="@color/cp_divider_color"
-                        android:textColor="@color/black"
-                        android:includeFontPadding="false"
-                        android:textSize="@dimen/_13sdp"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ivBible1"
-                        app:layout_constraintVertical_chainStyle="packed" />
-
-                    <TextView
-                        android:id="@+id/tvExplore1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_marginEnd="@dimen/_16sdp"
-                        android:fontFamily="@font/poppins"
-                        android:visibility="visible"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12sdp"
-                        android:includeFontPadding="false"
-                        android:layout_marginBottom="@dimen/_8sdp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvAvailable1"
-                        app:layout_constraintVertical_chainStyle="packed" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivCommunity1"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:contentDescription="@string/app_name"
-                    android:background="@color/cp_divider_color"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/clBibleQuest1" />
-
-                <TextView
-                    android:id="@+id/tvCommunity1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_13sdp"
-                    android:background="@color/cp_divider_color"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/ivCommunity1"
-                    app:layout_constraintTop_toBottomOf="@+id/clBibleQuest1" />
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/llCommunity1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCommunity1">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/clCommunity1"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_300sdp"
-                        android:layout_weight="1"
-                        android:layout_marginEnd="@dimen/_4sdp"
-                        android:background="@drawable/less_round_corner_background"
-                        android:backgroundTint="@color/cp_divider_color"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvCommunity1">
-
-                        <com.makeramen.roundedimageview.RoundedImageView
-                            android:id="@+id/ivComm1"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/_100sdp"
-                            android:contentDescription="@string/app_name"
-                            android:scaleType="centerCrop"
-                            android:layout_marginHorizontal="@dimen/_5sdp"
-                            android:layout_marginTop="@dimen/_6sdp"
-                            app:riv_corner_radius="@dimen/_12sdp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/tvCommunityForum1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_8sdp"
-                            android:layout_marginEnd="@dimen/_8sdp"
-                            android:layout_marginBottom="@dimen/_8sdp"
-                            android:fontFamily="@font/poppins_semibold"
-                            android:textColor="@color/black"
-                            android:background="@color/cp_divider_color"
-                            android:textSize="@dimen/_13sdp"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/appCompatImageView1"
-                            app:layout_constraintTop_toBottomOf="@+id/ivComm1" />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/appCompatImageView1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/_8sdp"
-                            android:contentDescription="@string/app_name"
-                            android:background="@color/cp_divider_color"
-                            app:layout_constraintBottom_toBottomOf="@+id/tvCommunityForum1"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/tvCommunityForum1" />
-
-
-                        <TextView
-                            android:id="@+id/tvCommuDesc1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_8sdp"
-                            android:layout_marginEnd="@dimen/_8sdp"
-                            android:fontFamily="@font/poppins"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_12sdp"
-                            android:background="@color/cp_divider_color"
-                            android:includeFontPadding="false"
-                            android:layout_marginTop="@dimen/_3sdp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            android:layout_marginBottom="@dimen/_8sdp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tvCommunityForum1" />
-
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/clGroup1"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_300sdp"
-                        android:layout_weight="1"
-                        android:layout_marginStart="@dimen/_4sdp"
-                        android:background="@drawable/less_round_corner_background"
-                        android:backgroundTint="@color/cp_divider_color"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/clCommunity"
-                        app:layout_constraintTop_toBottomOf="@+id/tvCommunity">
-
-                        <com.makeramen.roundedimageview.RoundedImageView
-                            android:id="@+id/ivGroup1"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/_100sdp"
-                            android:contentDescription="@string/app_name"
-                            android:scaleType="centerCrop"
-                            android:layout_marginHorizontal="@dimen/_5sdp"
-                            android:layout_marginTop="@dimen/_6sdp"
-                            app:riv_corner_radius="@dimen/_12sdp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/tvGroupForum1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_8sdp"
-                            android:layout_marginEnd="@dimen/_8sdp"
-                            android:layout_marginBottom="@dimen/_8sdp"
-                            android:fontFamily="@font/poppins_semibold"
-                            android:background="@color/cp_divider_color"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_13sdp"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/appCompatImageView21"
-                            app:layout_constraintTop_toBottomOf="@+id/ivGroup1" />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/appCompatImageView21"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/_8sdp"
-                            android:contentDescription="@string/app_name"
-                            android:background="@color/cp_divider_color"
-                            app:layout_constraintBottom_toBottomOf="@+id/tvGroupForum1"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/tvGroupForum1" />
-
-                        <TextView
-                            android:id="@+id/tvGroupDesc1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_8sdp"
-                            android:layout_marginEnd="@dimen/_8sdp"
-                            android:layout_marginBottom="@dimen/_8sdp"
-                            android:fontFamily="@font/poppins"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_12sdp"
-                            android:background="@color/cp_divider_color"
-                            android:includeFontPadding="false"
-                            android:layout_marginTop="@dimen/_3sdp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tvGroupForum1"
-                            app:layout_constraintVertical_bias="0.0" />
-
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.facebook.shimmer.ShimmerFrameLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

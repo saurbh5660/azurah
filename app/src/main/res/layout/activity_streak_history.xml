@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dashboard_primary"
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    tools:context=".activity.StreakHistoryActivity">
+
+    <LinearLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_170sdp"
+            android:background="@drawable/streak_header_background"
+            android:paddingHorizontal="@dimen/_14sdp"
+            android:paddingTop="@dimen/_22sdp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/backIcon"
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:background="@drawable/dashboard_icon_circle"
+                android:contentDescription="@string/app_name"
+                android:padding="@dimen/_7sdp"
+                android:src="@drawable/back_icon"
+                app:tint="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cinzel_bold"
+                android:includeFontPadding="false"
+                android:text="Streak History"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/backIcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/backIcon" />
+
+            <LinearLayout
+                android:id="@+id/llStats"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_78sdp"
+                android:layout_marginTop="@dimen/_28sdp"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/backIcon">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/streak_stat_background"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="💧"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:includeFontPadding="false"
+                        android:text="12"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_20sdp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="CURRENT&#10;STREAK"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_6sdp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/_3sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/streak_stat_background"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🏆"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:includeFontPadding="false"
+                        android:text="21"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_20sdp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="PERSONAL&#10;BEST"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_6sdp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/streak_stat_protect_background"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🛡️"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:includeFontPadding="false"
+                        android:text="1"
+                        android:textColor="#F0BC13"
+                        android:textSize="@dimen/_20sdp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="STREAK&#10;PROTECT"
+                        android:textColor="#F0BC13"
+                        android:textSize="@dimen/_6sdp" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingTop="@dimen/_14sdp"
+            android:paddingBottom="@dimen/_20sdp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_36sdp">
+
+                <TextView
+                    android:id="@+id/tvPrev"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:background="@drawable/streak_arrow_background"
+                    android:gravity="center"
+                    android:text="‹"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_16sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvMonth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cinzel_bold"
+                    android:includeFontPadding="false"
+                    android:text="April 2026"
+                    android:textColor="@color/dashboard_primary"
+                    android:textSize="@dimen/_14sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvNext"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:background="@drawable/streak_arrow_background"
+                    android:gravity="center"
+                    android:text="›"
+                    android:textColor="@color/day_unselected_color"
+                    android:textSize="@dimen/_16sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:background="@drawable/streak_card_background"
+                android:elevation="@dimen/_5sdp"
+                android:orientation="vertical"
+                android:padding="@dimen/_14sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout style="@style/StreakCalendarRow">
+                        <TextView style="@style/StreakDayHeaderWeighted" android:text="SUN" />
+                        <TextView style="@style/StreakDayHeaderWeighted" android:text="MON" />
+                        <TextView style="@style/StreakDayHeaderWeighted" android:text="TUE" />
+                        <TextView style="@style/StreakDayHeaderWeighted" android:text="WED" />
+                        <TextView style="@style/StreakDayHeaderWeighted" android:text="THU" />
+                        <TextView style="@style/StreakDayHeaderWeighted" android:text="FRI" />
+                        <TextView style="@style/StreakDayHeaderWeighted" android:text="SAT" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/StreakCalendarRow">
+                        <Space style="@style/StreakBlankDayWeighted" />
+                        <Space style="@style/StreakBlankDayWeighted" />
+                        <Space style="@style/StreakBlankDayWeighted" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="1" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="2" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="3" />
+                        <TextView style="@style/StreakMissedDayWeighted" android:text="4" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/StreakCalendarRow">
+                        <TextView style="@style/StreakMissedDayWeighted" android:text="5" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="6" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="7" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="8" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="9" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="10" />
+                        <TextView style="@style/StreakMissedDayWeighted" android:text="11" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/StreakCalendarRow">
+                        <TextView style="@style/StreakProtectedDayWeighted" android:text="12" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="13" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="14" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="15" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="16" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="17" />
+                        <TextView style="@style/StreakMissedDayWeighted" android:text="18" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/StreakCalendarRow">
+                        <TextView style="@style/StreakMissedDayWeighted" android:text="19" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="20" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="21" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="22" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="23" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="24" />
+                        <TextView style="@style/StreakMissedDayWeighted" android:text="25" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/StreakCalendarRow">
+                        <TextView style="@style/StreakMissedDayWeighted" android:text="26" />
+                        <TextView style="@style/StreakCompletedDayWeighted" android:text="27" />
+                        <TextView style="@style/StreakTodayDayWeighted" android:text="28" />
+                        <TextView style="@style/StreakFutureDayWeighted" android:text="29" />
+                        <TextView style="@style/StreakFutureDayWeighted" android:text="30" />
+                        <Space style="@style/StreakBlankDayWeighted" />
+                        <Space style="@style/StreakBlankDayWeighted" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView style="@style/StreakLegend" android:text="■  Completed" android:textColor="#F57C12" />
+                    <TextView style="@style/StreakLegend" android:text="■  Missed" android:textColor="#D8EAF5" />
+                    <TextView style="@style/StreakLegend" android:text="■  Protected" android:textColor="#F0BC13" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/poppins"
+                    android:text="□  Today"
+                    android:textColor="#F57C12"
+                    android:textSize="@dimen/_8sdp" />
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_135sdp"
+                android:layout_marginTop="@dimen/_28sdp"
+                android:background="@drawable/streak_protect_card_background"
+                android:padding="@dimen/_18sdp">
+
+                <TextView
+                    android:id="@+id/tvShieldIcon"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@drawable/dashboard_button_background"
+                    android:gravity="center"
+                    android:text="🛡️"
+                    android:textSize="@dimen/_18sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvProtectTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:fontFamily="@font/cinzel_bold"
+                    android:includeFontPadding="false"
+                    android:text="Streak Protect"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvShieldLeft"
+                    app:layout_constraintStart_toEndOf="@+id/tvShieldIcon"
+                    app:layout_constraintTop_toTopOf="@+id/tvShieldIcon" />
+
+                <TextView
+                    android:id="@+id/tvProtectDesc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:fontFamily="@font/poppins"
+                    android:includeFontPadding="false"
+                    android:text="Never lose your streak again. Shields activate automatically when you miss a day."
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_7sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvShieldLeft"
+                    app:layout_constraintStart_toEndOf="@+id/tvShieldIcon"
+                    app:layout_constraintTop_toBottomOf="@+id/tvProtectTitle" />
+
+                <TextView
+                    android:id="@+id/tvViewPricing"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:layout_marginStart="@dimen/_52sdp"
+                    android:background="@drawable/streak_stat_protect_background"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center"
+                    android:text="View shields &amp;&#10;pricing →"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_7sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvShieldLeft"
+                    android:layout_width="@dimen/_64sdp"
+                    android:layout_height="@dimen/_58sdp"
+                    android:background="@drawable/streak_stat_protect_background"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center"
+                    android:text="1&#10;SHIELD LEFT"
+                    android:textColor="#F0BC13"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -7,6 +7,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -502,6 +503,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun showHideHomeIcon(type:Int){
         with(binding){
+            applyDashboardToolbarStyle(type == 1)
             when(type){
                 0->{
                     ivNotification.visibility = View.VISIBLE
@@ -698,6 +700,29 @@ class HomeActivity : AppCompatActivity() {
                     removeShortFragment()
                 }
         }
+        }
+    }
+
+    private fun applyDashboardToolbarStyle(isDashboard: Boolean) {
+        val backgroundColor = ContextCompat.getColor(
+            this,
+            if (isDashboard) R.color.dashboard_primary else R.color.white
+        )
+        val foregroundColor = ContextCompat.getColor(
+            this,
+            if (isDashboard) R.color.white else R.color.black
+        )
+        val iconTint = ColorStateList.valueOf(foregroundColor)
+
+        with(binding) {
+            root.setBackgroundColor(backgroundColor)
+            toolbar.setBackgroundColor(backgroundColor)
+            tvTitle.setTextColor(foregroundColor)
+            ivSearch.imageTintList = iconTint
+            ivChat.imageTintList = iconTint
+            ivNotification.imageTintList = iconTint
+            window.statusBarColor = backgroundColor
+            WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = !isDashboard
         }
     }
 

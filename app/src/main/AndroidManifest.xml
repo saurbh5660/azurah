@@ -134,6 +134,9 @@
             android:name=".activity.ShopSettingActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.StreakHistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.PushNotificationActivity"
             android:exported="false" />
         <activity
