@@ -172,7 +172,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="@dimen/_16sdp"
+            android:clipToPadding="false"
+            android:paddingHorizontal="@dimen/_10sdp"
             android:paddingTop="@dimen/_14sdp"
             android:paddingBottom="@dimen/_20sdp">
 
@@ -228,9 +229,10 @@
                 android:background="@drawable/streak_card_background"
                 android:elevation="@dimen/_5sdp"
                 android:orientation="vertical"
-                android:padding="@dimen/_14sdp">
+                android:padding="@dimen/_10sdp">
 
                 <LinearLayout
+                    android:id="@+id/calendarContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
