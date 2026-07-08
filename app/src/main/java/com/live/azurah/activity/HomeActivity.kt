@@ -48,6 +48,7 @@ import com.live.azurah.databinding.FaithBuilderDialogBinding
 import com.live.azurah.databinding.MenuReportBinding
 import com.live.azurah.databinding.SureDialogBinding
 import com.live.azurah.fragment.AllShopCategoryFragment
+import com.live.azurah.fragment.BibleFragment
 import com.live.azurah.fragment.CategoryDetailFragment
 import com.live.azurah.fragment.DashBoardFragment
 import com.live.azurah.fragment.EventFragment
@@ -165,11 +166,11 @@ class HomeActivity : AppCompatActivity() {
         when(position) {
             0 -> setTabBackgroundView(binding.ivHome, binding.tvHome, R.drawable.selected_home_icon)
             1 -> setTabBackgroundView(binding.ivDash, binding.tvDash, R.drawable.selected_bookmark)
-            2 -> setTabBackgroundView(binding.ivEvents, binding.tvEvents, R.drawable.selected_event)
-            3 -> setTabBackgroundView(binding.ivShop, binding.tvShop, R.drawable.selected_shop)
+            2 -> setTabBackgroundView(binding.ivEvents, binding.tvEvents, R.drawable.ic_nav_bible_selected)
+            3 -> setTabBackgroundView(binding.ivShop, binding.tvShop, R.drawable.selected_event)
             4 -> setTabBackgroundView(binding.ivProfile, binding.tvProfile, R.drawable.selected_profile)
-            7 -> { // Favorite tab
-                setTabBackgroundView(binding.ivShop, binding.tvShop, R.drawable.selected_shop)
+            8 -> {
+                setTabBackgroundView(binding.ivDash, binding.tvDash, R.drawable.selected_bookmark)
             }
         }
     }
@@ -288,7 +289,7 @@ class HomeActivity : AppCompatActivity() {
                         if (notificationCount > 0) binding.ivNotificationCount.visible() else binding.ivNotificationCount.gone()
                         if (messageCount > 0) binding.ivChatCount.visible() else binding.ivChatCount.gone()
                     } else {
-                        // Force them GONE if we are on Favorites (7) or any other tab
+                        // Force them GONE if we are on Favorites or any other tab
                         binding.ivNotificationCount.gone()
                         binding.ivChatCount.gone()
                     }
@@ -317,7 +318,7 @@ class HomeActivity : AppCompatActivity() {
                     val currentShortFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerShort)
                     if (currentFragment != null){
                         when(currentFragment){
-                            is SuggetionForYouFragment, is UserLikesFragment,is CategoryDetailFragment,is SongFragment,is ShopDetailFragment,is FavouriteFragment,is SearchHomeFragment,is SearchProductFragment,is AllShopCategoryFragment->{
+                            is SuggetionForYouFragment, is UserLikesFragment,is CategoryDetailFragment,is SongFragment,is ShopFragment,is ShopDetailFragment,is FavouriteFragment,is SearchHomeFragment,is SearchProductFragment,is AllShopCategoryFragment->{
                                Log.d("sffdfds","dfdsbfdsbdbsg")
                                 LocalBroadcastManager.getInstance(this@HomeActivity).sendBroadcast(
                                     Intent("Shop")
@@ -337,7 +338,7 @@ class HomeActivity : AppCompatActivity() {
                             is FavouriteFragment,is SearchProductFragment,is ShopDetailFragment -> {
                                 Log.d("sffdfds","dfdsbfdsbdbsg")
                                 LocalBroadcastManager.getInstance(this@HomeActivity).sendBroadcast(Intent("Shop"))
-                                binding.viewPager.setCurrentItem(3,false)
+                                binding.viewPager.setCurrentItem(5,false)
                             }else->{
                             val currentTime = System.currentTimeMillis()
                             if (currentTime - backPressedTime < doubleBackToExitDuration) {
@@ -396,7 +397,7 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
             ivHeart.setOnClickListener {
-                viewPager.setCurrentItem(7,false)
+                viewPager.setCurrentItem(8,false)
             }
 
             ivSetting.setOnClickListener {
@@ -422,8 +423,8 @@ class HomeActivity : AppCompatActivity() {
             }
 
             backIcon.setOnClickListener {
-                if (viewPager.currentItem == 5 || viewPager.currentItem == 6 || viewPager.currentItem == 7){
-                    viewPager.setCurrentItem(3,false)
+                if (viewPager.currentItem == 6 || viewPager.currentItem == 7 || viewPager.currentItem == 8){
+                    viewPager.setCurrentItem(5,false)
                 }
             }
 
@@ -463,14 +464,15 @@ class HomeActivity : AppCompatActivity() {
             }
 
             llEvent.setOnClickListener {
-                setTabBackgroundView(ivEvents,tvEvents,R.drawable.selected_event)
+                setTabBackgroundView(ivEvents,tvEvents,R.drawable.ic_nav_bible_selected)
                 searchType = 2
                 showHideHomeIcon(2)
                 binding.viewPager.setCurrentItem(2,false)
             }
 
             llShop.setOnClickListener {
-                setTabBackgroundView(ivShop,tvShop,R.drawable.selected_shop)
+                setTabBackgroundView(ivShop,tvShop,R.drawable.selected_event)
+                searchType = 3
                 showHideHomeIcon(3)
                 binding.viewPager.setCurrentItem(3,false)
 
@@ -488,9 +490,10 @@ class HomeActivity : AppCompatActivity() {
         fragmentList = ArrayList()
         fragmentList.add(HomeFragment())
         fragmentList.add(DashBoardFragment())
+        fragmentList.add(BibleFragment())
         fragmentList.add(EventFragment())
-        fragmentList.add(ShopFragment())
         fragmentList.add(ProfileFragment())
+        fragmentList.add(ShopFragment())
         fragmentList.add(SearchProductFragment())
         fragmentList.add(ShopDetailFragment())
         fragmentList.add(FavouriteFragment())
@@ -503,7 +506,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun showHideHomeIcon(type:Int){
         with(binding){
-            applyDashboardToolbarStyle(type == 1)
+            applyDashboardToolbarStyle(type == 1 || type == 2)
             when(type){
                 0->{
                     ivNotification.visibility = View.VISIBLE
@@ -573,7 +576,8 @@ class HomeActivity : AppCompatActivity() {
                     ivChat.visibility = View.GONE
                     ivChatCount.visibility = View.GONE
                     ivSearch.visibility = View.GONE
-                    ivBookmark.visibility = View.VISIBLE
+                    ivBookmark.visibility = View.GONE
+                    ivBookmarkCount.visibility = View.GONE
                     ivHeart.visibility = View.GONE
                     ivMore.visibility = View.GONE
                     ivFavCount.visibility = View.GONE
@@ -583,12 +587,6 @@ class HomeActivity : AppCompatActivity() {
                     backIcon.visibility = View.GONE
                     tvTitle.visibility = View.VISIBLE
                     bottomNav.visibility = View.VISIBLE
-
-                    if (eventCount > 0){
-                        binding.ivBookmarkCount.visible()
-                    }else{
-                        binding.ivBookmarkCount.gone()
-                    }
                     removeShortFragment()
                 }
                 3->{
@@ -597,21 +595,21 @@ class HomeActivity : AppCompatActivity() {
                     ivChat.visibility = View.GONE
                     ivChatCount.visibility = View.GONE
                     ivSearch.visibility = View.GONE
-                    ivBookmark.visibility = View.GONE
-                    ivBookmarkCount.visibility = View.GONE
-                    ivHeart.visibility = View.VISIBLE
+                    ivBookmark.visibility = View.VISIBLE
+                    ivHeart.visibility = View.GONE
                     ivSetting.visibility = View.GONE
                     ivShare.visibility = View.GONE
                     ivMore.visibility = View.GONE
+                    ivFavCount.visibility = View.GONE
                     tvCenterTitle.visibility = View.GONE
                     backIcon.visibility = View.GONE
                     tvTitle.visibility = View.VISIBLE
                     bottomNav.visibility = View.VISIBLE
 
-                    if (favouriteCount > 0){
-                        binding.ivFavCount.visible()
+                    if (eventCount > 0){
+                        binding.ivBookmarkCount.visible()
                     }else{
-                        binding.ivFavCount.gone()
+                        binding.ivBookmarkCount.gone()
                     }
                     removeShortFragment()
 
@@ -682,6 +680,24 @@ class HomeActivity : AppCompatActivity() {
 
                 }
                 7->{
+                    ivNotification.visibility = View.GONE
+                    ivNotificationCount.visibility = View.GONE
+                    ivChatCount.visibility = View.GONE
+                    ivChat.visibility = View.GONE
+                    ivSearch.visibility = View.GONE
+                    ivBookmark.visibility = View.GONE
+                    ivBookmarkCount.visibility = View.GONE
+                    ivHeart.visibility = View.GONE
+                    ivFavCount.visibility = View.GONE
+                    ivSetting.visibility = View.GONE
+                    ivShare.visibility = View.GONE
+                    tvCenterTitle.visibility = View.VISIBLE
+                    tvTitle.visibility = View.GONE
+                    backIcon.visibility = View.VISIBLE
+                    bottomNav.visibility = View.VISIBLE
+                    removeShortFragment()
+                }
+                8->{
                     ivNotification.visibility = View.GONE
                     ivNotificationCount.visibility = View.GONE
                     ivChatCount.visibility = View.GONE
@@ -791,8 +807,8 @@ class HomeActivity : AppCompatActivity() {
         with(binding){
             ivHome.setImageResource(R.drawable.unselected_home)
             ivDash.setImageResource(R.drawable.unselected_bookmark_icon)
-            ivEvents.setImageResource(R.drawable.unselected_event)
-            ivShop.setImageResource(R.drawable.unselected_shop)
+            ivEvents.setImageResource(R.drawable.ic_nav_bible_unselected)
+            ivShop.setImageResource(R.drawable.unselected_event)
             ivProfile.setImageResource(R.drawable.unselected_profile)
 
             val typeface = ResourcesCompat.getFont(this@HomeActivity,R.font.poppins)

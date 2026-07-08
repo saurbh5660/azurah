@@ -126,10 +126,10 @@ class DashBoardFragment : Fragment(), Observer<Resource<Any>> {
                 })
             }
             clShop.setOnClickListener {
-                (requireActivity() as HomeActivity).binding.llShop.performClick()
+                (requireActivity() as HomeActivity).replaceFragment(ShopFragment())
             }
             ivHeaderShop.setOnClickListener {
-                (requireActivity() as HomeActivity).binding.llShop.performClick()
+                (requireActivity() as HomeActivity).replaceFragment(ShopFragment())
             }
             tvSongViewMore.setOnClickListener {
                 with(requireActivity() as HomeActivity){

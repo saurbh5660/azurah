@@ -70,16 +70,16 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="💧"
-                        android:textSize="@dimen/_13sdp" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:src="@drawable/current_streak_icon"
+                        android:layout_marginTop="@dimen/_4sdp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_semibold"
+                        android:fontFamily="@font/nimbus_semibold"
                         android:includeFontPadding="false"
                         android:text="12"
                         android:textColor="@color/white"
@@ -88,7 +88,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_semibold"
+                        android:fontFamily="@font/nimbus_semibold"
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:text="CURRENT&#10;STREAK"
@@ -105,16 +105,16 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🏆"
-                        android:textSize="@dimen/_13sdp" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:src="@drawable/winner_icon"
+                        android:layout_marginTop="@dimen/_4sdp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_semibold"
+                        android:fontFamily="@font/nimbus_semibold"
                         android:includeFontPadding="false"
                         android:text="21"
                         android:textColor="@color/white"
@@ -123,7 +123,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_semibold"
+                        android:fontFamily="@font/nimbus_semibold"
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:text="PERSONAL&#10;BEST"
@@ -140,16 +140,17 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🛡️"
-                        android:textSize="@dimen/_13sdp" />
+                    <ImageView
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:contentDescription="@string/streak_project"
+                        android:src="@drawable/streak_icon"
+                        android:layout_marginTop="@dimen/_4sdp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_semibold"
+                        android:fontFamily="@font/nimbus_semibold"
                         android:includeFontPadding="false"
                         android:text="1"
                         android:textColor="#F0BC13"
@@ -158,7 +159,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_semibold"
+                        android:fontFamily="@font/nimbus_semibold"
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:text="STREAK&#10;PROTECT"
@@ -305,36 +306,108 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <TextView style="@style/StreakLegend" android:text="■  Completed" android:textColor="#F57C12" />
-                    <TextView style="@style/StreakLegend" android:text="■  Missed" android:textColor="#D8EAF5" />
-                    <TextView style="@style/StreakLegend" android:text="■  Protected" android:textColor="#F0BC13" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="@dimen/_13sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:background="@drawable/streak_day_completed" />
+
+                        <TextView
+                            style="@style/StreakLegend"
+                            android:text="Completed"
+                            android:textColor="#4B5563" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="@dimen/_13sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:background="@drawable/streak_day_missed" />
+
+                        <TextView
+                            style="@style/StreakLegend"
+                            android:text="Missed"
+                            android:textColor="#4B5563" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="@dimen/_13sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:background="@drawable/streak_day_protected" />
+
+                        <TextView
+                            style="@style/StreakLegend"
+                            android:text="Protected"
+                            android:textColor="#4B5563" />
+                    </LinearLayout>
                 </LinearLayout>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/poppins"
-                    android:text="□  Today"
-                    android:textColor="#F57C12"
-                    android:textSize="@dimen/_8sdp" />
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="@dimen/_13sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:background="@drawable/streak_day_today" />
+
+                    <TextView
+                        style="@style/StreakLegend"
+                        android:text="Today"
+                        android:textColor="#4B5563" />
+                </LinearLayout>
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_135sdp"
-                android:layout_marginTop="@dimen/_28sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_2sdp"
+                android:layout_marginTop="@dimen/_36sdp"
                 android:background="@drawable/streak_protect_card_background"
-                android:padding="@dimen/_18sdp">
+                android:clipChildren="false"
+                android:clipToPadding="false"
+               >
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/tvShieldWatermark"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_100sdp"
+                    android:src="@drawable/shield_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/tvShieldIcon"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:background="@drawable/dashboard_button_background"
-                    android:gravity="center"
-                    android:text="🛡️"
-                    android:textSize="@dimen/_18sdp"
+                    android:layout_width="@dimen/_55sdp"
+                    android:layout_height="@dimen/_55sdp"
+                    android:background="@drawable/streak_shield_icon_background"
+                    android:src="@drawable/streak_protect_tick"
+                    android:layout_marginTop="16dp"
+                    android:padding="@dimen/_10sdp"
+                    android:layout_marginStart="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -342,12 +415,12 @@
                     android:id="@+id/tvProtectTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginStart="@dimen/_14sdp"
                     android:fontFamily="@font/cinzel_bold"
                     android:includeFontPadding="false"
                     android:text="Streak Protect"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_13sdp"
+                    android:textSize="@dimen/_16sdp"
                     app:layout_constraintEnd_toStartOf="@+id/tvShieldLeft"
                     app:layout_constraintStart_toEndOf="@+id/tvShieldIcon"
                     app:layout_constraintTop_toTopOf="@+id/tvShieldIcon" />
@@ -356,41 +429,47 @@
                     android:id="@+id/tvProtectDesc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginStart="@dimen/_14sdp"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:fontFamily="@font/poppins"
                     android:includeFontPadding="false"
                     android:text="Never lose your streak again. Shields activate automatically when you miss a day."
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_7sdp"
+                    android:textSize="@dimen/_9sdp"
                     app:layout_constraintEnd_toStartOf="@+id/tvShieldLeft"
                     app:layout_constraintStart_toEndOf="@+id/tvShieldIcon"
                     app:layout_constraintTop_toBottomOf="@+id/tvProtectTitle" />
 
                 <TextView
                     android:id="@+id/tvViewPricing"
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="@dimen/_28sdp"
-                    android:layout_marginStart="@dimen/_52sdp"
-                    android:background="@drawable/streak_stat_protect_background"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_38sdp"
+                    android:layout_marginStart="@dimen/_70sdp"
+                    android:background="@drawable/streak_pricing_button_background"
+                    android:fontFamily="@font/nimbus_semibold"
                     android:gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    app:layout_constraintTop_toBottomOf="@+id/tvProtectDesc"
+                    android:paddingHorizontal="@dimen/_8sdp"
                     android:text="View shields &amp;&#10;pricing →"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_7sdp"
+                    android:textSize="@dimen/_8sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/tvShieldLeft"
-                    android:layout_width="@dimen/_64sdp"
-                    android:layout_height="@dimen/_58sdp"
+                    android:layout_width="@dimen/_78sdp"
+                    android:layout_height="@dimen/_66sdp"
                     android:background="@drawable/streak_stat_protect_background"
                     android:fontFamily="@font/poppins_semibold"
                     android:gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
                     android:text="1&#10;SHIELD LEFT"
                     android:textColor="#F0BC13"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_10sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>

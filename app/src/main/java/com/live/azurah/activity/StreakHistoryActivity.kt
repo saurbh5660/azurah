@@ -132,7 +132,7 @@ class StreakHistoryActivity : AppCompatActivity() {
             layoutParams = weightedParams()
             gravity = Gravity.CENTER
             addView(TextView(this@StreakHistoryActivity).apply {
-                layoutParams = LinearLayout.LayoutParams(dp(28), dp(28))
+                layoutParams = LinearLayout.LayoutParams(dp(30), dp(34))
                 gravity = Gravity.CENTER
                 text = day.toString()
                 textSize = 10f
@@ -146,7 +146,7 @@ class StreakHistoryActivity : AppCompatActivity() {
         }
     }
 
-    private fun weightedParams(height: Int = dp(32), margin: Int = dp(1)): LinearLayout.LayoutParams {
+    private fun weightedParams(height: Int = dp(38), margin: Int = dp(1)): LinearLayout.LayoutParams {
         return LinearLayout.LayoutParams(0, height, 1f).apply {
             setMargins(margin, margin, margin, margin)
         }
@@ -178,7 +178,7 @@ class StreakHistoryActivity : AppCompatActivity() {
         Missed(R.drawable.streak_day_missed, R.color.drink_color),
         Protected(R.drawable.streak_day_protected, R.color.white),
         Today(R.drawable.streak_day_today, R.color.red_color),
-        Future(null, R.color.day_unselected_color)
+        Future(R.drawable.streak_day_future_dashed, R.color.day_unselected_color)
     }
 
     private companion object {

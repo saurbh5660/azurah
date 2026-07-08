@@ -97,7 +97,7 @@ class ShopFragment : Fragment(), Observer<Resource<Any>> {
         with(binding) {
             etSearch.setOnClickListener {
                 with(requireActivity() as HomeActivity) {
-                    binding.viewPager.setCurrentItem(5, false)
+                    binding.viewPager.setCurrentItem(6, false)
                 }
             }
             tvViewAll.setOnClickListener {

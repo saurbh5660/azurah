@@ -375,7 +375,7 @@
                 android:id="@+id/ivEvents"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/unselected_event"/>
+                android:src="@drawable/ic_nav_bible_unselected"/>
 
             <TextView
                 android:id="@+id/tvEvents"
@@ -383,7 +383,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
                 android:textColor="@color/black"
-                android:text="Events"
+                android:text="Bible"
                 android:includeFontPadding="false"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:textSize="@dimen/_10sdp">
@@ -405,7 +405,7 @@
                 android:id="@+id/ivShop"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/unselected_shop"/>
+                android:src="@drawable/unselected_event"/>
 
             <TextView
                 android:id="@+id/tvShop"
@@ -413,7 +413,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
                 android:textColor="@color/black"
-                android:text="Shop"
+                android:text="Events"
                 android:includeFontPadding="false"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:textSize="@dimen/_10sdp">
