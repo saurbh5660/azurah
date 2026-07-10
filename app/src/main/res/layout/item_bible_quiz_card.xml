@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_112sdp"
+    android:background="@drawable/bible_quiz_card_background"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_4sdp"
+        android:background="@drawable/bible_quiz_top_bar" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingHorizontal="@dimen/_14sdp"
+        android:paddingTop="@dimen/_10sdp">
+
+        <TextView
+            android:id="@+id/tvQuizIcon"
+            android:layout_width="@dimen/_52sdp"
+            android:layout_height="@dimen/_52sdp"
+            android:background="@drawable/bible_icon_background"
+            android:backgroundTint="#FFF3EA"
+            android:gravity="center"
+            android:text="🧠"
+            android:textSize="@dimen/_20sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvQuizTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Quiz"
+            android:textColor="@color/dashboard_card_text"
+            android:textSize="@dimen/_15sdp"
+            app:layout_constraintEnd_toStartOf="@+id/tvPro"
+            app:layout_constraintStart_toEndOf="@+id/tvQuizIcon"
+            app:layout_constraintTop_toTopOf="@+id/tvQuizIcon" />
+
+        <TextView
+            android:id="@+id/tvQuizDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:fontFamily="@font/poppins"
+            android:text="5 questions on today's reading"
+            android:textColor="@color/dashboard_subtitle"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvQuizIcon"
+            app:layout_constraintTop_toBottomOf="@+id/tvQuizTitle" />
+
+        <TextView
+            android:id="@+id/tvPro"
+            android:layout_width="@dimen/_46sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@drawable/bible_orange_button_background"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center"
+            android:text="▣ Pro"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_7sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvQuizIcon" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_38sdp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/tvAboutQuiz"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center"
+            android:text="ℹ  About this Quiz"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_10sdp" />
+
+        <TextView
+            android:id="@+id/tvStartQuiz"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bible_orange_button_background"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center"
+            android:text="▣ Start Quiz →"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp" />
+    </LinearLayout>
+</LinearLayout>

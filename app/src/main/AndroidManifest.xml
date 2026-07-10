@@ -137,6 +137,9 @@
             android:name=".activity.StreakHistoryActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.BibleQuizActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.PushNotificationActivity"
             android:exported="false" />
         <activity
