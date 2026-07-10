@@ -26,6 +26,8 @@ class BibleQuizActivity : AppCompatActivity() {
     private var correctCount = 0
     private var timer: CountDownTimer? = null
     private var timerView: TextView? = null
+    private var systemTopInset = 0
+    private var systemBottomInset = 0
 
     private val questions = listOf(
         QuizQuestion(
@@ -77,11 +79,13 @@ class BibleQuizActivity : AppCompatActivity() {
         binding = ActivityBibleQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
         window.statusBarColor = getColor(R.color.dashboard_primary)
-        WindowCompat.setDecorFitsSystemWindows(window, true)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = false
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            view.updatePadding(top = systemBars.top, bottom = systemBars.bottom)
+            systemTopInset = systemBars.top
+            systemBottomInset = systemBars.bottom
+            view.updatePadding(bottom = systemBottomInset)
             insets
         }
         showCountdown(3)
@@ -99,7 +103,7 @@ class BibleQuizActivity : AppCompatActivity() {
 
         val root = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(dp(16), dp(18), dp(16), dp(34))
+            setPadding(dp(16), systemTopInset + dp(18), dp(16), dp(34))
             layoutParams = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT
@@ -163,7 +167,7 @@ class BibleQuizActivity : AppCompatActivity() {
         val scroll = ScrollView(this)
         val root = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(0, 0, 0, dp(20))
+            setPadding(0, 0, 0, systemBottomInset + dp(20))
         }
         scroll.addView(root)
         root.addView(createQuizHeader())
@@ -188,10 +192,11 @@ class BibleQuizActivity : AppCompatActivity() {
         }
 
         binding.quizRoot.removeAllViews()
+        val screen = FrameLayout(this)
         val scroll = ScrollView(this)
         val root = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(0, 0, 0, dp(20))
+            setPadding(0, 0, 0, systemBottomInset + dp(96))
         }
         scroll.addView(root)
         root.addView(createQuizHeader(timeText = if (isCorrect) "30 sec per Q" else "Time's up!"))
@@ -201,7 +206,7 @@ class BibleQuizActivity : AppCompatActivity() {
             root.addView(optionView)
         }
         root.addView(feedbackCard(question, isCorrect))
-        root.addView(text(if (questionIndex == questions.lastIndex) "See Results  →" else "Next Question  →", 14, R.color.white, R.font.poppins_semibold).apply {
+        val nextButton = text(if (questionIndex == questions.lastIndex) "See Results  →" else "Next Question  →", 14, R.color.white, R.font.poppins_semibold).apply {
             gravity = Gravity.CENTER
             background = ContextCompat.getDrawable(this@BibleQuizActivity, R.drawable.dashboard_button_background)
             setOnClickListener {
@@ -210,10 +215,19 @@ class BibleQuizActivity : AppCompatActivity() {
                     showQuestion()
                 }
             }
-        }, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp(52)).apply {
-            setMargins(dp(16), dp(14), dp(16), 0)
-        })
-        binding.quizRoot.addView(scroll)
+        }
+        screen.addView(scroll)
+        screen.addView(
+            nextButton,
+            FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                dp(52),
+                Gravity.BOTTOM
+            ).apply {
+                setMargins(dp(16), 0, dp(16), systemBottomInset + dp(14))
+            }
+        )
+        binding.quizRoot.addView(screen)
     }
 
     private fun showFinalResult() {
@@ -222,7 +236,7 @@ class BibleQuizActivity : AppCompatActivity() {
         binding.quizRoot.setBackgroundColor(getColor(R.color.dashboard_background))
         val root = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(0, 0, 0, dp(22))
+            setPadding(0, 0, 0, systemBottomInset + dp(22))
         }
         root.addView(LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
@@ -258,7 +272,7 @@ class BibleQuizActivity : AppCompatActivity() {
     private fun createQuizHeader(timeText: String = "30 sec per Q"): View {
         val header = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(dp(16), dp(12), dp(16), dp(16))
+            setPadding(dp(16), systemTopInset + dp(12), dp(16), dp(16))
             setBackgroundColor(ContextCompat.getColor(this@BibleQuizActivity, R.color.dashboard_primary))
         }
         val titleRow = FrameLayout(this)
@@ -439,7 +453,12 @@ class BibleQuizActivity : AppCompatActivity() {
         top: Int = 0,
         marginHorizontal: Int = 16
     ): LinearLayout.LayoutParams {
-        return LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height).apply {
+        val resolvedHeight = if (height == LinearLayout.LayoutParams.WRAP_CONTENT) {
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        } else {
+            dp(height)
+        }
+        return LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, resolvedHeight).apply {
             setMargins(dp(marginHorizontal), dp(top), dp(marginHorizontal), 0)
         }
     }
