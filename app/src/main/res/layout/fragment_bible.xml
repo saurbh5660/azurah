@@ -22,21 +22,20 @@
             android:paddingHorizontal="@dimen/_12sdp"
             android:paddingTop="@dimen/_18sdp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_24sdp"
-                android:fontFamily="@font/cinzel_bold"
-                android:includeFontPadding="false"
-                android:letterSpacing="0.18"
-                android:text="AZRIUS"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14sdp" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="@dimen/_24sdp"-->
+<!--                android:fontFamily="@font/cinzel_bold"-->
+<!--                android:includeFontPadding="false"-->
+<!--                android:letterSpacing="0.18"-->
+<!--                android:text="AZRIUS"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="@dimen/_14sdp" />-->
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_14sdp"
-                android:layout_weight="1"
+                android:layout_height="@dimen/_190sdp"
+                android:layout_marginTop="@dimen/_2sdp"
                 android:layout_marginBottom="@dimen/_16sdp"
                 android:background="@drawable/bible_header_card_background"
                 android:paddingHorizontal="@dimen/_20sdp"
@@ -46,18 +45,17 @@
                     android:id="@+id/llActiveQuest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
                     android:background="@drawable/bible_dark_pill_background"
+                    android:gravity="center"
+                    android:orientation="horizontal"
                     android:paddingHorizontal="@dimen/_10sdp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    >
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="@dimen/_14sdp"
                         android:layout_height="@dimen/_14sdp"
-                        android:src="@drawable/question_mark_icon"/>
+                        android:src="@drawable/question_mark_icon" />
 
                     <TextView
                         android:id="@+id/tvActiveQuest"
@@ -68,12 +66,8 @@
                         android:includeFontPadding="false"
                         android:text="ACTIVE QUEST"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_8sdp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
+                        android:textSize="@dimen/_8sdp" />
                 </LinearLayout>
-
 
                 <TextView
                     android:id="@+id/tvStreakPill"
@@ -146,34 +140,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_14sdp"
-                    android:paddingHorizontal="@dimen/_14sdp"
-                    android:gravity="center"
                     android:background="@drawable/dashboard_icon_circle"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_14sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/progressQuest">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="@dimen/_16sdp"
                         android:layout_height="@dimen/_16sdp"
-                        android:src="@drawable/info_icon"/>
+                        android:src="@drawable/info_icon" />
 
                     <TextView
                         android:id="@+id/tvAboutQuest"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_30sdp"
+                        android:layout_marginStart="@dimen/_8sdp"
                         android:fontFamily="@font/inter_semibold"
                         android:gravity="center"
-                        android:layout_marginStart="@dimen/_8sdp"
                         android:includeFontPadding="false"
                         android:text="About this Quest"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_9sdp"
-                        />
-
+                        android:textSize="@dimen/_9sdp" />
                 </LinearLayout>
-
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
@@ -182,7 +171,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/_10sdp"
-            android:paddingTop="@dimen/_14sdp">
+            android:paddingTop="@dimen/_18sdp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -200,24 +189,23 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_24sdp"
-                        android:background="@drawable/streak_arrow_background"
-                        android:fontFamily="@font/inter_bold"
-                        android:gravity="center"
-                        android:backgroundTint="@color/white"
-                        android:elevation="1dp"
-                        android:layout_marginEnd="@dimen/_2sdp"
-                        android:paddingHorizontal="@dimen/_12sdp"
-                        android:text="🏆 Leaderboard"
-                        android:textColor="@color/dashboard_card_text"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
+                <TextView
+                    android:id="@+id/tvLeaderboard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_marginEnd="@dimen/_2sdp"
+                    android:background="@drawable/streak_arrow_background"
+                    android:backgroundTint="@color/white"
+                    android:elevation="1dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:text="🏆 Leaderboard"
+                    android:textColor="@color/dashboard_card_text"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -240,86 +228,92 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_14sdp"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/inter_bold"
                 android:gravity="center_vertical"
                 android:letterSpacing="0.12"
                 android:text="BONUS ACTIVITIES"
                 android:textColor="@color/dashboard_subtitle"
-                android:textSize="@dimen/_8sdp" />
+                android:textSize="@dimen/_10sdp" />
 
-            <LinearLayout
+            <include
+                android:id="@+id/communityCard"
+                layout="@layout/item_bible_community_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/communityCompactCard"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_62sdp"
+                android:background="@drawable/bible_white_card_background"
+                android:visibility="gone"
+                android:paddingHorizontal="@dimen/_12sdp">
+
+                <TextView
+                    android:id="@+id/tvCommunityCompactIcon"
+                    android:layout_width="@dimen/_34sdp"
+                    android:layout_height="@dimen/_34sdp"
+                    android:background="@drawable/bible_icon_background"
+                    android:gravity="center"
+                    android:text="💬"
+                    android:textSize="@dimen/_14sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvCommunityCompactTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:includeFontPadding="false"
+                    android:text="Community Discussion"
+                    android:textColor="@color/dashboard_card_text"
+                    android:textSize="@dimen/_11sdp"
+                    app:layout_constraintBottom_toTopOf="@+id/tvCommunityCompactSubtitle"
+                    app:layout_constraintEnd_toStartOf="@+id/tvCommunityCompactCircle"
+                    app:layout_constraintStart_toEndOf="@+id/tvCommunityCompactIcon"
+                    app:layout_constraintTop_toTopOf="@+id/tvCommunityCompactIcon" />
+
+                <TextView
+                    android:id="@+id/tvCommunityCompactSubtitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:fontFamily="@font/poppins"
+                    android:text="2 questions · Each opens a forum thread"
+                    android:textColor="@color/dashboard_subtitle"
+                    android:textSize="@dimen/_8sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvCommunityCompactTitle"
+                    app:layout_constraintStart_toEndOf="@+id/tvCommunityCompactIcon"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCommunityCompactTitle" />
+
+                <TextView
+                    android:id="@+id/tvCommunityCompactCircle"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@drawable/dashboard_day_empty"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <include
+                android:id="@+id/communityQuestionOne"
+                layout="@layout/item_bible_discussion_question_one"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bible_white_card_background"
-                android:orientation="vertical">
+                android:layout_marginTop="@dimen/_10sdp"
+                android:visibility="gone" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_112sdp"
-                    android:padding="@dimen/_16sdp">
-
-                    <TextView
-                        android:id="@+id/tvCommunityIcon"
-                        android:layout_width="@dimen/_52sdp"
-                        android:layout_height="@dimen/_52sdp"
-                        android:background="@drawable/bible_icon_background"
-                        android:gravity="center"
-                        android:text="💬"
-                        android:textSize="@dimen/_18sdp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvCommunityTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_14sdp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:includeFontPadding="false"
-                        android:text="Community&#10;Discussion"
-                        android:textColor="@color/dashboard_primary"
-                        android:textSize="@dimen/_17sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvCommunityCircle"
-                        app:layout_constraintStart_toEndOf="@+id/tvCommunityIcon"
-                        app:layout_constraintTop_toTopOf="@+id/tvCommunityIcon" />
-
-                    <TextView
-                        android:id="@+id/tvCommunitySubtitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_14sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:fontFamily="@font/poppins"
-                        android:text="2 questions · Each opens a&#10;forum thread"
-                        android:textColor="@color/dashboard_subtitle"
-                        android:textSize="@dimen/_11sdp"
-                        app:layout_constraintEnd_toEndOf="@+id/tvCommunityTitle"
-                        app:layout_constraintStart_toEndOf="@+id/tvCommunityIcon"
-                        app:layout_constraintTop_toBottomOf="@+id/tvCommunityTitle" />
-
-                    <TextView
-                        android:id="@+id/tvCommunityCircle"
-                        android:layout_width="@dimen/_36sdp"
-                        android:layout_height="@dimen/_36sdp"
-                        android:background="@drawable/dashboard_day_empty"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tvCommunityIcon" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/post_divider_color" />
-
-                <include layout="@layout/item_bible_discussion_question_one" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/post_divider_color" />
-
-                <include layout="@layout/item_bible_discussion_question_two" />
-            </LinearLayout>
+            <include
+                android:id="@+id/communityQuestionTwo"
+                layout="@layout/item_bible_discussion_question_two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:visibility="gone" />
 
             <include
                 android:id="@+id/quizCard"
@@ -328,9 +322,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_12sdp" />
 
+            <include
+                android:id="@+id/quizCompleteCard"
+                layout="@layout/item_bible_quiz_complete_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:visibility="gone" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_74sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:background="@drawable/round_green_corner_background"
                 android:backgroundTint="#199B4D"
@@ -351,7 +353,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_28sdp"
-                    android:fontFamily="@font/cinzel_bold"
+                    android:fontFamily="@font/poppins_bold"
                     android:includeFontPadding="false"
                     android:text="Today's streak complete!"
                     android:textColor="@color/white"
@@ -365,10 +367,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_28sdp"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:fontFamily="@font/poppins"
-                    android:text="Devotional &amp; Prayer done —&#10;your 12-day streak is safe."
+                    android:fontFamily="@font/inter"
+                    android:text="Devotional &amp; Prayer done — your 12-day streak is safe."
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_11sdp"
+                    android:textSize="@dimen/_12sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/viewGreenMarker"
                     app:layout_constraintTop_toBottomOf="@+id/tvCompleteTitle" />

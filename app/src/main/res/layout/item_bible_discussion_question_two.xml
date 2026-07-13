@@ -2,20 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_145sdp"
-    android:padding="@dimen/_16sdp">
+    android:layout_height="@dimen/_118sdp"
+    android:background="@drawable/bible_white_card_background"
+    android:padding="@dimen/_13sdp">
 
     <TextView
         android:id="@+id/tvNumber"
-        android:layout_width="@dimen/_28sdp"
-        android:layout_height="@dimen/_28sdp"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
         android:background="@drawable/circle_background"
         android:backgroundTint="#E9F7FF"
         android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
         android:text="2"
         android:textColor="#0086BE"
-        android:textSize="@dimen/_11sdp"
+        android:textSize="@dimen/_8sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,11 +24,11 @@
         android:id="@+id/tvQuestion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_14sdp"
+        android:layout_marginStart="@dimen/_12sdp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Living it out"
-        android:textColor="@color/dashboard_primary"
-        android:textSize="@dimen/_13sdp"
+        android:textColor="@color/dashboard_card_text"
+        android:textSize="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvNumber"
         app:layout_constraintTop_toTopOf="@+id/tvNumber" />
@@ -36,12 +37,12 @@
         android:id="@+id/tvDesc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_14sdp"
+        android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_4sdp"
         android:fontFamily="@font/poppins"
-        android:text="How can you apply Esther's&#10;courage to something you're&#10;facing this week?"
+        android:text="How can you apply Esther's courage&#10;to something you're facing this week?"
         android:textColor="#77849E"
-        android:textSize="@dimen/_12sdp"
+        android:textSize="@dimen/_8sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvNumber"
         app:layout_constraintTop_toBottomOf="@+id/tvQuestion" />
@@ -50,24 +51,24 @@
         android:id="@+id/tvResponses"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_30sdp"
-        android:layout_marginStart="@dimen/_42sdp"
+        android:layout_marginStart="@dimen/_34sdp"
         android:fontFamily="@font/poppins"
         android:gravity="center"
         android:text="■  9 responses"
         android:textColor="#9AA8B8"
-        android:textSize="@dimen/_9sdp"
+        android:textSize="@dimen/_7sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:layout_width="@dimen/_92sdp"
-        android:layout_height="@dimen/_38sdp"
+        android:layout_width="@dimen/_82sdp"
+        android:layout_height="@dimen/_30sdp"
         android:background="@drawable/bible_discuss_button_background"
         android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
         android:text="Discuss →"
         android:textColor="@color/white"
-        android:textSize="@dimen/_10sdp"
+        android:textSize="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

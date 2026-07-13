@@ -1,5 +1,10 @@
 package com.live.azurah.activity
 
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.RectF
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.Gravity
@@ -18,6 +23,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
 import com.live.azurah.R
 import com.live.azurah.databinding.ActivityBibleQuizBinding
+import com.live.azurah.util.savePreference
 
 class BibleQuizActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBibleQuizBinding
@@ -26,6 +32,7 @@ class BibleQuizActivity : AppCompatActivity() {
     private var correctCount = 0
     private var timer: CountDownTimer? = null
     private var timerView: TextView? = null
+    private var timerCircleView: TimerCircleView? = null
     private var systemTopInset = 0
     private var systemBottomInset = 0
 
@@ -232,6 +239,7 @@ class BibleQuizActivity : AppCompatActivity() {
 
     private fun showFinalResult() {
         timer?.cancel()
+        savePreference(QUIZ_COMPLETED_KEY, true)
         binding.quizRoot.removeAllViews()
         binding.quizRoot.setBackgroundColor(getColor(R.color.dashboard_background))
         val root = LinearLayout(this).apply {
@@ -352,12 +360,16 @@ class BibleQuizActivity : AppCompatActivity() {
 
     private fun startQuestionTimer() {
         timerView?.text = "30"
+        timerCircleView?.setRemainingSeconds(30)
         timer = object : CountDownTimer(30_000, 1_000) {
             override fun onTick(millisUntilFinished: Long) {
-                timerView?.text = ((millisUntilFinished / 1000) + 1).toString()
+                val secondsLeft = ((millisUntilFinished / 1000) + 1).toInt()
+                timerView?.text = secondsLeft.toString()
+                timerCircleView?.setRemainingSeconds(secondsLeft)
             }
 
             override fun onFinish() {
+                timerCircleView?.showTimeUp()
                 showAnswerFeedback(-1)
             }
         }.start()
@@ -388,9 +400,21 @@ class BibleQuizActivity : AppCompatActivity() {
             gravity = Gravity.CENTER
             orientation = LinearLayout.HORIZONTAL
             background = ContextCompat.getDrawable(this@BibleQuizActivity, R.drawable.bible_header_card_background)
-            val circle = text(if (timer) "30" else "⭐", 16, R.color.white, R.font.poppins_semibold).apply {
-                gravity = Gravity.CENTER
-                if (timer) timerView = this
+            val circle: View = if (timer) {
+                TimerCircleView(this@BibleQuizActivity).apply {
+                    if (value.contains("up", ignoreCase = true)) {
+                        showTimeUp()
+                    } else {
+                        setRemainingSeconds(30)
+                    }
+                    timerView = numberView
+                    timerCircleView = this
+                }
+            } else {
+                text("⭐", 22, R.color.white, R.font.poppins_semibold).apply {
+                    gravity = Gravity.CENTER
+                    background = ContextCompat.getDrawable(this@BibleQuizActivity, R.drawable.bible_orange_button_background)
+                }
             }
             addView(circle, LinearLayout.LayoutParams(dp(42), dp(42)))
             addView(text("$label\n$value", 10, R.color.white, R.font.poppins_semibold), LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
@@ -472,4 +496,63 @@ class BibleQuizActivity : AppCompatActivity() {
         val context: String = "This answer follows Esther's story and the courage shown through faith and obedience.",
         val verse: String = "Esther"
     )
+
+    companion object {
+        const val QUIZ_COMPLETED_KEY = "bible_quiz_day_5_completed"
+    }
+
+    private inner class TimerCircleView(context: Context) : FrameLayout(context) {
+        val numberView: TextView = text("30", 12, R.color.white, R.font.poppins_semibold).apply {
+            gravity = Gravity.CENTER
+        }
+
+        private val trackPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.parseColor("#2C8FB5")
+            style = Paint.Style.STROKE
+            strokeCap = Paint.Cap.ROUND
+            strokeWidth = dp(4).toFloat()
+        }
+
+        private val progressPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.parseColor("#35E47B")
+            style = Paint.Style.STROKE
+            strokeCap = Paint.Cap.ROUND
+            strokeWidth = dp(4).toFloat()
+        }
+
+        private val bounds = RectF()
+        private var progress = 1f
+
+        init {
+            setWillNotDraw(false)
+            addView(
+                numberView,
+                LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+            )
+        }
+
+        fun setRemainingSeconds(seconds: Int) {
+            progressPaint.color = Color.parseColor("#35E47B")
+            progress = seconds.coerceIn(0, 30) / 30f
+            numberView.text = seconds.toString()
+            numberView.setTextColor(Color.WHITE)
+            invalidate()
+        }
+
+        fun showTimeUp() {
+            progressPaint.color = Color.parseColor("#FF7A1A")
+            progress = 1f
+            numberView.text = "•"
+            numberView.setTextColor(Color.parseColor("#FF7A1A"))
+            invalidate()
+        }
+
+        override fun onDraw(canvas: Canvas) {
+            super.onDraw(canvas)
+            val inset = dp(4).toFloat()
+            bounds.set(inset, inset, width - inset, height - inset)
+            canvas.drawOval(bounds, trackPaint)
+            canvas.drawArc(bounds, -90f, 360f * progress, false, progressPaint)
+        }
+    }
 }

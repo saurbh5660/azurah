@@ -2,31 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_112sdp"
+    android:layout_height="wrap_content"
     android:background="@drawable/bible_quiz_card_background"
     android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_4sdp"
+        android:layout_height="@dimen/_10sdp"
         android:background="@drawable/bible_quiz_top_bar" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingHorizontal="@dimen/_14sdp"
-        android:paddingTop="@dimen/_10sdp">
+        android:paddingHorizontal="@dimen/_18sdp"
+        android:paddingVertical="@dimen/_14sdp">
 
         <TextView
             android:id="@+id/tvQuizIcon"
-            android:layout_width="@dimen/_52sdp"
-            android:layout_height="@dimen/_52sdp"
+            android:layout_width="@dimen/_66sdp"
+            android:layout_height="@dimen/_66sdp"
             android:background="@drawable/bible_icon_background"
             android:backgroundTint="#FFF3EA"
             android:gravity="center"
             android:text="🧠"
-            android:textSize="@dimen/_20sdp"
+            android:textSize="@dimen/_22sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,70 +35,125 @@
             android:id="@+id/tvQuizTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_14sdp"
-            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginStart="@dimen/_18sdp"
+            android:fontFamily="@font/inter_bold"
             android:text="Quiz"
             android:textColor="@color/dashboard_card_text"
-            android:textSize="@dimen/_15sdp"
-            app:layout_constraintEnd_toStartOf="@+id/tvPro"
+            android:textSize="@dimen/_18sdp"
+            android:includeFontPadding="false"
+            app:layout_constraintBottom_toTopOf="@+id/tvQuizDesc"
             app:layout_constraintStart_toEndOf="@+id/tvQuizIcon"
             app:layout_constraintTop_toTopOf="@+id/tvQuizIcon" />
+
 
         <TextView
             android:id="@+id/tvQuizDesc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_14sdp"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:fontFamily="@font/poppins"
+            android:layout_marginStart="@dimen/_18sdp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/inter"
             android:text="5 questions on today's reading"
             android:textColor="@color/dashboard_subtitle"
-            android:textSize="@dimen/_10sdp"
+            android:textSize="@dimen/_13sdp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/tvQuizIcon"
             app:layout_constraintTop_toBottomOf="@+id/tvQuizTitle" />
 
-        <TextView
-            android:id="@+id/tvPro"
-            android:layout_width="@dimen/_46sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:background="@drawable/bible_orange_button_background"
-            android:fontFamily="@font/poppins_semibold"
-            android:gravity="center"
-            android:text="▣ Pro"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_7sdp"
+        <LinearLayout
+            android:layout_width="@dimen/_58sdp"
+            android:layout_height="@dimen/_24sdp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvQuizIcon" />
+            android:orientation="horizontal"
+            android:background="@drawable/bible_quiz_pro_badge_background"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="@+id/tvQuizIcon">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_14sdp"
+                android:layout_height="@dimen/_14sdp"
+                android:src="@drawable/question_mark_icon"/>
+
+            <TextView
+                android:id="@+id/tvPro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:text="Pro"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10sdp"
+                />
+
+        </LinearLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/divider_grey" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_38sdp"
+        android:layout_height="@dimen/_48sdp"
         android:orientation="horizontal"
         android:weightSum="2">
 
-        <TextView
-            android:id="@+id/tvAboutQuiz"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:orientation="horizontal"
             android:layout_weight="1"
-            android:fontFamily="@font/poppins_semibold"
-            android:gravity="center"
-            android:text="ℹ  About this Quiz"
-            android:textColor="@color/blue"
-            android:textSize="@dimen/_10sdp" />
+            android:gravity="center">
 
-        <TextView
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:src="@drawable/info_icon"/>
+
+            <TextView
+                android:id="@+id/tvAboutQuiz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="About this Quiz"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_13sdp" />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
             android:id="@+id/tvStartQuiz"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="@drawable/bible_quiz_start_footer_background"
+            android:orientation="horizontal"
             android:layout_weight="1"
-            android:background="@drawable/bible_orange_button_background"
-            android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
-            android:text="▣ Start Quiz →"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_10sdp" />
+            android:layout_gravity="center">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:src="@drawable/question_mark_icon"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Start Quiz →"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13sdp" />
+
+        </LinearLayout>
+
+
+
     </LinearLayout>
 </LinearLayout>

@@ -237,6 +237,7 @@
                 android:textSize="@dimen/_10sdp" />
 
             <TextView
+                android:id="@+id/tvStartQuiz"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_44sdp"
                 android:layout_margin="@dimen/_14sdp"

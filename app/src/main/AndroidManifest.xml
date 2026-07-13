@@ -140,6 +140,9 @@
             android:name=".activity.BibleQuizActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.BibleLeaderboardActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.PushNotificationActivity"
             android:exported="false" />
         <activity
