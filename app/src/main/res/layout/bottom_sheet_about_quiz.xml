@@ -10,23 +10,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="@dimen/_8sdp"
-        android:paddingTop="@dimen/_12sdp"
-        android:paddingBottom="@dimen/_14sdp">
+        android:paddingHorizontal="@dimen/_14sdp"
+        android:paddingTop="@dimen/_14sdp"
+        android:paddingBottom="@dimen/_18sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_38sdp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cinzel_bold"
+                android:includeFontPadding="false"
                 android:text="About this Quiz"
                 android:textColor="@color/dashboard_primary"
-                android:textSize="@dimen/_15sdp"
+                android:textSize="@dimen/_18sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvClose"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,208 +47,584 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Quiz Scoring -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:background="@drawable/quiz_scoring_card_background"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_58sdp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/quiz_scoring_header_background"
-                android:gravity="center_vertical"
                 android:orientation="vertical"
-                android:paddingHorizontal="@dimen/_12sdp">
+                android:paddingHorizontal="@dimen/_14sdp"
+                android:paddingTop="@dimen/_12sdp"
+                android:paddingBottom="@dimen/_12sdp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="🧠 QUIZ SCORING"
+                    android:fontFamily="@font/inter_bold"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0.06"
+                    android:text="🧠  QUIZ SCORING"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_8sdp" />
+                    android:textSize="@dimen/_9sdp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="5 questions · 30 seconds each"
+                    android:fontFamily="@font/inter_bold"
+                    android:includeFontPadding="false"
+                    android:text="5 questions • 30 seconds each"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_13sdp" />
             </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
-                android:fontFamily="@font/poppins_semibold"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/_12sdp"
-                android:text="✓   Correct answer                                      +100&#10;     Each correct answer earns points"
-                android:textColor="@color/dashboard_card_text"
-                android:textSize="@dimen/_10sdp" />
+                android:paddingVertical="@dimen/_12sdp">
+
+                <TextView
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:background="@drawable/quiz_icon_green_circle"
+                    android:fontFamily="@font/inter_bold"
+                    android:gravity="center"
+                    android:text="✓"
+                    android:textColor="#16A34A"
+                    android:textSize="@dimen/_14sdp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:includeFontPadding="false"
+                        android:text="Correct answer"
+                        android:textColor="@color/dashboard_card_text"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:fontFamily="@font/inter"
+                        android:includeFontPadding="false"
+                        android:text="Each correct answer earns points"
+                        android:textColor="@color/dashboard_subtitle"
+                        android:textSize="@dimen/_9sdp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:includeFontPadding="false"
+                    android:text="+100"
+                    android:textColor="#0F766E"
+                    android:textSize="@dimen/_13sdp" />
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/post_divider_color" />
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:background="#EEF1F5" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
-                android:fontFamily="@font/poppins_semibold"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/_12sdp"
-                android:text="×   Wrong answer                                            +0&#10;     The right answer and context will be shown"
-                android:textColor="@color/dashboard_card_text"
-                android:textSize="@dimen/_10sdp" />
+                android:paddingVertical="@dimen/_12sdp">
+
+                <TextView
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:background="@drawable/quiz_icon_red_circle"
+                    android:fontFamily="@font/inter_bold"
+                    android:gravity="center"
+                    android:text="×"
+                    android:textColor="#EF4444"
+                    android:textSize="@dimen/_16sdp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:includeFontPadding="false"
+                        android:text="Wrong answer"
+                        android:textColor="@color/dashboard_card_text"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:fontFamily="@font/inter"
+                        android:includeFontPadding="false"
+                        android:text="The right answer and context will be shown"
+                        android:textColor="@color/dashboard_subtitle"
+                        android:textSize="@dimen/_9sdp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:includeFontPadding="false"
+                    android:text="+0"
+                    android:textColor="#D1D5DB"
+                    android:textSize="@dimen/_13sdp" />
+            </LinearLayout>
         </LinearLayout>
 
+        <!-- Streak Bonus -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:background="@drawable/quiz_bonus_card_background"
             android:orientation="vertical"
             android:padding="@dimen/_12sdp">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_28sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:includeFontPadding="false"
                 android:text="🔥 CORRECT ANSWER STREAK BONUS"
-                android:textColor="#FF6F00"
+                android:textColor="#EA580C"
                 android:textSize="@dimen/_8sdp" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:background="@drawable/quiz_bonus_row_background"
-                android:fontFamily="@font/poppins_semibold"
+                android:layout_height="@dimen/_36sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:gravity="center_vertical"
-                android:paddingHorizontal="@dimen/_10sdp"
-                android:text="🔥🔥🔥  3 in a row                                      +100"
-                android:textColor="@color/dashboard_card_text"
-                android:textSize="@dimen/_10sdp" />
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_4sdp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:background="@drawable/quiz_bonus_row_background"
-                android:fontFamily="@font/poppins_semibold"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="@dimen/_10sdp"
-                android:text="🔥🔥🔥🔥  4 in a row                                  +200"
-                android:textColor="@color/dashboard_card_text"
-                android:textSize="@dimen/_10sdp" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_bold"
+                    android:includeFontPadding="false"
+                    android:text="🔥🔥🔥  3 in a row"
+                    android:textColor="#EA580C"
+                    android:textSize="@dimen/_11sdp" />
 
-            <TextView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="+100"
+                    android:textColor="#EA580C"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_36sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_4sdp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_bold"
+                    android:includeFontPadding="false"
+                    android:text="🔥🔥🔥🔥  4 in a row"
+                    android:textColor="#EA580C"
+                    android:textSize="@dimen/_11sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="+200"
+                    android:textColor="#EA580C"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:background="@drawable/quiz_bonus_row_background"
-                android:fontFamily="@font/poppins_semibold"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="@drawable/quiz_bonus_row_highlight"
                 android:gravity="center_vertical"
-                android:paddingHorizontal="@dimen/_10sdp"
-                android:text="🔥🔥🔥🔥🔥  5 in a row                              +300"
-                android:textColor="@color/dashboard_card_text"
-                android:textSize="@dimen/_10sdp" />
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_10sdp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_bold"
+                    android:includeFontPadding="false"
+                    android:text="🔥🔥🔥🔥🔥  5 in a row"
+                    android:textColor="#EA580C"
+                    android:textSize="@dimen/_11sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="+300"
+                    android:textColor="#EA580C"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
         </LinearLayout>
 
+        <!-- Leaderboard Bonuses -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:background="@drawable/quiz_scoring_card_background"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_64sdp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/quiz_scoring_header_background"
-                android:fontFamily="@font/poppins_semibold"
-                android:gravity="center_vertical"
+                android:orientation="vertical"
                 android:paddingHorizontal="@dimen/_14sdp"
-                android:text="⭐  LEADERBOARD BONUSES&#10;Earn points every day"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12sdp" />
+                android:paddingTop="@dimen/_12sdp"
+                android:paddingBottom="@dimen/_12sdp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_42sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="@dimen/_14sdp"
-                android:text="📖  Complete the Quest                              +500"
-                android:textColor="@color/dashboard_card_text"
-                android:textSize="@dimen/_10sdp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0.06"
+                    android:text="⭐  LEADERBOARD BONUSES"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_9sdp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_42sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="@dimen/_14sdp"
-                android:text="🏆  Quiz 5/5 + streak                              +800"
-                android:textColor="@color/dashboard_card_text"
-                android:textSize="@dimen/_10sdp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:fontFamily="@font/inter_bold"
+                    android:includeFontPadding="false"
+                    android:text="Earn points every day"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13sdp" />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_42sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="@dimen/_14sdp"
-                android:text="🧠  Quiz 4/5 + streak                              +600"
-                android:textColor="@color/dashboard_card_text"
-                android:textSize="@dimen/_10sdp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_42sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="@dimen/_14sdp"
-                android:text="🎯  Quiz 3/5 + streak                              +400"
-                android:textColor="@color/dashboard_card_text"
-                android:textSize="@dimen/_10sdp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_42sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="@dimen/_14sdp"
-                android:text="—   0–2 correct                                      +0"
-                android:textColor="@color/dashboard_card_text"
-                android:textSize="@dimen/_10sdp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_48sdp"
-                android:background="#EFF8FC"
-                android:fontFamily="@font/poppins_semibold"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="@dimen/_14sdp"
-                android:text="🏅 Maximum daily points                     1,300 pts"
-                android:textColor="@color/dashboard_card_text"
-                android:textSize="@dimen/_10sdp" />
-
-            <TextView
-                android:id="@+id/tvStartQuiz"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_44sdp"
-                android:layout_margin="@dimen/_14sdp"
-                android:background="@drawable/dashboard_button_background"
-                android:fontFamily="@font/poppins_semibold"
-                android:gravity="center"
-                android:text="Start Quiz →"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_11sdp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_14sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📖"
+                    android:textSize="@dimen/_14sdp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_bold"
+                    android:includeFontPadding="false"
+                    android:text="Complete the Quest"
+                    android:textColor="@color/dashboard_card_text"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="+500"
+                    android:textColor="@color/dashboard_card_text"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEF1F5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_14sdp"
+                android:paddingVertical="@dimen/_10sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🏆"
+                    android:textSize="@dimen/_14sdp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:includeFontPadding="false"
+                        android:text="Quiz 5/5 + streak"
+                        android:textColor="@color/dashboard_card_text"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:fontFamily="@font/inter"
+                        android:includeFontPadding="false"
+                        android:text="Perfect score bonus"
+                        android:textColor="@color/dashboard_subtitle"
+                        android:textSize="@dimen/_9sdp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="+800"
+                    android:textColor="#D97706"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEF1F5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_14sdp"
+                android:paddingVertical="@dimen/_10sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🧠"
+                    android:textSize="@dimen/_14sdp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:includeFontPadding="false"
+                        android:text="Quiz 4/5 + streak"
+                        android:textColor="@color/dashboard_card_text"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:fontFamily="@font/inter"
+                        android:includeFontPadding="false"
+                        android:text="Great score"
+                        android:textColor="@color/dashboard_subtitle"
+                        android:textSize="@dimen/_9sdp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="+600"
+                    android:textColor="#F97316"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEF1F5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_14sdp"
+                android:paddingVertical="@dimen/_10sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎯"
+                    android:textSize="@dimen/_14sdp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:includeFontPadding="false"
+                        android:text="Quiz 3/5 + streak"
+                        android:textColor="@color/dashboard_card_text"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:fontFamily="@font/inter"
+                        android:includeFontPadding="false"
+                        android:text="Good score"
+                        android:textColor="@color/dashboard_subtitle"
+                        android:textSize="@dimen/_9sdp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="+400"
+                    android:textColor="#38BDF8"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEF1F5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_44sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_14sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="—"
+                    android:textColor="@color/dashboard_subtitle"
+                    android:textSize="@dimen/_14sdp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_bold"
+                    android:includeFontPadding="false"
+                    android:text="0–2 correct"
+                    android:textColor="@color/dashboard_card_text"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="+0"
+                    android:textColor="#D1D5DB"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_48sdp"
+                android:background="@drawable/quiz_max_points_footer"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_14sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🏅"
+                    android:textSize="@dimen/_14sdp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_bold"
+                    android:includeFontPadding="false"
+                    android:text="Maximum daily points"
+                    android:textColor="@color/dashboard_card_text"
+                    android:textSize="@dimen/_11sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cinzel_bold"
+                    android:includeFontPadding="false"
+                    android:text="1,300 pts"
+                    android:textColor="@color/dashboard_card_text"
+                    android:textSize="@dimen/_14sdp" />
+            </LinearLayout>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvStartQuiz"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:background="@drawable/dashboard_button_background"
+            android:fontFamily="@font/inter_bold"
+            android:gravity="center"
+            android:text="Start Quiz →"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13sdp" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

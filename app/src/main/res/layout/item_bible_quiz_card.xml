@@ -16,7 +16,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:paddingHorizontal="@dimen/_18sdp"
-        android:paddingVertical="@dimen/_14sdp">
+        android:paddingVertical="@dimen/_10sdp">
 
         <TextView
             android:id="@+id/tvQuizIcon"
@@ -110,15 +110,15 @@
             android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="@dimen/_16sdp"
-                android:layout_height="@dimen/_16sdp"
+                android:layout_width="@dimen/_14sdp"
+                android:layout_height="@dimen/_14sdp"
                 android:src="@drawable/info_icon"/>
 
             <TextView
                 android:id="@+id/tvAboutQuiz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginStart="@dimen/_3sdp"
                 android:fontFamily="@font/inter_semibold"
                 android:text="About this Quiz"
                 android:textColor="@color/blue"

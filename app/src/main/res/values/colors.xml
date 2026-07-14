@@ -5,6 +5,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#0779B8</color>
     <color name="dashboard_primary">#004C83</color>
+    <color name="badges_navy">#061A2E</color>
+    <color name="badges_navy_mid">#0B3352</color>
     <color name="dashboard_secondary">#105B90</color>
     <color name="dashboard_background">#F4F7FA</color>
     <color name="dashboard_card_text">#1D2939</color>

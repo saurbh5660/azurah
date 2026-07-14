@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.live.azurah.activity.BibleDiscussionActivity
 import com.live.azurah.activity.BibleLeaderboardActivity
 import com.live.azurah.activity.BibleQuizActivity
 import com.live.azurah.databinding.FragmentBibleBinding
-import com.live.azurah.util.getPreference
 
 class BibleFragment : Fragment() {
     private lateinit var binding: FragmentBibleBinding
@@ -25,6 +25,14 @@ class BibleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Keep the earlier Bible screen layout — do not swap cards after quiz.
+        binding.communityCard.root.visibility = View.VISIBLE
+        binding.communityCompactCard.visibility = View.GONE
+        binding.communityQuestionOne.root.visibility = View.GONE
+        binding.communityQuestionTwo.root.visibility = View.GONE
+        binding.quizCard.root.visibility = View.VISIBLE
+        binding.quizCompleteCard.root.visibility = View.GONE
+
         binding.quizCard.tvAboutQuiz.setOnClickListener {
             AboutQuizBottomSheet().show(childFragmentManager, AboutQuizBottomSheet::class.java.simpleName)
         }
@@ -34,21 +42,11 @@ class BibleFragment : Fragment() {
         binding.tvLeaderboard.setOnClickListener {
             startActivity(Intent(requireActivity(), BibleLeaderboardActivity::class.java))
         }
-        updateQuizState()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        updateQuizState()
-    }
-
-    private fun updateQuizState() {
-        val isQuizCompleted = getPreference(BibleQuizActivity.QUIZ_COMPLETED_KEY, false)
-        binding.communityCard.root.visibility = if (isQuizCompleted) View.GONE else View.VISIBLE
-        binding.communityCompactCard.visibility = if (isQuizCompleted) View.VISIBLE else View.GONE
-        binding.communityQuestionOne.root.visibility = if (isQuizCompleted) View.VISIBLE else View.GONE
-        binding.communityQuestionTwo.root.visibility = if (isQuizCompleted) View.VISIBLE else View.GONE
-        binding.quizCard.root.visibility = if (isQuizCompleted) View.GONE else View.VISIBLE
-        binding.quizCompleteCard.root.visibility = if (isQuizCompleted) View.VISIBLE else View.GONE
+        binding.communityCard.questionOne.tvDiscuss.setOnClickListener {
+            startActivity(BibleDiscussionActivity.createIntent(requireActivity(), questionIndex = 1))
+        }
+        binding.communityCard.questionTwo.tvDiscuss.setOnClickListener {
+            startActivity(BibleDiscussionActivity.createIntent(requireActivity(), questionIndex = 2))
+        }
     }
 }
