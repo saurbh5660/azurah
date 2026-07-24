@@ -24,6 +24,7 @@ class BibleDiscussionActivity : AppCompatActivity() {
     private lateinit var adapter: DiscussionCommentAdapter
     private var showFollowingOnly = false
 
+
     private val allComments by lazy { sampleComments().toMutableList() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
