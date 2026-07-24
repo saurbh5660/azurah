@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bible_white_card_background"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_13sdp">
+
+        <TextView
+            android:id="@+id/tvCommunityIcon"
+            android:layout_width="@dimen/_38sdp"
+            android:layout_height="@dimen/_38sdp"
+            android:background="@drawable/bible_icon_background"
+            android:backgroundTint="#EEF2F6"
+            android:gravity="center"
+            android:text="💬"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvCommunityTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:fontFamily="@font/inter_bold"
+            android:includeFontPadding="false"
+            android:text="Community Discussion"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_13sdp"
+            app:layout_constraintEnd_toStartOf="@+id/tvCommunityCircle"
+            app:layout_constraintStart_toEndOf="@+id/tvCommunityIcon"
+            app:layout_constraintTop_toTopOf="@+id/tvCommunityIcon" />
+
+        <TextView
+            android:id="@+id/tvCommunitySubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:fontFamily="@font/inter"
+            android:text="2 questions · Each opens a&#10;forum thread"
+            android:textColor="@color/dashboard_subtitle"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="@+id/tvCommunityTitle"
+            app:layout_constraintStart_toEndOf="@+id/tvCommunityIcon"
+            app:layout_constraintTop_toBottomOf="@+id/tvCommunityTitle" />
+
+        <TextView
+            android:id="@+id/tvCommunityCircle"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_28sdp"
+            android:background="@drawable/dashboard_day_empty"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvCommunityIcon" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/post_divider_color" />
+
+    <include
+        android:id="@+id/questionOne"
+        layout="@layout/item_bible_discussion_question_one_flat" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/post_divider_color" />
+
+    <include
+        android:id="@+id/questionTwo"
+        layout="@layout/item_bible_discussion_question_two_flat" />
+</LinearLayout>

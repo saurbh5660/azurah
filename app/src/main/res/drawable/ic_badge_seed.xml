@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Placeholder – replace with your Seed badge icon asset -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24,8C18,14 14,20 14,26c0,5.5 4.5,10 10,10s10,-4.5 10,-10c0,-6 -4,-12 -10,-18z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.35"
+        android:pathData="M24,14c-2.8,3.2 -4.8,6.4 -4.8,9.8c0,2.6 2.2,4.8 4.8,4.8V14z" />
+</vector>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet_quiz_background"
+    android:fillViewport="false"
+    android:overScrollMode="never">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_20sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_20sdp">
+
+        <View
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:background="@drawable/badges_detail_handle" />
+
+        <FrameLayout
+            android:layout_width="@dimen/_72sdp"
+            android:layout_height="@dimen/_72sdp"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:elevation="@dimen/_4sdp">
+
+
+            <ImageView
+                android:id="@+id/ivBadgeIcon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_badge_seed" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tvBadgeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:fontFamily="@font/cinzel_bold"
+            android:includeFontPadding="false"
+            android:text="Seed"
+            android:textColor="#0D3B66"
+            android:textSize="@dimen/_22sdp" />
+
+        <TextView
+            android:id="@+id/tvBadgeSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:fontFamily="@font/inter_bold"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.08"
+            android:text="DAY 1"
+            android:textColor="#3B9FD9"
+            android:textSize="@dimen/_11sdp" />
+
+        <TextView
+            android:id="@+id/tvCongrats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:fontFamily="@font/inter"
+            android:gravity="center"
+            android:lineSpacingExtra="@dimen/_2sdp"
+            android:text="Congratulations! You've unlocked the Seed badge. Your faith journey on AZRIUS has begun."
+            android:textColor="#4B5563"
+            android:textSize="@dimen/_13sdp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/inter_bold"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.08"
+            android:text="WHAT THIS BADGE MEANS"
+            android:textColor="#3B9FD9"
+            android:textSize="@dimen/_10sdp" />
+
+        <TextView
+            android:id="@+id/tvMeans"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:fontFamily="@font/inter"
+            android:lineSpacingExtra="@dimen/_2sdp"
+            android:text="Every time you spend time in God's Word or prayer, a seed is planted that can grow into something greater."
+            android:textColor="#4B5563"
+            android:textSize="@dimen/_12sdp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:fontFamily="@font/inter_bold"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.08"
+            android:text="BIBLICAL INSIGHT"
+            android:textColor="#3B9FD9"
+            android:textSize="@dimen/_10sdp" />
+
+        <TextView
+            android:id="@+id/tvInsight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:fontFamily="@font/inter"
+            android:lineSpacingExtra="@dimen/_2sdp"
+            android:text="Jesus taught that God's Word is like a seed planted in our hearts. Even the smallest beginning has the potential to bear great fruit."
+            android:textColor="#4B5563"
+            android:textSize="@dimen/_12sdp" />
+
+        <LinearLayout
+            android:id="@+id/scriptureSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.08"
+                android:text="SCRIPTURE"
+                android:textColor="#3B9FD9"
+                android:textSize="@dimen/_10sdp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/badges_detail_scripture_bg"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/_4sdp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/badges_detail_scripture_accent" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/_14sdp"
+                    android:paddingVertical="@dimen/_14sdp">
+
+                    <TextView
+                        android:id="@+id/tvScriptureQuote"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/cinzel_bold"
+                        android:lineSpacingExtra="@dimen/_2sdp"
+                        android:text="“The seed is the word of God.”"
+                        android:textColor="#1F2937"
+                        android:textSize="@dimen/_13sdp"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/tvScriptureRef"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:fontFamily="@font/inter_bold"
+                        android:includeFontPadding="false"
+                        android:letterSpacing="0.06"
+                        android:text="LUKE 8:11 (NIV)"
+                        android:textColor="#3B9FD9"
+                        android:textSize="@dimen/_9sdp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvClose"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/badges_detail_close_btn"
+            android:fontFamily="@font/inter_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="Close"
+            android:textColor="#1F2937"
+            android:textSize="@dimen/_14sdp" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
