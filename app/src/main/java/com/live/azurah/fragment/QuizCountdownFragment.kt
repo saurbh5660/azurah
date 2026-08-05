@@ -31,7 +31,7 @@ class QuizCountdownFragment : Fragment() {
             v.updatePadding(top = bars.top, bottom = bars.bottom)
             insets
         }
-        binding.ivBack.setOnClickListener { activity?.finish() }
+        binding.ivBack.setOnClickListener { (activity as? BibleQuizActivity)?.showQuitDialog() }
         tick()
     }
 

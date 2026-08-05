@@ -145,7 +145,21 @@ object ApiConstants {
     const val REMOVE_SUGGESTION = "appApi/user/removeFromSuggestion"
     const val MY_CHALLENGE = "appApi/dashboard/bibleQuest/challenge/myList"
     const val QUIT_CHALLENGE = "appApi/dashboard/bibleQuest/challenge/quit"
+    const val ACTIVE_CHALLENGE = "appApi/dashboard/bibleQuest/activeChallenge"
+    const val QUIZ_QUESTION_LIST = "appApi/dashboard/bibleQuest/challenge/question/list"
+    const val QUIZ_SUBMIT = "appApi/dashboard/bibleQuest/challenge/quiz/submit"
+    const val QUIZ_SUMMARY = "appApi/dashboard/bibleQuest/challenge/quiz/summary"
+    const val QUIZ_QUIT = "appApi/dashboard/bibleQuest/challenge/quiz/quit"
+    
+    // Discussion APIs
+    const val BIBLE_QUEST_DISCUSSION_LIST = "appApi/dashboard/bibleQuest/challenge/discussion/list"
+    const val BIBLE_QUEST_DISCUSSION_ADD = "appApi/dashboard/bibleQuest/challenge/discussion/add"
+    const val BIBLE_QUEST_DISCUSSION_LIKE = "appApi/dashboard/bibleQuest/challenge/discussion/likeUnlike"
+    const val BIBLE_QUEST_DISCUSSION_COMMENT_LIST = "appApi/dashboard/bibleQuest/challenge/discussion/comment/list"
+    const val BIBLE_QUEST_DISCUSSION_COMMENT_ADD = "appApi/dashboard/bibleQuest/challenge/discussion/comment/add"
+    const val BIBLE_QUEST_DISCUSSION_COMMENT_LIKE = "appApi/dashboard/bibleQuest/challenge/discussion/comment/likeUnlike"
+    const val BIBLE_QUEST_DISCUSSION_COMMENT_DELETE = "appApi/dashboard/bibleQuest/challenge/discussion/comment/delete/{id}"
+
     var isMute = false
     var isNotification = false
-
 }

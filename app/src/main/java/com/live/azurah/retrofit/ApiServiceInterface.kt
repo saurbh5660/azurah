@@ -2,6 +2,7 @@ package com.live.azurah.retrofit
 
 import com.live.azurah.model.AddBookmarkResponse
 import com.live.azurah.model.AddWishlistResponse
+import com.live.azurah.model.ActiveChallengeResponse
 import com.live.azurah.model.BibleQuestListResponse
 import com.live.azurah.model.BibleQuestViewModel
 import com.live.azurah.model.BlockResposne
@@ -61,6 +62,7 @@ import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.PartMap
 import retrofit2.http.Path
+import retrofit2.http.Query
 import retrofit2.http.QueryMap
 
 
@@ -552,6 +554,59 @@ interface ApiServiceInterface {
     @POST(ApiConstants.QUIT_CHALLENGE)
     suspend fun quitChallenge(@FieldMap map: HashMap<String, String>): CommonResponse
 
+    @GET(ApiConstants.ACTIVE_CHALLENGE)
+    suspend fun getActiveChallenge(): ActiveChallengeResponse
 
+    @GET(ApiConstants.QUIZ_QUESTION_LIST)
+    suspend fun getQuizQuestionList(@Query("bible_quest_challenge_id") id: Int): com.live.azurah.model.QuizQuestionResponse
+
+    @POST(ApiConstants.QUIZ_SUBMIT)
+    suspend fun submitQuiz(@Body request: com.live.azurah.model.QuizSubmitRequest): com.live.azurah.model.CommonResponse
+
+    @FormUrlEncoded
+    @POST(ApiConstants.BIBLE_CHALLENGE_COMPLETE)
+    suspend fun completeChallenge(@FieldMap map: HashMap<String, String>): com.live.azurah.model.CommonResponse
+
+    @GET(ApiConstants.QUIZ_SUMMARY)
+    suspend fun getQuizSummary(
+        @Query("bible_quest_challenge_id") id: Int,
+        @Query("user_id") userId: String
+    ): com.live.azurah.model.QuizSummaryResponse
+
+    @POST(ApiConstants.QUIZ_QUIT)
+    suspend fun quitQuiz(@Body request: com.live.azurah.model.QuizQuitRequest): com.live.azurah.model.CommonResponse
+
+    @GET(ApiConstants.BIBLE_QUEST_DISCUSSION_LIST)
+    suspend fun getDiscussionList(
+        @Query("page") page: Int,
+        @Query("limit") limit: Int,
+        @Query("bible_quest_challenge_id") challengeId: Int
+    ): com.live.azurah.model.DiscussionListResponse
+
+    @FormUrlEncoded
+    @POST(ApiConstants.BIBLE_QUEST_DISCUSSION_ADD)
+    suspend fun addDiscussion(@FieldMap map: HashMap<String, String>): com.live.azurah.model.CommonResponse
+
+    @FormUrlEncoded
+    @POST(ApiConstants.BIBLE_QUEST_DISCUSSION_LIKE)
+    suspend fun likeUnlikeDiscussion(@FieldMap map: HashMap<String, String>): com.live.azurah.model.CommonResponse
+
+    @GET(ApiConstants.BIBLE_QUEST_DISCUSSION_COMMENT_LIST)
+    suspend fun getDiscussionCommentList(
+        @Query("page") page: Int,
+        @Query("limit") limit: Int,
+        @Query("discussion_id") discussionId: Int,
+        @Query("type") type: String
+    ): com.live.azurah.model.DiscussionCommentListResponse
+
+    @FormUrlEncoded
+    @POST(ApiConstants.BIBLE_QUEST_DISCUSSION_COMMENT_ADD)
+    suspend fun addDiscussionComment(@FieldMap map: HashMap<String, String>): com.live.azurah.model.CommonResponse
+
+    @FormUrlEncoded
+    @POST(ApiConstants.BIBLE_QUEST_DISCUSSION_COMMENT_LIKE)
+    suspend fun likeUnlikeDiscussionComment(@FieldMap map: HashMap<String, String>): com.live.azurah.model.CommonResponse
+
+    @DELETE(ApiConstants.BIBLE_QUEST_DISCUSSION_COMMENT_DELETE)
+    suspend fun deleteDiscussionComment(@Path("id") id: Int): com.live.azurah.model.CommonResponse
 }
-

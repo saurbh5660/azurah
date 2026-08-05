@@ -9,22 +9,15 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.live.azurah.R
 import com.live.azurah.databinding.ItemDiscussionCommentBinding
-
-data class DiscussionComment(
-    val initials: String,
-    val username: String,
-    val timeAgo: String,
-    val comment: String,
-    var likes: Int,
-    val replies: Int,
-    val avatarColor: String,
-    val isFollowing: Boolean = false,
-    val isTop: Boolean = false,
-    var isLiked: Boolean = false
-)
+import com.live.azurah.model.DiscussionCommentItem
+import com.live.azurah.util.getRelativeTime
+import com.live.azurah.util.loadImage
+import com.live.azurah.util.getPreference
 
 class DiscussionCommentAdapter(
-    private var items: MutableList<DiscussionComment> = mutableListOf()
+    private var items: MutableList<DiscussionCommentItem> = mutableListOf(),
+    private val onLikeClick: (DiscussionCommentItem, Int) -> Unit = { _, _ -> },
+    private val onDeleteClick: (DiscussionCommentItem, Int) -> Unit = { _, _ -> }
 ) : RecyclerView.Adapter<DiscussionCommentAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ItemDiscussionCommentBinding) :
@@ -44,39 +37,67 @@ class DiscussionCommentAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
+        val context = holder.binding.root.context
+        
         with(holder.binding) {
-            tvAvatar.text = item.initials
-            tvAvatar.backgroundTintList = ColorStateList.valueOf(Color.parseColor(item.avatarColor))
-            tvUsername.text = item.username
-            tvTime.text = item.timeAgo
-            tvComment.text = item.comment
-            tvReply.text = if (item.replies > 0) "Reply (${item.replies})" else "Reply"
-            tvFollowingBadge.visibility = if (item.isFollowing) View.VISIBLE else View.GONE
-            tvTopBadge.visibility = if (item.isTop) View.VISIBLE else View.GONE
+            tvUsername.text = item.user?.username ?: ""
+            tvComment.text = item.description ?: ""
+            tvTime.text = getRelativeTime(item.created_at ?: "")
+            
+            if (!item.user?.profile_image.isNullOrEmpty()) {
+                ivAvatar.visibility = View.VISIBLE
+                tvAvatar.visibility = View.GONE
+                ivAvatar.loadImage(item.user?.profile_image)
+            } else {
+                ivAvatar.visibility = View.GONE
+                tvAvatar.visibility = View.VISIBLE
+                tvAvatar.text = item.user?.username?.take(2)?.uppercase() ?: "AZ"
+                tvAvatar.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#7DB8E8"))
+            }
+
+            val currentUserId = getPreference("id", "").toString()
+            if (item.user_id?.toString() == currentUserId) {
+                ivDelete.visibility = View.VISIBLE
+            } else {
+                ivDelete.visibility = View.GONE
+            }
+
+            tvReply.text = "Reply"
+            tvFollowingBadge.visibility = View.GONE
+            tvTopBadge.visibility = View.GONE
+
             bindLikeState(item)
 
             ivLike.setOnClickListener {
                 val pos = holder.bindingAdapterPosition
                 if (pos == RecyclerView.NO_POSITION) return@setOnClickListener
                 val current = items[pos]
-                if (current.isLiked) {
-                    current.isLiked = false
-                    current.likes = (current.likes - 1).coerceAtLeast(0)
+                
+                // Optimistic UI update
+                if (current.is_like == 1) {
+                    current.is_like = 0
+                    current.like_count = (current.like_count ?: 1) - 1
                 } else {
-                    current.isLiked = true
-                    current.likes += 1
+                    current.is_like = 1
+                    current.like_count = (current.like_count ?: 0) + 1
                 }
                 notifyItemChanged(pos)
+                
+                onLikeClick(current, pos)
             }
-
-            ivComment.setOnClickListener { /* reply UI later */ }
-            tvReply.setOnClickListener { /* reply UI later */ }
+            
+            ivDelete.setOnClickListener {
+                val pos = holder.bindingAdapterPosition
+                if (pos != RecyclerView.NO_POSITION) {
+                    onDeleteClick(item, pos)
+                }
+            }
         }
     }
 
-    private fun ItemDiscussionCommentBinding.bindLikeState(item: DiscussionComment) {
+    private fun ItemDiscussionCommentBinding.bindLikeState(item: DiscussionCommentItem) {
         val context = root.context
-        if (item.isLiked) {
+        if (item.is_like == 1) {
             ivLike.setImageResource(R.drawable.selected_heart)
             ivLike.imageTintList = ContextCompat.getColorStateList(context, R.color.star_red_color)
             tvLikes.setTextColor(ContextCompat.getColor(context, R.color.star_red_color))
@@ -85,10 +106,10 @@ class DiscussionCommentAdapter(
             ivLike.imageTintList = ContextCompat.getColorStateList(context, R.color.black)
             tvLikes.setTextColor(Color.parseColor("#F472B6"))
         }
-        tvLikes.text = item.likes.toString()
+        tvLikes.text = (item.like_count ?: 0).toString()
     }
 
-    fun submitList(newItems: List<DiscussionComment>) {
+    fun submitList(newItems: List<DiscussionCommentItem>) {
         items = newItems.toMutableList()
         notifyDataSetChanged()
     }

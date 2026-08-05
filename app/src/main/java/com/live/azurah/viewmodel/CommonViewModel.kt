@@ -1218,4 +1218,107 @@ class CommonViewModel @Inject constructor(private val commonRepository: CommonRe
         }
     }
 
+    fun getActiveChallenge(activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.getActiveChallenge(activity)
+            emit(response)
+        }
+    }
+
+    fun getQuizQuestionList(id: Int, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.getQuizQuestionList(id, activity)
+            emit(response)
+        }
+    }
+
+    fun submitQuiz(request: com.live.azurah.model.QuizSubmitRequest, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.submitQuiz(request, activity)
+            emit(response)
+        }
+    }
+
+    fun completeChallenge(map: HashMap<String, String>, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.completeChallenge(map, activity)
+            emit(response)
+        }
+    }
+
+    fun getQuizSummary(id: Int, userId: String, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.getQuizSummary(id, userId, activity)
+            emit(response)
+        }
+    }
+
+    fun quitQuiz(request: com.live.azurah.model.QuizQuitRequest, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.quitQuiz(request, activity)
+            emit(response)
+        }
+    }
+
+    fun getDiscussionList(page: Int, limit: Int, challengeId: Int, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.getDiscussionList(page, limit, challengeId, activity)
+            emit(response)
+        }
+    }
+
+    fun likeUnlikeDiscussion(map: HashMap<String, String>, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.likeUnlikeDiscussion(map, activity)
+            emit(response)
+        }
+    }
+
+    fun getDiscussionCommentList(page: Int, limit: Int, discussionId: Int, type: String, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.getDiscussionCommentList(page, limit, discussionId, type, activity)
+            emit(response)
+        }
+    }
+
+    fun addDiscussion(map: HashMap<String, String>, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.addDiscussion(map, activity)
+            emit(response)
+        }
+    }
+
+    fun addDiscussionComment(map: HashMap<String, String>, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.addDiscussionComment(map, activity)
+            emit(response)
+        }
+    }
+
+    fun likeUnlikeDiscussionComment(map: HashMap<String, String>, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.likeUnlikeDiscussionComment(map, activity)
+            emit(response)
+        }
+    }
+
+    fun deleteDiscussionComment(id: Int, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.deleteDiscussionComment(id, activity)
+            emit(response)
+        }
+    }
 }

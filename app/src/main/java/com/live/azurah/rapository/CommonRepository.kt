@@ -1197,4 +1197,106 @@ class CommonRepository @Inject constructor(
         }
     }
 
+    suspend fun getActiveChallenge(activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.getActiveChallenge())
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+    suspend fun getQuizQuestionList(id: Int, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.getQuizQuestionList(id))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
+    suspend fun submitQuiz(request: com.live.azurah.model.QuizSubmitRequest, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.submitQuiz(request))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
+    suspend fun completeChallenge(map: HashMap<String, String>, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.completeChallenge(map))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
+    suspend fun getQuizSummary(id: Int, userId: String, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.getQuizSummary(id, userId))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
+    suspend fun quitQuiz(request: com.live.azurah.model.QuizQuitRequest, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.quitQuiz(request))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
+    suspend fun getDiscussionList(page: Int, limit: Int, challengeId: Int, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.getDiscussionList(page, limit, challengeId))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
+    suspend fun addDiscussion(map: HashMap<String, String>, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.addDiscussion(map))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
+    suspend fun likeUnlikeDiscussion(map: HashMap<String, String>, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.likeUnlikeDiscussion(map))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
+    suspend fun getDiscussionCommentList(page: Int, limit: Int, discussionId: Int, type: String, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.getDiscussionCommentList(page, limit, discussionId, type))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
+    suspend fun addDiscussionComment(map: HashMap<String, String>, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.addDiscussionComment(map))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
+    suspend fun likeUnlikeDiscussionComment(map: HashMap<String, String>, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.likeUnlikeDiscussionComment(map))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
+    suspend fun deleteDiscussionComment(id: Int, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.deleteDiscussionComment(id))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
 }

@@ -1,11 +1,13 @@
 package com.live.azurah.model
 
-
+import com.google.gson.Gson
+import com.google.gson.JsonElement
 import com.google.gson.annotations.SerializedName
+import com.google.gson.reflect.TypeToken
 
 data class BibleQuestListResponse(
     @SerializedName("body")
-    val body: Body? = null,
+    val bodyElement: JsonElement? = null,
     @SerializedName("code")
     val code: Int? = null,
     @SerializedName("message")
@@ -13,6 +15,28 @@ data class BibleQuestListResponse(
     @SerializedName("success")
     val success: Boolean? = null
 ) {
+    @kotlin.jvm.Transient
+    private var parsedBody: Body? = null
+
+    val body: Body?
+        get() {
+            if (parsedBody != null) return parsedBody
+            if (bodyElement == null) return null
+            return try {
+                parsedBody = if (bodyElement.isJsonArray) {
+                    val listType = object : TypeToken<ArrayList<Body.Data>>() {}.type
+                    val dataList: ArrayList<Body.Data> = Gson().fromJson(bodyElement, listType)
+                    Body(data = dataList, currentPage = 1, totalPages = 1)
+                } else if (bodyElement.isJsonObject) {
+                    Gson().fromJson(bodyElement, Body::class.java)
+                } else {
+                    null
+                }
+                parsedBody
+            } catch (e: Exception) {
+                null
+            }
+        }
     data class Body(
         @SerializedName("current_page")
         val currentPage: Int? = null,

@@ -16,18 +16,27 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvAvatar"
+        <FrameLayout
             android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:background="@drawable/circle_background"
-            android:backgroundTint="#A8D4E8"
-            android:fontFamily="@font/inter_bold"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_12sdp"
-            tools:text="GW" />
+            android:layout_height="@dimen/_40sdp">
+            <TextView
+                android:id="@+id/tvAvatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circle_background"
+                android:backgroundTint="#A8D4E8"
+                android:fontFamily="@font/inter_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp"
+                tools:text="GW" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -150,5 +159,18 @@
             android:textColor="#67B8DE"
             android:textSize="@dimen/_11sdp"
             tools:text="Reply (2)" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/ivDelete"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:src="@drawable/ic_delete"
+            app:tint="@color/dashboard_subtitle"
+            android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>

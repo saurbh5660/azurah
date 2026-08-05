@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -13,24 +14,49 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.live.azurah.R
-import com.live.azurah.adapter.DiscussionComment
-import com.live.azurah.adapter.DiscussionCommentAdapter
+import com.live.azurah.adapter.DiscussionAdapter
 import com.live.azurah.databinding.ActivityBibleDiscussionBinding
+import com.live.azurah.databinding.ItemBottomSheetCommentBinding
+import com.live.azurah.model.DiscussionListResponse
+import com.live.azurah.retrofit.Resource
+import com.live.azurah.retrofit.Status
+import com.live.azurah.viewmodel.CommonViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.live.azurah.adapter.DiscussionCommentAdapter
+import com.live.azurah.model.DiscussionCommentListResponse
+import android.view.inputmethod.InputMethodManager
 
 class BibleDiscussionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBibleDiscussionBinding
-    private lateinit var adapter: DiscussionCommentAdapter
+    private lateinit var adapter: DiscussionAdapter
+    private lateinit var commonViewModel: CommonViewModel
     private var showFollowingOnly = false
-
-
-    private val allComments by lazy { sampleComments().toMutableList() }
+    
+    private var questionIndex = 1
+    private var challengeId = 0
+    private var questTitle = ""
+    private var dayNo = 1
+    private var discussionId = 0
+    private var discussionDesc = ""
+    
+    private var allDiscussions: List<DiscussionListResponse.DiscussionData> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBibleDiscussionBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        
+        commonViewModel = ViewModelProvider(this)[CommonViewModel::class.java]
+
+        questionIndex = intent.getIntExtra(EXTRA_QUESTION_INDEX, 1)
+        challengeId = intent.getIntExtra(EXTRA_CHALLENGE_ID, 0)
+        questTitle = intent.getStringExtra(EXTRA_QUEST_TITLE) ?: ""
+        dayNo = intent.getIntExtra(EXTRA_DAY_NO, 1)
+        discussionId = intent.getIntExtra(EXTRA_DISCUSSION_ID, 0)
+        discussionDesc = intent.getStringExtra(EXTRA_DISCUSSION_DESC) ?: ""
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.dashboard_primary)
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -46,33 +72,92 @@ class BibleDiscussionActivity : AppCompatActivity() {
         bindQuestionHeader()
         setupList()
         setupTabs()
+        fetchDiscussions()
 
         binding.tvBack.setOnClickListener { finish() }
         binding.btnSend.setOnClickListener {
-            // UI-only for now
+            val text = binding.etComment.text.toString().trim()
+            if (text.isNotEmpty() && challengeId != 0 && discussionId != 0) {
+                addDiscussion(text)
+            }
         }
     }
 
     private fun bindQuestionHeader() {
-        val questionIndex = intent.getIntExtra(EXTRA_QUESTION_INDEX, 1)
-        if (questionIndex == 2) {
-            binding.tvStudyMeta.text = "ESTHER • DAY 5 • QUESTION 2 OF 2"
-            binding.tvQuestion.text = "How can you apply Esther's courage this week?"
-            binding.tvResponseCount.text = "9 responses"
-            binding.tvLikeCount.text = "21 likes"
-        } else {
-            binding.tvStudyMeta.text = "ESTHER • DAY 5 • QUESTION 1 OF 2"
-            binding.tvQuestion.text = "What stood out to you in today's reading?"
-            binding.tvResponseCount.text = "${allComments.size} responses"
-            binding.tvLikeCount.text = "47 likes"
-        }
+        binding.tvStudyMeta.text = "${questTitle.uppercase()} • DAY $dayNo • QUESTION $questionIndex OF 2"
+        binding.tvQuestion.text = discussionDesc
+        binding.tvResponseCount.text = "0 responses"
+        binding.tvLikeCount.text = "0 likes"
     }
 
     private fun setupList() {
-        adapter = DiscussionCommentAdapter()
+        adapter = DiscussionAdapter(
+            onCommentClick = { discussion, _ ->
+                openCommentsBottomSheet(discussion)
+            },
+            onLikeClick = { discussion, _ ->
+                val map = HashMap<String, String>()
+                map["discussion_id"] = discussion.id.toString()
+                commonViewModel.likeUnlikeDiscussion(map, this).observe(this) {}
+            }
+        )
         binding.rvComments.layoutManager = LinearLayoutManager(this)
         binding.rvComments.adapter = adapter
-        refreshComments()
+    }
+
+    private fun fetchDiscussions() {
+        if (challengeId == 0) return
+        
+        commonViewModel.getDiscussionList(1, 50, challengeId, this).observe(this) { response ->
+            when (response.status) {
+                Status.LOADING -> {}
+                Status.SUCCESS -> {
+                    response.data?.let { data ->
+                        if (data is DiscussionListResponse && data.success == true) {
+                            allDiscussions = data.body?.data ?: emptyList()
+                            
+                            // Let's filter if there's any logic. The API returns all discussions for the challenge.
+                            // Maybe we just filter to the current discussionId? Or they are all for it.
+                            val filtered = allDiscussions.filter { it.bible_quest_challenge_id == challengeId }
+                            allDiscussions = filtered
+                            
+                            binding.tvResponseCount.text = "${allDiscussions.size} responses"
+                            val totalLikes = allDiscussions.sumOf { it.like_count ?: 0 }
+                            binding.tvLikeCount.text = "$totalLikes likes"
+                            
+                            refreshComments()
+                        }
+                    }
+                }
+                Status.ERROR -> {
+                    Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
+                }
+                else -> {}
+            }
+        }
+    }
+
+    private fun addDiscussion(description: String) {
+        val map = HashMap<String, String>()
+        map["bible_quest_id"] = "1" // This should probably be dynamic, but challengeId is what matters most
+        map["bible_quest_challenge_id"] = challengeId.toString()
+        map["title"] = ""
+        map["description"] = description
+        
+        commonViewModel.addDiscussion(map, this).observe(this) { response ->
+             when (response.status) {
+                Status.SUCCESS -> {
+                    binding.etComment.setText("")
+                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(binding.etComment.windowToken, 0)
+                    fetchDiscussions()
+                }
+                Status.ERROR -> {
+                    Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
+                }
+                else -> {}
+            }
+        }
     }
 
     private fun setupTabs() {
@@ -108,73 +193,98 @@ class BibleDiscussionActivity : AppCompatActivity() {
 
     private fun refreshComments() {
         val items = if (showFollowingOnly) {
-            allComments.filter { it.isFollowing }
+            // Need following logic in API or user object, but for now we just show all or none if not supported
+            allDiscussions 
         } else {
-            allComments
+            allDiscussions
         }
         adapter.submitList(items)
     }
 
-    private fun sampleComments(): List<DiscussionComment> = listOf(
-        DiscussionComment(
-            initials = "GW",
-            username = "@grace_walker",
-            timeAgo = "2 hours ago",
-            comment = "Esther's courage really stood out to me 🙏 She risked everything knowing God might not even intervene the way she hoped. That kind of faith is rare.",
-            likes = 18,
-            replies = 2,
-            avatarColor = "#7DB8E8",
-            isFollowing = true,
-            isTop = true
-        ),
-        DiscussionComment(
-            initials = "KD",
-            username = "@kevin_d",
-            timeAgo = "4 hours ago",
-            comment = "The moment where she says \"if I perish, I perish\" hit me hard. Reminds me that obedience sometimes means stepping into the unknown.",
-            likes = 12,
-            replies = 1,
-            avatarColor = "#A8D4E8",
-            isFollowing = false
-        ),
-        DiscussionComment(
-            initials = "SM",
-            username = "@sara_m",
-            timeAgo = "5 hours ago",
-            comment = "I noticed how Esther prepared before she acted — fasting, seeking counsel. Courage isn't impulsive; it's grounded. 🤔",
-            likes = 9,
-            replies = 0,
-            avatarColor = "#F6C332",
-            isFollowing = true
-        ),
-        DiscussionComment(
-            initials = "JL",
-            username = "@james_lee",
-            timeAgo = "Yesterday",
-            comment = "Mordecai's trust in God's bigger plan encouraged me. Even when we can't see the ending, God is already working.",
-            likes = 7,
-            replies = 3,
-            avatarColor = "#8BD4C4",
-            isFollowing = false
-        ),
-        DiscussionComment(
-            initials = "AR",
-            username = "@amy_r",
-            timeAgo = "Yesterday",
-            comment = "What stood out was community — Esther didn't stand alone. We need people praying with us when decisions are hard.",
-            likes = 15,
-            replies = 4,
-            avatarColor = "#FB7D24",
-            isFollowing = true
+    private fun openCommentsBottomSheet(discussion: DiscussionListResponse.DiscussionData) {
+        val bottomSheet = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
+        val bsBinding = ItemBottomSheetCommentBinding.inflate(layoutInflater)
+        bottomSheet.setContentView(bsBinding.root)
+        bottomSheet.show()
+        
+        lateinit var commentAdapter: DiscussionCommentAdapter
+        commentAdapter = DiscussionCommentAdapter(
+            onLikeClick = { item, _ ->
+                val map = HashMap<String, String>()
+                map["discussion_comment_id"] = item.id.toString()
+                commonViewModel.likeUnlikeDiscussionComment(map, this).observe(this) {}
+            },
+            onDeleteClick = { item, _ ->
+                item.id?.let {
+                    commonViewModel.deleteDiscussionComment(it, this).observe(this) { response ->
+                        if (response.status == Status.SUCCESS) {
+                            fetchComments(discussion.id ?: 0, commentAdapter, bsBinding)
+                        }
+                    }
+                }
+            }
         )
-    )
+        
+        bsBinding.rvComments.layoutManager = LinearLayoutManager(this)
+        bsBinding.rvComments.adapter = commentAdapter
+        
+        fetchComments(discussion.id ?: 0, commentAdapter, bsBinding)
+        
+        bsBinding.ivSend.setOnClickListener {
+            val text = bsBinding.etMessage.text.toString().trim()
+            if (text.isNotEmpty() && discussion.id != null) {
+                val map = HashMap<String, String>()
+                map["discussion_id"] = discussion.id.toString()
+                map["comment"] = text
+                map["mentions"] = "[]"
+                
+                commonViewModel.addDiscussionComment(map, this).observe(this) { response ->
+                    if (response.status == Status.SUCCESS) {
+                        bsBinding.etMessage.setText("")
+                        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        imm.hideSoftInputFromWindow(bsBinding.etMessage.windowToken, 0)
+                        fetchComments(discussion.id, commentAdapter, bsBinding)
+                    }
+                }
+            }
+        }
+        
+        bsBinding.ivCross.setOnClickListener { bottomSheet.dismiss() }
+    }
+    
+    private fun fetchComments(discussionId: Int, adapter: DiscussionCommentAdapter, bsBinding: ItemBottomSheetCommentBinding) {
+        commonViewModel.getDiscussionCommentList(1, 100, discussionId, "discussion", this).observe(this) { response ->
+             when (response.status) {
+                 Status.SUCCESS -> {
+                     response.data?.let { data ->
+                         if (data is DiscussionCommentListResponse && data.success == true) {
+                             val comments = data.body?.data ?: emptyList()
+                             adapter.submitList(comments)
+                             bsBinding.tvTotalComments.text = "${comments.size} comments"
+                         }
+                     }
+                 }
+                 else -> {}
+             }
+        }
+    }
 
     companion object {
         const val EXTRA_QUESTION_INDEX = "question_index"
+        const val EXTRA_CHALLENGE_ID = "challenge_id"
+        const val EXTRA_QUEST_TITLE = "quest_title"
+        const val EXTRA_DAY_NO = "day_no"
+        const val EXTRA_DISCUSSION_ID = "discussion_id"
+        const val EXTRA_DISCUSSION_DESC = "discussion_desc"
 
-        fun createIntent(context: Context, questionIndex: Int = 1): Intent {
+        fun createIntent(context: Context, questionIndex: Int, challengeId: Int, questTitle: String, dayNo: Int, discussionId: Int, discussionDesc: String): Intent {
             return Intent(context, BibleDiscussionActivity::class.java).apply {
                 putExtra(EXTRA_QUESTION_INDEX, questionIndex)
+                putExtra(EXTRA_CHALLENGE_ID, challengeId)
+                putExtra(EXTRA_QUEST_TITLE, questTitle)
+                putExtra(EXTRA_DAY_NO, dayNo)
+                putExtra(EXTRA_DISCUSSION_ID, discussionId)
+                putExtra(EXTRA_DISCUSSION_DESC, discussionDesc)
             }
         }
     }

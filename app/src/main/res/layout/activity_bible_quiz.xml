@@ -3,4 +3,14 @@
     android:id="@+id/quizContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dashboard_primary" />
+    android:background="@color/dashboard_primary">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/white"
+        android:visibility="gone" />
+
+</FrameLayout>

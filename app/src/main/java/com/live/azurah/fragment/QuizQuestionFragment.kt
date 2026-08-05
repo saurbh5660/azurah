@@ -6,15 +6,21 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.live.azurah.R
 import com.live.azurah.activity.BibleQuizActivity
 import com.live.azurah.databinding.FragmentQuizQuestionBinding
 import com.live.azurah.databinding.ItemQuizOptionBinding
-import com.live.azurah.model.BibleQuizData
+import com.live.azurah.model.QuizAnswerRequest
+import com.live.azurah.model.QuizQuestion
+import com.live.azurah.model.QuizSubmitRequest
+import com.live.azurah.retrofit.LoaderDialog
+import com.live.azurah.retrofit.Status
 
 class QuizQuestionFragment : Fragment() {
     private var _binding: FragmentQuizQuestionBinding? = null
@@ -48,11 +54,11 @@ class QuizQuestionFragment : Fragment() {
             insets
         }
 
-        binding.tvClose.setOnClickListener { activity?.finish() }
+        binding.tvClose.setOnClickListener { (activity as? BibleQuizActivity)?.showQuitDialog() }
         binding.tvNext.setOnClickListener {
             val host = activity as? BibleQuizActivity ?: return@setOnClickListener
-            if (host.questionIndex >= BibleQuizData.questions.lastIndex) {
-                host.showResultFragment()
+            if (host.questionIndex >= host.questions.lastIndex) {
+                submitQuizAndFinish(host)
             } else {
                 host.questionIndex++
                 host.showQuestionFragment()
@@ -63,21 +69,25 @@ class QuizQuestionFragment : Fragment() {
 
     private fun bindQuestion() {
         val host = activity as? BibleQuizActivity ?: return
-        val question = BibleQuizData.questions[host.questionIndex]
+        if (host.questions.isEmpty() || host.questionIndex >= host.questions.size) return
+        
+        val question = host.questions[host.questionIndex]
         answered = false
         binding.feedbackCard.visibility = View.GONE
         binding.tvNext.visibility = View.GONE
         binding.tvTimeLabel.text = "30 sec per Q"
         binding.tvScore.text = host.score.toString()
-        binding.tvQuestionMeta.text = "QUESTION ${host.questionIndex + 1} OF 5 • 100 PTS IF CORRECT"
-        binding.tvQuestion.text = question.question
+        binding.tvQuestionMeta.text = "QUESTION ${host.questionIndex + 1} OF ${host.questions.size} • 100 PTS IF CORRECT"
+        binding.tvQuestion.text = question.question ?: ""
         updateProgress(host)
+
+        val options = listOf(question.optionA, question.optionB, question.optionC, question.optionD)
 
         optionBindings.forEachIndexed { index, optionBinding ->
             optionBinding.root.alpha = 1f
             optionBinding.root.isClickable = true
             optionBinding.tvOptionLetter.text = letterLabels[index]
-            optionBinding.tvOptionText.text = question.options.getOrElse(index) { "" }
+            optionBinding.tvOptionText.text = options.getOrNull(index) ?: ""
             optionBinding.root.setOnClickListener {
                 if (!answered) showFeedback(index)
             }
@@ -121,11 +131,18 @@ class QuizQuestionFragment : Fragment() {
 
     private fun showFeedback(selectedIndex: Int) {
         val host = activity as? BibleQuizActivity ?: return
-        val question = BibleQuizData.questions[host.questionIndex]
+        if (host.questions.isEmpty() || host.questionIndex >= host.questions.size) return
+        val question = host.questions[host.questionIndex]
         answered = true
         timer?.cancel()
 
-        val isCorrect = selectedIndex == question.correctIndex
+        val correctIndex = letterLabels.indexOf(question.correctOption?.uppercase())
+        val isCorrect = selectedIndex == correctIndex
+
+        if (selectedIndex >= 0 && selectedIndex < letterLabels.size) {
+            host.answers.add(QuizAnswerRequest(question.id ?: 0, letterLabels[selectedIndex]))
+        }
+
         if (isCorrect) {
             host.score += 100
             host.correctCount++
@@ -141,7 +158,7 @@ class QuizQuestionFragment : Fragment() {
         optionBindings.forEachIndexed { index, optionBinding ->
             optionBinding.root.isClickable = false
             optionBinding.root.alpha =
-                if (index == selectedIndex || index == question.correctIndex) 1f else 0.35f
+                if (index == selectedIndex || index == correctIndex) 1f else 0.35f
         }
 
         binding.feedbackCard.visibility = View.VISIBLE
@@ -161,14 +178,21 @@ class QuizQuestionFragment : Fragment() {
             if (isCorrect) R.drawable.leaderboard_icon_green else R.drawable.quiz_pts_badge_wrong
         )
 
-        val correctLetter = letterLabels[question.correctIndex]
-        binding.tvCorrectAnswer.text = "$correctLetter — ${question.options[question.correctIndex]}"
-        binding.tvContext.text = question.context
-        binding.tvVerse.text = "— ${question.verse}"
+        val options = listOf(question.optionA, question.optionB, question.optionC, question.optionD)
+        
+        if (correctIndex in options.indices) {
+            val correctLetter = letterLabels[correctIndex]
+            binding.tvCorrectAnswer.text = "$correctLetter — ${options[correctIndex]}"
+        } else {
+            binding.tvCorrectAnswer.text = ""
+        }
+        
+        binding.tvContext.text = question.contextDescriptionCorrectOption ?: ""
+        binding.tvVerse.text = "" // If there is no verse field in API response
 
         binding.tvNext.visibility = View.VISIBLE
         binding.tvNext.text =
-            if (host.questionIndex >= BibleQuizData.questions.lastIndex) "See Results →" else "Next Question →"
+            if (host.questionIndex >= host.questions.lastIndex) "See Results →" else "Next Question →"
         binding.tvNext.setBackgroundResource(
             if (isCorrect) R.drawable.quiz_next_button_correct else R.drawable.quiz_next_button_wrong
         )
@@ -176,6 +200,31 @@ class QuizQuestionFragment : Fragment() {
         binding.scrollContent.post {
             binding.scrollContent.fullScroll(View.FOCUS_DOWN)
         }
+    }
+
+    private fun submitQuizAndFinish(host: BibleQuizActivity) {
+        val request = QuizSubmitRequest(
+            bibleQuestId = host.questId,
+            bibleQuestChallengeId = host.challengeId,
+            dayNo = host.dayNo,
+            answers = host.answers
+        )
+        host.viewModel.submitQuiz(request, host).observe(viewLifecycleOwner, Observer { resource ->
+            when (resource.status) {
+                Status.SUCCESS -> {
+                    LoaderDialog.dismiss()
+                    host.showResultFragment()
+                }
+                Status.ERROR -> {
+                    LoaderDialog.dismiss()
+                    Toast.makeText(context, resource.message ?: "Failed to submit quiz", Toast.LENGTH_SHORT).show()
+                    host.showResultFragment() // Still proceed to results
+                }
+                Status.LOADING -> {
+                    context?.let { LoaderDialog.show(it) }
+                }
+            }
+        })
     }
 
     override fun onDestroyView() {
