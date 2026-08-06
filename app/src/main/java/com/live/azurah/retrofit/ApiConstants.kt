@@ -48,6 +48,8 @@ object ApiConstants {
     const val ADD_POST = "appApi/post/add"
     const val DASHBOARD_LIST = "appApi/dashboard/list"
     const val DASHBOARD_DATA = "common_api/app_dashboard/testimony"
+    const val BIBLE_QUEST_STREAK = "appApi/dashboard/bibleQuest/streak"
+    const val STREAK_CALENDAR = "appApi/dashboard/bibleQuest/streak/calendar"
     const val POST_LIST = "appApi/post/list"
     const val POST_LIKE_UNLIKE = "appApi/post/likeUnlike"
     const val POST_BOOKMARK= "appApi/post/bookmark"

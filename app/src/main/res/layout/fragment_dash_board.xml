@@ -156,13 +156,12 @@
                     android:layout_marginTop="@dimen/_8sdp"
                     android:fontFamily="@font/poppins_semibold"
                     android:includeFontPadding="false"
-                    android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_8sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvMessage"
-                    tools:text="EPHESIANS 4:32" />
+                    tools:text="Test 4:1:2" />
 
                 <TextView
                     android:id="@+id/tvVerse"
@@ -204,6 +203,7 @@
                 android:text="View all  →"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_11sdp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/tvBibleQuest"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvBibleQuest" />

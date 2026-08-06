@@ -336,6 +336,22 @@ class CommonViewModel @Inject constructor(private val commonRepository: CommonRe
         }
     }
 
+    fun getBibleQuestStreak(activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.getBibleQuestStreak(activity)
+            emit(response)
+        }
+    }
+
+    fun getStreakCalendar(map: HashMap<String, String>, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.getStreakCalendar(map, activity)
+            emit(response)
+        }
+    }
+
     fun getPostList(map: HashMap<String, String>, activity: Activity): LiveData<Resource<Any>> {
         return liveData(Dispatchers.IO) {
             emit(Resource.loading(null))

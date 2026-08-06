@@ -77,11 +77,12 @@
                         android:layout_marginTop="@dimen/_4sdp" />
 
                     <TextView
+                        android:id="@+id/tvCurrentStreak"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nimbus_semibold"
                         android:includeFontPadding="false"
-                        android:text="12"
+                        android:text="0"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_20sdp" />
 
@@ -112,11 +113,12 @@
                         android:layout_marginTop="@dimen/_4sdp" />
 
                     <TextView
+                        android:id="@+id/tvPersonalBest"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nimbus_semibold"
                         android:includeFontPadding="false"
-                        android:text="21"
+                        android:text="0"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_20sdp" />
 
@@ -148,11 +150,12 @@
                         android:layout_marginTop="@dimen/_4sdp" />
 
                     <TextView
+                        android:id="@+id/tvStreakProtect"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nimbus_semibold"
                         android:includeFontPadding="false"
-                        android:text="1"
+                        android:text="0"
                         android:textColor="#F0BC13"
                         android:textSize="@dimen/_20sdp" />
 
@@ -236,68 +239,7 @@
                     android:id="@+id/calendarContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout style="@style/StreakCalendarRow">
-                        <TextView style="@style/StreakDayHeaderWeighted" android:text="SUN" />
-                        <TextView style="@style/StreakDayHeaderWeighted" android:text="MON" />
-                        <TextView style="@style/StreakDayHeaderWeighted" android:text="TUE" />
-                        <TextView style="@style/StreakDayHeaderWeighted" android:text="WED" />
-                        <TextView style="@style/StreakDayHeaderWeighted" android:text="THU" />
-                        <TextView style="@style/StreakDayHeaderWeighted" android:text="FRI" />
-                        <TextView style="@style/StreakDayHeaderWeighted" android:text="SAT" />
-                    </LinearLayout>
-
-                    <LinearLayout style="@style/StreakCalendarRow">
-                        <Space style="@style/StreakBlankDayWeighted" />
-                        <Space style="@style/StreakBlankDayWeighted" />
-                        <Space style="@style/StreakBlankDayWeighted" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="1" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="2" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="3" />
-                        <TextView style="@style/StreakMissedDayWeighted" android:text="4" />
-                    </LinearLayout>
-
-                    <LinearLayout style="@style/StreakCalendarRow">
-                        <TextView style="@style/StreakMissedDayWeighted" android:text="5" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="6" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="7" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="8" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="9" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="10" />
-                        <TextView style="@style/StreakMissedDayWeighted" android:text="11" />
-                    </LinearLayout>
-
-                    <LinearLayout style="@style/StreakCalendarRow">
-                        <TextView style="@style/StreakProtectedDayWeighted" android:text="12" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="13" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="14" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="15" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="16" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="17" />
-                        <TextView style="@style/StreakMissedDayWeighted" android:text="18" />
-                    </LinearLayout>
-
-                    <LinearLayout style="@style/StreakCalendarRow">
-                        <TextView style="@style/StreakMissedDayWeighted" android:text="19" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="20" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="21" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="22" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="23" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="24" />
-                        <TextView style="@style/StreakMissedDayWeighted" android:text="25" />
-                    </LinearLayout>
-
-                    <LinearLayout style="@style/StreakCalendarRow">
-                        <TextView style="@style/StreakMissedDayWeighted" android:text="26" />
-                        <TextView style="@style/StreakCompletedDayWeighted" android:text="27" />
-                        <TextView style="@style/StreakTodayDayWeighted" android:text="28" />
-                        <TextView style="@style/StreakFutureDayWeighted" android:text="29" />
-                        <TextView style="@style/StreakFutureDayWeighted" android:text="30" />
-                        <Space style="@style/StreakBlankDayWeighted" />
-                        <Space style="@style/StreakBlankDayWeighted" />
-                    </LinearLayout>
-                </LinearLayout>
+                    android:orientation="vertical" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -369,15 +311,41 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <View
-                        android:layout_width="@dimen/_13sdp"
-                        android:layout_height="@dimen/_12sdp"
-                        android:background="@drawable/streak_day_today" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        style="@style/StreakLegend"
-                        android:text="Today"
-                        android:textColor="#4B5563" />
+                        <View
+                            android:layout_width="@dimen/_13sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:background="@drawable/streak_day_today" />
+
+                        <TextView
+                            style="@style/StreakLegend"
+                            android:text="Today"
+                            android:textColor="#4B5563" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="@dimen/_13sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:background="@drawable/streak_day_upcoming" />
+
+                        <TextView
+                            style="@style/StreakLegend"
+                            android:text="Upcoming"
+                            android:textColor="#4B5563" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 

@@ -332,6 +332,22 @@ class CommonRepository @Inject constructor(
         }
     }
 
+    suspend fun getBibleQuestStreak(activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.getBibleQuestStreak())
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
+    suspend fun getStreakCalendar(map: HashMap<String, String>, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.getStreakCalendar(map))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
     suspend fun getPostList(map: HashMap<String, String>, activity: Activity): Resource<Any> {
         return try {
             responseHandler.handleResponse(apiService.getPostList(map))

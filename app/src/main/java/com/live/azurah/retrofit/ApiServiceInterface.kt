@@ -4,6 +4,8 @@ import com.live.azurah.model.AddBookmarkResponse
 import com.live.azurah.model.AddWishlistResponse
 import com.live.azurah.model.ActiveChallengeResponse
 import com.live.azurah.model.BibleQuestListResponse
+import com.live.azurah.model.BibleQuestStreakResponse
+import com.live.azurah.model.StreakCalendarResponse
 import com.live.azurah.model.BibleQuestViewModel
 import com.live.azurah.model.BlockResposne
 import com.live.azurah.model.CheckUsernameResponse
@@ -206,6 +208,12 @@ interface ApiServiceInterface {
 
     @GET(ApiConstants.DASHBOARD_DATA)
     suspend fun dashboardData(@QueryMap map: HashMap<String, String>): DashboardDataResposne
+
+    @GET(ApiConstants.BIBLE_QUEST_STREAK)
+    suspend fun getBibleQuestStreak(): BibleQuestStreakResponse
+
+    @GET(ApiConstants.STREAK_CALENDAR)
+    suspend fun getStreakCalendar(@QueryMap map: HashMap<String, String>): StreakCalendarResponse
 
     @GET(ApiConstants.POST_LIST)
     suspend fun getPostList(@QueryMap map: HashMap<String, String>): PostResponse

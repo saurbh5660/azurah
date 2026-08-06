@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.Space
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -16,15 +17,20 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
 import com.live.azurah.R
 import com.live.azurah.databinding.ActivityStreakHistoryBinding
+import com.live.azurah.model.StreakCalendarResponse
+import com.live.azurah.retrofit.Status
+import com.live.azurah.util.showCustomSnackbar
+import com.live.azurah.viewmodel.CommonViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+@AndroidEntryPoint
 class StreakHistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStreakHistoryBinding
-    private val displayedMonth: Calendar = Calendar.getInstance().apply {
-        set(2026, Calendar.APRIL, 1)
-    }
+    private val viewModel by viewModels<CommonViewModel>()
+    private val displayedMonth: Calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,24 +60,74 @@ class StreakHistoryActivity : AppCompatActivity() {
         }
         binding.tvPrev.setOnClickListener {
             displayedMonth.add(Calendar.MONTH, -1)
-            renderCalendar()
+            fetchCalendarData()
         }
         binding.tvNext.setOnClickListener {
             displayedMonth.add(Calendar.MONTH, 1)
-            renderCalendar()
+            fetchCalendarData()
         }
-        renderCalendar()
+
+        fetchCalendarData()
     }
 
-    private fun renderCalendar() {
+    private fun fetchCalendarData() {
+        val monthQuery = SimpleDateFormat("yyyy-MM", Locale.US).format(displayedMonth.time)
         binding.tvMonth.text = SimpleDateFormat("MMMM yyyy", Locale.US)
             .format(displayedMonth.time)
             .uppercase(Locale.US)
         binding.tvPrev.setTextColor(ContextCompat.getColor(this, R.color.blue))
         binding.tvNext.setTextColor(ContextCompat.getColor(this, R.color.blue))
 
+        val map = HashMap<String, String>()
+        map["month"] = monthQuery
+
+        viewModel.getStreakCalendar(map, this).observe(this) { value ->
+            when (value.status) {
+                Status.SUCCESS -> {
+                    when (value.data) {
+                        is StreakCalendarResponse -> {
+                            val data = value.data.body
+                            if (data != null) {
+                                binding.tvCurrentStreak.text = (data.currentStreak ?: 0).toString()
+                                binding.tvPersonalBest.text = (data.bestStreak ?: 0).toString()
+                                renderCalendarGrid(data)
+                            }
+                        }
+                    }
+                }
+                Status.LOADING -> {}
+                Status.ERROR -> {
+                    showCustomSnackbar(this, binding.root, value.message.toString())
+                }
+            }
+        }
+    }
+
+    private fun renderCalendarGrid(body: StreakCalendarResponse.Body) {
         binding.calendarContainer.removeAllViews()
         binding.calendarContainer.addView(createHeaderRow())
+
+        val dayStatusMap = HashMap<Int, DayStatus>()
+        body.days?.forEach { dayItem ->
+            val dateStr = dayItem.date
+            if (!dateStr.isNullOrEmpty()) {
+                val parts = dateStr.split("-")
+                if (parts.size == 3) {
+                    val dayNum = parts[2].toIntOrNull()
+                    if (dayNum != null) {
+                        val status = when (dayItem.status?.lowercase()) {
+                            "completed" -> DayStatus.Completed
+                            "missed" -> DayStatus.Missed
+                            "protected" -> DayStatus.Protected
+                            "today" -> DayStatus.Today
+                            "upcoming" -> DayStatus.Upcoming
+                            else -> DayStatus.Normal
+                        }
+                        dayStatusMap[dayNum] = status
+                    }
+                }
+            }
+        }
 
         val calendar = displayedMonth.clone() as Calendar
         calendar.set(Calendar.DAY_OF_MONTH, 1)
@@ -85,7 +141,8 @@ class StreakHistoryActivity : AppCompatActivity() {
                 if ((binding.calendarContainer.childCount == 1 && column < firstDayOffset) || day > maxDay) {
                     row.addView(createBlankCell())
                 } else {
-                    row.addView(createDayCell(day, dayStatus(day)))
+                    val status = dayStatusMap[day] ?: DayStatus.Normal
+                    row.addView(createDayCell(day, status))
                     day++
                 }
             }
@@ -97,11 +154,11 @@ class StreakHistoryActivity : AppCompatActivity() {
         val row = createCalendarRow()
         listOf("SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT").forEach { label ->
             row.addView(TextView(this).apply {
-                layoutParams = weightedParams(height = dp(20), margin = 0)
+                layoutParams = weightedParams(height = dp(24), margin = 0)
                 gravity = Gravity.CENTER
                 text = label
                 setTextColor(ContextCompat.getColor(this@StreakHistoryActivity, R.color.dashboard_subtitle))
-                textSize = 7f
+                textSize = 10f
                 typeface = ResourcesCompat.getFont(this@StreakHistoryActivity, R.font.poppins_semibold)
                 includeFontPadding = false
             })
@@ -129,40 +186,28 @@ class StreakHistoryActivity : AppCompatActivity() {
 
     private fun createDayCell(day: Int, status: DayStatus): View {
         return LinearLayout(this).apply {
-            layoutParams = weightedParams()
+            layoutParams = weightedParams(height = dp(40))
             gravity = Gravity.CENTER
             addView(TextView(this@StreakHistoryActivity).apply {
-                layoutParams = LinearLayout.LayoutParams(dp(30), dp(34))
+                layoutParams = LinearLayout.LayoutParams(dp(34), dp(36))
                 gravity = Gravity.CENTER
                 text = day.toString()
-                textSize = 10f
+                textSize = 13f
                 typeface = ResourcesCompat.getFont(this@StreakHistoryActivity, R.font.poppins_semibold)
                 includeFontPadding = false
                 setTextColor(ContextCompat.getColor(this@StreakHistoryActivity, status.textColor))
                 if (status.background != null) {
                     setBackgroundResource(status.background)
+                } else {
+                    background = null
                 }
             })
         }
     }
 
-    private fun weightedParams(height: Int = dp(38), margin: Int = dp(1)): LinearLayout.LayoutParams {
+    private fun weightedParams(height: Int = dp(40), margin: Int = dp(1)): LinearLayout.LayoutParams {
         return LinearLayout.LayoutParams(0, height, 1f).apply {
             setMargins(margin, margin, margin, margin)
-        }
-    }
-
-    private fun dayStatus(day: Int): DayStatus {
-        val isApril2026 = displayedMonth.get(Calendar.YEAR) == 2026 &&
-            displayedMonth.get(Calendar.MONTH) == Calendar.APRIL
-        if (!isApril2026) return DayStatus.Future
-
-        return when (day) {
-            12 -> DayStatus.Protected
-            28 -> DayStatus.Today
-            in setOf(1, 2, 3, 6, 7, 8, 9, 10, 13, 14, 15, 16, 17, 20, 21, 22, 23, 24, 27) -> DayStatus.Completed
-            in setOf(4, 5, 11, 18, 19, 25, 26) -> DayStatus.Missed
-            else -> DayStatus.Future
         }
     }
 
@@ -175,10 +220,11 @@ class StreakHistoryActivity : AppCompatActivity() {
         val textColor: Int
     ) {
         Completed(R.drawable.streak_day_completed, R.color.white),
-        Missed(R.drawable.streak_day_missed, R.color.drink_color),
+        Missed(R.drawable.streak_day_missed, R.color.red_color),
         Protected(R.drawable.streak_day_protected, R.color.white),
-        Today(R.drawable.streak_day_today, R.color.red_color),
-        Future(R.drawable.streak_day_future_dashed, R.color.day_unselected_color)
+        Today(R.drawable.streak_day_today, R.color.white),
+        Upcoming(R.drawable.streak_day_upcoming, R.color.intro_black),
+        Normal(null, R.color.black)
     }
 
     private companion object {

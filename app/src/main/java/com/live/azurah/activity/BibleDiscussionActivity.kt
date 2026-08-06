@@ -28,7 +28,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.live.azurah.adapter.DiscussionCommentAdapter
 import com.live.azurah.model.DiscussionCommentListResponse
 import android.view.inputmethod.InputMethodManager
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BibleDiscussionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBibleDiscussionBinding
     private lateinit var adapter: DiscussionAdapter
