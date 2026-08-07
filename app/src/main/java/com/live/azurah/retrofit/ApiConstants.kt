@@ -123,6 +123,8 @@ object ApiConstants {
     const val BIBLE_QUEST_LIST= "appApi/dashboard/bibleQuest/list"
     const val BIBLE_QUEST_VIEW= "appApi/dashboard/bibleQuest/view"
     const val BIBLE_CHALLENGE_COMPLETE = "appApi/dashboard/bibleQuest/challenge/complete"
+    const val BIBLE_DEVOTIONAL_COMPLETE = "appApi/dashboard/bibleQuest/challenge/devotional/complete"
+    const val BIBLE_PRAYER_COMPLETE = "appApi/dashboard/bibleQuest/challenge/prayer/complete"
     const val BIBLE_CHALLENGE_RESTART = "appApi/dashboard/bibleQuest/challenge/restart"
     const val NOTIFICATION_LISTING = "appApi/notification/list"
     const val HOME_SEARCH = "appApi/post/homeSearch"

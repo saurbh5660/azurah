@@ -1,6 +1,7 @@
 package com.live.azurah.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -46,7 +47,7 @@ class BibleQuizActivity : AppCompatActivity() {
         WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = false
 
         questId = intent.getIntExtra("questId", -1)
-        challengeId = intent.getIntExtra("challengeId", -1)
+        challengeId = intent.getIntExtra("challenge_id", -1)
         dayNo = intent.getIntExtra("dayNo", -1)
 
         if (savedInstanceState == null) {
@@ -61,6 +62,7 @@ class BibleQuizActivity : AppCompatActivity() {
     }
 
     private fun fetchQuestions() {
+        Log.d("dsgasdgsdg",challengeId.toString())
         if (challengeId == -1) {
             Toast.makeText(this, "Invalid Challenge", Toast.LENGTH_SHORT).show()
             finish()

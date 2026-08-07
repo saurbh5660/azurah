@@ -1266,6 +1266,22 @@ class CommonViewModel @Inject constructor(private val commonRepository: CommonRe
         }
     }
 
+    fun completeDevotional(map: HashMap<String, String>, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.completeDevotional(map, activity)
+            emit(response)
+        }
+    }
+
+    fun completePrayer(map: HashMap<String, String>, activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.completePrayer(map, activity)
+            emit(response)
+        }
+    }
+
     fun getQuizSummary(id: Int, userId: String, activity: Activity): LiveData<Resource<Any>> {
         return liveData(Dispatchers.IO) {
             emit(Resource.loading(null))

@@ -32,6 +32,18 @@
         android:theme="@style/Theme.Azurah"
         tools:targetApi="31">
         <activity
+            android:name=".activity.AboutQuestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.BibleDevotionalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.BiblePrayerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.StreakCelebrationActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.ReferralActivity"
             android:exported="false" />
         <activity

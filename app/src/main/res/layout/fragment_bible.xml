@@ -1,373 +1,429 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dashboard_background"
-    android:fillViewport="true"
     tools:context=".fragment.BibleFragment">
 
-    <LinearLayout
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/_18sdp">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/streak_header_background1"
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/_12sdp"
-            android:paddingTop="@dimen/_5sdp">
+            android:paddingTop="@dimen/_12sdp">
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- Skeleton Header Card -->
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_190sdp"
-                android:layout_marginBottom="@dimen/_16sdp"
-                android:background="@drawable/bible_header_card_background"
-                android:paddingHorizontal="@dimen/_20sdp"
-                android:paddingVertical="@dimen/_18sdp">
+                android:layout_height="@dimen/_180sdp"
+                android:background="@drawable/shimmer_calendar_day_bg" />
 
-                <LinearLayout
-                    android:id="@+id/llActiveQuest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bible_dark_pill_background"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+            <!-- Skeleton Journey Items -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:background="@drawable/shimmer_calendar_day_bg" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="@dimen/_14sdp"
-                        android:layout_height="@dimen/_14sdp"
-                        android:src="@drawable/question_mark_icon" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/shimmer_calendar_day_bg" />
+
+            <!-- Skeleton Bonus Items -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:background="@drawable/shimmer_calendar_day_bg" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_120sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/shimmer_calendar_day_bg" />
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/_18sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/streak_header_background1"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/_12sdp"
+                android:paddingTop="@dimen/_5sdp">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_190sdp"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:background="@drawable/bible_header_card_background"
+                    android:paddingHorizontal="@dimen/_20sdp"
+                    android:paddingVertical="@dimen/_18sdp">
+
+                    <LinearLayout
+                        android:id="@+id/llActiveQuest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bible_dark_pill_background"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:src="@drawable/question_mark_icon" />
+
+                        <TextView
+                            android:id="@+id/tvActiveQuest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_24sdp"
+                            android:fontFamily="@font/inter_bold"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:text="ACTIVE QUEST"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_8sdp" />
+                    </LinearLayout>
 
                     <TextView
-                        android:id="@+id/tvActiveQuest"
+                        android:id="@+id/tvStreakPill"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_24sdp"
+                        android:background="@drawable/bible_dark_pill_background"
                         android:fontFamily="@font/inter_bold"
                         android:gravity="center"
                         android:includeFontPadding="false"
-                        android:text="ACTIVE QUEST"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_8sdp" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tvStreakPill"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_24sdp"
-                    android:background="@drawable/bible_dark_pill_background"
-                    android:fontFamily="@font/inter_bold"
-                    android:gravity="center"
-                    android:includeFontPadding="false"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    android:text="🔥 12 day streak"
-                    android:textColor="#FF941A"
-                    android:textSize="@dimen/_8sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvQuestTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_25sdp"
-                    android:fontFamily="@font/crimson_pro_bold"
-                    android:includeFontPadding="false"
-                    android:text="Esther — Such a Time as This"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_16sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/llActiveQuest" />
-
-                <TextView
-                    android:id="@+id/tvDayCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:fontFamily="@font/inter_medium"
-                    android:text="Day 5 of 10"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_9sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvQuestTitle" />
-
-                <TextView
-                    android:id="@+id/tvCompletePercent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_medium"
-                    android:text="50% complete"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_9sdp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvDayCount"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tvDayCount" />
-
-                <ProgressBar
-                    android:id="@+id/progressQuest"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_6sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:max="100"
-                    android:progress="50"
-                    android:progressBackgroundTint="#65A4C0"
-                    android:progressTint="#FF7A1A"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvDayCount" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_14sdp"
-                    android:background="@drawable/dashboard_icon_circle"
-                    android:gravity="center"
-                    android:paddingVertical="@dimen/_6sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/progressQuest">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="@dimen/_12sdp"
-                        android:layout_height="@dimen/_12sdp"
-                        android:src="@drawable/info_icon" />
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        android:text="🔥 12 day streak"
+                        android:textColor="#FF941A"
+                        android:textSize="@dimen/_8sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tvAboutQuest"
+                        android:id="@+id/tvQuestTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_25sdp"
+                        android:fontFamily="@font/crimson_pro_bold"
+                        android:includeFontPadding="false"
+                        android:text="Esther — Such a Time as This"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_16sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/llActiveQuest" />
+
+                    <TextView
+                        android:id="@+id/tvDayCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:fontFamily="@font/inter_semibold"
-                        android:gravity="center"
-                        android:includeFontPadding="false"
-                        android:text="About this Quest"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:fontFamily="@font/inter_medium"
+                        android:text="Day 5 of 10"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_9sdp" />
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+                        android:textSize="@dimen/_9sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvQuestTitle" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="@dimen/_10sdp"
-            android:paddingTop="@dimen/_18sdp">
+                    <TextView
+                        android:id="@+id/tvCompletePercent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_medium"
+                        android:text="50% complete"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_9sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvDayCount"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvDayCount" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+                    <ProgressBar
+                        android:id="@+id/progressQuest"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_6sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:max="100"
+                        android:progress="50"
+                        android:progressBackgroundTint="#65A4C0"
+                        android:progressTint="#FF7A1A"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvDayCount" />
+
+                    <LinearLayout
+                        android:id="@+id/llAboutQuestContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_14sdp"
+                        android:background="@drawable/dashboard_icon_circle"
+                        android:gravity="center"
+                        android:paddingVertical="@dimen/_6sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/progressQuest">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:src="@drawable/info_icon" />
+
+                        <TextView
+                            android:id="@+id/tvAboutQuest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:fontFamily="@font/inter_semibold"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:text="About this Quest"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_9sdp" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_34sdp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingTop="@dimen/_18sdp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_34sdp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/crimson_pro_bold"
+                        android:text="Today's Journey"
+                        android:textColor="@color/dashboard_card_text"
+                        android:textSize="@dimen/_14sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/tvLeaderboard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_24sdp"
+                        android:layout_marginEnd="@dimen/_2sdp"
+                        android:background="@drawable/streak_arrow_background"
+                        android:backgroundTint="@color/white"
+                        android:elevation="1dp"
+                        android:fontFamily="@font/inter_bold"
+                        android:gravity="center"
+                        android:paddingHorizontal="@dimen/_12sdp"
+                        android:text="🏆 Leaderboard"
+                        android:textColor="@color/dashboard_card_text"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <include
+                    android:id="@+id/devotionalCard"
+                    layout="@layout/item_bible_journey_card"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/crimson_pro_bold"
-                    android:text="Today's Journey"
-                    android:textColor="@color/dashboard_card_text"
-                    android:textSize="@dimen/_14sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_marginTop="@dimen/_10sdp" />
 
+                <include
+                    android:id="@+id/prayerCard"
+                    layout="@layout/item_bible_prayer_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp" />
 
                 <TextView
-                    android:id="@+id/tvLeaderboard"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_24sdp"
-                    android:layout_marginEnd="@dimen/_2sdp"
-                    android:background="@drawable/streak_arrow_background"
-                    android:backgroundTint="@color/white"
-                    android:elevation="1dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_28sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
                     android:fontFamily="@font/inter_bold"
-                    android:gravity="center"
-                    android:paddingHorizontal="@dimen/_12sdp"
-                    android:text="🏆 Leaderboard"
-                    android:textColor="@color/dashboard_card_text"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <include
-                android:id="@+id/devotionalCard"
-                layout="@layout/item_bible_journey_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp" />
-
-            <include
-                android:id="@+id/prayerCard"
-                layout="@layout/item_bible_prayer_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_28sdp"
-                android:layout_marginTop="@dimen/_14sdp"
-                android:fontFamily="@font/inter_bold"
-                android:gravity="center_vertical"
-                android:letterSpacing="0.12"
-                android:text="BONUS ACTIVITIES"
-                android:textColor="@color/dashboard_subtitle"
-                android:textSize="@dimen/_10sdp" />
-
-            <include
-                android:id="@+id/communityCard"
-                layout="@layout/item_bible_community_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/communityCompactCard"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_62sdp"
-                android:background="@drawable/bible_white_card_background"
-                android:visibility="gone"
-                android:paddingHorizontal="@dimen/_12sdp">
-
-                <TextView
-                    android:id="@+id/tvCommunityCompactIcon"
-                    android:layout_width="@dimen/_34sdp"
-                    android:layout_height="@dimen/_34sdp"
-                    android:background="@drawable/bible_icon_background"
-                    android:gravity="center"
-                    android:text="💬"
-                    android:textSize="@dimen/_14sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvCommunityCompactTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:includeFontPadding="false"
-                    android:text="Community Discussion"
-                    android:textColor="@color/dashboard_card_text"
-                    android:textSize="@dimen/_11sdp"
-                    app:layout_constraintBottom_toTopOf="@+id/tvCommunityCompactSubtitle"
-                    app:layout_constraintEnd_toStartOf="@+id/tvCommunityCompactCircle"
-                    app:layout_constraintStart_toEndOf="@+id/tvCommunityCompactIcon"
-                    app:layout_constraintTop_toTopOf="@+id/tvCommunityCompactIcon" />
-
-                <TextView
-                    android:id="@+id/tvCommunityCompactSubtitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:fontFamily="@font/poppins"
-                    android:text="2 questions · Each opens a forum thread"
+                    android:gravity="center_vertical"
+                    android:letterSpacing="0.12"
+                    android:text="BONUS ACTIVITIES"
                     android:textColor="@color/dashboard_subtitle"
-                    android:textSize="@dimen/_8sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tvCommunityCompactTitle"
-                    app:layout_constraintStart_toEndOf="@+id/tvCommunityCompactIcon"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCommunityCompactTitle" />
+                    android:textSize="@dimen/_10sdp" />
 
-                <TextView
-                    android:id="@+id/tvCommunityCompactCircle"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:background="@drawable/dashboard_day_empty"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <include
+                    android:id="@+id/communityCard"
+                    layout="@layout/item_bible_community_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <include
-                android:id="@+id/communityQuestionOne"
-                layout="@layout/item_bible_discussion_question_one"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:visibility="gone" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/communityCompactCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_62sdp"
+                    android:background="@drawable/bible_white_card_background"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:visibility="gone">
 
-            <include
-                android:id="@+id/communityQuestionTwo"
-                layout="@layout/item_bible_discussion_question_two"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:visibility="gone" />
+                    <TextView
+                        android:id="@+id/tvCommunityCompactIcon"
+                        android:layout_width="@dimen/_34sdp"
+                        android:layout_height="@dimen/_34sdp"
+                        android:background="@drawable/bible_icon_background"
+                        android:gravity="center"
+                        android:text="💬"
+                        android:textSize="@dimen/_14sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <include
-                android:id="@+id/quizCard"
-                layout="@layout/item_bible_quiz_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp" />
+                    <TextView
+                        android:id="@+id/tvCommunityCompactTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:includeFontPadding="false"
+                        android:text="Community Discussion"
+                        android:textColor="@color/dashboard_card_text"
+                        android:textSize="@dimen/_11sdp"
+                        app:layout_constraintBottom_toTopOf="@+id/tvCommunityCompactSubtitle"
+                        app:layout_constraintEnd_toStartOf="@+id/tvCommunityCompactCircle"
+                        app:layout_constraintStart_toEndOf="@+id/tvCommunityCompactIcon"
+                        app:layout_constraintTop_toTopOf="@+id/tvCommunityCompactIcon" />
 
-            <include
-                android:id="@+id/quizCompleteCard"
-                layout="@layout/item_bible_quiz_complete_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:visibility="gone" />
+                    <TextView
+                        android:id="@+id/tvCommunityCompactSubtitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:fontFamily="@font/poppins"
+                        android:text="2 questions · Each opens a forum thread"
+                        android:textColor="@color/dashboard_subtitle"
+                        android:textSize="@dimen/_8sdp"
+                        app:layout_constraintEnd_toEndOf="@+id/tvCommunityCompactTitle"
+                        app:layout_constraintStart_toEndOf="@+id/tvCommunityCompactIcon"
+                        app:layout_constraintTop_toBottomOf="@+id/tvCommunityCompactTitle" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/streakCompleteCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:background="@drawable/round_green_corner_background"
-                android:backgroundTint="#199B4D"
-                android:paddingHorizontal="@dimen/_18sdp"
-                android:paddingVertical="@dimen/_14sdp">
+                    <TextView
+                        android:id="@+id/tvCommunityCompactCircle"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:background="@drawable/dashboard_day_empty"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <View
-                    android:id="@+id/viewGreenMarker"
-                    android:layout_width="@dimen/_6sdp"
-                    android:layout_height="@dimen/_18sdp"
-                    android:background="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvCompleteTitle"
-                    android:layout_width="0dp"
+                <include
+                    android:id="@+id/communityQuestionOne"
+                    layout="@layout/item_bible_discussion_question_one"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_28sdp"
-                    android:fontFamily="@font/poppins_bold"
-                    android:includeFontPadding="false"
-                    android:text="Today's streak complete!"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_15sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/viewGreenMarker"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:visibility="gone" />
 
-                <TextView
-                    android:layout_width="0dp"
+                <include
+                    android:id="@+id/communityQuestionTwo"
+                    layout="@layout/item_bible_discussion_question_two"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_28sdp"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:fontFamily="@font/inter"
-                    android:text="Devotional &amp; Prayer done — your 12-day streak is safe."
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_12sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/viewGreenMarker"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCompleteTitle" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/quizCard"
+                    layout="@layout/item_bible_quiz_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp" />
+
+                <include
+                    android:id="@+id/quizCompleteCard"
+                    layout="@layout/item_bible_quiz_complete_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:visibility="gone" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/streakCompleteCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:background="@drawable/round_green_corner_background"
+                    android:backgroundTint="#199B4D"
+                    android:paddingHorizontal="@dimen/_18sdp"
+                    android:paddingVertical="@dimen/_14sdp">
+
+                    <View
+                        android:id="@+id/viewGreenMarker"
+                        android:layout_width="@dimen/_6sdp"
+                        android:layout_height="@dimen/_18sdp"
+                        android:background="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvCompleteTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_28sdp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:includeFontPadding="false"
+                        android:text="Today's streak complete!"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_15sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/viewGreenMarker"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvStreakSafeSubtitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_28sdp"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:fontFamily="@font/inter"
+                        android:text="Devotional &amp; Prayer done — your 12-day streak is safe."
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/viewGreenMarker"
+                        app:layout_constraintTop_toBottomOf="@+id/tvCompleteTitle" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>
+

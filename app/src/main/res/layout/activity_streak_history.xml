@@ -235,6 +235,83 @@
                 android:orientation="vertical"
                 android:padding="@dimen/_10sdp">
 
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerCalendarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="7">
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_18sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@color/cp_divider_color" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_18sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@color/cp_divider_color" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_18sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@color/cp_divider_color" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_18sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@color/cp_divider_color" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_18sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@color/cp_divider_color" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_18sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@color/cp_divider_color" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_18sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@color/cp_divider_color" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:weightSum="7" android:layout_marginTop="6dp">
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:weightSum="7" android:layout_marginTop="4dp">
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:weightSum="7" android:layout_marginTop="4dp">
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:weightSum="7" android:layout_marginTop="4dp">
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:weightSum="7" android:layout_marginTop="4dp">
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                            <View android:layout_width="0dp" android:layout_height="@dimen/_28sdp" android:layout_weight="1" android:layout_margin="2dp" android:background="@drawable/shimmer_calendar_day_bg" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
                 <LinearLayout
                     android:id="@+id/calendarContainer"
                     android:layout_width="match_parent"
@@ -256,9 +333,9 @@
                         android:orientation="horizontal">
 
                         <View
-                            android:layout_width="@dimen/_13sdp"
-                            android:layout_height="@dimen/_12sdp"
-                            android:background="@drawable/streak_day_completed" />
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:background="@drawable/legend_day_completed" />
 
                         <TextView
                             style="@style/StreakLegend"
@@ -274,9 +351,9 @@
                         android:orientation="horizontal">
 
                         <View
-                            android:layout_width="@dimen/_13sdp"
-                            android:layout_height="@dimen/_12sdp"
-                            android:background="@drawable/streak_day_missed" />
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:background="@drawable/legend_day_missed" />
 
                         <TextView
                             style="@style/StreakLegend"
@@ -292,9 +369,9 @@
                         android:orientation="horizontal">
 
                         <View
-                            android:layout_width="@dimen/_13sdp"
-                            android:layout_height="@dimen/_12sdp"
-                            android:background="@drawable/streak_day_protected" />
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:background="@drawable/legend_day_protected" />
 
                         <TextView
                             style="@style/StreakLegend"
@@ -311,41 +388,15 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_5sdp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                    <View
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:background="@drawable/legend_day_today" />
 
-                        <View
-                            android:layout_width="@dimen/_13sdp"
-                            android:layout_height="@dimen/_12sdp"
-                            android:background="@drawable/streak_day_today" />
-
-                        <TextView
-                            style="@style/StreakLegend"
-                            android:text="Today"
-                            android:textColor="#4B5563" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_5sdp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <View
-                            android:layout_width="@dimen/_13sdp"
-                            android:layout_height="@dimen/_12sdp"
-                            android:background="@drawable/streak_day_upcoming" />
-
-                        <TextView
-                            style="@style/StreakLegend"
-                            android:text="Upcoming"
-                            android:textColor="#4B5563" />
-                    </LinearLayout>
+                    <TextView
+                        style="@style/StreakLegend"
+                        android:text="Today"
+                        android:textColor="#4B5563" />
                 </LinearLayout>
             </LinearLayout>
 

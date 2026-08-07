@@ -19,7 +19,9 @@ import com.live.azurah.R
 import com.live.azurah.databinding.ActivityStreakHistoryBinding
 import com.live.azurah.model.StreakCalendarResponse
 import com.live.azurah.retrofit.Status
+import com.live.azurah.util.gone
 import com.live.azurah.util.showCustomSnackbar
+import com.live.azurah.util.visible
 import com.live.azurah.viewmodel.CommonViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -78,12 +80,19 @@ class StreakHistoryActivity : AppCompatActivity() {
         binding.tvPrev.setTextColor(ContextCompat.getColor(this, R.color.blue))
         binding.tvNext.setTextColor(ContextCompat.getColor(this, R.color.blue))
 
+        binding.shimmerCalendarLayout.visible()
+        binding.shimmerCalendarLayout.startShimmer()
+        binding.calendarContainer.gone()
+
         val map = HashMap<String, String>()
         map["month"] = monthQuery
 
         viewModel.getStreakCalendar(map, this).observe(this) { value ->
             when (value.status) {
                 Status.SUCCESS -> {
+                    binding.shimmerCalendarLayout.stopShimmer()
+                    binding.shimmerCalendarLayout.gone()
+                    binding.calendarContainer.visible()
                     when (value.data) {
                         is StreakCalendarResponse -> {
                             val data = value.data.body
@@ -95,8 +104,15 @@ class StreakHistoryActivity : AppCompatActivity() {
                         }
                     }
                 }
-                Status.LOADING -> {}
+                Status.LOADING -> {
+                    binding.shimmerCalendarLayout.visible()
+                    binding.shimmerCalendarLayout.startShimmer()
+                    binding.calendarContainer.gone()
+                }
                 Status.ERROR -> {
+                    binding.shimmerCalendarLayout.stopShimmer()
+                    binding.shimmerCalendarLayout.gone()
+                    binding.calendarContainer.visible()
                     showCustomSnackbar(this, binding.root, value.message.toString())
                 }
             }
@@ -220,10 +236,10 @@ class StreakHistoryActivity : AppCompatActivity() {
         val textColor: Int
     ) {
         Completed(R.drawable.streak_day_completed, R.color.white),
-        Missed(R.drawable.streak_day_missed, R.color.red_color),
+        Missed(R.drawable.streak_day_missed, R.color.dashboard_subtitle),
         Protected(R.drawable.streak_day_protected, R.color.white),
-        Today(R.drawable.streak_day_today, R.color.white),
-        Upcoming(R.drawable.streak_day_upcoming, R.color.intro_black),
+        Today(R.drawable.streak_day_today, R.color.red_color),
+        Upcoming(null, R.color.black),
         Normal(null, R.color.black)
     }
 

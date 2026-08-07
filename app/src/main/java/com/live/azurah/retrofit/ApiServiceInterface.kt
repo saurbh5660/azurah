@@ -488,6 +488,14 @@ interface ApiServiceInterface {
     suspend fun markAsComplete(@FieldMap map: HashMap<String, String>): CommonResponse
 
     @FormUrlEncoded
+    @POST(ApiConstants.BIBLE_DEVOTIONAL_COMPLETE)
+    suspend fun completeDevotional(@FieldMap map: HashMap<String, String>): CommonResponse
+
+    @FormUrlEncoded
+    @POST(ApiConstants.BIBLE_PRAYER_COMPLETE)
+    suspend fun completePrayer(@FieldMap map: HashMap<String, String>): CommonResponse
+
+    @FormUrlEncoded
     @POST(ApiConstants.BIBLE_CHALLENGE_RESTART)
     suspend fun markAsRestart(@FieldMap map: HashMap<String, String>): CommonResponse
 

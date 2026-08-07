@@ -1042,6 +1042,22 @@ class CommonRepository @Inject constructor(
         }
     }
 
+    suspend fun completeDevotional(map: HashMap<String, String>, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.completeDevotional(map))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
+    suspend fun completePrayer(map: HashMap<String, String>, activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.completePrayer(map))
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
     suspend fun markAsRestart(map: HashMap<String, String>, activity: Activity): Resource<Any> {
         return try {
             responseHandler.handleResponse(apiService.markAsRestart(map))

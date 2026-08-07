@@ -83,6 +83,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
+        android:id="@+id/tvActionBanner"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_34sdp"
         android:background="@drawable/bible_revisit_background"
