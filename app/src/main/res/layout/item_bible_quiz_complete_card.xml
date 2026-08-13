@@ -1,86 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bible_white_card_background"
-    android:paddingHorizontal="@dimen/_13sdp"
-    android:paddingVertical="@dimen/_12sdp">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvQuizCompleteIcon"
-        android:layout_width="@dimen/_38sdp"
-        android:layout_height="@dimen/_38sdp"
-        android:background="@drawable/bible_icon_background"
-        android:backgroundTint="#FFF1F2"
-        android:gravity="center"
-        android:text="👤"
-        android:textSize="@dimen/_15sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_3sdp"
+        android:background="#16A34A" />
 
-    <TextView
-        android:id="@+id/tvQuizCompleteTitle"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:fontFamily="@font/inter_bold"
-        android:includeFontPadding="false"
-        android:text="Quiz Complete!"
-        android:textColor="@color/dashboard_card_text"
-        android:textSize="@dimen/_13sdp"
-        app:layout_constraintBottom_toTopOf="@+id/tvQuizCompleteDesc"
-        app:layout_constraintEnd_toStartOf="@+id/tvQuizDoneCheck"
-        app:layout_constraintStart_toEndOf="@+id/tvQuizCompleteIcon"
-        app:layout_constraintTop_toTopOf="@+id/tvQuizCompleteIcon"
-        app:layout_constraintVertical_chainStyle="packed" />
+        android:minHeight="@dimen/_78sdp"
+        android:paddingHorizontal="@dimen/_14sdp"
+        android:paddingVertical="@dimen/_14sdp">
 
-    <TextView
-        android:id="@+id/tvQuizCompleteDesc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:fontFamily="@font/inter"
-        android:includeFontPadding="false"
-        android:text="Come back tomorrow"
-        android:textColor="@color/dashboard_subtitle"
-        android:textSize="@dimen/_10sdp"
-        app:layout_constraintBottom_toTopOf="@+id/tvDoneToday"
-        app:layout_constraintEnd_toStartOf="@+id/tvQuizDoneCheck"
-        app:layout_constraintStart_toEndOf="@+id/tvQuizCompleteIcon"
-        app:layout_constraintTop_toBottomOf="@+id/tvQuizCompleteTitle" />
+        <FrameLayout
+            android:id="@+id/flQuizCompleteIcon"
+            android:layout_width="@dimen/_44sdp"
+            android:layout_height="@dimen/_44sdp"
+            android:background="@drawable/quiz_complete_icon_outer_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tvDoneToday"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_16sdp"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_4sdp"
-        android:background="@drawable/bible_quiz_done_today_badge"
-        android:fontFamily="@font/inter_semibold"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:paddingHorizontal="@dimen/_8sdp"
-        android:text="✓  Done today"
-        android:textColor="#E8A317"
-        android:textSize="@dimen/_8sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvQuizCompleteIcon"
-        app:layout_constraintStart_toEndOf="@+id/tvQuizCompleteIcon"
-        app:layout_constraintTop_toBottomOf="@+id/tvQuizCompleteDesc" />
+            <FrameLayout
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/quiz_complete_icon_inner_bg">
 
-    <TextView
-        android:id="@+id/tvQuizDoneCheck"
-        android:layout_width="@dimen/_24sdp"
-        android:layout_height="@dimen/_24sdp"
-        android:background="@drawable/circle_background"
-        android:backgroundTint="#22C55E"
-        android:gravity="center"
-        android:text="✓"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_12sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/_14sdp"
+                    android:layout_height="@dimen/_14sdp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_quiz_complete_avatar" />
+            </FrameLayout>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tvQuizCompleteTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:fontFamily="@font/inter_bold"
+            android:includeFontPadding="false"
+            android:text="Quiz Complete!"
+            android:textColor="@color/dashboard_card_text"
+            android:textSize="@dimen/_13sdp"
+            app:layout_constraintBottom_toTopOf="@+id/tvQuizCompleteDesc"
+            app:layout_constraintEnd_toStartOf="@+id/flQuizDoneCheck"
+            app:layout_constraintStart_toEndOf="@+id/flQuizCompleteIcon"
+            app:layout_constraintTop_toTopOf="@+id/flQuizCompleteIcon"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tvQuizCompleteDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:fontFamily="@font/inter"
+            android:includeFontPadding="false"
+            android:text="Come back tomorrow"
+            android:textColor="@color/dashboard_subtitle"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintBottom_toTopOf="@+id/llDoneToday"
+            app:layout_constraintEnd_toStartOf="@+id/flQuizDoneCheck"
+            app:layout_constraintStart_toEndOf="@+id/flQuizCompleteIcon"
+            app:layout_constraintTop_toBottomOf="@+id/tvQuizCompleteTitle" />
+
+        <LinearLayout
+            android:id="@+id/llDoneToday"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/bible_quiz_done_today_badge"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/flQuizCompleteIcon"
+            app:layout_constraintStart_toEndOf="@+id/flQuizCompleteIcon"
+            app:layout_constraintTop_toBottomOf="@+id/tvQuizCompleteDesc">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_8sdp"
+                android:layout_height="@dimen/_8sdp"
+                android:src="@drawable/ic_quiz_done_today_check" />
+
+            <TextView
+                android:id="@+id/tvDoneToday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:fontFamily="@font/inter_semibold"
+                android:includeFontPadding="false"
+                android:text="Done today"
+                android:textColor="#166534"
+                android:textSize="@dimen/_8sdp" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/flQuizDoneCheck"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_28sdp"
+            android:background="@drawable/circle_background"
+            android:backgroundTint="#22C55E"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/tvQuizDoneCheck"
+                android:layout_width="@dimen/_14sdp"
+                android:layout_height="@dimen/_14sdp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_streak_check_white" />
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

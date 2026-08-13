@@ -1,7 +1,8 @@
 package com.live.azurah.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -46,9 +47,9 @@ class BibleQuizActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = false
 
-        questId = intent.getIntExtra("questId", -1)
-        challengeId = intent.getIntExtra("challenge_id", -1)
-        dayNo = intent.getIntExtra("dayNo", -1)
+        questId = intent.getIntExtra(EXTRA_QUEST_ID, -1)
+        challengeId = intent.getIntExtra(EXTRA_CHALLENGE_ID, -1)
+        dayNo = intent.getIntExtra(EXTRA_DAY_NO, -1)
 
         if (savedInstanceState == null) {
             fetchQuestions()
@@ -62,7 +63,6 @@ class BibleQuizActivity : AppCompatActivity() {
     }
 
     private fun fetchQuestions() {
-        Log.d("dsgasdgsdg",challengeId.toString())
         if (challengeId == -1) {
             Toast.makeText(this, "Invalid Challenge", Toast.LENGTH_SHORT).show()
             finish()
@@ -75,6 +75,9 @@ class BibleQuizActivity : AppCompatActivity() {
                     val res = resource.data as? QuizQuestionResponse
                     if (res?.success == true && !res.body.isNullOrEmpty()) {
                         questions = res.body
+                        if (questId == -1) {
+                            questId = questions.firstOrNull()?.bibleQuestId ?: -1
+                        }
                         showFragment(QuizCountdownFragment(), false)
                     } else {
                         Toast.makeText(this, "No questions found.", Toast.LENGTH_SHORT).show()
@@ -142,6 +145,17 @@ class BibleQuizActivity : AppCompatActivity() {
     }
 
     companion object {
+        const val EXTRA_QUEST_ID = "questId"
+        const val EXTRA_CHALLENGE_ID = "challenge_id"
+        const val EXTRA_DAY_NO = "dayNo"
         const val QUIZ_COMPLETED_KEY = "bible_quiz_day_5_completed"
+
+        fun createIntent(context: Context, questId: Int, challengeId: Int, dayNo: Int): Intent {
+            return Intent(context, BibleQuizActivity::class.java).apply {
+                putExtra(EXTRA_QUEST_ID, questId)
+                putExtra(EXTRA_CHALLENGE_ID, challengeId)
+                putExtra(EXTRA_DAY_NO, dayNo)
+            }
+        }
     }
 }

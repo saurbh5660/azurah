@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +31,7 @@ class BibleFragment : Fragment() {
     private lateinit var commonViewModel: CommonViewModel
 
     private var questTitle: String = ""
+    private var questId: Int = 0
     private var challengeId: Int = 0
     private var dayNo: Int = 1
     private var discussionOne: ActiveChallengeResponse.Body.Challenge.Discussion? = null
@@ -51,6 +51,11 @@ class BibleFragment : Fragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 fetchActiveChallenge()
             }
+        }
+
+    private val quizLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            fetchActiveChallenge()
         }
 
     override fun onCreateView(
@@ -73,7 +78,7 @@ class BibleFragment : Fragment() {
         binding.quizCompleteCard.root.visibility = View.GONE
 
         binding.quizCard.tvAboutQuiz.setOnClickListener {
-            AboutQuizBottomSheet().show(
+            AboutQuizBottomSheet.newInstance(questId, challengeId, dayNo).show(
                 childFragmentManager,
                 AboutQuizBottomSheet::class.java.simpleName
             )
@@ -89,11 +94,8 @@ class BibleFragment : Fragment() {
                     "Please complete Devotional and Prayer first!",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (challengeId != 0) {
-                Log.d("dsfdsgggds",challengeId.toString())
-                startActivity(Intent(requireActivity(), BibleQuizActivity::class.java).apply {
-                    putExtra("challenge_id", challengeId)
-                })
+            } else {
+                launchQuiz()
             }
         }
         binding.tvLeaderboard.setOnClickListener {
@@ -142,6 +144,23 @@ class BibleFragment : Fragment() {
         }
 
         fetchActiveChallenge()
+    }
+
+    fun launchQuiz() {
+        if (challengeId == 0) return
+        quizLauncher.launch(
+            BibleQuizActivity.createIntent(requireActivity(), questId, challengeId, dayNo)
+        )
+    }
+
+    private fun updateQuizCardsVisibility(isQuizCompleted: Boolean) {
+        if (isQuizCompleted) {
+            binding.quizCard.root.visibility = View.GONE
+            binding.quizCompleteCard.root.visibility = View.VISIBLE
+        } else {
+            binding.quizCard.root.visibility = View.VISIBLE
+            binding.quizCompleteCard.root.visibility = View.GONE
+        }
     }
 
     private fun openDevotionalScreen() {
@@ -228,6 +247,7 @@ class BibleFragment : Fragment() {
 
                                 if (quest != null && challenge != null) {
                                     questTitle = quest.title ?: ""
+                                    questId = quest.id ?: challenge.bibleQuestId ?: 0
                                     challengeId = challenge.id ?: 0
                                     dayNo = challenge.dayNo ?: 1
                                     val readTime = challenge.readTime ?: 5
@@ -339,14 +359,7 @@ class BibleFragment : Fragment() {
                                         }
                                     }
 
-                                    val isQuizCompleted = challenge.isQuizCompleted == 1
-                                    if (isQuizCompleted) {
-                                        binding.quizCard.root.visibility = View.GONE
-                                        binding.quizCompleteCard.root.visibility = View.VISIBLE
-                                    } else {
-                                        binding.quizCard.root.visibility = View.VISIBLE
-                                        binding.quizCompleteCard.root.visibility = View.GONE
-                                    }
+                                    updateQuizCardsVisibility(challenge.isQuizCompleted == 1)
 
                                     binding.quizCard.tvStartQuiz.visibility = View.VISIBLE
                                     val isBothCompleted =

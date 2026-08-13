@@ -1,12 +1,12 @@
 package com.live.azurah.fragment
 
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -14,7 +14,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.live.azurah.R
-import com.live.azurah.activity.BibleQuizActivity
 import com.live.azurah.databinding.BottomSheetAboutQuizBinding
 
 class AboutQuizBottomSheet : BottomSheetDialogFragment() {
@@ -49,7 +48,7 @@ class AboutQuizBottomSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.tvClose.setOnClickListener { dismiss() }
         binding.tvStartQuiz.setOnClickListener {
-            startActivity(Intent(requireActivity(), BibleQuizActivity::class.java))
+            (parentFragment as? BibleFragment)?.launchQuiz()
             dismiss()
         }
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { root, insets ->
@@ -62,5 +61,21 @@ class AboutQuizBottomSheet : BottomSheetDialogFragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    companion object {
+        private const val ARG_QUEST_ID = "quest_id"
+        private const val ARG_CHALLENGE_ID = "challenge_id"
+        private const val ARG_DAY_NO = "day_no"
+
+        fun newInstance(questId: Int, challengeId: Int, dayNo: Int): AboutQuizBottomSheet {
+            return AboutQuizBottomSheet().apply {
+                arguments = bundleOf(
+                    ARG_QUEST_ID to questId,
+                    ARG_CHALLENGE_ID to challengeId,
+                    ARG_DAY_NO to dayNo
+                )
+            }
+        }
     }
 }

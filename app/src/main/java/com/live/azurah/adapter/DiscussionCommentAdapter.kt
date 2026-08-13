@@ -1,5 +1,6 @@
 package com.live.azurah.adapter
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -8,11 +9,14 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.live.azurah.R
+import com.live.azurah.activity.OtherUserProfileActivity
 import com.live.azurah.databinding.ItemDiscussionCommentBinding
 import com.live.azurah.model.DiscussionCommentItem
+import com.live.azurah.model.UserTag
+import com.live.azurah.util.getPreference
 import com.live.azurah.util.getRelativeTime
 import com.live.azurah.util.loadImage
-import com.live.azurah.util.getPreference
+import com.live.azurah.util.styleTextDes
 
 class DiscussionCommentAdapter(
     private var items: MutableList<DiscussionCommentItem> = mutableListOf(),
@@ -41,7 +45,22 @@ class DiscussionCommentAdapter(
         
         with(holder.binding) {
             tvUsername.text = item.user?.username ?: ""
-            tvComment.text = item.description ?: ""
+            val tags = item.discussion_comment_tags.map {
+                UserTag(id = it.user?.id.toString(), username = it.user?.username ?: "")
+            }
+            styleTextDes(
+                inputText = item.description ?: "",
+                textView = tvComment,
+                postCommentTags = tags
+            ) { _, userId ->
+                if (userId.isNotEmpty()) {
+                    context.startActivity(
+                        Intent(context, OtherUserProfileActivity::class.java).apply {
+                            putExtra("user_id", userId)
+                        }
+                    )
+                }
+            }
             tvTime.text = getRelativeTime(item.created_at ?: "")
             
             if (!item.user?.profile_image.isNullOrEmpty()) {
