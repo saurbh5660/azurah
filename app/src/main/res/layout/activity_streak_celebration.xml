@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/celebrationRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/streak_celebration_background"
+    tools:context=".activity.StreakCelebrationActivity">
+
+    <!-- Soft cloud blobs (top corners) -->
+    <View
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_48sdp"
+        android:layout_marginStart="-24dp"
+        android:layout_marginTop="@dimen/_28sdp"
+        android:alpha="0.85"
+        android:background="@drawable/streak_celebration_cloud"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="@dimen/_110sdp"
+        android:layout_height="@dimen/_44sdp"
+        android:layout_marginTop="@dimen/_36sdp"
+        android:layout_marginEnd="-20dp"
+        android:alpha="0.8"
+        android:background="@drawable/streak_celebration_cloud"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Soft spark accents around flame -->
+    <View
+        android:layout_width="@dimen/_7sdp"
+        android:layout_height="@dimen/_7sdp"
+        android:layout_marginTop="@dimen/_88sdp"
+        android:layout_marginEnd="@dimen/_42sdp"
+        android:alpha="0.75"
+        android:background="@drawable/circle_background"
+        android:backgroundTint="#FF9F3C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="@dimen/_4sdp"
+        android:layout_height="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_108sdp"
+        android:layout_marginEnd="@dimen/_58sdp"
+        android:alpha="0.9"
+        android:background="@drawable/circle_background"
+        android:backgroundTint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="@dimen/_6sdp"
+        android:layout_height="@dimen/_6sdp"
+        android:layout_marginStart="@dimen/_36sdp"
+        android:layout_marginTop="@dimen/_130sdp"
+        android:alpha="0.8"
+        android:background="@drawable/circle_background"
+        android:backgroundTint="#FDBA74"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="@dimen/_5sdp"
+        android:layout_height="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_52sdp"
+        android:layout_marginTop="@dimen/_168sdp"
+        android:alpha="0.7"
+        android:background="@drawable/circle_background"
+        android:backgroundTint="#FF8A1F"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="@dimen/_4sdp"
+        android:layout_height="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_150sdp"
+        android:layout_marginEnd="@dimen/_32sdp"
+        android:alpha="0.85"
+        android:background="@drawable/circle_background"
+        android:backgroundTint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/topLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@+id/btnContinue"
+        app:layout_constraintTop_toBottomOf="@+id/topLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_20sdp"
+            android:paddingTop="@dimen/_24sdp"
+            android:paddingBottom="@dimen/_16sdp">
+
+            <FrameLayout
+                android:layout_width="@dimen/_110sdp"
+                android:layout_height="@dimen/_120sdp"
+                android:layout_marginTop="@dimen/_8sdp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/flame" />
+
+                <TextView
+                    android:id="@+id/tvFlameNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:includeFontPadding="false"
+                    android:shadowColor="#66000000"
+                    android:shadowDx="0"
+                    android:shadowDy="1"
+                    android:shadowRadius="3"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_28sdp"
+                    tools:text="7" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvStreakSubBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:fontFamily="@font/inter_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.08"
+                android:textColor="#3B82A8"
+                android:textSize="@dimen/_11sdp"
+                tools:text="🔥 DAY 7 STREAK" />
+
+            <TextView
+                android:id="@+id/tvHeadline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:fontFamily="@font/playfair_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="@dimen/_2sdp"
+                android:text="Congrats on completing\ntoday's streak!"
+                android:textColor="#0F2A44"
+                android:textSize="@dimen/_22sdp" />
+
+            <TextView
+                android:id="@+id/tvSubheadline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:fontFamily="@font/inter"
+                android:gravity="center"
+                android:lineSpacingExtra="@dimen/_3sdp"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:text="Well done for showing up today. Keep going — every day builds something that lasts."
+                android:textColor="#6B7C8F"
+                android:textSize="@dimen/_12sdp" />
+
+            <!-- Current Streak card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_28sdp"
+                android:layout_marginHorizontal="@dimen/_2sdp"
+                android:background="@drawable/streak_celebration_card"
+                android:elevation="@dimen/_2sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_14sdp"
+                android:paddingVertical="@dimen/_14sdp">
+
+                <TextView
+                    android:layout_width="@dimen/_38sdp"
+                    android:layout_height="@dimen/_38sdp"
+                    android:background="@drawable/streak_celebration_icon_circle_orange"
+                    android:gravity="center"
+                    android:text="🔥"
+                    android:textSize="@dimen/_16sdp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:includeFontPadding="false"
+                        android:text="Current Streak"
+                        android:textColor="#0F2A44"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        android:id="@+id/tvStreakCardSubtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:fontFamily="@font/inter"
+                        android:includeFontPadding="false"
+                        android:text="Your longest run this month"
+                        android:textColor="#8A97A8"
+                        android:textSize="@dimen/_10sdp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvStreakDaysCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/playfair_bold"
+                    android:includeFontPadding="false"
+                    android:textColor="#0779B8"
+                    android:textSize="@dimen/_15sdp"
+                    tools:text="7 days" />
+            </LinearLayout>
+
+            <!-- Today's Lesson card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:background="@drawable/streak_celebration_card"
+                android:elevation="@dimen/_2sdp"
+                android:gravity="center_vertical"
+                android:layout_marginHorizontal="@dimen/_2sdp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_14sdp"
+                android:paddingVertical="@dimen/_14sdp">
+
+                <FrameLayout
+                    android:layout_width="@dimen/_38sdp"
+                    android:layout_height="@dimen/_38sdp"
+                    android:background="@drawable/streak_celebration_icon_circle_blue">
+
+                    <ImageView
+                        android:layout_width="@dimen/_18sdp"
+                        android:layout_height="@dimen/_18sdp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@null"
+                        android:src="@drawable/book" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvLessonTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:includeFontPadding="false"
+                        android:text="Today's Lesson"
+                        android:textColor="#0F2A44"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        android:id="@+id/tvLessonSubtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:fontFamily="@font/inter"
+                        android:includeFontPadding="false"
+                        android:text="Completed · Come back tomorrow"
+                        android:textColor="#8A97A8"
+                        android:textSize="@dimen/_10sdp" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/lessonStatusIcon"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:background="@drawable/streak_celebration_check_circle">
+
+                    <ImageView
+                        android:id="@+id/ivLessonCheck"
+                        android:layout_width="@dimen/_14sdp"
+                        android:layout_height="@dimen/_14sdp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_streak_check_white" />
+                </FrameLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/btnContinue"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_48sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:background="@drawable/streak_celebration_continue_btn"
+        android:fontFamily="@font/inter_bold"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="Continue"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
