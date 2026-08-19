@@ -625,4 +625,13 @@ interface ApiServiceInterface {
 
     @DELETE(ApiConstants.BIBLE_QUEST_DISCUSSION_COMMENT_DELETE)
     suspend fun deleteDiscussionComment(@Path("id") id: Int): com.live.azurah.model.CommonResponse
+
+    @GET(ApiConstants.LEADERBOARD)
+    suspend fun getLeaderboard(): com.live.azurah.model.LeaderboardResponse
+
+    @GET(ApiConstants.LEADERBOARD_GLOBAL)
+    suspend fun getLeaderboardGlobal(): com.live.azurah.model.LeaderboardGlobalResponse
+
+    @GET(ApiConstants.BIBLE_QUEST_GROWTH_LEVELS)
+    suspend fun getGrowthLevels(): com.live.azurah.model.GrowthLevelsResponse
 }

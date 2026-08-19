@@ -82,6 +82,7 @@ class ShopFragment : Fragment(), Observer<Resource<Any>> {
         receiver = object : BroadcastReceiver(){
             override fun onReceive(p0: Context?, p1: Intent?) {
                 if (p1?.action == "Shop"){
+                    if (!isAdded || view == null) return
                     showDialog = false
                     resetPage = true
                     getProduct()
@@ -96,9 +97,7 @@ class ShopFragment : Fragment(), Observer<Resource<Any>> {
     private fun initListener() {
         with(binding) {
             etSearch.setOnClickListener {
-                with(requireActivity() as HomeActivity) {
-                    binding.viewPager.setCurrentItem(6, false)
-                }
+                replaceFragment(SearchProductFragment())
             }
             tvViewAll.setOnClickListener {
                 replaceFragment(AllShopCategoryFragment())
@@ -120,6 +119,7 @@ class ShopFragment : Fragment(), Observer<Resource<Any>> {
     }
 
     private fun getBanner() {
+        if (!isAdded || view == null) return
         val map = HashMap<String, String>()
         map["page"] = "1"
         map["limit"] = "10"
@@ -127,6 +127,7 @@ class ShopFragment : Fragment(), Observer<Resource<Any>> {
     }
 
     private fun getCategory() {
+        if (!isAdded || view == null) return
         val map = HashMap<String, String>()
         map["page"] = "1"
         map["limit"] = "50"
@@ -134,6 +135,7 @@ class ShopFragment : Fragment(), Observer<Resource<Any>> {
     }
 
     private fun getProduct() {
+        if (!isAdded || view == null) return
         isApiRunning = true
         if (resetPage){
             currentPage = 1
@@ -298,7 +300,9 @@ class ShopFragment : Fragment(), Observer<Resource<Any>> {
                 )
             } as ArrayList<ShopBannerModel>
 
-            ivTrainerImage.offscreenPageLimit = modelList.size
+            if (modelList.isNotEmpty()) {
+                ivTrainerImage.offscreenPageLimit = modelList.size
+            }
             ivTrainerImage.adapter = ShopSliderAdapter(requireContext(), modelList)
             TabLayoutMediator(tabLayout, ivTrainerImage) { tab, _ ->
                 tab.setIcon(R.drawable.dot_unselected)
@@ -346,9 +350,22 @@ class ShopFragment : Fragment(), Observer<Resource<Any>> {
 
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (::receiver.isInitialized) {
+            context?.let {
+                LocalBroadcastManager.getInstance(it).unregisterReceiver(receiver)
+            }
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(receiver)
+        if (::receiver.isInitialized) {
+            context?.let {
+                LocalBroadcastManager.getInstance(it).unregisterReceiver(receiver)
+            }
+        }
     }
 
     override fun onResume() {
@@ -357,6 +374,7 @@ class ShopFragment : Fragment(), Observer<Resource<Any>> {
     }
 
     private fun getCount(){
+        if (!isAdded || view == null) return
         viewModel.getCounts(requireActivity()).observe(viewLifecycleOwner){
             when (it.status) {
                 Status.SUCCESS -> {

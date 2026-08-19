@@ -70,20 +70,22 @@
 
         <TextView
             android:id="@+id/ivBookmarkCount"
-            android:layout_width="@dimen/_13sdp"
-            android:layout_height="@dimen/_13sdp"
+            android:layout_width="wrap_content"
+            android:minWidth="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:paddingHorizontal="@dimen/_2sdp"
             android:background="@drawable/circle_background"
             android:backgroundTint="@color/blue"
             android:textSize="@dimen/_8sdp"
             android:textColor="@color/white"
-            android:fontFamily="@font/urbanist"
+            android:fontFamily="@font/urbanist_bold"
+            android:includeFontPadding="false"
             android:gravity="center"
             android:text="2"
-            android:layout_marginEnd="-5dp"
+            android:layout_marginEnd="-6dp"
             android:visibility="gone"
             android:layout_marginTop="-4dp"
             app:layout_constraintEnd_toEndOf="@+id/ivBookmark"
-            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintTop_toTopOf="@+id/ivBookmark" />
 
 
@@ -100,19 +102,22 @@
 
         <TextView
             android:id="@+id/ivNotificationCount"
-            android:layout_width="@dimen/_13sdp"
-            android:layout_height="@dimen/_13sdp"
+            android:layout_width="wrap_content"
+            android:minWidth="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:paddingHorizontal="@dimen/_2sdp"
             android:background="@drawable/circle_background"
             android:backgroundTint="@color/blue"
             android:textSize="@dimen/_8sdp"
             android:textColor="@color/white"
-            android:fontFamily="@font/urbanist"
+            android:fontFamily="@font/urbanist_bold"
+            android:includeFontPadding="false"
             android:gravity="center"
             android:text="7"
             android:visibility="visible"
             android:layout_marginTop="-2dp"
+            android:layout_marginEnd="-4dp"
             app:layout_constraintEnd_toEndOf="@+id/ivNotification"
-            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintTop_toTopOf="@+id/ivNotification" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -128,20 +133,22 @@
 
         <TextView
             android:id="@+id/ivChatCount"
-            android:layout_width="@dimen/_13sdp"
-            android:layout_height="@dimen/_13sdp"
+            android:layout_width="wrap_content"
+            android:minWidth="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:paddingHorizontal="@dimen/_2sdp"
             android:background="@drawable/circle_background"
             android:backgroundTint="@color/blue"
             android:textSize="@dimen/_8sdp"
             android:textColor="@color/white"
-            android:fontFamily="@font/urbanist"
+            android:fontFamily="@font/urbanist_bold"
+            android:includeFontPadding="false"
             android:gravity="center"
             android:text="3"
             android:visibility="visible"
             android:layout_marginTop="-2dp"
             android:layout_marginEnd="-4dp"
             app:layout_constraintEnd_toEndOf="@+id/ivChat"
-            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintTop_toTopOf="@+id/ivChat" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -164,28 +171,30 @@
             android:src="@drawable/unselected_heart"
             android:visibility="gone"
             app:tint="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/ivSearch"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="@dimen/_20sdp"/>
+            android:layout_marginEnd="@dimen/_16sdp"/>
 
 
         <TextView
             android:id="@+id/ivFavCount"
-            android:layout_width="@dimen/_13sdp"
-            android:layout_height="@dimen/_13sdp"
+            android:layout_width="wrap_content"
+            android:minWidth="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:paddingHorizontal="@dimen/_2sdp"
             android:background="@drawable/circle_background"
             android:backgroundTint="@color/star_red_color"
             android:textSize="@dimen/_8sdp"
             android:textColor="@color/white"
-            android:fontFamily="@font/urbanist"
+            android:fontFamily="@font/urbanist_bold"
+            android:includeFontPadding="false"
             android:gravity="center"
-            android:text="2"
+            android:text="1"
             android:visibility="gone"
             android:layout_marginTop="-4dp"
-            android:layout_marginEnd="-7dp"
+            android:layout_marginEnd="-6dp"
             app:layout_constraintEnd_toEndOf="@+id/ivHeart"
-            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintTop_toTopOf="@+id/ivHeart" />
 
 
@@ -231,12 +240,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="AZRIUS"
-            android:layout_marginTop="@dimen/_16sdp"
             android:textColor="@color/black"
             android:includeFontPadding="false"
             android:fontFamily="@font/cinzel_bold"
             android:textSize="@dimen/_19sdp"
             android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -298,6 +307,7 @@
         android:layout_height="70dp"
         android:background="@color/white"
         android:weightSum="5"
+        android:elevation="21dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -482,8 +492,8 @@
         android:elevation="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/view"/>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/clTapAgain"

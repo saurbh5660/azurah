@@ -33,7 +33,12 @@ class SearchShopAdapter(val ctx: Context, val list: ArrayList<ProductResponse.Bo
                 productClickListener?.invoke(holder.absoluteAdapterPosition,model)
 
             }
-            ivProduct.loadImage(ApiConstants.IMAGE_BASE_URL+model.product_images?.firstOrNull()?.image)
+            val imageUrl = when {
+                !model.cover_image.isNullOrEmpty() -> model.cover_image
+                !model.product_images.isNullOrEmpty() -> model.product_images?.firstOrNull()?.image
+                else -> null
+            }
+            ivProduct.loadImage(imageUrl)
             tvProductName.text = model.name
             tvPrice.text = "£"+model.price
             ivHeart.visibility = View.VISIBLE

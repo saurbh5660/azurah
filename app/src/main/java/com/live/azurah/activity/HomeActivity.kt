@@ -238,7 +238,7 @@ class HomeActivity : AppCompatActivity() {
                     }else{
                         ivNotificationCount.text = notificationCount.toString()
                     }
-                    showHideHomeIcon(binding.viewPager.currentItem)
+                    updateToolbarState()
                 }
             }
 
@@ -297,18 +297,24 @@ class HomeActivity : AppCompatActivity() {
             })
 
             supportFragmentManager.addOnBackStackChangedListener {
-                if (supportFragmentManager.backStackEntryCount == 0) {
-                    val containerFragment =
-                        supportFragmentManager.findFragmentById(binding.fragmentContainer.id)
+                val containerFragment = supportFragmentManager.findFragmentById(binding.fragmentContainer.id)
+                if (supportFragmentManager.backStackEntryCount == 0 || containerFragment == null) {
                     val currentItem = binding.viewPager.currentItem
+                    showHideHomeIcon(currentItem)
                     val homeFragment = (binding.viewPager.adapter as ViewPagerAdapter).getFragment(currentItem)
                     lifecycleScope.launch(Dispatchers.Main){
-                        if (containerFragment == null && homeFragment is HomeFragment) {
+                        if (homeFragment is HomeFragment) {
                             Log.d("sdgsfgsfg", "fragmentContainer is empty and HomeFragment is visible — resuming video")
                             homeFragment.resumeVideo()
                         }
                     }
-
+                } else {
+                    when (containerFragment) {
+                        is ShopFragment -> showHideHomeIcon(5)
+                        is SearchProductFragment -> showHideHomeIcon(6)
+                        is FavouriteFragment -> showHideHomeIcon(8)
+                        is ShopDetailFragment, is CategoryDetailFragment, is AllShopCategoryFragment -> showHideHomeIcon(9)
+                    }
                 }
             }
 
@@ -335,10 +341,13 @@ class HomeActivity : AppCompatActivity() {
                     }else{
 
                         when ((viewPager.adapter as ViewPagerAdapter).getFragment(viewPager.currentItem)) {
-                            is FavouriteFragment,is SearchProductFragment,is ShopDetailFragment -> {
+                            is ShopFragment, is FavouriteFragment, is SearchProductFragment, is ShopDetailFragment -> {
                                 Log.d("sffdfds","dfdsbfdsbdbsg")
                                 LocalBroadcastManager.getInstance(this@HomeActivity).sendBroadcast(Intent("Shop"))
-                                binding.viewPager.setCurrentItem(5,false)
+                                setTabBackgroundView(ivDash, tvDash, R.drawable.selected_bookmark)
+                                searchType = 1
+                                showHideHomeIcon(1)
+                                binding.viewPager.setCurrentItem(1, false)
                             }else->{
                             val currentTime = System.currentTimeMillis()
                             if (currentTime - backPressedTime < doubleBackToExitDuration) {
@@ -397,7 +406,7 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
             ivHeart.setOnClickListener {
-                viewPager.setCurrentItem(8,false)
+                replaceFragment(FavouriteFragment())
             }
 
             ivSetting.setOnClickListener {
@@ -423,8 +432,15 @@ class HomeActivity : AppCompatActivity() {
             }
 
             backIcon.setOnClickListener {
-                if (viewPager.currentItem == 6 || viewPager.currentItem == 7 || viewPager.currentItem == 8){
-                    viewPager.setCurrentItem(5,false)
+                if (supportFragmentManager.backStackEntryCount > 0) {
+                    onBackPressedDispatcher.onBackPressed()
+                } else if (viewPager.currentItem == 5) {
+                    setTabBackgroundView(ivDash, tvDash, R.drawable.selected_bookmark)
+                    searchType = 1
+                    showHideHomeIcon(1)
+                    viewPager.setCurrentItem(1, false)
+                } else if (viewPager.currentItem == 6 || viewPager.currentItem == 7 || viewPager.currentItem == 8){
+                    viewPager.setCurrentItem(5, false)
                 }
             }
 
@@ -449,6 +465,7 @@ class HomeActivity : AppCompatActivity() {
             })
 
             llHome.setOnClickListener {
+                removeFragment()
                 setTabBackgroundView(ivHome,tvHome,R.drawable.selected_home_icon)
                 searchType = 0
                 binding.viewPager.setCurrentItem(0,false)
@@ -456,6 +473,7 @@ class HomeActivity : AppCompatActivity() {
             }
 
             llDash.setOnClickListener {
+                removeFragment()
                 setTabBackgroundView(ivDash,tvDash,R.drawable.selected_bookmark)
                 searchType = 1
                 showHideHomeIcon(1)
@@ -464,6 +482,7 @@ class HomeActivity : AppCompatActivity() {
             }
 
             llEvent.setOnClickListener {
+                removeFragment()
                 setTabBackgroundView(ivEvents,tvEvents,R.drawable.ic_nav_bible_selected)
                 searchType = 2
                 showHideHomeIcon(2)
@@ -471,6 +490,7 @@ class HomeActivity : AppCompatActivity() {
             }
 
             llShop.setOnClickListener {
+                removeFragment()
                 setTabBackgroundView(ivShop,tvShop,R.drawable.selected_event)
                 searchType = 3
                 showHideHomeIcon(3)
@@ -479,6 +499,7 @@ class HomeActivity : AppCompatActivity() {
             }
 
             llProfile.setOnClickListener {
+                removeFragment()
                 setTabBackgroundView(ivProfile,tvProfile,R.drawable.selected_profile)
                 showHideHomeIcon(4)
                 binding.viewPager.setCurrentItem(4,false)
@@ -506,6 +527,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun showHideHomeIcon(type:Int){
         with(binding){
+            toolbar.visibility = if (type == 9) View.GONE else View.VISIBLE
             applyDashboardToolbarStyle(type == 1 || type == 2)
             when(type){
                 0->{
@@ -607,6 +629,7 @@ class HomeActivity : AppCompatActivity() {
                     bottomNav.visibility = View.VISIBLE
 
                     if (eventCount > 0){
+                        binding.ivBookmarkCount.text = if (eventCount > 99) "99+" else eventCount.toString()
                         binding.ivBookmarkCount.visible()
                     }else{
                         binding.ivBookmarkCount.gone()
@@ -648,6 +671,7 @@ class HomeActivity : AppCompatActivity() {
                     ivShare.visibility = View.GONE
                     ivMore.visibility = View.GONE
                     tvCenterTitle.visibility = View.VISIBLE
+                    tvCenterTitle.text = "AZRIUS"
                     tvTitle.visibility = View.GONE
                     backIcon.visibility = View.VISIBLE
                     bottomNav.visibility = View.VISIBLE
@@ -713,6 +737,13 @@ class HomeActivity : AppCompatActivity() {
                     tvTitle.visibility = View.GONE
                     backIcon.visibility = View.VISIBLE
                     bottomNav.visibility = View.VISIBLE
+                    view.visibility = View.VISIBLE
+                    removeShortFragment()
+                }
+                9->{
+                    toolbar.visibility = View.GONE
+                    bottomNav.visibility = View.GONE
+                    view.visibility = View.GONE
                     removeShortFragment()
                 }
         }
@@ -749,7 +780,28 @@ class HomeActivity : AppCompatActivity() {
                 homeFragment.pauseVideo()
             }
         }
+        when (fragment) {
+            is ShopFragment -> showHideHomeIcon(5)
+            is SearchProductFragment -> showHideHomeIcon(6)
+            is FavouriteFragment -> showHideHomeIcon(8)
+            is ShopDetailFragment, is CategoryDetailFragment, is AllShopCategoryFragment -> showHideHomeIcon(9)
+        }
         supportFragmentManager.beginTransaction().replace(binding.fragmentContainer.id, fragment).addToBackStack(null).commit()
+    }
+
+    fun updateToolbarState() {
+        val containerFragment = supportFragmentManager.findFragmentById(binding.fragmentContainer.id)
+        if (containerFragment != null) {
+            when (containerFragment) {
+                is ShopFragment -> showHideHomeIcon(5)
+                is SearchProductFragment -> showHideHomeIcon(6)
+                is FavouriteFragment -> showHideHomeIcon(8)
+                is ShopDetailFragment, is CategoryDetailFragment, is AllShopCategoryFragment -> showHideHomeIcon(9)
+                else -> showHideHomeIcon(binding.viewPager.currentItem)
+            }
+        } else {
+            showHideHomeIcon(binding.viewPager.currentItem)
+        }
     }
 
     fun replaceIntroFragment(fragment: Fragment){
@@ -761,6 +813,9 @@ class HomeActivity : AppCompatActivity() {
         if (fragment != null){
             window.statusBarColor = getColor(R.color.white)
             window.navigationBarColor = getColor(R.color.white)
+            if (supportFragmentManager.backStackEntryCount > 0) {
+                supportFragmentManager.popBackStack(null, androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            }
             supportFragmentManager.beginTransaction().remove(fragment).commit()
         }
     }

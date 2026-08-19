@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.live.azurah.R
 import com.live.azurah.databinding.ItemLeaderboardFollowingBinding
 
+import com.live.azurah.retrofit.ApiConstants
+import com.live.azurah.util.loadImage
+
 data class LeaderboardFollowingItem(
     val rank: Int,
     val initials: String,
@@ -17,7 +20,8 @@ data class LeaderboardFollowingItem(
     val points: String,
     val avatarColor: String,
     val subtitle: String? = null,
-    val isCurrentUser: Boolean = false
+    val isCurrentUser: Boolean = false,
+    val imageUrl: String? = null
 )
 
 class LeaderboardFollowingAdapter(
@@ -44,8 +48,16 @@ class LeaderboardFollowingAdapter(
         val context = holder.binding.root.context
         with(holder.binding) {
             tvRank.text = item.rank.toString()
-            tvAvatar.text = item.initials
-            tvAvatar.backgroundTintList = ColorStateList.valueOf(Color.parseColor(item.avatarColor))
+            if (!item.imageUrl.isNullOrBlank()) {
+                ivAvatar.visibility = View.VISIBLE
+                tvAvatar.visibility = View.GONE
+                ivAvatar.loadImage(ApiConstants.IMAGE_BASE_URL + item.imageUrl)
+            } else {
+                ivAvatar.visibility = View.GONE
+                tvAvatar.visibility = View.VISIBLE
+                tvAvatar.text = item.initials
+                tvAvatar.backgroundTintList = ColorStateList.valueOf(Color.parseColor(item.avatarColor))
+            }
             tvUsername.text = item.username
             tvPoints.text = item.points
 

@@ -32,6 +32,12 @@
             android:textColor="@color/white"
             android:textSize="@dimen/_10sdp" />
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="@dimen/_34sdp"
+            android:layout_height="@dimen/_34sdp"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/tvUsername"
             android:layout_width="0dp"

@@ -164,6 +164,10 @@ object ApiConstants {
     const val BIBLE_QUEST_DISCUSSION_COMMENT_LIKE = "appApi/dashboard/bibleQuest/challenge/discussion/comment/likeUnlike"
     const val BIBLE_QUEST_DISCUSSION_COMMENT_DELETE = "appApi/dashboard/bibleQuest/challenge/discussion/comment/delete/{id}"
 
+    const val LEADERBOARD = "appApi/dashboard/bibleQuest/leaderboard/"
+    const val LEADERBOARD_GLOBAL = "appApi/dashboard/bibleQuest/leaderboard/global"
+    const val BIBLE_QUEST_GROWTH_LEVELS = "appApi/dashboard/bibleQuest/growth/levels"
+
     var isMute = false
     var isNotification = false
 }

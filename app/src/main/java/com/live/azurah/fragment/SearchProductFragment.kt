@@ -81,6 +81,7 @@ class SearchProductFragment : Fragment() {
         receiver = object : BroadcastReceiver(){
             override fun onReceive(p0: Context?, p1: Intent?) {
                 if (p1?.action == "Shop"){
+                    if (!isAdded || view == null) return
                     showDialog = false
                     resetPage = true
                     getProduct()
@@ -414,8 +415,21 @@ class SearchProductFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (::receiver.isInitialized) {
+            context?.let {
+                LocalBroadcastManager.getInstance(it).unregisterReceiver(receiver)
+            }
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(receiver)
+        if (::receiver.isInitialized) {
+            context?.let {
+                LocalBroadcastManager.getInstance(it).unregisterReceiver(receiver)
+            }
+        }
     }
 }

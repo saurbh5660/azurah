@@ -118,12 +118,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginStart="@dimen/_16sdp"
                 android:includeFontPadding="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/cinzel_bold"
                 android:text="@string/upcoming_events"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_15sdp"
+                android:textSize="@dimen/_16sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rvCategory" />
 

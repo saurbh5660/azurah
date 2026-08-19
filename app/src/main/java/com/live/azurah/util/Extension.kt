@@ -1,5 +1,7 @@
 package com.live.azurah.util
 
+import com.live.azurah.retrofit.ApiConstants
+
 import android.R.attr.textAllCaps
 import android.app.AlertDialog
 import android.content.Context
@@ -296,12 +298,20 @@ fun View.gone() {
 }
 
 fun ImageView.loadImage1(url: String?) {
+    if (url.isNullOrEmpty()) return
+
+    val fullUrl = when {
+        url.startsWith("http://") || url.startsWith("https://") -> url
+        url.startsWith("/") -> ApiConstants.IMAGE_BASE_URL + url
+        else -> ApiConstants.IMAGE_BASE_URL + "/" + url
+    }
+
     // 3x is the sweet spot for sharpness. 9x is too much and causes noise.
     val targetSize = (75 * resources.displayMetrics.density).toInt() * 3
 
     Glide.with(this.context)
         .asBitmap()
-        .load(url)
+        .load(fullUrl)
         .apply(RequestOptions()
             .format(DecodeFormat.PREFER_ARGB_8888)
             // This is the "Magic" line: tells Glide NOT to use hardware bitmaps
@@ -321,6 +331,17 @@ fun ImageView.loadImage(
     error: Int? = null,
     cacheStrategy: DiskCacheStrategy = DiskCacheStrategy.AUTOMATIC
 ) {
+    if (url.isNullOrEmpty()) {
+        placeholder?.let { setImageResource(it) }
+        return
+    }
+
+    val fullUrl = when {
+        url.startsWith("http://") || url.startsWith("https://") -> url
+        url.startsWith("/") -> ApiConstants.IMAGE_BASE_URL + url
+        else -> ApiConstants.IMAGE_BASE_URL + "/" + url
+    }
+
     val options = RequestOptions().apply {
         placeholder?.let { placeholder(it) }
         error?.let { error(it) }
@@ -329,12 +350,9 @@ fun ImageView.loadImage(
     }
 
     Glide.with(this.context)
-        .load(url)
+        .load(fullUrl)
         .apply(options)
-        .override(Target.SIZE_ORIGINAL)
         .into(this)
-
-
 }
 
 fun convertDateRange(dateRange: String): String {

@@ -16,7 +16,9 @@ import com.live.azurah.databinding.ActivityBibleLeaderboardBinding
 import com.live.azurah.fragment.LeaderboardFollowingFragment
 import com.live.azurah.fragment.LeaderboardHowItWorksFragment
 import com.live.azurah.fragment.LeaderboardTop100Fragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BibleLeaderboardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBibleLeaderboardBinding
 

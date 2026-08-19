@@ -1353,4 +1353,28 @@ class CommonViewModel @Inject constructor(private val commonRepository: CommonRe
             emit(response)
         }
     }
+
+    fun getLeaderboard(activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.getLeaderboard(activity)
+            emit(response)
+        }
+    }
+
+    fun getLeaderboardGlobal(activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.getLeaderboardGlobal(activity)
+            emit(response)
+        }
+    }
+
+    fun getGrowthLevels(activity: Activity): LiveData<Resource<Any>> {
+        return liveData(Dispatchers.IO) {
+            emit(Resource.loading(null))
+            val response = commonRepository.getGrowthLevels(activity)
+            emit(response)
+        }
+    }
 }

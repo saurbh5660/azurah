@@ -5,15 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.live.azurah.activity.BibleLeaderboardActivity
 import com.live.azurah.adapter.LeaderboardFollowingAdapter
 import com.live.azurah.adapter.LeaderboardFollowingItem
 import com.live.azurah.databinding.FragmentLeaderboardFollowingBinding
+import com.live.azurah.model.LeaderboardItem
+import com.live.azurah.model.LeaderboardResponse
+import com.live.azurah.retrofit.LoaderDialog
+import com.live.azurah.retrofit.Status
+import com.live.azurah.util.showCustomSnackbar
+import com.live.azurah.viewmodel.CommonViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LeaderboardFollowingFragment : Fragment() {
     private var _binding: FragmentLeaderboardFollowingBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by viewModels<CommonViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentLeaderboardFollowingBinding.inflate(inflater, container, false)
@@ -23,37 +33,74 @@ class LeaderboardFollowingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val items = sampleFollowingItems()
-        binding.tvFollowingCount.text = "Following (${items.size})"
-        binding.rvFollowing.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvFollowing.adapter = LeaderboardFollowingAdapter(items)
-        binding.rvFollowing.setHasFixedSize(false)
-
         binding.btnCommunityTop100.setOnClickListener {
             (activity as? BibleLeaderboardActivity)?.selectTab(BibleLeaderboardActivity.Tab.TOP_100)
         }
+
+        fetchLeaderboardData()
     }
 
-    private fun sampleFollowingItems(): List<LeaderboardFollowingItem> = listOf(
-        LeaderboardFollowingItem(1, "FM", "@floyd_m", "12,350", "#F6C332"),
-        LeaderboardFollowingItem(2, "SJ", "@sarika_j", "9,200", "#AEB7C2"),
-        LeaderboardFollowingItem(3, "LO", "@lara_o", "8,750", "#FF7A1A"),
-        LeaderboardFollowingItem(4, "TK", "@tanya_k", "8,100", "#7DB8E8"),
-        LeaderboardFollowingItem(
-            rank = 5,
-            initials = "J",
-            username = "@jenny_faith",
-            points = "6,840",
-            avatarColor = "#0066A0",
-            subtitle = "Top 30%",
-            isCurrentUser = true
-        ),
-        LeaderboardFollowingItem(6, "DB", "@daniel_b", "5,900", "#9CC8FF"),
-        LeaderboardFollowingItem(7, "MJ", "@marcus_j", "4,200", "#FB7D24"),
-        LeaderboardFollowingItem(8, "JD", "@john_doe", "3,500", "#FFC233"),
-        LeaderboardFollowingItem(9, "AS", "@amy_smith", "2,800", "#8BD4C4"),
-        LeaderboardFollowingItem(10, "RW", "@ryan_w", "2,100", "#B66565")
-    )
+    private fun fetchLeaderboardData() {
+        viewModel.getLeaderboard(requireActivity()).observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
+                Status.SUCCESS -> {
+                    LoaderDialog.dismiss()
+                    if (resource.data is LeaderboardResponse) {
+                        val body = resource.data.body
+                        if (body != null) {
+                            setupUI(body)
+                        }
+                    }
+                }
+                Status.LOADING -> {
+                    LoaderDialog.show(requireActivity())
+                }
+                Status.ERROR -> {
+                    LoaderDialog.dismiss()
+                    showCustomSnackbar(requireActivity(), binding.root, resource.message ?: "Failed to load leaderboard")
+                }
+            }
+        }
+    }
+
+    private fun setupUI(body: LeaderboardResponse.Body) {
+        val myPoints = body.myPoints ?: 0
+        val myRank = body.myRank ?: 0
+        val growthLevel = body.growthLevel ?: "Beginner"
+
+        binding.tvMyPoints.text = myPoints.toString()
+        binding.tvGrowthLevel.text = "🌱 $growthLevel"
+        binding.tvMyRankSubtitle.text = if (myRank > 0) "Your Rank: #$myRank" else "Participate to get ranked!"
+
+        val allItems = mutableListOf<LeaderboardItem>()
+        body.top3?.let { allItems.addAll(it) }
+        body.rankings?.let { allItems.addAll(it) }
+
+        val colors = listOf("#F6C332", "#AEB7C2", "#FF7A1A", "#7DB8E8", "#0066A0", "#9CC8FF", "#FB7D24", "#FFC233", "#8BD4C4", "#B66565")
+        val adapterItems = allItems.mapIndexed { index, item ->
+            val user = item.user
+            val name = user?.username ?: if (!user?.firstName.isNullOrEmpty()) "${user?.firstName} ${user?.lastName ?: ""}".trim() else "User ${item.userId}"
+            val usernameText = if (name.startsWith("@")) name else "@$name"
+            val initials = (user?.firstName?.firstOrNull() ?: user?.username?.firstOrNull() ?: 'U').toString().uppercase()
+            val isMe = item.rank == myRank
+
+            LeaderboardFollowingItem(
+                rank = item.rank ?: (index + 1),
+                initials = initials,
+                username = usernameText,
+                points = (item.totalPoints ?: 0).toString(),
+                avatarColor = colors[index % colors.size],
+                subtitle = item.growthLevel,
+                isCurrentUser = isMe,
+                imageUrl = user?.image ?: user?.profileImage
+            )
+        }
+
+        binding.tvFollowingCount.text = "Leaderboard (${adapterItems.size})"
+        binding.rvFollowing.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvFollowing.adapter = LeaderboardFollowingAdapter(adapterItems)
+        binding.rvFollowing.setHasFixedSize(false)
+    }
 
     override fun onDestroyView() {
         _binding = null

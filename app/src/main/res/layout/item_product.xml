@@ -1,112 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clProduct"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_marginHorizontal="@dimen/_4sdp"
+    android:layout_marginVertical="@dimen/_6sdp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/_14sdp"
+    app:strokeColor="#EAEAEA"
+    app:strokeWidth="1dp"
+    app:cardElevation="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clProduct"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_180sdp"
-        android:layout_marginHorizontal="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:elevation="2dp"
-        android:background="@drawable/less_round_corner_background"
-        android:backgroundTint="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/_10sdp">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/ivProduct"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_180sdp"
-            android:contentDescription="@string/app_name"
-            app:riv_corner_radius="@dimen/_14sdp"
-            android:scaleType="fitCenter"
+            android:layout_height="@dimen/_130sdp"
             android:adjustViewBounds="true"
-            android:layout_marginHorizontal="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:backgroundTint="@color/transparent_blue"
+            android:contentDescription="@string/app_name"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:scaleType="fitCenter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="@dimen/_10sdp" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivHeart"
-            android:layout_width="@dimen/_18sdp"
-            android:layout_height="@dimen/_18sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:contentDescription="@string/app_name"
+            android:padding="2dp"
             android:src="@drawable/unselected_heart"
-            app:tint="@color/black"
-            android:layout_marginTop="@dimen/_6sdp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/tvProductName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/poppins_semibold"
+            android:includeFontPadding="false"
+            android:maxLines="2"
+            android:text="Trust in the Lord | Christian T-shirt"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivProduct" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:fontFamily="@font/poppins_bold"
+            android:includeFontPadding="false"
+            android:text="£27.99"
+            android:textColor="#0088CC"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toStartOf="@+id/tvTypeCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvProductName" />
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/tvTypeCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:visibility="gone"
             app:cardBackgroundColor="@color/shop_cat_color"
-            app:cardCornerRadius="@dimen/_8sdp"
-            app:strokeColor="@color/shop_cat_color"
-            android:layout_marginEnd="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_5sdp">
+            app:cardCornerRadius="@dimen/_6sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvPrice"
+            app:strokeColor="@color/shop_cat_color">
 
             <TextView
                 android:id="@+id/tvType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/_3sdp"
-                android:text="Popular"
-                android:paddingHorizontal="@dimen/_8sdp"
-                android:textSize="@dimen/_10sdp"
-                android:includeFontPadding="false"
                 android:fontFamily="@font/poppins_semibold"
-                android:textColor="@color/black"/>
+                android:includeFontPadding="false"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:paddingVertical="@dimen/_2sdp"
+                android:text="Popular"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_9sdp" />
 
         </com.google.android.material.card.MaterialCardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/tvProductName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:fontFamily="@font/poppins_medium"
-        android:text="Brown Handbag"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_12sdp"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        android:ellipsize="end"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clProduct" />
-
-    <TextView
-        android:id="@+id/tvPrice"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:fontFamily="@font/poppins_medium"
-        android:text="£119.99"
-        android:includeFontPadding="false"
-        android:layout_marginTop="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:textColor="@color/intro_black"
-        android:textSize="@dimen/_12sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvProductName" />
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

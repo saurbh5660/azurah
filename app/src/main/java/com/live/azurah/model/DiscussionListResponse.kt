@@ -13,8 +13,11 @@ data class DiscussionListResponse(
         @SerializedName("total_count") val total_count: Int? = null,
         @SerializedName("current_page") val current_page: Int? = null,
         @SerializedName("per_page") val per_page: Int? = null,
-        @SerializedName("data") val data: List<DiscussionData>? = null
-    )
+        @SerializedName("data") val data: List<DiscussionData>? = null,
+        @SerializedName("title") val title: String? = null
+    ) {
+
+    }
 
     data class DiscussionData(
         @SerializedName("id") val id: Int? = null,

@@ -114,8 +114,9 @@ class BibleDiscussionActivity : AppCompatActivity() {
     }
 
     private fun bindQuestionHeader() {
-        binding.tvStudyMeta.text = "${questTitle.uppercase()} • DAY $dayNo • QUESTION $questionIndex OF 2"
-        binding.tvQuestion.text = discussionDesc
+//        binding.tvStudyMeta.text = "${questTitle.uppercase()} • DAY $dayNo • QUESTION $questionIndex OF 2"
+        binding.tvStudyMeta.text = "${questTitle.uppercase()} • DAY $dayNo"
+//        binding.tvQuestion.text = discussionDesc
         binding.tvResponseCount.text = "0 responses"
         binding.tvLikeCount.text = "0 likes"
     }
@@ -173,6 +174,8 @@ class BibleDiscussionActivity : AppCompatActivity() {
                         if (data is DiscussionListResponse && data.success == true) {
                             allDiscussions = data.body?.data ?: emptyList()
                             binding.tvResponseCount.text = "${allDiscussions.size} responses"
+                            binding.tvQuestion.text = data.body?.title ?: ""
+
                             val totalLikes = allDiscussions.sumOf { it.like_count ?: 0 }
                             binding.tvLikeCount.text = "$totalLikes likes"
                             refreshComments()
@@ -287,28 +290,28 @@ class BibleDiscussionActivity : AppCompatActivity() {
         }
 
         commentAdapter.menuListener = { pos, _, repPos, model, _, _ ->
-            if (repPos != -1) return@menuListener
-            if (model.user_id.toString() != getPreference("id", "")) return@menuListener
-            MaterialAlertDialogBuilder(this)
-                .setTitle("Delete comment")
-                .setMessage("Are you sure you want to delete this comment?")
-                .setPositiveButton("Delete") { _, _ ->
-                    model.id?.let { commentId ->
-                        commonViewModel.deleteDiscussionComment(commentId, this)
-                            .observe(this) { response ->
-                                if (response.status == Status.SUCCESS) {
-                                    commentList.removeAt(pos)
-                                    commentAdapter.notifyItemRemoved(pos)
-                                    updateBottomSheetCommentHeader(bsBinding, commentList.size)
-                                    fetchDiscussions()
-                                } else if (response.status == Status.ERROR) {
-                                    Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
+            if (repPos == -1 && model.user_id.toString() == getPreference("id", "")) {
+                MaterialAlertDialogBuilder(this)
+                    .setTitle("Delete comment")
+                    .setMessage("Are you sure you want to delete this comment?")
+                    .setPositiveButton("Delete") { _, _ ->
+                        model.id?.let { commentId ->
+                            commonViewModel.deleteDiscussionComment(commentId, this)
+                                .observe(this) { response ->
+                                    if (response.status == Status.SUCCESS) {
+                                        commentList.removeAt(pos)
+                                        commentAdapter.notifyItemRemoved(pos)
+                                        updateBottomSheetCommentHeader(bsBinding, commentList.size)
+                                        fetchDiscussions()
+                                    } else if (response.status == Status.ERROR) {
+                                        Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
+                                    }
                                 }
-                            }
+                        }
                     }
-                }
-                .setNegativeButton("Cancel", null)
-                .show()
+                    .setNegativeButton("Cancel", null)
+                    .show()
+            }
         }
 
         commentAdapter.replyListener = { _, _, model, _, _ ->

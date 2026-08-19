@@ -34,9 +34,8 @@ class FavouriteAdapter(val ctx: Context,val list: ArrayList<WishlistResponse.Bod
 
         with(holder.binding){
             ivHeart.visibility = View.VISIBLE
-            ivProduct.loadImage(
-                (ApiConstants.IMAGE_BASE_URL + model.product?.productImages?.firstOrNull()?.image)
-            )
+            val imageUrl = model.product?.productImages?.firstOrNull()?.image
+            ivProduct.loadImage(imageUrl)
             tvProductName.text = model.product?.name ?: ""
             tvPrice.text = buildString {
                 append("£")

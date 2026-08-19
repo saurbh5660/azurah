@@ -22,9 +22,12 @@ class BadgeDetailBottomSheet : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
 
     enum class BadgeType {
+        BEGINNER,
         SEED,
         ROOTED,
         GROWING,
+        STRONG,
+        FRUITFUL,
         FLOURISHING
     }
 
@@ -66,8 +69,8 @@ class BadgeDetailBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun resolveBadgeType(): BadgeType {
-        val name = arguments?.getString(ARG_BADGE) ?: BadgeType.SEED.name
-        return runCatching { BadgeType.valueOf(name) }.getOrDefault(BadgeType.SEED)
+        val name = arguments?.getString(ARG_BADGE) ?: BadgeType.BEGINNER.name
+        return runCatching { BadgeType.valueOf(name.uppercase()) }.getOrDefault(BadgeType.BEGINNER)
     }
 
     private fun bindBadge(type: BadgeType) {
@@ -87,11 +90,21 @@ class BadgeDetailBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun contentFor(type: BadgeType): BadgeContent = when (type) {
+        BadgeType.BEGINNER -> BadgeContent(
+            iconRes = R.drawable.seed_icon,
+            title = "Beginner",
+            subtitle = "STARTING LEVEL",
+            congrats = "Welcome! You've started your Bible Quest journey on AZRIUS.",
+            means = "Every step towards God's Word builds your daily habit and strengthens your faith.",
+            insight = "Small daily habits lead to incredible spiritual growth.",
+            scriptureQuote = "“The fear of the LORD is the beginning of wisdom.”",
+            scriptureRef = "PROVERBS 9:10 (NIV)"
+        )
         BadgeType.SEED -> BadgeContent(
             iconRes = R.drawable.seed_icon,
             title = "Seed",
-            subtitle = "DAY 1",
-            congrats = "Congratulations! You've unlocked the Seed badge. Your faith journey on AZRIUS has begun.",
+            subtitle = "7-DAY STREAK",
+            congrats = "Congratulations! You've unlocked the Seed badge.",
             means = "Every time you spend time in God's Word or prayer, a seed is planted that can grow into something greater.",
             insight = "Jesus taught that God's Word is like a seed planted in our hearts. Even the smallest beginning has the potential to bear great fruit.",
             scriptureQuote = "“The seed is the word of God.”",
@@ -101,7 +114,7 @@ class BadgeDetailBottomSheet : BottomSheetDialogFragment() {
             iconRes = R.drawable.rooted_icon,
             title = "Rooted",
             subtitle = "30-DAY STREAK",
-            congrats = "Congratulations! You've unlocked the Rooted badge. Your consistency is helping your faith grow deeper.",
+            congrats = "Congratulations! You've unlocked the Rooted badge.",
             means = "Just as roots anchor a plant firmly in the ground, spending regular time with God strengthens your foundation and establishes your faith.",
             insight = "The Bible teaches that believers should be rooted and built up in Christ, becoming more firmly established with each passing day.",
             scriptureQuote = "“Rooted and built up in him, strengthened in the faith as you were taught.”",
@@ -110,18 +123,28 @@ class BadgeDetailBottomSheet : BottomSheetDialogFragment() {
         BadgeType.GROWING -> BadgeContent(
             iconRes = R.drawable.growing_icon,
             title = "Growing",
-            subtitle = "60-DAY STREAK",
-            congrats = "Congratulations! You've unlocked the Growing badge. Your commitment to learning from Scripture is helping your faith develop day by day.",
+            subtitle = "90-DAY STREAK",
+            congrats = "Congratulations! You've unlocked the Growing badge.",
             means = "Growth takes time, but every step forward matters. Your relationship with God is actively developing through your daily habits.",
             insight = "Scripture calls believers to grow in their knowledge of Jesus. Faith that is exercised daily becomes stronger and more fruitful.",
-            scriptureQuote = null,
-            scriptureRef = null
+            scriptureQuote = "“Grow in the grace and knowledge of our Lord and Savior Jesus Christ.”",
+            scriptureRef = "2 PETER 3:18 (NIV)"
         )
-        BadgeType.FLOURISHING -> BadgeContent(
+        BadgeType.STRONG -> BadgeContent(
             iconRes = R.drawable.flourishing_icon,
-            title = "Flourishing",
-            subtitle = "90-DAY STREAK",
-            congrats = "Congratulations! You've unlocked the Flourishing badge. Your faith is thriving through your continued dedication to spiritual growth.",
+            title = "Strong",
+            subtitle = "180-DAY STREAK",
+            congrats = "Congratulations! You've unlocked the Strong badge.",
+            means = "Your consistency has built a firm, strong foundation in your spiritual journey.",
+            insight = "Be strong in the Lord and in his mighty power.",
+            scriptureQuote = "“Be strong in the Lord and in his mighty power.”",
+            scriptureRef = "EPHESIANS 6:10 (NIV)"
+        )
+        BadgeType.FRUITFUL, BadgeType.FLOURISHING -> BadgeContent(
+            iconRes = R.drawable.flourishing_icon,
+            title = "Fruitful",
+            subtitle = "365-DAY STREAK",
+            congrats = "Congratulations! You've unlocked the Fruitful badge.",
             means = "Like a tree planted by water, your life is being strengthened and sustained. Your faith has become a strong part of your daily life.",
             insight = "The Bible describes the righteous as trees that flourish when rooted in God. A life nourished daily by His Word bears fruit in every season.",
             scriptureQuote = "“They are like trees planted by streams of water, which yield their fruit in season and whose leaf does not wither.”",

@@ -1331,4 +1331,28 @@ class CommonRepository @Inject constructor(
             responseHandler.handleException(e, activity)
         }
     }
+
+    suspend fun getLeaderboard(activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.getLeaderboard())
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
+    suspend fun getLeaderboardGlobal(activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.getLeaderboardGlobal())
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
+
+    suspend fun getGrowthLevels(activity: Activity): Resource<Any> {
+        return try {
+            responseHandler.handleResponse(apiService.getGrowthLevels())
+        } catch (e: Exception) {
+            responseHandler.handleException(e, activity)
+        }
+    }
 }

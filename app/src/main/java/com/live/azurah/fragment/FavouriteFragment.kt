@@ -67,6 +67,7 @@ class FavouriteFragment : Fragment(), Observer<Resource<Any>> {
         receiver = object : BroadcastReceiver(){
             override fun onReceive(p0: Context?, p1: Intent?) {
                 if (p1?.action == "Shop"){
+                    if (!isAdded || view == null) return
                     showDialog = false
                     resetPage = true
                     getWishList()
@@ -267,7 +268,17 @@ class FavouriteFragment : Fragment(), Observer<Resource<Any>> {
         map["page"] = currentPage.toString()
         map["limit"] = "10"
         map["search_string"] = search
+        if (!isAdded || view == null) return
         viewModel.getWishList(map, requireActivity()).observe(viewLifecycleOwner, this)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (::receiver.isInitialized) {
+            context?.let {
+                LocalBroadcastManager.getInstance(it).unregisterReceiver(receiver)
+            }
+        }
     }
 
     override fun onDestroy() {

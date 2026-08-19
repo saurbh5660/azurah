@@ -57,6 +57,7 @@
             android:textSize="@dimen/_9sdp" />
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivHeaderBadge"
             android:layout_width="@dimen/_130sdp"
             android:layout_height="@dimen/_130sdp"
             android:layout_gravity="center_horizontal"
@@ -66,22 +67,24 @@
             android:src="@drawable/bible_badge" />
 
         <TextView
+            android:id="@+id/tvCurrentBadgeTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/cinzel_bold"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="Rooted"
+            android:text="Beginner"
             android:textColor="@color/white"
             android:textSize="@dimen/_24sdp" />
 
         <TextView
+            android:id="@+id/tvCurrentBadgeSubtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
             android:fontFamily="@font/inter"
             android:gravity="center"
-            android:text="18 more days to unlock Growing"
+            android:text="Keep building your streak to unlock higher badges"
             android:textColor="#E8F3FA"
             android:textSize="@dimen/_11sdp" />
 
@@ -94,9 +97,10 @@
             android:weightSum="100">
 
             <View
+                android:id="@+id/vProgressActive"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="42"
+                android:layout_weight="10"
                 android:background="@drawable/badges_progress_active" />
         </LinearLayout>
 
@@ -107,21 +111,23 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tvProgressStart"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/inter_bold"
                 android:includeFontPadding="false"
-                android:text="ROOTED — 30 DAYS"
+                android:text="BEGINNER — 0 DAYS"
                 android:textColor="#A8C8DC"
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
+                android:id="@+id/tvProgressEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_bold"
                 android:includeFontPadding="false"
-                android:text="GROWING — 60 DAYS"
+                android:text="SEED — 7 DAYS"
                 android:textColor="#A8C8DC"
                 android:textSize="@dimen/_8sdp" />
         </LinearLayout>
@@ -167,307 +173,14 @@
                     android:textSize="@dimen/_9sdp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_14sdp"
-                android:clipChildren="false"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <!-- Seed -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cardSeed"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_140sdp"
-                    android:layout_marginEnd="@dimen/_6sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/badges_card_seed"
-                    android:clickable="true"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    android:focusable="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    android:paddingTop="@dimen/_18sdp"
-                    android:paddingBottom="@dimen/_14sdp">
-
-                    <FrameLayout
-                        android:id="@+id/seedIconWrap"
-                        android:layout_width="@dimen/_64sdp"
-                        android:layout_height="@dimen/_64sdp"
-                        android:clipChildren="false"
-                        android:clipToPadding="false"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <View
-                            android:layout_width="@dimen/_52sdp"
-                            android:layout_height="@dimen/_52sdp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/badges_icon_seed" />
-
-                        <ImageView
-                            android:layout_width="@dimen/_22sdp"
-                            android:layout_height="@dimen/_22sdp"
-                            android:layout_gravity="top|end"
-                            android:background="@drawable/badges_check_yellow"
-                            android:padding="@dimen/_5sdp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/badges_ic_check" />
-                    </FrameLayout>
-
-                    <TextView
-                        android:id="@+id/tvSeedTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/cinzel_bold"
-                        android:includeFontPadding="false"
-                        android:text="Seed"
-                        android:textColor="#0D3B66"
-                        android:textSize="@dimen/_15sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/seedIconWrap" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:fontFamily="@font/inter"
-                        android:includeFontPadding="false"
-                        android:text="Day 1"
-                        android:textColor="#4A90C2"
-                        android:textSize="@dimen/_11sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvSeedTitle" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <!-- Rooted -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cardRooted"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_140sdp"
-                    android:layout_marginStart="@dimen/_6sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/badges_card_rooted"
-                    android:clickable="true"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    android:focusable="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    android:paddingTop="@dimen/_18sdp"
-                    android:paddingBottom="@dimen/_14sdp">
-
-                    <FrameLayout
-                        android:id="@+id/rootedIconWrap"
-                        android:layout_width="@dimen/_64sdp"
-                        android:layout_height="@dimen/_64sdp"
-                        android:clipChildren="false"
-                        android:clipToPadding="false"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <View
-                            android:layout_width="@dimen/_52sdp"
-                            android:layout_height="@dimen/_52sdp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/badges_icon_rooted" />
-
-                        <ImageView
-                            android:layout_width="@dimen/_22sdp"
-                            android:layout_height="@dimen/_22sdp"
-                            android:layout_gravity="top|end"
-                            android:background="@drawable/badges_check_green"
-                            android:padding="@dimen/_5sdp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/badges_ic_check" />
-                    </FrameLayout>
-
-                    <TextView
-                        android:id="@+id/tvRootedTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/cinzel_bold"
-                        android:includeFontPadding="false"
-                        android:text="Rooted"
-                        android:textColor="#0D3B66"
-                        android:textSize="@dimen/_15sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/rootedIconWrap" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:fontFamily="@font/inter"
-                        android:includeFontPadding="false"
-                        android:text="30-day streak"
-                        android:textColor="#2F9B55"
-                        android:textSize="@dimen/_11sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvRootedTitle" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvBadges"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_12sdp"
-                android:clipChildren="false"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <!-- Growing locked -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cardGrowing"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_140sdp"
-                    android:layout_marginEnd="@dimen/_6sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/badges_card_locked"
-                    android:clickable="true"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    android:focusable="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    android:paddingTop="@dimen/_18sdp"
-                    android:paddingBottom="@dimen/_14sdp">
-
-                    <FrameLayout
-                        android:id="@+id/growingIconWrap"
-                        android:layout_width="@dimen/_64sdp"
-                        android:layout_height="@dimen/_64sdp"
-                        android:clipChildren="false"
-                        android:clipToPadding="false"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <View
-                            android:layout_width="@dimen/_52sdp"
-                            android:layout_height="@dimen/_52sdp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/badges_icon_locked" />
-
-                        <ImageView
-                            android:layout_width="@dimen/_22sdp"
-                            android:layout_height="@dimen/_22sdp"
-                            android:layout_gravity="top|end"
-                            android:background="@drawable/badges_lock_circle"
-                            android:padding="@dimen/_5sdp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/badges_ic_lock" />
-                    </FrameLayout>
-
-                    <TextView
-                        android:id="@+id/tvGrowingTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/cinzel_bold"
-                        android:includeFontPadding="false"
-                        android:text="Growing"
-                        android:textColor="#C0C4C8"
-                        android:textSize="@dimen/_15sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/growingIconWrap" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:fontFamily="@font/inter"
-                        android:includeFontPadding="false"
-                        android:text="60-day streak"
-                        android:textColor="#D0D3D8"
-                        android:textSize="@dimen/_11sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvGrowingTitle" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <!-- Flourishing locked -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cardFlourishing"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_140sdp"
-                    android:layout_marginStart="@dimen/_6sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/badges_card_locked"
-                    android:clickable="true"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    android:focusable="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    android:paddingTop="@dimen/_18sdp"
-                    android:paddingBottom="@dimen/_14sdp">
-
-                    <FrameLayout
-                        android:id="@+id/flourishingIconWrap"
-                        android:layout_width="@dimen/_64sdp"
-                        android:layout_height="@dimen/_64sdp"
-                        android:clipChildren="false"
-                        android:clipToPadding="false"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <View
-                            android:layout_width="@dimen/_52sdp"
-                            android:layout_height="@dimen/_52sdp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/badges_icon_locked" />
-
-                        <ImageView
-                            android:layout_width="@dimen/_22sdp"
-                            android:layout_height="@dimen/_22sdp"
-                            android:layout_gravity="top|end"
-                            android:background="@drawable/badges_lock_circle"
-                            android:padding="@dimen/_5sdp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/badges_ic_lock" />
-                    </FrameLayout>
-
-                    <TextView
-                        android:id="@+id/tvFlourishingTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/cinzel_bold"
-                        android:includeFontPadding="false"
-                        android:text="Flourishing"
-                        android:textColor="#C0C4C8"
-                        android:textSize="@dimen/_15sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/flourishingIconWrap" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:fontFamily="@font/inter"
-                        android:includeFontPadding="false"
-                        android:text="90-day streak"
-                        android:textColor="#D0D3D8"
-                        android:textSize="@dimen/_11sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvFlourishingTitle" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never" />
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -36,11 +36,12 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvHeaderTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/playfair_bold"
                     android:includeFontPadding="false"
-                    android:text="Top 100 · May 2026"
+                    android:text="Top 100"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_15sdp" />
 
@@ -50,7 +51,7 @@
                     android:layout_marginTop="@dimen/_3sdp"
                     android:fontFamily="@font/inter"
                     android:includeFontPadding="false"
-                    android:text="Highest scorers across all of AZRIUS this month"
+                    android:text="Highest scorers across all of AZRIUS"
                     android:textColor="#5E4B00"
                     android:textSize="@dimen/_10sdp" />
             </LinearLayout>
@@ -73,7 +74,7 @@
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:letterSpacing="0.14"
-                android:text="TOP 3 THIS MONTH"
+                android:text="TOP 3"
                 android:textColor="#5B9EFF"
                 android:textSize="@dimen/_10sdp" />
 
@@ -86,7 +87,7 @@
                 android:orientation="horizontal"
                 android:weightSum="3">
 
-                <!-- 2nd -->
+                <!-- 2nd (Silver) -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -94,36 +95,51 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
-                    <TextView
+                    <FrameLayout
                         android:layout_width="@dimen/_50sdp"
                         android:layout_height="@dimen/_50sdp"
-                        android:layout_marginTop="@dimen/_22sdp"
-                        android:background="@drawable/leaderboard_avatar_silver"
-                        android:elevation="@dimen/_3sdp"
-                        android:fontFamily="@font/inter_bold"
-                        android:gravity="center"
-                        android:includeFontPadding="false"
-                        android:text="JO"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_13sdp" />
+                        android:layout_marginTop="@dimen/_22sdp">
+
+                        <TextView
+                            android:id="@+id/tvSilverAvatar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/leaderboard_avatar_silver"
+                            android:elevation="@dimen/_3sdp"
+                            android:fontFamily="@font/inter_bold"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:text="2"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_13sdp" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/ivSilverAvatar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="@dimen/_3sdp"
+                            android:visibility="gone" />
+                    </FrameLayout>
 
                     <TextView
+                        android:id="@+id/tvSilverUsername"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:fontFamily="@font/inter_bold"
                         android:includeFontPadding="false"
-                        android:text="\@james_o"
+                        android:text="--"
                         android:textColor="#1F2937"
                         android:textSize="@dimen/_11sdp" />
 
                     <TextView
+                        android:id="@+id/tvSilverPoints"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_2sdp"
                         android:fontFamily="@font/playfair_bold"
                         android:includeFontPadding="false"
-                        android:text="38.200"
+                        android:text="0"
                         android:textColor="#9CA3AF"
                         android:textSize="@dimen/_11sdp" />
 
@@ -140,7 +156,7 @@
                         android:textSize="@dimen/_22sdp" />
                 </LinearLayout>
 
-                <!-- 1st -->
+                <!-- 1st (Gold) -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -161,6 +177,7 @@
                             android:textSize="@dimen/_16sdp" />
 
                         <TextView
+                            android:id="@+id/tvGoldAvatar"
                             android:layout_width="@dimen/_58sdp"
                             android:layout_height="@dimen/_58sdp"
                             android:layout_gravity="bottom|center_horizontal"
@@ -170,28 +187,39 @@
                             android:layout_marginBottom="@dimen/_2sdp"
                             android:gravity="center"
                             android:includeFontPadding="false"
-                            android:text="PS"
+                            android:text="1"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_14sdp" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/ivGoldAvatar"
+                            android:layout_width="@dimen/_58sdp"
+                            android:layout_height="@dimen/_58sdp"
+                            android:layout_gravity="bottom|center_horizontal"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:elevation="@dimen/_2sdp"
+                            android:visibility="gone" />
                     </FrameLayout>
 
                     <TextView
+                        android:id="@+id/tvGoldUsername"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:fontFamily="@font/inter_bold"
                         android:includeFontPadding="false"
-                        android:text="\@priya_s"
+                        android:text="--"
                         android:textColor="#1F2937"
                         android:textSize="@dimen/_11sdp" />
 
                     <TextView
+                        android:id="@+id/tvGoldPoints"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_2sdp"
                         android:fontFamily="@font/playfair_bold"
                         android:includeFontPadding="false"
-                        android:text="40.300"
+                        android:text="0"
                         android:textColor="#C99010"
                         android:textSize="@dimen/_12sdp" />
 
@@ -209,7 +237,7 @@
                         android:textSize="@dimen/_26sdp" />
                 </LinearLayout>
 
-                <!-- 3rd -->
+                <!-- 3rd (Bronze) -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -217,36 +245,51 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
-                    <TextView
+                    <FrameLayout
                         android:layout_width="@dimen/_50sdp"
                         android:layout_height="@dimen/_50sdp"
-                        android:layout_marginTop="@dimen/_34sdp"
-                        android:background="@drawable/leaderboard_avatar_bronze"
-                        android:elevation="@dimen/_3sdp"
-                        android:fontFamily="@font/inter_bold"
-                        android:gravity="center"
-                        android:includeFontPadding="false"
-                        android:text="EM"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_13sdp" />
+                        android:layout_marginTop="@dimen/_34sdp">
+
+                        <TextView
+                            android:id="@+id/tvBronzeAvatar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/leaderboard_avatar_bronze"
+                            android:elevation="@dimen/_3sdp"
+                            android:fontFamily="@font/inter_bold"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:text="3"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_13sdp" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/ivBronzeAvatar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="@dimen/_3sdp"
+                            android:visibility="gone" />
+                    </FrameLayout>
 
                     <TextView
+                        android:id="@+id/tvBronzeUsername"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:fontFamily="@font/inter_bold"
                         android:includeFontPadding="false"
-                        android:text="\@esther_m"
+                        android:text="--"
                         android:textColor="#1F2937"
                         android:textSize="@dimen/_11sdp" />
 
                     <TextView
+                        android:id="@+id/tvBronzePoints"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_2sdp"
                         android:fontFamily="@font/playfair_bold"
                         android:includeFontPadding="false"
-                        android:text="36.750"
+                        android:text="0"
                         android:textColor="#9CA3AF"
                         android:textSize="@dimen/_11sdp" />
 

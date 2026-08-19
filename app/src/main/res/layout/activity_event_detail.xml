@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activity.EventDetailActivity">
 
+    <!-- Top Toolbar -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:background="@color/white"
         android:elevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,416 +30,532 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-       <!-- <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_30sdp"
-            app:tint="@color/white"
-            android:background="@drawable/round_corner"
-            android:backgroundTint="@color/button_grey"
-            android:padding="@dimen/_6sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/azurah_heading_icon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />-->
-
         <TextView
             android:id="@+id/ivHeading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="AZRIUS"
             android:layout_marginTop="@dimen/_16sdp"
-            android:textColor="@color/black"
-            android:includeFontPadding="false"
             android:fontFamily="@font/cinzel_bold"
+            android:includeFontPadding="false"
+            android:text="AZRIUS"
+            android:textColor="@color/black"
             android:textSize="@dimen/_19sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-       <!-- <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="@dimen/_70sdp"
-            android:layout_height="@dimen/_30sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/azurah_heading_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />-->
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Scrollable Content -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nsViewDetail"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
         android:visibility="gone"
-        android:layout_marginBottom="@dimen/_8sdp"
-        app:layout_constraintBottom_toTopOf="@+id/btnBuyTicket"
+        app:layout_constraintBottom_toTopOf="@+id/clBottomBar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <!-- Hero Image Banner with Title Overlay -->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clEvent"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:id="@+id/clEventBanner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_210sdp">
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/ivComm"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_250sdp"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/event_detail_image"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clEventDetail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/round_corner"
-                    android:backgroundTint="@color/white"
-                    android:elevation="2dp"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ivComm"
-                    app:layout_constraintBottom_toBottomOf="@+id/ivComm">
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/event_detail_image" />
 
-                    <TextView
-                        android:id="@+id/tvCommunityForum"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_16sdp"
-                        android:layout_marginEnd="@dimen/_16sdp"
-                        android:layout_marginBottom="@dimen/_8sdp"
-                        android:gravity="center"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:text="Party with friends at night - 2022"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_15sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvCommunityDesc"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_marginEnd="@dimen/_16sdp"
-                        android:layout_marginBottom="@dimen/_8sdp"
-                        android:fontFamily="@font/poppins"
-                        android:maxLines="2"
-                        android:ellipsize="end"
-                        android:visibility="gone"
-                        android:text="We are a community inviting all to be engaged and transformed by Jesus to impact the campus."
-                        android:textColor="@color/less_light_black_color"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvCommunityForum" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/ivCal"
-                        android:layout_width="@dimen/_14sdp"
-                        android:layout_height="@dimen/_14sdp"
-                        android:src="@drawable/calendar_icon"
-                        android:tint="@color/event_color"
-                        android:layout_marginBottom="@dimen/_16sdp"
-                        app:layout_constraintTop_toBottomOf="@+id/tvCommunityForum"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_marginTop="@dimen/_4sdp"
-                        android:contentDescription="@string/app_name"/>
-
-                    <TextView
-                        android:id="@+id/tvDate"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_marginEnd="@dimen/_16sdp"
-                        android:includeFontPadding="false"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:fontFamily="@font/poppins"
-                        android:maxLines="2"
-                        android:ellipsize="end"
-                        android:text="Thursday 15th October 2022"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12sdp"
-                        app:layout_constraintStart_toEndOf="@+id/ivCal"
-                        app:layout_constraintTop_toTopOf="@+id/ivCal" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/ivClock"
-                        android:layout_width="@dimen/_16sdp"
-                        android:layout_height="@dimen/_16sdp"
-                        android:src="@drawable/clock"
-                        android:tint="@color/event_color"
-                        app:layout_constraintTop_toBottomOf="@+id/tvDate"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:layout_marginStart="@dimen/_7sdp"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:contentDescription="@string/app_name"/>
-
-                    <TextView
-                        android:id="@+id/tvClock"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_marginEnd="@dimen/_16sdp"
-                        android:includeFontPadding="false"
-                        android:fontFamily="@font/poppins"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:text="ABC Avenue, St 123, Sydney, Austrailia"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/ivClock"
-                        app:layout_constraintTop_toTopOf="@+id/ivClock" />
-
-
-                    <TextView
-                        android:id="@+id/btnViewGroup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:text="£30"
-                        android:includeFontPadding="false"
-                        android:textSize="@dimen/_12sdp"
-                        android:layout_marginBottom="@dimen/_8sdp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:paddingHorizontal="@dimen/_8sdp"
-                        android:paddingVertical="@dimen/_2sdp"
-                        android:textColor="@color/price__text_color"
-                        app:layout_constraintTop_toBottomOf="@+id/tvLoc"
-                        android:background="@drawable/round_corner"
-                        android:backgroundTint="@color/price_color"/>
-
-
-                    <!-- <TextView
-                         android:id="@+id/tvDollar"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_marginStart="@dimen/_8sdp"
-                         android:layout_marginEnd="@dimen/_16sdp"
-                         android:layout_marginBottom="@dimen/_8sdp"
-                         android:fontFamily="@font/poppins_semibold"
-                         android:text="£30"
-                         android:layout_marginTop="@dimen/_2sdp"
-                         android:textColor="@color/black"
-                         android:textSize="@dimen/_12sdp"
-                         app:layout_constraintEnd_toEndOf="parent"
-                         app:layout_constraintTop_toTopOf="@+id/tvCommunityForum" />
- -->
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/ivLoc"
-                        android:layout_width="@dimen/_16sdp"
-                        android:layout_height="@dimen/_16sdp"
-                        android:src="@drawable/location_icon"
-                        android:tint="@color/event_color"
-                        app:layout_constraintTop_toBottomOf="@+id/tvClock"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:layout_marginStart="@dimen/_7sdp"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:contentDescription="@string/app_name"/>
-
-                    <TextView
-                        android:id="@+id/tvLoc"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_marginEnd="@dimen/_16sdp"
-                        android:includeFontPadding="false"
-                        android:fontFamily="@font/poppins"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:text="ABC Avenue, St 123, Sydney, Austrailia"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/ivLoc"
-                        app:layout_constraintTop_toTopOf="@+id/ivLoc" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
+                <!-- Dark Gradient Overlay for Crisp Text Readability -->
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/clEventDetail"
-                    android:background="@android:color/transparent"
-                    android:layout_marginBottom="@dimen/_8sdp"/>
+                    android:layout_height="match_parent"
+                    android:background="#4D000000" />
+
+                <TextView
+                    android:id="@+id/tvCommunityForum"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:fontFamily="@font/cinzel_bold"
+                    android:includeFontPadding="false"
+                    android:text="Christian Spin Class in London - Gospel Cycle + Sauna Access by Azrius (1pm)"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_18sdp"
+                    android:textStyle="italic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- Pills Section: Date, Time & Location -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/clEvent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginHorizontal="@dimen/_16sdp">
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:orientation="vertical">
+
+                <!-- Row 1: Date Chip + Time Chip -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Date Chip -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_6sdp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="#F4F8FC"
+                        app:cardCornerRadius="@dimen/_18sdp"
+                        app:cardElevation="0dp"
+                        app:strokeColor="#E3EEF9"
+                        app:strokeWidth="1dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="@dimen/_12sdp"
+                            android:paddingVertical="@dimen/_8sdp">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivCal"
+                                android:layout_width="@dimen/_14sdp"
+                                android:layout_height="@dimen/_14sdp"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/calendar_icon"
+                                app:tint="#0F74C7" />
+
+                            <TextView
+                                android:id="@+id/tvDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_6sdp"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/urbanist_semibold"
+                                android:includeFontPadding="false"
+                                android:maxLines="1"
+                                android:text="Sat 19 Sep 2026"
+                                android:textColor="#0F74C7"
+                                android:textSize="@dimen/_11sdp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Time Chip -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_6sdp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="#F4F8FC"
+                        app:cardCornerRadius="@dimen/_18sdp"
+                        app:cardElevation="0dp"
+                        app:strokeColor="#E3EEF9"
+                        app:strokeWidth="1dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="@dimen/_12sdp"
+                            android:paddingVertical="@dimen/_8sdp">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivClock"
+                                android:layout_width="@dimen/_14sdp"
+                                android:layout_height="@dimen/_14sdp"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/clock"
+                                app:tint="#0F74C7" />
+
+                            <TextView
+                                android:id="@+id/tvClock"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_6sdp"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/urbanist_semibold"
+                                android:includeFontPadding="false"
+                                android:maxLines="1"
+                                android:text="13:00 - 15:00"
+                                android:textColor="#0F74C7"
+                                android:textSize="@dimen/_11sdp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+                <!-- Row 2: Location Pill (Full Width) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    app:cardBackgroundColor="#F4F8FC"
+                    app:cardCornerRadius="@dimen/_14sdp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#E3EEF9"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_12sdp"
+                        android:paddingVertical="@dimen/_10sdp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivLoc"
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/location_icon"
+                            app:tint="#0F74C7" />
+
+                        <TextView
+                            android:id="@+id/tvLoc"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/urbanist_semibold"
+                            android:includeFontPadding="false"
+                            android:maxLines="2"
+                            android:text="Gymbox Holborn, 100 High Holborn, London WC1V 6RD"
+                            android:textColor="#0F74C7"
+                            android:textSize="@dimen/_11sdp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <!-- About Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tvAbout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/about_underline"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:textSize="@dimen/_13sdp"
-                    android:textColor="@color/black"
+                    android:fontFamily="@font/urbanist_bold"
                     android:includeFontPadding="false"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:text="About"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_16sdp" />
 
                 <TextView
                     android:id="@+id/tvName"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id pretium mi. Pellentesque interdum in nisl vel efficitur. Cras gravida nisi nec volutpat eleifend. Aenean tristique neque tellus, lacinia sodales justo imperdiet ut. Nulla at justo vel erat tempor pulvinar. Morbi accumsan nulla magna, sit amet fringilla nibh pulvinar vitae."
-                    android:fontFamily="@font/poppins"
-                    android:textSize="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:fontFamily="@font/urbanist"
                     android:includeFontPadding="false"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvAbout"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    android:lineSpacingExtra="4dp"
+                    android:text="Tickets from £22.99 (+ Eventbrite booking fee)..."
+                    android:textColor="#666666"
+                    android:textSize="@dimen/_12sdp" />
 
+                <!-- Organizer section (hidden or populated if needed) -->
                 <TextView
                     android:id="@+id/tvOrganizer"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/organiser"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:textSize="@dimen/_13sdp"
-                    android:visibility="gone"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:includeFontPadding="false"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvName"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    android:visibility="gone" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivUserImage"
-                    android:layout_width="@dimen/_45sdp"
-                    android:layout_height="@dimen/_45sdp"
-                    android:visibility="gone"
-                    android:src="@drawable/profile_icon"
-                    app:layout_constraintTop_toBottomOf="@+id/tvOrganizer"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginTop="@dimen/_8sdp" />
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tvOrganizerName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:text="Warren"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/btnViewGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <!-- What's Included Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_24sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cinzel_bold"
+                    android:includeFontPadding="false"
+                    android:text="What's Included"
                     android:textColor="@color/black"
-                    android:visibility="gone"
-                    android:textSize="@dimen/_12sdp"
-                    android:fontFamily="@font/poppins_semibold"
-                    app:layout_constraintStart_toEndOf="@+id/ivUserImage"
-                    app:layout_constraintTop_toTopOf="@+id/ivUserImage"
-                    app:layout_constraintBottom_toBottomOf="@+id/ivUserImage"/>
+                    android:textSize="@dimen/_16sdp" />
 
-                <!-- <View
-                     android:id="@+id/view"
-                     android:layout_width="match_parent"
-                     android:layout_height="1dp"
-                     app:layout_constraintTop_toBottomOf="@+id/tvName"
-                     app:layout_constraintStart_toStartOf="parent"
-                     app:layout_constraintEnd_toEndOf="parent"
-                     android:background="@color/divider_grey"
-                     android:layout_marginTop="@dimen/_10sdp"/>
+                <!-- 2x2 Grid -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:orientation="vertical">
 
-                 <androidx.appcompat.widget.AppCompatImageView
-                     android:id="@+id/ivGroup"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:src="@drawable/user_group_img"
-                     android:contentDescription="@string/app_name"
-                     app:layout_constraintStart_toStartOf="parent"
-                     app:layout_constraintBottom_toBottomOf="parent"
-                     android:layout_marginBottom="@dimen/_8sdp"
-                     app:layout_constraintTop_toBottomOf="@+id/view"
-                     android:layout_marginStart="@dimen/_16sdp"
-                     android:layout_marginTop="@dimen/_10sdp"/>
+                    <!-- Grid Row 1 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                 <TextView
-                     android:id="@+id/tvAttending"
-                     android:layout_width="0dp"
-                     android:layout_height="wrap_content"
-                     android:text="People attending the event"
-                     android:fontFamily="@font/poppins"
-                     android:textSize="@dimen/_10sdp"
-                     android:layout_marginTop="@dimen/_2sdp"
-                     app:layout_constraintStart_toEndOf="@+id/ivGroup"
-                     app:layout_constraintTop_toTopOf="@+id/ivGroup"
-                     android:layout_marginStart="@dimen/_8sdp"
-                     app:layout_constraintEnd_toEndOf="parent"/>
- -->
+                        <!-- Item 1: 45-min rebounder -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_6sdp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="#F8FAFC"
+                            app:cardCornerRadius="@dimen/_14sdp"
+                            app:cardElevation="0dp"
+                            app:strokeColor="#EAEAEA"
+                            app:strokeWidth="1dp">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="@dimen/_12sdp">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="🏃"
+                                    android:textSize="@dimen/_16sdp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:fontFamily="@font/urbanist_bold"
+                                    android:includeFontPadding="false"
+                                    android:text="45-min rebounder"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_11sdp" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Item 2: Gospel & worship -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_6sdp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="#F8FAFC"
+                            app:cardCornerRadius="@dimen/_14sdp"
+                            app:cardElevation="0dp"
+                            app:strokeColor="#EAEAEA"
+                            app:strokeWidth="1dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="@dimen/_12sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="🎵"
+                                    android:textSize="@dimen/_16sdp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:fontFamily="@font/urbanist_bold"
+                                    android:includeFontPadding="false"
+                                    android:text="Gospel &amp; worship"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_11sdp" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+
+                    <!-- Grid Row 2 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal">
+
+                        <!-- Item 3: Free protein shake -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_6sdp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="#F8FAFC"
+                            app:cardCornerRadius="@dimen/_14sdp"
+                            app:cardElevation="0dp"
+                            app:strokeColor="#EAEAEA"
+                            app:strokeWidth="1dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="@dimen/_12sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="🥤"
+                                    android:textSize="@dimen/_16sdp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:fontFamily="@font/urbanist_bold"
+                                    android:includeFontPadding="false"
+                                    android:text="Free protein shake"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_11sdp" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Item 4: All levels welcome -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_6sdp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="#F8FAFC"
+                            app:cardCornerRadius="@dimen/_14sdp"
+                            app:cardElevation="0dp"
+                            app:strokeColor="#EAEAEA"
+                            app:strokeWidth="1dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="@dimen/_12sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="👥"
+                                    android:textSize="@dimen/_16sdp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:fontFamily="@font/urbanist_bold"
+                                    android:includeFontPadding="false"
+                                    android:text="All levels welcome"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_11sdp" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/btnBookmarkEvent"
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:src="@drawable/bookmark_icon"
-        android:background="@drawable/round_corner"
-        android:backgroundTint="@color/price__text_color"
-        android:padding="@dimen/_11sdp"
-        app:tint="@color/white"
-        android:contentDescription="@string/app_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="@dimen/_16sdp"
-        android:layout_marginStart="@dimen/_16sdp" />
-
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnBuyTicket"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_40sdp"
-        android:includeFontPadding="false"
-        android:fontFamily="@font/poppins_semibold"
-        android:textSize="@dimen/_13sdp"
+    <!-- Bottom Sticky Action Bar -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clBottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="8dp"
+        android:paddingHorizontal="@dimen/_16sdp"
         android:paddingVertical="@dimen/_10sdp"
-        android:layout_marginHorizontal="@dimen/_16sdp"
-        android:background="@drawable/round_corner"
-        android:backgroundTint="@color/blue"
-        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnBookmarkEvent"
-        app:layout_constraintStart_toEndOf="@+id/btnBookmarkEvent"
-        app:layout_constraintBottom_toBottomOf="@+id/btnBookmarkEvent"
-        android:text="@string/buy_ticket"
-        android:textAllCaps="false"
-        android:textColor="@color/white"/>
+        app:layout_constraintStart_toStartOf="parent">
 
+        <!-- Bookmark Square Button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvBookmarkBtn"
+            android:layout_width="@dimen/_38sdp"
+            android:layout_height="@dimen/_38sdp"
+            app:cardBackgroundColor="#0F74C7"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@android:color/transparent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btnBookmarkEvent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/app_name"
+                android:padding="@dimen/_10sdp"
+                android:src="@drawable/bookmark_icon"
+                app:tint="@color/white" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Buy Tickets Primary Button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnBuyTicket"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:background="@drawable/round_corner"
+            android:backgroundTint="#0F74C7"
+            android:fontFamily="@font/urbanist_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:paddingHorizontal="@dimen/_14sdp"
+            android:text="Buy Tickets — £ 22.99"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cvBookmarkBtn"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

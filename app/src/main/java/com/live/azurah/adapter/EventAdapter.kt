@@ -37,10 +37,8 @@ class EventAdapter(
         with(holder.binding){
             ivImage.loadImage(ApiConstants.IMAGE_BASE_URL+model.image)
             tvGroupName.text = model.title
-            btnViewGroup.text = buildString {
-                append("£")
-                append(model.price)
-            }
+            tvPrice.text = "£" + model.price
+            btnViewGroup.text = "£" + model.price
 
             tvLoc.text = model.location ?: ""
 //            tvDate.text = convertDateRange(model.startDate+","+model.endDate)

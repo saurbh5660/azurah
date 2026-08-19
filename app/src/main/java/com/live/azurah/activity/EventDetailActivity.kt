@@ -163,11 +163,17 @@ class EventDetailActivity : AppCompatActivity(), Observer<Resource<Any>> {
                                 tvClock.text = formatStartEndTimeRange(res?.startDate+","+res?.startTime+" 44 "+res?.endDate+","+res?.endTime)
                                 Log.d("dvdsggdfg",res?.startDate+","+res?.startTime+"-"+res?.endDate+","+res?.endTime)
 
-//                                tvName.text = res?.description
                                 binding.tvName.apply {
-                                    text = HtmlCompat.fromHtml(it.description ?: "",FROM_HTML_MODE_COMPACT)
+                                    val desc = it.description ?: ""
+                                    val formattedHtml = if (desc.contains("<p>") || desc.contains("<br>") || desc.contains("<ul>")) {
+                                        desc
+                                    } else {
+                                        desc.replace("\n", "<br/>").replace("•", "&bull;&nbsp;")
+                                    }
+                                    text = HtmlCompat.fromHtml(formattedHtml, HtmlCompat.FROM_HTML_MODE_LEGACY)
                                 }
                                 btnViewGroup.text = "£"+res?.price
+                                btnBuyTicket.text = "Buy Tickets — £ " + (res?.price ?: "")
                                 if (res?.organizer?.lastName.toString().trim().uppercase() == "ADMIN"){
                                     tvOrganizerName.text = res?.organizer?.firstName ?: ""
                                 }else{

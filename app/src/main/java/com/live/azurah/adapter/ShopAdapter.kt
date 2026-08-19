@@ -43,8 +43,12 @@ class ShopAdapter(
             root.setOnClickListener {
                 productClickListener?.invoke(holder.absoluteAdapterPosition, model)
             }
-//            ivProduct.loadImage(ApiConstants.IMAGE_BASE_URL + model.product_images?.firstOrNull()?.image)
-            ivProduct.loadImage(ApiConstants.IMAGE_BASE_URL + model.cover_image)
+            val imageUrl = when {
+                !model.cover_image.isNullOrEmpty() -> model.cover_image
+                !model.product_images.isNullOrEmpty() -> model.product_images?.firstOrNull()?.image
+                else -> null
+            }
+            ivProduct.loadImage(imageUrl)
             tvProductName.text = model.name ?: ""
             tvPrice.text = buildString {
                 append("£")
@@ -54,19 +58,13 @@ class ShopAdapter(
             val isPopular = model.is_popular ?: 0
             val isBestSeller = model.is_best_seller ?: 0
 
-            if (isPopular == 1 && isBestSeller == 1) {
-                tvType.text = "Popular"
+            if (isPopular == 1 || isBestSeller == 1) {
+                tvType.text = if (isPopular == 1) "Popular" else "Best Seller"
+                tvTypeCard.visible()
                 tvType.visible()
-            } else if (isBestSeller == 0 && isPopular == 1) {
-                tvType.text = "Popular"
-                tvType.visible()
-            } else if (isBestSeller == 1 && isPopular == 0) {
-                tvType.text = "Best Seller"
-                tvType.visible()
-            } else if (isBestSeller == 0 && isPopular == 0) {
+            } else {
                 tvType.text = ""
-                tvType.gone()
-            }else{
+                tvTypeCard.gone()
                 tvType.gone()
             }
 

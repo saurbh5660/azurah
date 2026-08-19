@@ -8,12 +8,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.live.azurah.databinding.ItemLeaderboardTop100Binding
 
+import com.live.azurah.retrofit.ApiConstants
+import com.live.azurah.util.loadImage
+
 data class LeaderboardTop100Item(
     val rank: Int,
     val initials: String,
     val username: String,
     val points: String,
-    val avatarColor: String
+    val avatarColor: String,
+    val imageUrl: String? = null
 )
 
 class LeaderboardTop100Adapter(
@@ -39,8 +43,16 @@ class LeaderboardTop100Adapter(
         val item = items[position]
         with(holder.binding) {
             tvRank.text = item.rank.toString()
-            tvAvatar.text = item.initials
-            tvAvatar.backgroundTintList = ColorStateList.valueOf(Color.parseColor(item.avatarColor))
+            if (!item.imageUrl.isNullOrBlank()) {
+                ivAvatar.visibility = View.VISIBLE
+                tvAvatar.visibility = View.GONE
+                ivAvatar.loadImage(ApiConstants.IMAGE_BASE_URL + item.imageUrl)
+            } else {
+                ivAvatar.visibility = View.GONE
+                tvAvatar.visibility = View.VISIBLE
+                tvAvatar.text = item.initials
+                tvAvatar.backgroundTintList = ColorStateList.valueOf(Color.parseColor(item.avatarColor))
+            }
             tvUsername.text = item.username
             tvPoints.text = item.points
             divider.visibility = if (position == items.lastIndex) View.GONE else View.VISIBLE
