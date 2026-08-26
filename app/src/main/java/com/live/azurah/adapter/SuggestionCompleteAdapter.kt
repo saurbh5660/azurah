@@ -14,6 +14,7 @@ import com.live.azurah.databinding.ItemCompleteSuggestionBinding
 import com.live.azurah.model.PostLikesResposne
 import com.live.azurah.model.PostResponse
 import com.live.azurah.retrofit.ApiConstants
+import com.live.azurah.util.AvatarUtils
 import com.live.azurah.util.getPreference
 import com.live.azurah.util.gone
 import com.live.azurah.util.isInternetAvailable
@@ -52,33 +53,20 @@ class SuggestionCompleteAdapter(
         with(holder.binding) {
             if (from == 1) {
                 holder.binding.tvFollow.visibility = View.GONE
-                ivProfile.loadImage(
-                    ApiConstants.IMAGE_BASE_URL + model.user?.image,
-                    placeholder = R.drawable.profile_icon
-                )
                 ivCross.gone()
-                if (model.user?.image.isNullOrEmpty()) {
-                    ivProfile.borderColor = ContextCompat.getColor(ctx, R.color.blue)
-                    ivProfile.borderWidth = 2
+
+                val name = if (model.user?.display_name_preference == "1") {
+                    model.user.first_name ?: ""
                 } else {
-                    ivProfile.borderColor = ContextCompat.getColor(ctx, android.R.color.transparent)
-                    ivProfile.borderWidth = 0
+                    "${model.user?.first_name ?: ""} ${model.user?.last_name ?: ""}".trim()
                 }
-                Log.d("fDSFSDFDsds--------  ",model.user?.display_name_preference.toString())
-                if (model.user?.display_name_preference == "1") {
-                    tvName.text = buildString {
-                        append(model.user.first_name ?: "")
-                    }
-                } else {
-                    tvName.text = buildString {
-                        append(model.user?.first_name ?: "")
-                        append(" ")
-                        append(model.user?.last_name ?: "")
-                    }
-                }
+                val displayName = if (name.isNotBlank()) name else (model.user?.username ?: "")
+                tvName.text = displayName
+
+                AvatarUtils.setupAvatar(ivProfile, tvInitials, model.user?.image, displayName)
 
                 if (model.user?.username.toString().contains("@")) {
-                    tvName.text = buildString {
+                    tvUserName.text = buildString {
                         append(model.user?.username ?: "")
                     }
                 } else {
@@ -87,7 +75,6 @@ class SuggestionCompleteAdapter(
                         append(model.user?.username ?: "")
                     }
                 }
-
 
                 root.setOnClickListener {
                     if (getPreference("id", "") != model.user?.id.toString()) {
@@ -98,32 +85,17 @@ class SuggestionCompleteAdapter(
                 }
             } else {
                 holder.binding.tvFollow.visibility = View.VISIBLE
-                ivProfile.loadImage(
-                    ApiConstants.IMAGE_BASE_URL + model.image,
-                    placeholder = R.drawable.profile_icon
-                )
                 ivCross.visible()
-                if (model.image.isNullOrEmpty()) {
-                    ivProfile.borderColor = ContextCompat.getColor(ctx, R.color.blue)
-                    ivProfile.borderWidth = 2
-                } else {
-                    ivProfile.borderColor = ContextCompat.getColor(ctx, android.R.color.transparent)
-                    ivProfile.borderWidth = 0
-                }
-                Log.d("vdvdvdvdgg--------  ",model.display_name_preference.toString())
 
-                if (model.display_name_preference == "1") {
-                    tvName.text = buildString {
-                        append(model.first_name ?: "")
-                    }
+                val name = if (model.display_name_preference == "1") {
+                    model.first_name ?: ""
                 } else {
-                    tvName.text = buildString {
-                        append(model.first_name ?: "")
-                        append(" ")
-                        append(model.last_name ?: "")
-                    }
+                    "${model.first_name ?: ""} ${model.last_name ?: ""}".trim()
                 }
+                val displayName = if (name.isNotBlank()) name else (model.username ?: "")
+                tvName.text = displayName
 
+                AvatarUtils.setupAvatar(ivProfile, tvInitials, model.image, displayName)
 
                 tvUserName.text = buildString {
                     append("@")
@@ -142,19 +114,16 @@ class SuggestionCompleteAdapter(
                     0 -> {
                         tvFollow.text = "Requested"
                         tvFollow.backgroundTintList =
-                            ContextCompat.getColorStateList(ctx, R.color.shop_cat_color)
-//                        tvFollow.setTextColor(ContextCompat.getColorStateList(ctx,R.color.black))
+                            ContextCompat.getColorStateList(ctx, R.color.profile_stroke_color)
                     }
 
                     1 -> {
                         tvFollow.text = "Following"
                         tvFollow.backgroundTintList =
-                            ContextCompat.getColorStateList(ctx, R.color.shop_cat_color)
-//                        tvFollow.setTextColor(ContextCompat.getColorStateList(ctx,R.color.blue))
+                            ContextCompat.getColorStateList(ctx, R.color.profile_stroke_color)
                     }
 
                     else -> {
-
                         if (model.profile_type == 1) {
                             if (model.isFollowByOther == 1) {
                                 tvFollow.text = "Follow back"
@@ -168,18 +137,7 @@ class SuggestionCompleteAdapter(
                                 tvFollow.text = "Follow"
                             }
                         }
-                        tvFollow.backgroundTintList =
-                            ContextCompat.getColorStateList(ctx, R.color.shop_cat_color)
-//                            tvFollow.setTextColor(ContextCompat.getColorStateList(ctx,R.color.black))
-
-                        /*  if (model.profile_type == 1) {
-                              tvFollow.text = "Request"
-  //                            tvFollow.setTextColor(ContextCompat.getColorStateList(ctx,R.color.blue))
-                          } else {
-                              tvFollow.text = "Follow"
-                              tvFollow.backgroundTintList = ContextCompat.getColorStateList(ctx,R.color.divider_grey)
-  //                            tvFollow.setTextColor(ContextCompat.getColorStateList(ctx,R.color.blue))
-                          }*/
+                        tvFollow.backgroundTintList = null
                     }
                 }
             }

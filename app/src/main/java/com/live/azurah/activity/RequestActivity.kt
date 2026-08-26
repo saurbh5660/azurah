@@ -2,6 +2,7 @@ package com.live.azurah.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -45,7 +46,7 @@ import java.util.TimerTask
 @AndroidEntryPoint
 class RequestActivity : AppCompatActivity(),Observer<Resource<Any>> {
     private lateinit var binding: ActivityRequestBinding
-    private val list = arrayOf("Prayer Request","Testimonies")
+    private val list = arrayOf("Prayer Requests","Testimonies")
     private lateinit var fragmentList: MutableList<Fragment>
     private lateinit var viewpagerAdapter: ViewPagerAdapter
     private val catList = ArrayList<CategoryModel>()
@@ -121,7 +122,9 @@ class RequestActivity : AppCompatActivity(),Observer<Resource<Any>> {
                 setPopUpWindow(it)
             }
             btnAddPost.setOnClickListener {
-                startActivity(Intent(this@RequestActivity,AddPrayerRequestTestimonies::class.java))
+                startActivity(Intent(this@RequestActivity, AddPrayerRequestTestimonies::class.java).apply {
+                    putExtra("type", if (viewPager.currentItem == 0) "0" else "1")
+                })
             }
 
             myPost.setOnClickListener {
@@ -180,10 +183,32 @@ class RequestActivity : AppCompatActivity(),Observer<Resource<Any>> {
                         0->{
                             sharedViewModel.setCategoryId(Pair("",filterType))
                             getPrayerCategoryList()
+                            clBanner.setBackgroundResource(R.drawable.bg_prayer_banner)
+                            tvBannerKicker.text = "STANDING TOGETHER"
+                            tvBannerKicker.setTextColor(Color.parseColor("#DBEAFE"))
+                            tvBannerKicker.typeface = resources.getFont(R.font.inter_semibold)
+                            tvTitle.text = "Prayer & Praise"
+                            tvTitle.typeface = resources.getFont(R.font.playfair_bold)
+                            tvBannerSubtitle.text = "Share your requests and testimonies.\nNobody prays alone here."
+                            tvBannerSubtitle.setTextColor(Color.parseColor("#EFF6FF"))
+                            tvBannerSubtitle.typeface = resources.getFont(R.font.inter)
+                            tvBannerActionText.text = "+ Share a Prayer"
+                            tvBannerActionText.setTextColor(Color.parseColor("#0D5981"))
                         }
                         1->{
                             sharedViewModel.setCategoryId(Pair("",filterType))
                             getTestimonyCategoryList()
+                            clBanner.setBackgroundResource(R.drawable.bg_testimony_banner)
+                            tvBannerKicker.text = "GOD'S FAITHFULNESS"
+                            tvBannerKicker.setTextColor(Color.parseColor("#FFFFFFCC"))
+                            tvBannerKicker.typeface = resources.getFont(R.font.inter_semibold)
+                            tvTitle.text = "Testimonies"
+                            tvTitle.typeface = resources.getFont(R.font.playfair_bold)
+                            tvBannerSubtitle.text = "Share what God has done. Your story encourages\nsomeone else's faith."
+                            tvBannerSubtitle.setTextColor(Color.parseColor("#FFFFFFE5"))
+                            tvBannerSubtitle.typeface = resources.getFont(R.font.inter)
+                            tvBannerActionText.text = "+ Share Testimony"
+                            tvBannerActionText.setTextColor(Color.parseColor("#2563EB"))
                         }
                     }
                 }

@@ -147,7 +147,7 @@ class MyPostTestimonyFragment : Fragment() {
         }
     }
     private fun setRequestAdapter() {
-        testimonyRequestAdapter = MyPostRequestAdapter(requireContext(),testimonyList)
+        testimonyRequestAdapter = MyPostRequestAdapter(requireContext(), testimonyList, 2)
         binding.rvTestimony.adapter = testimonyRequestAdapter
 
         testimonyRequestAdapter?.categoryListener={pos, model, view,text ->
@@ -169,10 +169,6 @@ class MyPostTestimonyFragment : Fragment() {
                     }
                 }
             }
-        }
-
-        testimonyRequestAdapter?.onLikeUnlike ={pos, model ->
-            sureDialog(pos,model)
         }
 
         testimonyRequestAdapter?.praiseListener ={pos, model ->

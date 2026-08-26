@@ -112,7 +112,8 @@ class PostDetailImagesAdapter(
                     onImages?.invoke(holder.absoluteAdapterPosition)
                 }
 
-            } else {
+            } /* else {
+                // Video commented out as per requirement - only images will show here
                 Log.d("sdfsdgsdg",ApiConstants.IMAGE_BASE_URL + item.image)
                 ivPostImage.visible()
                 playerView.visible()
@@ -149,7 +150,7 @@ class PostDetailImagesAdapter(
                 ivFullScreen.setOnClickListener {
                     playerView.playVideo()
                 }
-            }
+            } */
         }
     }
 

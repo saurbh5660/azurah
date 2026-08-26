@@ -27,6 +27,7 @@ import com.live.azurah.activity.QuestDetailActivity
 import com.live.azurah.databinding.ItemPrayerRequestBinding
 import com.live.azurah.model.CommunityForumResponse
 import com.live.azurah.retrofit.ApiConstants
+import com.live.azurah.util.AvatarUtils
 import com.live.azurah.util.formatCount
 import com.live.azurah.util.getPreference
 import com.live.azurah.util.getRelativeTime
@@ -127,68 +128,48 @@ class PrayerRequestAdapter(
                     setupSeeMoreText(tvDescription, "I’d been craving real friendship. Not just surface-level convos but guys I could actually grow with. After I started commenting in the community forum, I connected with a few others and we’ve stayed in touch since. We pray together, check in, and challenge each other to stay rooted in our faith.", ctx,item.id.toString())
                 }
             }*/
-            tvName.text = buildString {
-                append(item.user?.username ?: "")
+            tvName.text = item.user?.username ?: ""
+            tvTitle.text = item.title ?: ""
+
+            val relativeTime = getRelativeTime(item.created_at ?: "")
+            val categoryName = item.prayer_category?.name ?: item.testimony_category?.name ?: item.category?.name
+            tvTime.text = if (!categoryName.isNullOrBlank()) {
+                "$relativeTime · $categoryName"
+            } else {
+                relativeTime
             }
 
-            tvTitle.text = buildString {
-                append(item.title ?: "")
-            }
+            tvLikes.text = formatCount(item.like_count ?: 0)
 
-            tvCat.text = buildString {
-                if (item.prayer_category != null) {
-                    append(item.prayer_category.name ?: "")
-                } else {
-                    append(item.testimony_category?.name ?: "")
-                }
-            }
-            if (item.prayer_category == null && item.testimony_category == null){
-                tvCat.gone()
-            }else{
-                tvCat.visible()
-            }
-
-            tvCat.setOnClickListener {
-                categoryListener?.invoke(holder.absoluteAdapterPosition,item,it,tvCat.text.toString())
-            }
-
-            val likeText = if ((item.like_count ?: 0) > 1 || (item.like_count ?: 0) == 0) "Likes" else "Like"
-            tvLikes.text = buildString {
-                append(formatCount(item.like_count ?: 0))
-                append(" ")
-                append(likeText)
-            }
-
-            val commentText = if ((item.comment_count ?: 0) > 1 || (item.comment_count ?: 0) == 0) "Comments" else "Comment"
+            val commentText = if ((item.comment_count ?: 0) == 1) "Comment" else "Comments"
             tvComments.text = buildString {
                 append(formatCount(item.comment_count ?: 0))
                 append(" ")
                 append(commentText)
             }
 
-            val prayerText = if ((item.praise_count ?: 0) > 1 || (item.praise_count ?: 0) == 0) "Prayers" else "Prayer"
+            val prayerText = if ((item.praise_count ?: 0) == 1) "Prayer" else "Prayers"
             tvPrayers.text = buildString {
                 append(formatCount(item.praise_count ?: 0))
                 append(" ")
                 append(prayerText)
             }
 
-            tvTime.text = getRelativeTime(item.created_at ?: "")
+            if (from == 1) {
+                clPrayer.visibility = View.VISIBLE
+            } else {
+                clPrayer.visibility = View.GONE
+            }
+
             if (getPreference("id","") == item.user?.id.toString()){
                 ivMore.gone()
-                val marginInPx = ctx.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._10sdp)
-                val layoutParams = tvCat.layoutParams as ViewGroup.MarginLayoutParams
-                layoutParams.marginEnd = marginInPx
-            }else{
+            } else {
                 ivMore.visible()
             }
 
-            ivPosts.loadImage(
-                ApiConstants.IMAGE_BASE_URL + item.user?.image,
-                placeholder = R.drawable.profile_icon
-            )
-//            setupSeeMoreText(tvDescription, item.description ?: "", ctx,item.id.toString())
-            setupSeeMoreText(tvDescription, item.description ?: "",item.id.toString())
+            AvatarUtils.setupAvatar(ivPosts, tvInitials, item.user?.image, item.user?.username)
+
+            setupSeeMoreText(tvDescription, item.description ?: "", item.id.toString())
 
             if (item.is_like == 1) {
                 ivLike.setImageResource(R.drawable.selected_heart)
@@ -205,22 +186,21 @@ class PrayerRequestAdapter(
             }
 
             ivMore.setOnClickListener {
-                menuListener?.invoke(holder.absoluteAdapterPosition,item,it)
+                menuListener?.invoke(holder.absoluteAdapterPosition, item, it)
             }
-            ivPrayer.setOnClickListener {
+
+            val togglePraise: (View) -> Unit = {
                 if (isInternetAvailable(ctx)) {
                     if (item.is_praise == 1) {
                         item.is_praise = 0
                         item.praise_count = (item.praise_count ?: 0).minus(1)
                         ivPrayer.imageTintList = ContextCompat.getColorStateList(ctx, R.color.black)
-
                     } else {
                         item.is_praise = 1
                         item.praise_count = (item.praise_count ?: 0).plus(1)
                         ivPrayer.imageTintList = ContextCompat.getColorStateList(ctx, R.color.golden_yellow)
-
                     }
-                    val text = if ((item.praise_count ?: 0) > 1) "Prayers" else "Prayer"
+                    val text = if ((item.praise_count ?: 0) == 1) "Prayer" else "Prayers"
                     tvPrayers.text = buildString {
                         append(formatCount(item.praise_count ?: 0))
                         append(" ")
@@ -230,6 +210,8 @@ class PrayerRequestAdapter(
                     praiseListener?.invoke(holder.absoluteAdapterPosition, item)
                 }
             }
+            ivPrayer.setOnClickListener(togglePraise)
+            clPrayer.setOnClickListener(togglePraise)
 
             tvLikes.setOnClickListener {
                 if ((item.like_count ?: 0) > 0){
@@ -241,7 +223,8 @@ class PrayerRequestAdapter(
                     praiseClickListener?.invoke(holder.absoluteAdapterPosition, item)
                 }
             }
-            ivLike.setOnClickListener {
+
+            val toggleLike: (View) -> Unit = {
                 if (isInternetAvailable(ctx)) {
                     if (item.is_like == 1) {
                         item.is_like = 0
@@ -255,50 +238,27 @@ class PrayerRequestAdapter(
                         ivLike.imageTintList =
                             ContextCompat.getColorStateList(ctx, R.color.star_red_color)
                     }
-                    val text = if ((item.like_count ?: 0) > 1 || (item.like_count ?: 0) == 0) "Likes" else "Like"
-                    tvLikes.text = buildString {
-                        append(formatCount(item.like_count ?: 0))
-                        append(" ")
-                        append(text)
-                    }
+                    tvLikes.text = formatCount(item.like_count ?: 0)
 
                     onLikeUnlike?.invoke(holder.absoluteAdapterPosition, item)
                 }
             }
-            ivPosts.setOnClickListener {
+            ivLike.setOnClickListener(toggleLike)
+            clLike.setOnClickListener(toggleLike)
+
+            val openDetails: (View) -> Unit = {
                 ctx.startActivity(Intent(ctx, QuestDetailActivity::class.java).apply {
                     if (from == 1) {
                         putExtra("from", "prayer")
-
-                    } else {
-                        putExtra("from", "testimony")
-                    }
-                    putExtra("id", item.id.toString())
-                })
-               /* if (getPreference("id", "") != item.user_id.toString()) {
-                    ctx.startActivity(Intent(ctx, OtherUserProfileActivity::class.java).apply {
-                        putExtra("user_id",item.user_id.toString())
-                    })
-                }*/
-            }
-
-            /* ivComment.setOnClickListener {
-                 listener.onCommentClick()
-             }*/
-            /*  tvComments.setOnClickListener {
-                  listener.onCommentClick()
-              }*/
-            root.setOnClickListener {
-                ctx.startActivity(Intent(ctx, QuestDetailActivity::class.java).apply {
-                    if (from == 1) {
-                        putExtra("from", "prayer")
-
                     } else {
                         putExtra("from", "testimony")
                     }
                     putExtra("id", item.id.toString())
                 })
             }
+            ivPosts.setOnClickListener(openDetails)
+            clComment.setOnClickListener(openDetails)
+            root.setOnClickListener(openDetails)
         }
     }
     private fun setupSeeMoreText(textView: TextView, fullText: String, id: String) {

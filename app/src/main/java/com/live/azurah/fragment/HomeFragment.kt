@@ -126,13 +126,14 @@ class HomeFragment : Fragment(),
 
         showDialog = false
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        videoAutoPlayHelper = VideoMultiplePostAutoPlayHelper(
+        // Video commented out as per requirement - only images will show
+        /* videoAutoPlayHelper = VideoMultiplePostAutoPlayHelper(
             binding.rvPosts,
             list,
             requireContext(),
             this
             )
-        videoAutoPlayHelper?.startObserving()
+        videoAutoPlayHelper?.startObserving() */
         binding.swipeRefreshLayout.gone()
         binding.shimmerLayout.visible()
         binding.shimmerLayout.startShimmer()
@@ -1983,7 +1984,7 @@ class HomeFragment : Fragment(),
                                   Log.d("fsdsfsds","fadsfdsgsdgdss")
                                   videoAutoPlayHelper!!.setList(list)
                               }*/
-                            videoAutoPlayHelper!!.setList(list)
+//                            videoAutoPlayHelper!!.setList(list)
                             postAdapter.notifyDataSetChanged()
                             if (list.isNotEmpty()) {
                                 currentPage = (res?.current_page ?: 0) + 1

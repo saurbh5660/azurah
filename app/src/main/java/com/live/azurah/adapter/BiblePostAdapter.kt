@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.live.azurah.R
 import com.live.azurah.activity.OtherUserProfileActivity
@@ -23,6 +24,7 @@ import com.live.azurah.activity.QuestDetailActivity
 import com.live.azurah.databinding.ItemBiblePostBinding
 import com.live.azurah.model.CommunityForumResponse
 import com.live.azurah.retrofit.ApiConstants
+import com.live.azurah.util.AvatarUtils
 import com.live.azurah.util.formatCount
 import com.live.azurah.util.getPreference
 import com.live.azurah.util.getRelativeTime
@@ -52,10 +54,6 @@ class BiblePostAdapter(val ctx: Context,val listener: ClickListener,val type:Int
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.binding){
             val item = communityList[holder.absoluteAdapterPosition]
-            val marginInPx = ctx.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._8sdp)
-            val layoutParams = tvComments.layoutParams as ViewGroup.MarginLayoutParams
-            layoutParams.marginEnd = marginInPx
-            tvComments.layoutParams = layoutParams
 
            /* if (position == 0){
                 ivPosts.setImageResource(R.drawable.image123)
@@ -116,22 +114,31 @@ class BiblePostAdapter(val ctx: Context,val listener: ClickListener,val type:Int
                 categoryListener?.invoke(holder.absoluteAdapterPosition,item,it,tvCat.text.toString())
             }
 
-            val likeText = if ((item.like_count ?: 0) > 1 || (item.like_count ?: 0) == 0) "Likes" else "Like"
-            tvLikes.text = buildString {
-                append(formatCount(item.like_count ?: 0))
-                append(" ")
-                append(likeText)
-            }
+            tvLikes.text = formatCount(item.like_count ?: 0)
 
-            val commentText = if ((item.comment_count ?: 0) > 1 || (item.comment_count ?: 0)  == 0) "Comments" else "Comment"
+            val commentText = if ((item.comment_count ?: 0) == 1) "Comment" else "Comments"
             tvComments.text = buildString {
                 append(formatCount(item.comment_count ?: 0))
                 append(" ")
                 append(commentText)
             }
-            tvTime.text = getRelativeTime(item.created_at ?: "")
+            val relativeTime = getRelativeTime(item.created_at ?: "")
+            if (type == 1) {
+                val categoryName = item.category?.name ?: item.prayer_category?.name ?: item.testimony_category?.name
+                if (!categoryName.isNullOrBlank()) {
+                    tvTime.text = buildString {
+                        append(relativeTime)
+                        append(" · ")
+                        append(categoryName)
+                    }
+                } else {
+                    tvTime.text = relativeTime
+                }
+            } else {
+                tvTime.text = relativeTime
+            }
 
-            ivPosts.loadImage(ApiConstants.IMAGE_BASE_URL+item.user?.image, placeholder = R.drawable.profile_icon)
+            AvatarUtils.setupAvatar(ivPosts, tvInitials, item.user?.image, item.user?.username)
 
            /* if (position == 0){
                 tvTime.text = "5 mins ago"
@@ -152,13 +159,21 @@ class BiblePostAdapter(val ctx: Context,val listener: ClickListener,val type:Int
 
             if (item.is_like == 1) {
                 ivLike.setImageResource(R.drawable.selected_heart)
-                ivLike.imageTintList = ContextCompat.getColorStateList(ctx, R.color.star_red_color)
+                ImageViewCompat.setImageTintList(ivLike, ContextCompat.getColorStateList(ctx, R.color.star_red_color))
             } else {
                 ivLike.setImageResource(R.drawable.unselected_heart)
-                ivLike.imageTintList = ContextCompat.getColorStateList(ctx,R.color.black)
+                ImageViewCompat.setImageTintList(ivLike, ContextCompat.getColorStateList(ctx, R.color.black))
             }
+            ImageViewCompat.setImageTintList(ivComment, ContextCompat.getColorStateList(ctx, R.color.black))
 
             root.setOnClickListener {
+                ctx.startActivity(Intent(ctx, QuestDetailActivity::class.java).apply {
+                    putExtra("from", "community")
+                    putExtra("id", item.id.toString())
+                })
+            }
+
+            clComment.setOnClickListener {
                 ctx.startActivity(Intent(ctx, QuestDetailActivity::class.java).apply {
                     putExtra("from", "community")
                     putExtra("id", item.id.toString())
@@ -171,6 +186,13 @@ class BiblePostAdapter(val ctx: Context,val listener: ClickListener,val type:Int
 
             ivDel.setOnClickListener {
                 deleteListener?.invoke(holder.absoluteAdapterPosition,item)
+            }
+            flAvatar.setOnClickListener{
+                if (getPreference("id", "") != item.user_id.toString()) {
+                    ctx.startActivity(Intent(ctx, OtherUserProfileActivity::class.java).apply {
+                        putExtra("user_id",item.user_id.toString())
+                    })
+                }
             }
             ivPosts.setOnClickListener{
                 if (getPreference("id", "") != item.user_id.toString()) {
@@ -185,25 +207,23 @@ class BiblePostAdapter(val ctx: Context,val listener: ClickListener,val type:Int
                     likeListener?.invoke(holder.absoluteAdapterPosition,item)
                 }
             }
+            clLike.setOnClickListener {
+                ivLike.performClick()
+            }
             ivLike.setOnClickListener {
                 if (isInternetAvailable(ctx)){
                     if (item.is_like == 1) {
                         item.is_like = 0
                         item.like_count= (item.like_count?: 0).minus(1)
                         ivLike.setImageResource(R.drawable.unselected_heart)
-                        ivLike.imageTintList = ContextCompat.getColorStateList(ctx,R.color.black)
+                        ImageViewCompat.setImageTintList(ivLike, ContextCompat.getColorStateList(ctx, R.color.black))
                     }else{
                         item.is_like = 1
                         item.like_count= (item.like_count?:0).plus(1)
                         ivLike.setImageResource(R.drawable.selected_heart)
-                        ivLike.imageTintList = ContextCompat.getColorStateList(ctx, R.color.star_red_color)
+                        ImageViewCompat.setImageTintList(ivLike, ContextCompat.getColorStateList(ctx, R.color.star_red_color))
                     }
-                    val text = if ((item.like_count ?: 0) > 1) "Likes" else "Like"
-                    tvLikes.text = buildString {
-                        append(formatCount(item.like_count ?: 0))
-                        append(" ")
-                        append(text)
-                    }
+                    tvLikes.text = formatCount(item.like_count ?: 0)
 
                     onLikeUnlike?.invoke(holder.absoluteAdapterPosition,item)
                 }

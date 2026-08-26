@@ -206,11 +206,6 @@ class MyPostPrayerFragment : Fragment() {
                 replaceFragment(fragment)
             }
         }
-
-        prayerRequestAdapter?.deleteListener = {pos,model ->
-            sureDialog(pos, model)
-        }
-
     }
 
     private fun sureDialog(pos: Int, model: CommunityForumResponse.Body.Data) {

@@ -112,6 +112,7 @@ dependencies {
     implementation("com.github.skydoves:balloon:1.6.4")
     implementation("com.google.firebase:firebase-messaging-ktx:24.1.0")
     implementation("com.android.billingclient:billing:7.1.1") // or your chosen version
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
 
 //    implementation("com.google.firebase:firebase-analytics")
 }

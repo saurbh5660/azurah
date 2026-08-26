@@ -2,6 +2,8 @@ package com.live.azurah.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -20,7 +22,7 @@ class CategoryAdapter(val ctx: Context, val catList: ArrayList<CategoryModel>,va
     class ViewHolder(val binding: ItemCategoryBinding): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemCategoryBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return ViewHolder(ItemCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -30,18 +32,20 @@ class CategoryAdapter(val ctx: Context, val catList: ArrayList<CategoryModel>,va
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.binding){
-         //   clCat.setCardBackgroundColor(ctx.getColorStateList(catList[position].backgroundColor))
-            clCat.setCardBackgroundColor(ctx.getColorStateList(R.color.folder_color))
-            tvCat.setTextColor(ctx.getColorStateList(R.color.price__text_color))
             tvCat.text = catList[position].name
 
             if (catList[position].isSelected){
-                clCat.setStrokeColor(ctx.getColorStateList(R.color.selected_outline))
+                clCat.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor("#EDF5FE")))
+                clCat.strokeColor = Color.parseColor("#2F80ED")
+                clCat.strokeWidth = ctx.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._1sdp) * 3 / 2
+                tvCat.setTextColor(Color.parseColor("#2F80ED"))
                 tvCat.typeface = ctx.resources.getFont(R.font.poppins_semibold)
             }else{
-                clCat.setStrokeColor(ctx.getColorStateList(android.R.color.transparent))
+                clCat.setCardBackgroundColor(ColorStateList.valueOf(Color.WHITE))
+                clCat.strokeColor = Color.parseColor("#E2E8F0")
+                clCat.strokeWidth = ctx.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._1sdp)
+                tvCat.setTextColor(Color.parseColor("#64748B"))
                 tvCat.typeface = ctx.resources.getFont(R.font.poppins)
-
             }
 
             root.setOnClickListener {

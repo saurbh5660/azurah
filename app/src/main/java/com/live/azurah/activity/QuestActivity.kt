@@ -76,6 +76,7 @@ class QuestActivity : AppCompatActivity(),BiblePostAdapter.ClickListener {
         binding = ActivityQuestBinding.inflate(layoutInflater)
         setContentView(binding.root)
         window.statusBarColor = getColor(R.color.white)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.white)
         WindowCompat.setDecorFitsSystemWindows(window, true)
         WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->

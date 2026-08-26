@@ -114,18 +114,44 @@
                         android:scaleType="centerCrop"
                         app:layout_constraintEnd_toEndOf="parent"/>
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivProfile"
+                    <FrameLayout
+                        android:id="@+id/flProfile"
                         android:layout_width="@dimen/_100sdp"
                         android:layout_height="@dimen/_100sdp"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/rvProfileBackground"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:src="@drawable/profile_icon"
-                        app:civ_border_color="@color/white"
-                        app:civ_border_width="@dimen/_2sdp"
-                        android:scaleType="centerCrop"
-                        app:layout_constraintTop_toBottomOf="@+id/rvProfileBackground"
-                        app:layout_constraintBottom_toBottomOf="@+id/rvProfileBackground"/>
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rvProfileBackground">
+
+                        <View
+                            android:id="@+id/viewBorder"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_circle_avatar" />
+
+                        <TextView
+                            android:id="@+id/tvInitials"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/_2sdp"
+                            android:background="@drawable/bg_circle_avatar"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_38sdp"
+                            tools:text="L" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/ivProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@string/app_name"
+                            android:scaleType="centerCrop"
+                            app:civ_border_color="@color/white"
+                            app:civ_border_width="@dimen/_2sdp" />
+
+                    </FrameLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/clChristianName"
@@ -136,10 +162,10 @@
                         android:background="@drawable/large_round_corner_background"
                         android:elevation="2dp"
                         app:layout_constrainedWidth="true"
-                        app:layout_constraintBottom_toBottomOf="@+id/ivProfile"
+                        app:layout_constraintBottom_toBottomOf="@+id/flProfile"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/ivProfile">
+                        app:layout_constraintStart_toEndOf="@+id/flProfile">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/ivType"
@@ -185,7 +211,7 @@
                         android:textSize="@dimen/_16sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ivProfile" />
+                        app:layout_constraintTop_toBottomOf="@+id/flProfile" />
 
                     <TextView
                         android:id="@+id/tvUserName"

@@ -7,20 +7,31 @@
     android:background="@color/white"
     tools:context=".activity.AddBiblePostActivity">
 
+    <!-- Status Bar Background (ensures 100% solid white status bar on all devices) -->
+    <View
+        android:id="@+id/statusBarView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Top Toolbar -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/statusBarView">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/backIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_8sdp"
             android:paddingVertical="@dimen/_10sdp"
             android:src="@drawable/back_icon"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -31,215 +42,269 @@
             android:id="@+id/ivHeading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="AZRIUS"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:textColor="@color/black"
-            android:includeFontPadding="false"
             android:fontFamily="@font/cinzel_bold"
+            android:includeFontPadding="false"
+            android:paddingVertical="@dimen/_10sdp"
+            android:text="AZRIUS"
+            android:textColor="@color/black"
             android:textSize="@dimen/_19sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <!--<androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="@dimen/_70sdp"
-            android:layout_height="@dimen/_30sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/azurah_heading_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>-->
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Bottom Action Bar (Cancel & Post) -->
+    <LinearLayout
+        android:id="@+id/clBottomBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_14sdp"
+        android:paddingVertical="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCancel"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_38sdp"
+            android:background="@drawable/bg_cancel_button"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:includeFontPadding="false"
+            android:text="Cancel"
+            android:stateListAnimator="@null"
+            android:textAllCaps="false"
+            android:textColor="#8FA0B5"
+            android:textSize="@dimen/_12sdp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnPost"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_post_submit_button"
+            android:backgroundTint="@color/button_grey"
+            android:enabled="false"
+            android:stateListAnimator="@null"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/post"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13sdp" />
+
+    </LinearLayout>
+
+    <!-- Scrollable Cards Area -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="#F6F8FA"
         android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/clBottomBar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_14sdp"
+            android:paddingTop="@dimen/_12sdp"
+            android:paddingBottom="@dimen/_16sdp">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clInputCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_post_input_card"
+                android:padding="@dimen/_14sdp">
+
+                <TextView
+                    android:id="@+id/tvPostTitleLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0.06"
+                    android:text="POST TITLE"
+                    android:textColor="#8FA0B5"
+                    android:textSize="@dimen/_9sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tlTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    app:boxBackgroundMode="none"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:hintEnabled="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPostTitleLabel">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/poppins"
+                        android:hint="Give your post a title..."
+                        android:imeOptions="actionNext"
+                        android:includeFontPadding="false"
+                        android:inputType="textCapSentences|textMultiLine"
+                        android:maxLength="30"
+                        android:maxLines="2"
+                        android:padding="0dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="#A2B1C2"
+                        android:textCursorDrawable="@drawable/custom_cursor"
+                        android:textSize="@dimen/_12sdp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Horizontal Divider -->
+                <View
+                    android:id="@+id/viewTitleDivider"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="#EAEFF4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tlTitle" />
+
+                <!-- CAPTION Label -->
+                <TextView
+                    android:id="@+id/tvCaptionLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0.06"
+                    android:text="CAPTION"
+                    android:textColor="#8FA0B5"
+                    android:textSize="@dimen/_9sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewTitleDivider" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tlPostDes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    app:boxBackgroundMode="none"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:hintEnabled="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCaptionLabel">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPostDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/poppins"
+                        android:gravity="top|start"
+                        android:hint="What's on your mind? Share a thought, question or encouragement..."
+                        android:imeOptions="actionDone"
+                        android:includeFontPadding="false"
+                        android:inputType="textCapSentences|textMultiLine"
+                        android:minLines="5"
+                        android:padding="0dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="#A2B1C2"
+                        android:textCursorDrawable="@drawable/custom_cursor"
+                        android:textSize="@dimen/_12sdp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvTitleWords"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvWords"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Card 2: Categories 2-Column Grid -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clCategoryCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:background="@drawable/bg_post_input_card"
+                android:padding="@dimen/_12sdp">
+
+                <TextView
+                    android:id="@+id/tvCategoryLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0.06"
+                    android:text="CATEGORY"
+                    android:textColor="#8FA0B5"
+                    android:textSize="@dimen/_9sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCategoryLabel"
+                    tools:itemCount="5"
+                    tools:listitem="@layout/item_add_post_category" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Hidden Views Preserved for Bindings Compatibility -->
             <TextView
                 android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:fontFamily="@font/urbanist_semibold"
-                android:text="Start a Discussion"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_19sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tlTitle"
-                 style="@style/CustomTextInputLayout"
-                android:theme="@style/EditTextThemeOverlay"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/post_title"
-                android:elevation="8dp"
-                app:cursorColor="@color/cursor_color"
-                app:hintTextAppearance="@style/addPostLabel"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_12sdp"
-                app:expandedHintEnabled="false"
-                android:textColorHint="@color/light_black"
-                app:boxStrokeColor="@color/blue"
-                app:boxCornerRadiusBottomEnd="@dimen/_20sdp"
-                app:boxCornerRadiusTopEnd="@dimen/_20sdp"
-                app:boxCornerRadiusBottomStart="@dimen/_20sdp"
-                app:boxCornerRadiusTopStart="@dimen/_20sdp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_70sdp"
-                    android:layout_marginBottom="10dp"
-                    android:paddingTop="20dp"
-                    android:textColorHighlight="@color/cursor_color"
-                    android:textSize="@dimen/_12sdp"
-                    android:gravity="start"
-                    android:maxLength="30"
-                    android:longClickable="false"
-                    android:fontFamily="@font/poppins"
-                    android:textColor="@color/black"
-                    android:inputType="textMultiLine"
-                    android:imeOptions="actionNext"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:paddingBottom="@dimen/_30sdp"
-                    />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tvTitleWords"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="30 characters"
-                android:fontFamily="@font/urbanist"
-                android:textSize="@dimen/_10sdp"
-                android:textColor="@color/light_black"
-                app:layout_constraintEnd_toEndOf="@+id/tlTitle"
-                app:layout_constraintBottom_toBottomOf="@+id/tlTitle"
-                android:layout_marginBottom="@dimen/_16sdp"
-                android:layout_marginEnd="@dimen/_16sdp"/>
+                android:layout_height="0dp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvCategory"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Select a Category:"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_13sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tlTitle" />
+                android:layout_height="0dp"
+                android:visibility="gone" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:orientation="horizontal"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                tools:listitem="@layout/item_category"
-                android:layout_marginTop="@dimen/_6sdp"
-                app:layout_constraintTop_toBottomOf="@+id/tvCategory"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+        </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tlPostDes"
-                 style="@style/CustomTextInputLayout"
-                android:theme="@style/EditTextThemeOverlay"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/post_description"
-                android:elevation="8dp"
-                app:hintTextAppearance="@style/addPostLabel"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_16sdp"
-                app:expandedHintEnabled="false"
-                app:cursorColor="@color/cursor_color"
-                android:textColorHint="@color/light_black"
-                app:boxStrokeColor="@color/blue"
-                app:boxCornerRadiusBottomEnd="@dimen/_20sdp"
-                app:boxCornerRadiusTopEnd="@dimen/_20sdp"
-                app:boxCornerRadiusBottomStart="@dimen/_20sdp"
-                app:boxCornerRadiusTopStart="@dimen/_20sdp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rvCategory">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etPostDesc"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_170sdp"
-                    android:layout_marginBottom="10dp"
-                    android:paddingTop="20dp"
-                    android:textColorHighlight="@color/cursor_color"
-                    android:textSize="@dimen/_12sdp"
-                    android:paddingBottom="@dimen/_30sdp"
-                    android:gravity="start"
-                    android:longClickable="false"
-                    android:fontFamily="@font/poppins"
-                    android:textColor="@color/black"
-                    android:inputType="textMultiLine"
-                    android:imeOptions="actionDone"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tvWords"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_1000_characters"
-                android:fontFamily="@font/urbanist"
-                android:textSize="@dimen/_10sdp"
-                android:textColor="@color/light_black"
-                app:layout_constraintEnd_toEndOf="@+id/tlPostDes"
-                app:layout_constraintBottom_toBottomOf="@+id/tlPostDes"
-                android:layout_marginBottom="@dimen/_16sdp"
-                android:layout_marginEnd="@dimen/_16sdp"/>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnPost"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:includeFontPadding="false"
-                android:fontFamily="@font/poppins_semibold"
-                android:textSize="@dimen/_13sdp"
-                android:paddingVertical="@dimen/_10sdp"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:background="@drawable/round_corner_background"
-                android:backgroundTint="@color/button_grey"
-                app:layout_constraintTop_toBottomOf="@+id/tlPostDes"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:text="@string/post"
-                android:textAllCaps="false"
-                android:textColor="@color/white"/>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

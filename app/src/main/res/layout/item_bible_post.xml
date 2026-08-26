@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/_12sdp"
+    android:layout_marginVertical="@dimen/_5sdp"
+    android:background="@drawable/bg_forum_post_card"
+    android:padding="@dimen/_12sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clPost"
@@ -12,95 +17,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clCateg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/_1sdp"
-            app:layout_constraintTop_toTopOf="@+id/iv_posts">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clCat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/reactangle_corner"
-                android:backgroundTint="@color/folder_color"
-                app:layout_constraintEnd_toStartOf="@+id/clMore"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/tvCat"
-                    android:layout_width="@dimen/_90sdp"
-                    android:layout_height="wrap_content"
-                    android:text="Bible Study"
-                    android:fontFamily="@font/poppins"
-                    android:textColor="@color/price__text_color"
-                    android:textSize="@dimen/_10sdp"
-                    android:maxLines="1"
-                    android:gravity="center"
-                    android:maxWidth="@dimen/_100sdp"
-                    android:ellipsize="end"
-                    android:includeFontPadding="false"
-                    android:paddingVertical="@dimen/_6sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clMore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivMore"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/more_icon"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivDel"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/del_icon"
-                    app:tint="@color/dark_red_color"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iv_posts"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/dummy_profile_image"
+        <FrameLayout
+            android:id="@+id/flAvatar"
+            android:layout_width="@dimen/_36sdp"
+            android:layout_height="@dimen/_36sdp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvInitials"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_circle_avatar"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                tools:text="K" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_posts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop"
+                app:civ_border_color="@android:color/transparent"
+                app:civ_border_width="0dp"
+                tools:src="@drawable/dummy_profile_image" />
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/tvName"
@@ -108,16 +54,18 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="Ahmad123"
-            android:textColor="@color/black"
+            android:ellipsize="end"
+            android:fontFamily="@font/poppins_semibold"
             android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/black"
             android:textSize="@dimen/_12sdp"
-            app:layout_constraintEnd_toStartOf="@+id/clCateg"
-            app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintBottom_toTopOf="@+id/tvTime"
-            app:layout_constraintStart_toEndOf="@+id/iv_posts"
-            app:layout_constraintTop_toTopOf="@+id/iv_posts" />
+            app:layout_constraintEnd_toStartOf="@+id/clCateg"
+            app:layout_constraintStart_toEndOf="@+id/flAvatar"
+            app:layout_constraintTop_toTopOf="@+id/flAvatar"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="kaciezelee" />
 
         <TextView
             android:id="@+id/tvTime"
@@ -125,203 +73,249 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
+            android:ellipsize="end"
             android:fontFamily="@font/poppins"
-            android:text="5 mins ago"
             android:includeFontPadding="false"
-            android:textColor="@color/light_black"
+            android:maxLines="1"
+            android:textColor="#8F9AA5"
             android:textSize="@dimen/_10sdp"
-            app:layout_constraintStart_toEndOf="@+id/iv_posts"
+            app:layout_constraintBottom_toBottomOf="@+id/flAvatar"
+            app:layout_constraintEnd_toStartOf="@+id/clCateg"
+            app:layout_constraintStart_toEndOf="@+id/flAvatar"
             app:layout_constraintTop_toBottomOf="@+id/tvName"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_posts"/>
+            tools:text="11 hrs ago" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clCateg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/flAvatar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clCat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/clMore"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tvCat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_category_pill_unselected"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:paddingVertical="@dimen/_3sdp"
+                    android:textColor="#64748B"
+                    android:textSize="@dimen/_9sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Bible Study" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivMore"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/more_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#8F9AA5" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivDel"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/del_icon"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/dark_red_color" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:ellipsize="end"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Curiosity of Bible"
             android:includeFontPadding="false"
+            android:maxLines="2"
             android:textColor="@color/black"
-            android:layout_marginTop="@dimen/_10sdp"
             android:textSize="@dimen/_13sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_posts" />
-
+            app:layout_constraintTop_toBottomOf="@+id/flAvatar"
+            tools:text="Muslim turned Christian..." />
 
         <TextView
             android:id="@+id/tvDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:fontFamily="@font/poppins"
             android:includeFontPadding="false"
-            android:text="Hey guys! I really love the city pop hit Plastic Love and I'm working on a cover Hey guys! I really love the city pop hit Plastic Love and I'm working on a cover Hey guys!... See More"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp"
+            android:textColor="#374151"
+            android:textSize="@dimen/_11sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            tools:text="Hello brothers and sisters, your eyes do not deceive you when you read the title. I was a Muslim who has recently found faith in Jesus Christ..." />
 
         <View
             android:id="@+id/view"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            android:background="@color/post_divider_color"
+            android:background="#F1F4F8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivLike"
-            android:layout_width="@dimen/_21sdp"
-            android:layout_height="@dimen/_21sdp"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:src="@drawable/unselected_heart"
-            app:tint="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/view1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivComment"
-            android:layout_width="@dimen/_19sdp"
-            android:layout_height="@dimen/_21sdp"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:src="@drawable/comment_icon"
-            android:tint="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/view1"
-            app:layout_constraintStart_toEndOf="@+id/ivLike"
-            app:layout_constraintTop_toBottomOf="@+id/view" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivPrayer"
-            android:layout_width="@dimen/_19sdp"
-            android:layout_height="@dimen/_18sdp"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:src="@drawable/prayer_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/view1"
-            app:layout_constraintStart_toEndOf="@+id/ivComment"
-            app:layout_constraintTop_toBottomOf="@+id/view"
-            app:layout_constraintVertical_bias="0.45"
-            app:tint="@color/black" />
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:id="@+id/clLike"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/view1"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/_8sdp"
-            app:layout_constraintTop_toTopOf="@+id/view">
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@drawable/bg_forum_action_pill"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view">
 
-            <TextView
-                android:id="@+id/tvPrayers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:fontFamily="@font/poppins"
-                android:text="10 Prayers"
-                android:includeFontPadding="false"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_11sdp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/dotPrayer"
-                android:layout_width="@dimen/_3sdp"
-                android:layout_height="@dimen/_3sdp"
-                android:visibility="gone"
-                android:layout_marginEnd="@dimen/_3sdp"
-                android:background="@drawable/circle_background"
-                android:backgroundTint="@color/button_grey"
-                app:layout_constraintBottom_toBottomOf="@+id/tvPrayers"
-                app:layout_constraintEnd_toStartOf="@+id/tvPrayers"
-                app:layout_constraintTop_toTopOf="@+id/tvPrayers" />
-
-            <TextView
-                android:id="@+id/tvComments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_3sdp"
-                android:fontFamily="@font/poppins"
-                android:text="20 Comments"
-                android:includeFontPadding="false"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_11sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/dotPrayer"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/dot"
-                android:layout_width="@dimen/_3sdp"
-                android:layout_height="@dimen/_3sdp"
-                android:layout_marginEnd="@dimen/_3sdp"
-                android:background="@drawable/circle_background"
-                android:backgroundTint="@color/button_grey"
-                app:layout_constraintBottom_toBottomOf="@+id/tvComments"
-                app:layout_constraintEnd_toStartOf="@+id/tvComments"
-                app:layout_constraintTop_toTopOf="@+id/tvComments" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivLike"
+                android:layout_width="@dimen/_13sdp"
+                android:layout_height="@dimen/_13sdp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/unselected_heart"
+                android:tint="@color/black"
+                app:tint="@color/black" />
 
             <TextView
                 android:id="@+id/tvLikes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_3sdp"
-                android:fontFamily="@font/poppins"
-                android:text="95 Likes"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_11sdp"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:fontFamily="@font/poppins_medium"
                 android:includeFontPadding="false"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/dot"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textColor="@color/star_red_color"
+                android:textSize="@dimen/_10sdp"
+                tools:text="0" />
 
+        </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/clComment"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:background="@drawable/bg_forum_action_pill"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/clLike"
+            app:layout_constraintStart_toEndOf="@+id/clLike"
+            app:layout_constraintTop_toTopOf="@+id/clLike">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivComment"
+                android:layout_width="@dimen/_13sdp"
+                android:layout_height="@dimen/_13sdp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/comment_icon"
+                android:tint="@color/black"
+                app:tint="@color/black" />
 
+            <TextView
+                android:id="@+id/tvComments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:textColor="@color/star_red_color"
+                android:textSize="@dimen/_10sdp"
+                tools:text="0 Comments" />
+
+        </LinearLayout>
+
+        <!-- Hidden views retained for backwards compatibility with existing bindings -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivPrayer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPrayers"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/dotPrayer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/dot"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/view1"
             android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            app:layout_constraintTop_toBottomOf="@+id/ivLike"
-            android:background="@color/post_divider_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_height="0dp"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
     <View
         android:id="@+id/view5"
         android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:background="@color/post_divider_color"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clPost"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="@dimen/_2sdp"/>
-
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

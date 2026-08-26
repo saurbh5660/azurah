@@ -2,17 +2,19 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/_5sdp"
-    android:layout_marginVertical="@dimen/_5sdp"
+    android:layout_marginEnd="@dimen/_6sdp"
+    android:layout_marginVertical="@dimen/_4sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/clCat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/_8sdp"
-        app:cardBackgroundColor="@color/blue"
+        app:cardCornerRadius="@dimen/_16sdp"
+        app:cardElevation="0dp"
         app:strokeWidth="1dp"
+        app:strokeColor="#E2E8F0"
+        app:cardBackgroundColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,15 +26,12 @@
             android:layout_height="wrap_content"
             android:text="All"
             android:fontFamily="@font/poppins"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_12sdp"
+            android:textColor="#64748B"
+            android:textSize="@dimen/_11sdp"
             android:includeFontPadding="false"
             android:paddingVertical="@dimen/_6sdp"
-            android:paddingHorizontal="@dimen/_20sdp"
-            />
+            android:paddingHorizontal="@dimen/_14sdp" />
 
     </com.google.android.material.card.MaterialCardView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

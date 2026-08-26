@@ -13,6 +13,7 @@ import com.live.azurah.activity.OtherUserProfileActivity
 import com.live.azurah.databinding.ItemSuggestionsBinding
 import com.live.azurah.model.PostResponse
 import com.live.azurah.retrofit.ApiConstants
+import com.live.azurah.util.AvatarUtils
 import com.live.azurah.util.getPreference
 import com.live.azurah.util.isInternetAvailable
 import com.live.azurah.util.loadImage
@@ -45,31 +46,15 @@ class SuggestionAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = suggestedUsers[holder.absoluteAdapterPosition]
         with(holder.binding) {
-            ivProfile.loadImage(
-                ApiConstants.IMAGE_BASE_URL + model.image,
-                placeholder = R.drawable.profile_icon
-            )
-            if (model.image.isNullOrEmpty()) {
-                ivProfile.borderColor = ContextCompat.getColor(ctx, R.color.blue)
-                ivProfile.borderWidth = 2
+            val name = if (model.display_name_preference == 1) {
+                model.first_name ?: ""
             } else {
-                ivProfile.borderColor = ContextCompat.getColor(ctx, android.R.color.transparent)
-                ivProfile.borderWidth = 0
+                "${model.first_name ?: ""} ${model.last_name ?: ""}".trim()
             }
+            val displayName = if (name.isNotBlank()) name else (model.username ?: "")
+            tvName.text = displayName
 
-            Log.d("vdvdvdvdggdddddd--------  ",model.display_name_preference.toString())
-
-            if (model.display_name_preference == 1){
-                tvName.text = buildString {
-                    append(model.first_name)
-                }
-            }else{
-                tvName.text = buildString {
-                    append(model.first_name)
-                    append(" ")
-                    append(model.last_name)
-                }
-            }
+            AvatarUtils.setupAvatar(ivProfile, tvInitials, model.image, displayName)
 
             tvUserName.text = buildString {
                 append("@")
@@ -79,18 +64,15 @@ class SuggestionAdapter(
             when (model.isFollowByMe) {
                 0 -> {
                     tvFollow.text = "Requested"
-                    tvFollow.backgroundTintList = ContextCompat.getColorStateList(ctx,R.color.profile_stroke_color)
-//                    tvFollow.setTextColor(ContextCompat.getColorStateList(ctx,R.color.black))
+                    tvFollow.backgroundTintList = ContextCompat.getColorStateList(ctx, R.color.profile_stroke_color)
                 }
 
                 1 -> {
                     tvFollow.text = "Following"
-                    tvFollow.backgroundTintList = ContextCompat.getColorStateList(ctx,R.color.shop_cat_color)
-//                    tvFollow.setTextColor(ContextCompat.getColorStateList(ctx,R.color.blue))
+                    tvFollow.backgroundTintList = ContextCompat.getColorStateList(ctx, R.color.profile_stroke_color)
                 }
 
                 else -> {
-
                     if (model.profile_type == 1) {
                         if (model.isFollowByOther == 1) {
                             tvFollow.text = "Follow back"
@@ -104,19 +86,7 @@ class SuggestionAdapter(
                             tvFollow.text = "Follow"
                         }
                     }
-
-                    /*if (model.profile_type == 1) {
-                        tvFollow.text = "Request"
-                        tvFollow.backgroundTintList = ContextCompat.getColorStateList(ctx,R.color.divider_grey)
-//                        tvFollow.setTextColor(ContextCompat.getColorStateList(ctx,R.color.blue))
-                    } else {
-                        tvFollow.text = "Follow"
-//                        tvFollow.setTextColor(ContextCompat.getColorStateList(ctx,R.color.blue))
-                    }*/
-                    tvFollow.backgroundTintList = ContextCompat.getColorStateList(ctx,R.color.shop_cat_color)
-//                        tvFollow.setTextColor(ContextCompat.getColorStateList(ctx,R.color.black))
-
-
+                    tvFollow.backgroundTintList = null
                 }
             }
             tvFollow.setOnClickListener {

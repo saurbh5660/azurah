@@ -7,10 +7,12 @@
     android:background="@color/white"
     tools:context=".activity.RequestActivity">
 
+    <!-- Top Toolbar -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,379 +32,268 @@
             android:id="@+id/ivHeading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="AZRIUS"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:textColor="@color/black"
-            android:includeFontPadding="false"
             android:fontFamily="@font/cinzel_bold"
+            android:includeFontPadding="false"
+            android:paddingVertical="@dimen/_10sdp"
+            android:text="AZRIUS"
+            android:textColor="@color/black"
             android:textSize="@dimen/_19sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-
-        <!--<androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="@dimen/_70sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:src="@drawable/azurah_heading_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />-->
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/myPost"
-            android:layout_width="@dimen/_24sdp"
+            android:layout_width="@dimen/_28sdp"
             android:layout_height="@dimen/_24sdp"
-            android:src="@drawable/folder_icon"
-            app:tint="@color/folder_color"
             android:layout_marginEnd="@dimen/_16sdp"
+            android:contentDescription="@string/app_name"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/folder_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/folder_color" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Header Banner -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_prayer_banner"
+        android:paddingHorizontal="@dimen/_16sdp"
+        android:paddingVertical="@dimen/_14sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <TextView
+            android:id="@+id/tvBannerKicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_semibold"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.08"
+            android:text="STANDING TOGETHER"
+            android:textColor="#DBEAFE"
+            android:textSize="@dimen/_9sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:fontFamily="@font/playfair_bold"
+            android:includeFontPadding="false"
+            android:text="Prayer &amp; Praise"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_22sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBannerKicker" />
+
+        <TextView
+            android:id="@+id/tvBannerSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:fontFamily="@font/inter"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="2dp"
+            android:text="Share your requests and testimonies.\nNobody prays alone here."
+            android:textColor="#EFF6FF"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnAddPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:cardElevation="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBannerSubtitle"
+            app:strokeColor="@color/white"
+            app:strokeWidth="0dp">
+
+            <TextView
+                android:id="@+id/tvBannerActionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_semibold"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="@dimen/_14sdp"
+                android:paddingVertical="@dimen/_7sdp"
+                android:text="+ Share a Prayer"
+                android:textColor="#0070BA"
+                android:textSize="@dimen/_11sdp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Tab Layout -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tb_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingHorizontal="@dimen/_8sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clBanner"
+        app:tabBackground="@color/white"
+        app:tabIndicatorColor="#0284C7"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorHeight="3dp"
+        app:tabMode="fixed"
+        app:tabRippleColor="@color/transparent"
+        app:tabSelectedTextColor="#0284C7"
+        app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
+        app:tabTextColor="#111827" />
+
+    <!-- Search Input Bar -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clSearch"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_38sdp"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/bg_forum_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tb_layout">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivSerch"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/search_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#94A3B8" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etSearch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:background="@null"
+            android:fontFamily="@font/poppins"
+            android:gravity="center_vertical"
+            android:hint="@string/search_testimonies_requests"
+            android:imeOptions="actionDone"
+            android:includeFontPadding="false"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/cursor_color"
+            android:textColorHint="#94A3B8"
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ivCross"
+            app:layout_constraintStart_toEndOf="@+id/ivSerch"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivCross"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/cross_blue_icon"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Browse by Category Row -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clCategoryRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clSearch">
+
+        <TextView
+            android:id="@+id/tvSearchCat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:includeFontPadding="false"
+            android:text="Browse by Category"
+            android:textColor="#111827"
+            android:textSize="@dimen/_13sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivFilter"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_14sdp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_forum_filter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <!-- Category RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_14sdp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clCategoryRow"
+        tools:listitem="@layout/item_category" />
+
+    <!-- Fragment ViewPager2 -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:contentScrim="@color/white"
-                app:statusBarScrim="@color/white"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-               <!-- <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white">
-
-                    <TextView
-                        android:id="@+id/tvTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:text="Prayer and Praise"
-                        android:textSize="@dimen/_19sdp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:fontFamily="@font/urbanist_semibold"
-                        android:textColorHint="@color/search_grey"
-                        android:layout_marginHorizontal="@dimen/_16sdp"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/clSearch"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_40sdp"
-                        android:layout_marginHorizontal="@dimen/_16sdp"
-                        android:layout_marginTop="@dimen/_16sdp"
-                        android:background="@drawable/large_round_corner_background"
-                        android:backgroundTint="@color/search_color"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvTitle">
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/ivSerch"
-                            android:layout_width="@dimen/_18sdp"
-                            android:layout_height="@dimen/_18sdp"
-                            android:layout_marginStart="@dimen/_16sdp"
-                            android:contentDescription="@string/app_name"
-                            android:src="@drawable/search_icon"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/search_grey" />
-
-                        <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/etSearch"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:textColorHighlight="@color/cursor_color"
-                            android:layout_marginHorizontal="@dimen/_8sdp"
-                            android:backgroundTint="@android:color/transparent"
-                            android:fontFamily="@font/poppins"
-                            android:hint="@string/search_testimonies_requests"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/black"
-                            android:maxLines="1"
-                            android:textCursorDrawable="@drawable/custom_cursor"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:textColorHint="@color/search_grey"
-                            android:textSize="@dimen/_12sdp"
-                            android:includeFontPadding="false"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/ivSerch"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/ivCross"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_16sdp"
-                            android:contentDescription="@string/app_name"
-                            android:src="@drawable/cross_blue_icon"
-                            android:visibility="gone"
-                            android:layout_marginEnd="@dimen/_16sdp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                    <TextView
-                        android:id="@+id/tvSearchCat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:text="Browse by Category"
-                        android:textSize="@dimen/_13sdp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:textColorHint="@color/search_grey"
-                        android:layout_marginHorizontal="@dimen/_16sdp"
-                        app:layout_constraintTop_toBottomOf="@+id/clSearch"
-                        android:paddingVertical="@dimen/_8sdp"/>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvCategory"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        android:orientation="horizontal"
-                        android:layout_marginHorizontal="@dimen/_16sdp"
-                        tools:listitem="@layout/item_category"
-                        app:layout_constraintTop_toBottomOf="@+id/tvSearchCat"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
- <!--       <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:background="@color/white"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
--->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clHeader"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
-
-                    <TextView
-                        android:id="@+id/tvTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:text="Prayer and Praise"
-                        android:textSize="@dimen/_19sdp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:fontFamily="@font/urbanist_semibold"
-                        android:textColorHint="@color/search_grey"
-                        android:layout_marginHorizontal="@dimen/_16sdp"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/clSearch"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_40sdp"
-                        android:layout_marginHorizontal="@dimen/_16sdp"
-                        android:layout_marginTop="@dimen/_16sdp"
-                        android:background="@drawable/large_round_corner_background"
-                        android:backgroundTint="@color/search_color"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvTitle">
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/ivSerch"
-                            android:layout_width="@dimen/_18sdp"
-                            android:layout_height="@dimen/_18sdp"
-                            android:layout_marginStart="@dimen/_16sdp"
-                            android:contentDescription="@string/app_name"
-                            android:src="@drawable/search_icon"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/search_grey" />
-
-                        <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/etSearch"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:textColorHighlight="@color/cursor_color"
-                            android:layout_marginHorizontal="@dimen/_8sdp"
-                            android:backgroundTint="@android:color/transparent"
-                            android:fontFamily="@font/poppins"
-                            android:hint="@string/search_testimonies_requests"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/black"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:imeOptions="actionDone"
-                            android:inputType="text"
-                            android:textCursorDrawable="@drawable/custom_cursor"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:textColorHint="@color/search_grey"
-                            android:textSize="@dimen/_12sdp"
-                            android:includeFontPadding="false"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/ivSerch"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/ivCross"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_16sdp"
-                            android:contentDescription="@string/app_name"
-                            android:src="@drawable/cross_blue_icon"
-                            android:visibility="gone"
-                            android:layout_marginEnd="@dimen/_16sdp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                    <TextView
-                        android:id="@+id/tvSearchCat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:text="Browse by Category"
-                        android:textSize="@dimen/_13sdp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:textColorHint="@color/search_grey"
-                        android:layout_marginHorizontal="@dimen/_16sdp"
-                        app:layout_constraintTop_toBottomOf="@+id/clSearch"
-                        android:paddingVertical="@dimen/_8sdp"/>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvCategory"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        android:orientation="horizontal"
-                        android:layout_marginHorizontal="@dimen/_16sdp"
-                        tools:listitem="@layout/item_category"
-                        app:layout_constraintTop_toBottomOf="@+id/tvSearchCat"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
-
-                    <ImageView
-                        android:id="@+id/ivFilter"
-                        android:layout_width="@dimen/_18sdp"
-                        android:layout_height="@dimen/_18sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:src="@drawable/filter_icon"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:contentDescription="@string/app_name"
-                        app:layout_constraintTop_toBottomOf="@+id/rvCategory"
-                        android:layout_marginEnd="@dimen/_16sdp"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tb_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:tabRippleColor="@color/transparent"
-                    app:layout_constraintTop_toBottomOf="@+id/clHeader"
-                    app:tabMode="fixed"
-                    app:tabBackground="@color/white"
-                    app:tabIndicatorFullWidth="true"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
-                    app:tabIndicatorColor="@color/blue"
-                    app:tabIndicatorHeight="2dp"
-                    app:tabSelectedTextColor="@color/blue"
-                    app:tabTextColor="@color/black"/>
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewPager"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tb_layout"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--        </androidx.core.widget.NestedScrollView>-->
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/btnAddPost"
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp"
-        app:cardBackgroundColor="@color/blue"
-        android:layout_marginEnd="@dimen/_16sdp"
-        app:cardCornerRadius="@dimen/_50sdp"
-        app:strokeColor="@color/blue"
-        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_6sdp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/plus_icon"
-            android:padding="@dimen/_12sdp"
-            android:layout_gravity="center"
-            app:tint="@color/white" />
-    </com.google.android.material.card.MaterialCardView>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvCategory" />
 
+    <!-- Fragment Container for sub-screens -->
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:elevation="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

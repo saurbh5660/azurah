@@ -30,7 +30,7 @@ import java.util.TimerTask
 @AndroidEntryPoint
 class MyPostPrayerTestimonyActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMyPostPrayerTestimonyBinding
-    private val list = arrayOf("Prayer Request","Testimonies")
+    private val list = arrayOf("Prayer Requests","Testimonies")
     private lateinit var fragmentList: MutableList<Fragment>
     private lateinit var viewpagerAdapter: ViewPagerAdapter
     private var type = "0"

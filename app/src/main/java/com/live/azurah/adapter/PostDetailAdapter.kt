@@ -98,19 +98,8 @@ class PostDetailAdapter(var context: Context, val recyclerView: RecyclerView,val
                 append(item.user?.username ?: "")
             }
 
-            val likeText = if ((item.like_count ?: 0) > 1 || (item.like_count ?: 0) == 0) "Likes" else "Like"
-            tvLikes.text = buildString {
-                append(formatCount(item.like_count ?: 0))
-                append(" ")
-                append(likeText)
-            }
-
-            val commentText = if ((item.comment_count ?: 0) > 1 || (item.comment_count ?: 0) == 0) "Comments" else "Comment"
-            tvComments.text = buildString {
-                append(formatCount(item.comment_count ?: 0))
-                append(" ")
-                append(commentText)
-            }
+            tvLikes.text = formatCount(item.like_count ?: 0)
+            tvComments.text = formatCount(item.comment_count ?: 0)
             tvTime.text = getRelativeTime(item.created_at ?: "")
             if (type == 0){
                 if (getPreference("id","") == item.user?.id.toString()){
@@ -165,7 +154,12 @@ class PostDetailAdapter(var context: Context, val recyclerView: RecyclerView,val
             }
 
             ivPosts.loadImage(ApiConstants.IMAGE_BASE_URL+item.user?.image, placeholder = R.drawable.profile_icon)
-            setupSeeMoreText(tvDescription, removeExtraSpaces(item?.description ?: ""))
+            if (item?.description.isNullOrEmpty()) {
+                tvDescription.gone()
+            } else {
+                tvDescription.visible()
+                setupSeeMoreText(tvDescription, removeExtraSpaces(item?.description ?: ""))
+            }
 
             tvSeeAll.setOnClickListener {
                 onSuggestionSeeAll?.invoke(holder.absoluteAdapterPosition)
@@ -178,16 +172,16 @@ class PostDetailAdapter(var context: Context, val recyclerView: RecyclerView,val
 
             val feedImageVideoAdapter = PostDetailImagesAdapter(context)
             rvPosts.adapter = feedImageVideoAdapter
-/*//            if (position == 0 || position == 1){
-            if (position == 0){
-                val list = ArrayList<PostResponse.Body.Data.PostImage>()
-                list.add(PostResponse.Body.Data.PostImage(type = 1, image = "https://i.ibb.co/bgRjkdNh/Image.jpg"))
-                list.add(PostResponse.Body.Data.PostImage(type = 1, image = "https://i.ibb.co/Z1cNvvTJ/Whats-App-Image-2025-06-04-at-01-04-44.jpg"))
-                item.post_images = list
-            }*/
-            feedImageVideoAdapter.submitList(item.post_images)
-            feedImageVideoAdapter.onImages = {pos ->
-                onPostImages?.invoke(holder.absoluteAdapterPosition,pos,item.post_images)
+            // Only images will show here as per requirement
+            val imageList = item.post_images?.filter { it?.type == 1 }
+            feedImageVideoAdapter.submitList(imageList)
+            if (imageList.isNullOrEmpty()) {
+                rvPosts.gone()
+            } else {
+                rvPosts.visible()
+            }
+            feedImageVideoAdapter.onImages = { pos ->
+                onPostImages?.invoke(holder.absoluteAdapterPosition, pos, imageList)
             }
 
             if (item.is_like == 1) {
@@ -219,12 +213,7 @@ class PostDetailAdapter(var context: Context, val recyclerView: RecyclerView,val
                         ivLike.setImageResource(R.drawable.selected_heart)
                         ivLike.imageTintList = ContextCompat.getColorStateList(context, R.color.star_red_color)
                     }
-                    val text = if ((item.like_count ?: 0) > 1 || (item.like_count ?: 0) == 0) "Likes" else "Like"
-                    tvLikes.text = buildString {
-                        append(formatCount(item.like_count ?: 0))
-                        append(" ")
-                        append(text)
-                    }
+                    tvLikes.text = formatCount(item.like_count ?: 0)
 
                     onLikeUnlike?.invoke(holder.absoluteAdapterPosition,item)
                 }
@@ -245,6 +234,10 @@ class PostDetailAdapter(var context: Context, val recyclerView: RecyclerView,val
                 }
             }
 
+            llBookmark.setOnClickListener {
+                ivBookmark.performClick()
+            }
+
             ivPosts.setOnClickListener {
                 if (getPreference("id", "") != item.user_id.toString()) {
                     context.startActivity(Intent(context, OtherUserProfileActivity::class.java).apply {
@@ -258,10 +251,12 @@ class PostDetailAdapter(var context: Context, val recyclerView: RecyclerView,val
                 shareListener?.invoke(holder.absoluteAdapterPosition,item)
             }
 
+            llShare.setOnClickListener {
+                ivShare.performClick()
+            }
+
             tvLikes.setOnClickListener {
-                if ((item.like_count ?: 0) > 0){
-                    likeListener?.invoke(holder.absoluteAdapterPosition,item)
-                }
+                likeListener?.invoke(holder.absoluteAdapterPosition, item)
             }
 
             tvComments.setOnClickListener {
@@ -269,6 +264,10 @@ class PostDetailAdapter(var context: Context, val recyclerView: RecyclerView,val
 
             }
             ivComment.setOnClickListener {
+                commentListener?.invoke(holder.absoluteAdapterPosition,item)
+            }
+
+            llComment.setOnClickListener {
                 commentListener?.invoke(holder.absoluteAdapterPosition,item)
             }
 

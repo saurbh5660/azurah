@@ -3,8 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/_6sdp"
+    android:layout_marginVertical="@dimen/_5sdp"
+    android:background="@drawable/bg_forum_post_card"
+    android:padding="@dimen/_12sdp">
 
+    <!-- Top Profile Row -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clPost"
         android:layout_width="match_parent"
@@ -13,60 +18,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <LinearLayout
-            android:id="@+id/clCat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/tvName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvName">
+        <FrameLayout
+            android:id="@+id/flAvatar"
+            android:layout_width="@dimen/_36sdp"
+            android:layout_height="@dimen/_36sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tvCat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bible Study"
-                android:fontFamily="@font/poppins"
-                android:textColor="@color/price__text_color"
-                android:textSize="@dimen/_10sdp"
-                android:maxWidth="@dimen/_100sdp"
-                android:backgroundTint="@color/folder_color"
+                android:id="@+id/tvInitials"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_circle_avatar"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="center"
                 android:includeFontPadding="false"
-                android:maxLines="1"
-                android:layout_gravity="center_vertical"
-                android:ellipsize="end"
-                android:background="@drawable/reactangle_corner"
-                android:paddingVertical="@dimen/_5sdp"
-                android:paddingHorizontal="@dimen/_10sdp" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                tools:text="G" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivMore"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_1sdp"
-                android:layout_gravity="center_vertical"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_posts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/more_icon"
-         />
+                android:scaleType="centerCrop"
+                app:civ_border_color="@android:color/transparent"
+                app:civ_border_width="0dp"
+                tools:src="@drawable/dummy_profile_image" />
 
-        </LinearLayout>
-
-
-
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iv_posts"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/sunny_bibes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/tvName"
@@ -74,18 +55,18 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
-            android:fontFamily="@font/poppins_medium"
+            android:ellipsize="end"
+            android:fontFamily="@font/poppins_semibold"
             android:includeFontPadding="false"
-            android:text="Ahmad123"
+            android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp"
-            android:maxLines="1"
-            android:ellipsize="end"
             app:layout_constraintBottom_toTopOf="@+id/tvTime"
-            app:layout_constraintEnd_toStartOf="@+id/clCat"
-            app:layout_constraintStart_toEndOf="@+id/iv_posts"
-            app:layout_constraintTop_toTopOf="@+id/iv_posts"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintEnd_toStartOf="@+id/flAction"
+            app:layout_constraintStart_toEndOf="@+id/flAvatar"
+            app:layout_constraintTop_toTopOf="@+id/flAvatar"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="gauravs" />
 
         <TextView
             android:id="@+id/tvTime"
@@ -93,169 +74,200 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
+            android:ellipsize="end"
             android:fontFamily="@font/poppins"
             android:includeFontPadding="false"
-            android:text="3 Minutes Ago"
-            android:textColor="@color/light_black"
+            android:maxLines="1"
+            android:textColor="#8F9AA5"
             android:textSize="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_posts"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_posts"
-            app:layout_constraintTop_toBottomOf="@+id/tvName" />
+            app:layout_constraintBottom_toBottomOf="@+id/flAvatar"
+            app:layout_constraintEnd_toStartOf="@+id/flAction"
+            app:layout_constraintStart_toEndOf="@+id/flAvatar"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            tools:text="12 hrs ago · Community &amp; Church" />
 
-
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="Prayer for Scholarship"
-            android:includeFontPadding="false"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_13sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_posts" />
-
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:fontFamily="@font/poppins"
-            android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters... See more"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@color/post_divider_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivLike"
-            android:layout_width="@dimen/_21sdp"
-            android:layout_height="@dimen/_21sdp"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:src="@drawable/unselected_heart"
-            app:tint="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view"
-            app:layout_constraintBottom_toBottomOf="@+id/view1"/>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivComment"
-            android:layout_width="@dimen/_19sdp"
-            android:layout_height="@dimen/_19sdp"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:src="@drawable/comment_icon"
-            app:tint="@color/black"
-            app:layout_constraintStart_toEndOf="@+id/ivLike"
-            app:layout_constraintTop_toBottomOf="@+id/view"
-            app:layout_constraintBottom_toBottomOf="@+id/view1"/>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivPrayer"
-            android:layout_width="@dimen/_19sdp"
-            android:layout_height="@dimen/_18sdp"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:src="@drawable/prayer_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/view1"
-            app:layout_constraintStart_toEndOf="@+id/ivComment"
-            app:layout_constraintTop_toBottomOf="@+id/view"
-            app:layout_constraintVertical_bias="0.45"
-            app:tint="@color/black" />
-
-        <TextView
-            android:id="@+id/tvPrayers"
+        <FrameLayout
+            android:id="@+id/flAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:fontFamily="@font/poppins"
-            android:text="10 Prayers"
-            android:includeFontPadding="false"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_11sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/view1"
+            app:layout_constraintBottom_toBottomOf="@+id/flAvatar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view" />
+            app:layout_constraintTop_toTopOf="@+id/flAvatar">
 
-        <View
-            android:id="@+id/dotPrayer"
-            android:layout_width="@dimen/_3sdp"
-            android:layout_height="@dimen/_3sdp"
-            android:layout_marginEnd="@dimen/_3sdp"
-            android:background="@drawable/circle_background"
-            android:backgroundTint="@color/button_grey"
-            app:layout_constraintBottom_toBottomOf="@+id/tvPrayers"
-            app:layout_constraintEnd_toStartOf="@+id/tvPrayers"
-            app:layout_constraintTop_toTopOf="@+id/tvPrayers" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivMore"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:contentDescription="@string/app_name"
+                android:padding="@dimen/_2sdp"
+                android:src="@drawable/more_icon" />
 
-        <TextView
-            android:id="@+id/tvComments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_3sdp"
-            android:fontFamily="@font/poppins"
-            android:text="1.1K Comments"
-            android:includeFontPadding="false"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_11sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/view1"
-            app:layout_constraintEnd_toStartOf="@+id/dotPrayer"
-            app:layout_constraintTop_toTopOf="@+id/view" />
-
-        <View
-            android:id="@+id/dot"
-            android:layout_width="@dimen/_3sdp"
-            android:layout_height="@dimen/_3sdp"
-            android:layout_marginEnd="@dimen/_3sdp"
-            android:background="@drawable/circle_background"
-            android:backgroundTint="@color/button_grey"
-            app:layout_constraintBottom_toBottomOf="@+id/tvComments"
-            app:layout_constraintEnd_toStartOf="@+id/tvComments"
-            app:layout_constraintTop_toTopOf="@+id/tvComments" />
-
-        <TextView
-            android:id="@+id/tvLikes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_3sdp"
-            android:fontFamily="@font/poppins"
-            android:text="2.8K Likes"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_11sdp"
-            android:includeFontPadding="false"
-            app:layout_constraintBottom_toBottomOf="@+id/view1"
-            app:layout_constraintEnd_toStartOf="@+id/dot"
-            app:layout_constraintTop_toTopOf="@+id/view" />
-
-        <View
-            android:id="@+id/view1"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:background="@color/post_divider_color"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivLike" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivDel"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:contentDescription="@string/app_name"
+                android:padding="@dimen/_1sdp"
+                android:src="@drawable/del_icon"
+                android:visibility="gone"
+                app:tint="@color/star_red_color" />
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Post Title -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_semibold"
+        android:includeFontPadding="false"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clPost"
+        tools:text="Prayer" />
+
+    <!-- Post Description -->
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:fontFamily="@font/poppins"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="2dp"
+        android:textColor="#475569"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        tools:text="I need Prayer" />
+
+    <!-- Divider Line -->
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="#F1F5F9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
+    <!-- Action Buttons Row -->
+    <LinearLayout
+        android:id="@+id/llActions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view">
+
+        <!-- Like Pill -->
+        <LinearLayout
+            android:id="@+id/clLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_pill_like"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_5sdp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivLike"
+                android:layout_width="@dimen/_14sdp"
+                android:layout_height="@dimen/_14sdp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/unselected_heart"
+                app:tint="@color/black" />
+
+            <TextView
+                android:id="@+id/tvLikes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:includeFontPadding="false"
+                android:textColor="#EF4444"
+                android:textSize="@dimen/_10sdp"
+                tools:text="0" />
+
+        </LinearLayout>
+
+        <!-- Comments Pill -->
+        <LinearLayout
+            android:id="@+id/clComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:background="@drawable/bg_pill_neutral"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_5sdp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivComment"
+                android:layout_width="@dimen/_13sdp"
+                android:layout_height="@dimen/_13sdp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/comment_icon"
+                app:tint="@color/black" />
+
+            <TextView
+                android:id="@+id/tvComments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:includeFontPadding="false"
+                android:textColor="#EF4444"
+                android:textSize="@dimen/_10sdp"
+                tools:text="0 Comments" />
+
+        </LinearLayout>
+
+        <!-- Prayers / Praise Pill (Visible in Prayer Requests, GONE in Testimonies) -->
+        <LinearLayout
+            android:id="@+id/clPrayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:background="@drawable/bg_pill_neutral"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_5sdp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivPrayer"
+                android:layout_width="@dimen/_13sdp"
+                android:layout_height="@dimen/_13sdp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_clock_outline"
+                app:tint="@color/black" />
+
+            <TextView
+                android:id="@+id/tvPrayers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:includeFontPadding="false"
+                android:textColor="#EF4444"
+                android:textSize="@dimen/_10sdp"
+                tools:text="0 Prayers" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,15 +9,18 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
+import android.view.WindowManager
 import com.google.android.material.textfield.TextInputLayout
 import com.live.azurah.R
-import com.live.azurah.adapter.CategoryAdapter
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
+import com.live.azurah.adapter.AddPostCategoryAdapter
 import com.live.azurah.databinding.ActivityAddBiblePostBinding
 import com.live.azurah.model.CategoryModel
 import com.live.azurah.model.CommonResponse
@@ -26,7 +29,6 @@ import com.live.azurah.retrofit.LoaderDialog
 import com.live.azurah.retrofit.Status
 import com.live.azurah.util.containsBannedWord
 import com.live.azurah.util.set30Characters
-import com.live.azurah.util.setCharacters
 import com.live.azurah.util.showCustomSnackbar
 import com.live.azurah.viewmodel.CommonViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,7 +37,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class AddBiblePostActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddBiblePostBinding
     private val catList = ArrayList<CategoryModel>()
-    private var categoryAdapter: CategoryAdapter? = null
+    private var categoryAdapter: AddPostCategoryAdapter? = null
 //    //   private val loaderDialog by lazy { LoaderDialog(this) }
 
     private val viewModel by viewModels<CommonViewModel>()
@@ -43,18 +45,22 @@ class AddBiblePostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddBiblePostBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        window.statusBarColor = getColor(R.color.white)
-        WindowCompat.setDecorFitsSystemWindows(window, true)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.white)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.white)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
-              val systemBars = insets.getInsets(
-                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
-            )
-            view.updatePadding(
-                left = systemBars.left,
-                bottom = systemBars.bottom,
-                right = systemBars.right,
-                top = systemBars.top
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val ime = insets.getInsets(WindowInsetsCompat.Type.ime())
+            val params = binding.statusBarView.layoutParams
+            if (params.height != systemBars.top) {
+                params.height = systemBars.top
+                binding.statusBarView.layoutParams = params
+            }
+            binding.clBottomBar.updatePadding(
+                bottom = maxOf(systemBars.bottom, ime.bottom)
             )
             insets
         }
@@ -170,31 +176,8 @@ class AddBiblePostActivity : AppCompatActivity() {
                 addBible()
             }
 
-            tlTitle.addOnEditTextAttachedListener {
-                formatHint("Title*", tlTitle, etTitle.isFocused)
-            }
-
-            etTitle.setOnFocusChangeListener { _, hasFocus ->
-                formatHint("Title*", tlTitle, hasFocus)
-            }
-
-            tlPostDes.addOnEditTextAttachedListener {
-                formatHint("Write your Post*", tlPostDes, etPostDesc.isFocused)
-            }
-
-            val hintTypeface =
-                ResourcesCompat.getFont(this@AddBiblePostActivity, R.font.poppins_medium)
-            val editTextTypeface =
-                ResourcesCompat.getFont(this@AddBiblePostActivity, R.font.poppins)
-
-            tlPostDes.typeface = hintTypeface
-            etPostDesc.typeface = editTextTypeface
-
-            tlTitle.typeface = hintTypeface
-            etTitle.typeface = editTextTypeface
-
-            etPostDesc.setOnFocusChangeListener { _, hasFocus ->
-                formatHint("Write your Post*", tlPostDes, hasFocus)
+            btnCancel.setOnClickListener {
+                onBackPressedDispatcher.onBackPressed()
             }
         }
 
@@ -270,7 +253,12 @@ class AddBiblePostActivity : AppCompatActivity() {
     }
 
     private fun setCatAdapter() {
-        categoryAdapter = CategoryAdapter(this, catList, 2)
+        val flexboxLayoutManager = FlexboxLayoutManager(this).apply {
+            flexDirection = FlexDirection.ROW
+            justifyContent = JustifyContent.FLEX_START
+        }
+        binding.rvCategory.layoutManager = flexboxLayoutManager
+        categoryAdapter = AddPostCategoryAdapter(this, catList)
         binding.rvCategory.adapter = categoryAdapter
     }
 

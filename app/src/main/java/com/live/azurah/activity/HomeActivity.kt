@@ -313,7 +313,7 @@ class HomeActivity : AppCompatActivity() {
                         is ShopFragment -> showHideHomeIcon(5)
                         is SearchProductFragment -> showHideHomeIcon(6)
                         is FavouriteFragment -> showHideHomeIcon(8)
-                        is ShopDetailFragment, is CategoryDetailFragment, is AllShopCategoryFragment -> showHideHomeIcon(9)
+                        is ShopDetailFragment, is CategoryDetailFragment, is AllShopCategoryFragment, is UserLikesFragment, is SuggetionForYouFragment -> showHideHomeIcon(9)
                     }
                 }
             }
@@ -528,6 +528,7 @@ class HomeActivity : AppCompatActivity() {
     private fun showHideHomeIcon(type:Int){
         with(binding){
             toolbar.visibility = if (type == 9) View.GONE else View.VISIBLE
+            view.visibility = if (type == 9) View.GONE else View.VISIBLE
             applyDashboardToolbarStyle(type == 1 || type == 2)
             when(type){
                 0->{
@@ -784,7 +785,7 @@ class HomeActivity : AppCompatActivity() {
             is ShopFragment -> showHideHomeIcon(5)
             is SearchProductFragment -> showHideHomeIcon(6)
             is FavouriteFragment -> showHideHomeIcon(8)
-            is ShopDetailFragment, is CategoryDetailFragment, is AllShopCategoryFragment -> showHideHomeIcon(9)
+            is ShopDetailFragment, is CategoryDetailFragment, is AllShopCategoryFragment, is UserLikesFragment, is SuggetionForYouFragment -> showHideHomeIcon(9)
         }
         supportFragmentManager.beginTransaction().replace(binding.fragmentContainer.id, fragment).addToBackStack(null).commit()
     }
@@ -796,7 +797,7 @@ class HomeActivity : AppCompatActivity() {
                 is ShopFragment -> showHideHomeIcon(5)
                 is SearchProductFragment -> showHideHomeIcon(6)
                 is FavouriteFragment -> showHideHomeIcon(8)
-                is ShopDetailFragment, is CategoryDetailFragment, is AllShopCategoryFragment -> showHideHomeIcon(9)
+                is ShopDetailFragment, is CategoryDetailFragment, is AllShopCategoryFragment, is UserLikesFragment, is SuggetionForYouFragment -> showHideHomeIcon(9)
                 else -> showHideHomeIcon(binding.viewPager.currentItem)
             }
         } else {

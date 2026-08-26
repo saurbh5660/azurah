@@ -39,6 +39,7 @@ import com.live.azurah.retrofit.ApiConstants
 import com.live.azurah.retrofit.LoaderDialog
 import com.live.azurah.retrofit.Resource
 import com.live.azurah.retrofit.Status
+import com.live.azurah.util.AvatarUtils
 import com.live.azurah.util.getPreference
 import com.live.azurah.util.gone
 import com.live.azurah.util.loadImage
@@ -345,10 +346,14 @@ class OtherUserProfileActivity : AppCompatActivity(), Observer<Resource<Any>> {
                             rvProfileBackground.loadImage(
                                 ApiConstants.IMAGE_BASE_URL + res?.coverImage
                             )
-                            ivProfile.loadImage(
-                                ApiConstants.IMAGE_BASE_URL + res?.image,
-                                R.drawable.profile_icon
-                            )
+
+                            val name = if (res?.displayNamePreference == 1) {
+                                res.firstName ?: ""
+                            } else {
+                                "${res?.firstName ?: ""} ${res?.lastName ?: ""}".trim()
+                            }
+                            val displayName = if (name.isNotBlank()) name else (res?.username ?: "")
+                            AvatarUtils.setupAvatar(ivProfile, tvInitials, res?.image, displayName)
 
                             when (res?.christianJourney) {
                                 "Interested/New Christian" -> {

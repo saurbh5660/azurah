@@ -67,135 +67,172 @@
             android:layout_marginEnd="@dimen/_16sdp"
             android:contentDescription="@string/app_name"
             android:src="@drawable/more_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_posts"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/iv_posts" />
-
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_18sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_16sdp"
-            android:fontFamily="@font/poppins"
-            android:includeFontPadding="false"
-            android:text="Hey guys! I really love the city pop hit Plastic Love and I'm working on a cover... See More"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_posts" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPosts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
             android:orientation="horizontal"
             tools:listitem="@layout/item_post_image_video"
-            tools:itemCount="3"
-            android:layout_marginHorizontal="@dimen/_8sdp"
+            tools:itemCount="1"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_posts" />
 
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@color/post_divider_color"
+        <LinearLayout
+            android:id="@+id/llActionBar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvPosts" />
+            app:layout_constraintTop_toBottomOf="@+id/rvPosts">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivLike"
-            android:layout_width="@dimen/_21sdp"
-            android:layout_height="@dimen/_21sdp"
+            <LinearLayout
+                android:id="@+id/llLike"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivLike"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/unselected_heart"
+                    app:tint="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvLikes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:fontFamily="@font/poppins"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp"
+                    tools:text="1" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="@dimen/_8sdp"
+                android:background="@color/post_divider_color" />
+
+            <LinearLayout
+                android:id="@+id/llComment"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivComment"
+                    android:layout_width="@dimen/_19sdp"
+                    android:layout_height="@dimen/_19sdp"
+                    android:src="@drawable/comment_icon"
+                    app:tint="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvComments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:fontFamily="@font/poppins"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp"
+                    tools:text="0" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="@dimen/_8sdp"
+                android:background="@color/post_divider_color" />
+
+            <LinearLayout
+                android:id="@+id/llBookmark"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivBookmark"
+                    android:layout_width="@dimen/_17sdp"
+                    android:layout_height="@dimen/_19sdp"
+                    android:src="@drawable/bookmark_icon"
+                    app:tint="@color/black" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="@dimen/_8sdp"
+                android:background="@color/post_divider_color" />
+
+            <LinearLayout
+                android:id="@+id/llShare"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivShare"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:src="@drawable/new_share_icon" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+<!--        <View-->
+<!--            android:id="@+id/view"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:background="@color/post_divider_color"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/llActionBar" />-->
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:src="@drawable/unselected_heart"
-            app:tint="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivComment"
-            android:layout_width="@dimen/_19sdp"
-            android:layout_height="@dimen/_21sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:src="@drawable/comment_icon"
-            app:tint="@color/black"
-            app:layout_constraintStart_toEndOf="@+id/ivLike"
-            app:layout_constraintTop_toTopOf="@+id/ivLike" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivBookmark"
-            android:layout_width="@dimen/_16sdp"
-            android:layout_height="@dimen/_21sdp"
-            android:layout_marginStart="@dimen/_11sdp"
-            android:src="@drawable/bookmark_icon"
-            android:tint="@color/black"
-            app:layout_constraintStart_toEndOf="@+id/ivComment"
-            app:layout_constraintTop_toTopOf="@+id/ivComment" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivShare"
-            android:layout_width="@dimen/_18sdp"
-            android:layout_height="@dimen/_21sdp"
-            android:layout_marginStart="@dimen/_9sdp"
-            android:src="@drawable/new_share_icon"
-            app:layout_constraintStart_toEndOf="@+id/ivBookmark"
-            app:layout_constraintTop_toTopOf="@+id/ivBookmark" />
-
-        <TextView
-            android:id="@+id/tvComments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
             android:fontFamily="@font/poppins"
-            android:text="95 Comments"
             android:includeFontPadding="false"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/ivLike"
-            app:layout_constraintBottom_toBottomOf="@+id/ivLike"/>
-
-        <View
-            android:id="@+id/dot"
-            android:layout_width="@dimen/_3sdp"
-            android:layout_height="@dimen/_3sdp"
-            android:layout_marginEnd="@dimen/_3sdp"
-            android:background="@drawable/circle_background"
-            android:backgroundTint="@color/button_grey"
-            app:layout_constraintBottom_toBottomOf="@+id/tvComments"
-            app:layout_constraintEnd_toStartOf="@+id/tvComments"
-            app:layout_constraintTop_toTopOf="@+id/tvComments" />
-
-        <TextView
-            android:id="@+id/tvLikes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_3sdp"
-            android:fontFamily="@font/poppins"
-            android:text="390 Likes"
-            android:includeFontPadding="false"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp"
-            app:layout_constraintEnd_toStartOf="@+id/dot"
-            app:layout_constraintTop_toTopOf="@+id/tvComments" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llActionBar"
+            tools:text="true story" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/view122"
         android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_height="8dp"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@color/post_divider_color"
         app:layout_constraintEnd_toEndOf="parent"
@@ -257,8 +294,7 @@
     <View
         android:id="@+id/view1"
         android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_height="8dp"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@color/post_divider_color"
         app:layout_constraintEnd_toEndOf="parent"

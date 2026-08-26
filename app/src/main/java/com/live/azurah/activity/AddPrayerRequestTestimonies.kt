@@ -67,7 +67,12 @@ class AddPrayerRequestTestimonies : AppCompatActivity(),Observer<Resource<Any>> 
 
         initListener()
         setCatAdapter()
-        getPrayerCategoryList()
+        val postType = intent.getStringExtra("type")
+        if (postType == "1") {
+            binding.ivTestimoney.performClick()
+        } else {
+            binding.ivPrayerRequest.performClick()
+        }
     }
 
     private fun getPrayerCategoryList() {
