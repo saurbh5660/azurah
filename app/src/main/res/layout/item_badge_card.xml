@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardRoot"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_140sdp"
+    android:layout_margin="@dimen/_5sdp"
+    android:background="@drawable/badges_card_locked"
+    android:clickable="true"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:paddingHorizontal="@dimen/_10sdp"
+    android:paddingTop="@dimen/_16sdp"
+    android:paddingBottom="@dimen/_12sdp">
+
+    <FrameLayout
+        android:id="@+id/iconWrap"
+        android:layout_width="@dimen/_58sdp"
+        android:layout_height="@dimen/_58sdp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/vBadgeIconBg"
+            android:layout_width="@dimen/_48sdp"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_gravity="center"
+            android:background="@drawable/badges_icon_locked" />
+
+        <ImageView
+            android:id="@+id/ivBadgeIcon"
+            android:layout_width="@dimen/_42sdp"
+            android:layout_height="@dimen/_42sdp"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/ivStatusBadge"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_gravity="top|end"
+            android:background="@drawable/badges_lock_circle"
+            android:padding="@dimen/_4sdp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/badges_ic_lock" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvBadgeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:fontFamily="@font/cinzel_bold"
+        android:includeFontPadding="false"
+        android:text="Badge"
+        android:textColor="#C0C4C8"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iconWrap" />
+
+    <TextView
+        android:id="@+id/tvBadgeSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:fontFamily="@font/inter"
+        android:includeFontPadding="false"
+        android:text="0-day streak"
+        android:textColor="#D0D3D8"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvBadgeTitle" />
+
+    <TextView
+        android:id="@+id/tvCurrentBadgeTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="@drawable/badges_current_circle"
+        android:fontFamily="@font/inter_bold"
+        android:paddingHorizontal="@dimen/_6sdp"
+        android:paddingVertical="@dimen/_1sdp"
+        android:text="CURRENT"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_7sdp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvBadgeSubtitle" />
+</androidx.constraintlayout.widget.ConstraintLayout>
