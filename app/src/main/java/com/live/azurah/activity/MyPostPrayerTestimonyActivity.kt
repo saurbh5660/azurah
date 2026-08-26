@@ -113,6 +113,7 @@ class MyPostPrayerTestimonyActivity : AppCompatActivity() {
         }
     }
 
+
     private fun initData() {
         fragmentList = ArrayList()
         fragmentList.add(MyPostPrayerFragment())
