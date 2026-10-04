@@ -1,0 +1,46 @@
+<!--
+  ~ Copyright (C) 2026 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
+  <path
+      android:pathData="M64,0L64,0A64,64 0,0 1,128 64L128,64A64,64 0,0 1,64 128L64,128A64,64 0,0 1,0 64L0,64A64,64 0,0 1,64 0z"
+      android:fillColor="#E0F2FE"/>
+  <path
+      android:pathData="M86.75,51.75V76.25C86.75,79.15 84.4,81.5 81.5,81.5H46.5C43.6,81.5 41.25,79.15 41.25,76.25V51.75M86.75,51.75C86.75,48.85 84.4,46.5 81.5,46.5H46.5C43.6,46.5 41.25,48.85 41.25,51.75M86.75,51.75V52.32C86.75,54.14 85.81,55.83 84.25,56.79L66.75,67.56C65.07,68.6 62.93,68.6 61.25,67.56L43.75,56.79C42.19,55.83 41.25,54.14 41.25,52.32V51.75"
+      android:strokeLineJoin="round"
+      android:strokeWidth="3.5"
+      android:fillColor="#00000000"
+      android:strokeColor="#475569"
+      android:strokeLineCap="round"/>
+  <path
+      android:pathData="M96,82L96,82A14,14 0,0 1,110 96L110,96A14,14 0,0 1,96 110L96,110A14,14 0,0 1,82 96L82,96A14,14 0,0 1,96 82z"
+      android:fillColor="#2563EB"/>
+  <path
+      android:pathData="M96,82L96,82A14,14 0,0 1,110 96L110,96A14,14 0,0 1,96 110L96,110A14,14 0,0 1,82 96L82,96A14,14 0,0 1,96 82z"
+      android:strokeWidth="4"
+      android:fillColor="#00000000"
+      android:strokeColor="#E0F2FE"/>
+  <path
+      android:pathData="M91,96.5L95,100.5L101,91.5"
+      android:strokeLineJoin="round"
+      android:strokeWidth="2"
+      android:fillColor="#00000000"
+      android:strokeColor="#ffffff"
+      android:strokeLineCap="round"/>
+</vector>

@@ -63,7 +63,7 @@
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:paddingVertical="@dimen/_10sdp"
-        android:src="@drawable/verification_complete"
+        android:src="@drawable/success_illustration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -73,13 +73,58 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_16sdp"
-        android:fontFamily="@font/urbanist_semibold"
-        android:text="@string/verification_complete"
+        android:fontFamily="@font/inter_bold"
+        android:text="You're all verified!"
         android:textColor="@color/black"
         android:textSize="@dimen/_19sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivVerification"/>
+
+    <TextView
+        android:id="@+id/tvText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:fontFamily="@font/inter"
+        android:text="Your email is confirmed. Let's set up your\nprofile\n— it only takes a moment."
+        android:gravity="center"
+        android:lineSpacingExtra="8dp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOtpVerification"/>
+
+    <LinearLayout
+        android:id="@+id/llFull"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tvText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:backgroundTint="#F8FAFC"
+        android:layout_marginHorizontal="@dimen/_24sdp"
+        android:background="@drawable/reactangle_corner">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:fontFamily="@font/inter"
+            android:text="&quot;The Lord bless you and keep you.&quot;\n NUMBERS 6:24"
+            android:gravity="center"
+            android:lineSpacingExtra="8dp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvOtpVerification"/>
+
+
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnNext"
@@ -93,7 +138,7 @@
         android:background="@drawable/round_corner_background"
         android:backgroundTint="@color/blue"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/tvOtpVerification"
+        app:layout_constraintTop_toBottomOf="@+id/llFull"
         android:layout_marginTop="@dimen/_40sdp"
         android:text="@string/next"
         android:textAllCaps="false"

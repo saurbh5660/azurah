@@ -7,7 +7,6 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updatePadding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.live.azurah.R
 import com.live.azurah.databinding.ActivitySetUpProfileBinding
@@ -17,7 +16,6 @@ import com.live.azurah.fragment.CreateUsernameFragment
 import com.live.azurah.fragment.CristianJourneyFragment
 import com.live.azurah.fragment.InterestFragment
 import com.live.azurah.fragment.LocationFragment
-import com.live.azurah.fragment.NewsletterFragment
 import com.live.azurah.fragment.UploadProfilePhotoFragment
 import com.live.azurah.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint

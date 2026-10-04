@@ -3,7 +3,7 @@
 
     <solid
         android:color="@color/otp_grey"/>
-    <corners
-        android:radius="@dimen/_10sdp"/>
+<!--    <corners-->
+<!--        android:radius="@dimen/_10sdp"/>-->
 
 </shape>
